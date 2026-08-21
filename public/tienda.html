@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/theme.css?v=4" />
-  <link rel="stylesheet" href="./css/tienda.css?v=4" />
+  <link rel="stylesheet" href="./css/theme.css?v=5" />
+  <link rel="stylesheet" href="./css/tienda.css?v=5" />
 </head>
 <body class="shop-page">
 
@@ -159,9 +159,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=4"></script>
-  <script src="./js/supabase.js?v=4"></script>
-  <script src="./js/cart.js?v=4"></script>
+  <script src="./config.js?v=5"></script>
+  <script src="./js/supabase.js?v=5"></script>
+  <script src="./js/cart.js?v=5"></script>
   <script>
     // ===== i18n =====
     var I18N = {
@@ -270,7 +270,11 @@
       var sp = (settings && settings.splash) || {};
       w.style.background = sp.background || '#FFFFFF';
       var lg = document.getElementById('welcome-logo');
-      lg.src = sp.logo || (settings.landing && settings.landing.logo) || './assets/logos/logoB.png';
+      var logoUrl = sp.logo || (settings.landing && settings.landing.logo) || './assets/logos/logoB.png';
+      lg.style.opacity = '0';
+      lg.onload = function () { lg.style.opacity = '1'; };
+      lg.onerror = function () { lg.src = './assets/logos/logoB.png'; lg.style.opacity = '1'; };
+      lg.src = logoUrl;
       var tx = document.getElementById('welcome-text');
       tx.textContent = sp.whatText || 'Bienvenido';
       tx.style.color = sp.whatColor || '#171717';
@@ -317,8 +321,12 @@
         var name = s.name || 'WhatShop';
         var logo = (settings.landing && settings.landing.logo) || './assets/logos/logoB.png';
         document.getElementById('brand-name').textContent = name;
-        document.getElementById('brand-logo').src = logo;
-        document.getElementById('brand-logo').style.display = s.brandShowLogo === false ? 'none' : '';
+        var brandLogo = document.getElementById('brand-logo');
+        brandLogo.style.opacity = '0';
+        brandLogo.onload = function () { brandLogo.style.opacity = '1'; };
+        brandLogo.onerror = function () { brandLogo.src = './assets/logos/logoB.png'; brandLogo.style.opacity = '1'; };
+        brandLogo.src = logo;
+        brandLogo.style.display = s.brandShowLogo === false ? 'none' : '';
         document.getElementById('brand-name').style.display = s.brandShowName === false ? 'none' : '';
         document.title = name;
         document.getElementById('footer-brand-name').textContent = name;
