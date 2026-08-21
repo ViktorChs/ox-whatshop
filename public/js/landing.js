@@ -39,9 +39,10 @@
 
   try {
     var landing = settings.landing || {};
-    if (landing.logo) document.getElementById('landing-logo').src = landing.logo;
-    if (landing.title) document.getElementById('landing-title').textContent = landing.title;
-    if (landing.subtitle) document.getElementById('landing-subtitle').textContent = landing.subtitle;
+    var logoEl = document.getElementById('entry-logo');
+    if (logoEl && landing.logo) logoEl.src = landing.logo;
+    var textEl = document.getElementById('entry-text');
+    if (textEl && landing.subtitle) textEl.textContent = landing.subtitle;
   } catch (e) {
     console.error('Error cargando datos de landing', e);
   }
