@@ -100,6 +100,10 @@ function init() {
     settings = store.settings || settings;
     window.__settings = settings;
     applyTheme(settings);
+    var all = [];
+    (store.categories || []).forEach(function (c) { (c.products || []).forEach(function (p) { all.push(p); }); });
+    (store.uncategorized || []).forEach(function (p) { all.push(p); });
+    CART.pruneCart(all.map(function (p) { return p.id; }));
     var s = (settings.store || {});
     var name = s.name || 'WhatShop';
     document.getElementById('brand-name').textContent = name;

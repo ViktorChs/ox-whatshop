@@ -291,6 +291,7 @@
         storeProducts = [];
         (store.categories || []).forEach(function (c) { (c.products || []).forEach(function (p) { storeProducts.push({ p: p, catId: c.id, catName: c.name }); }); });
         (store.uncategorized || []).forEach(function (p) { storeProducts.push({ p: p, catId: null, catName: '' }); });
+        CART.pruneCart(storeProducts.map(function (x) { return x.p.id; }));
         renderCategories();
         renderProducts(currentFilter);
         renderExploreFilters();

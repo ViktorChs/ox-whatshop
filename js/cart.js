@@ -59,6 +59,16 @@
     return cart;
   }
 
+  // Elimina del carrito items cuyo producto ya no existe en el catalogo
+  function pruneCart(validIds) {
+    if (!Array.isArray(validIds)) return getCart();
+    var cart = getCart().filter(function (it) { return validIds.indexOf(it.id) > -1; });
+    saveCart(cart);
+    updateBadge();
+    renderCart();
+    return cart;
+  }
+
   function updateBadge() {
     var n = cartCount(getCart());
     ['cart-badge', 'cart-badge-m'].forEach(function (id) {
@@ -217,7 +227,7 @@
 
   window.CART = {
     getCart: getCart, saveCart: saveCart, cartCount: cartCount, cartTotal: cartTotal,
-    addItem: addItem, changeQty: changeQty, removeItem: removeItem,
+    addItem: addItem, changeQty: changeQty, removeItem: removeItem, pruneCart: pruneCart,
     updateBadge: updateBadge, renderCart: renderCart,
     openCart: openCart, closeCart: closeCart,
     openCheckout: openCheckout, closeCheckout: closeCheckout,
