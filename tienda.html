@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/theme.css?v=11" />
-  <link rel="stylesheet" href="./css/tienda.css?v=11" />
+  <link rel="stylesheet" href="./css/theme.css?v=12" />
+  <link rel="stylesheet" href="./css/tienda.css?v=12" />
 </head>
 <body class="shop-page">
 
@@ -63,6 +63,10 @@
           <button class="nav-item" data-tab="explore" aria-label="Explorar">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
             <span data-i18n="nav_explore">Explorar</span>
+          </button>
+          <button class="nav-item" data-tab="categorias" aria-label="Categorías">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+            <span data-i18n="nav_categorias">Categorías</span>
           </button>
           <button class="nav-item" data-tab="cart" aria-label="Carrito">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
@@ -153,6 +157,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
       <span data-i18n="nav_explore">Explorar</span>
     </button>
+    <button class="nav-item" data-tab="categorias" aria-label="Categorías">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+      <span data-i18n="nav_categorias">Categorías</span>
+    </button>
     <button class="nav-item" data-tab="cart" aria-label="Carrito">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       <span data-i18n="nav_cart">Carrito <span id="cart-badge-m" class="cart-badge hidden">0</span></span>
@@ -161,14 +169,14 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=11"></script>
-  <script src="./js/supabase.js?v=11"></script>
-  <script src="./js/cart.js?v=11"></script>
+  <script src="./config.js?v=12"></script>
+  <script src="./js/supabase.js?v=12"></script>
+  <script src="./js/cart.js?v=12"></script>
   <script>
     // ===== i18n =====
     var I18N = {
       es: {
-        nav_home: 'Inicio', nav_explore: 'Explorar', nav_cart: 'Carrito',
+        nav_home: 'Inicio', nav_explore: 'Explorar', nav_categorias: 'Categorías', nav_cart: 'Carrito',
         buscar: 'Buscar productos...',
         promo_title: 'Rebajas de Año Nuevo', promo_discount: '25% descuento', promo_img: 'Imagen de promoción',
         categories_title: 'Categorías', popular_title: 'Productos Populares', view_all: 'Ver todas', view_all_cats: 'Ver todas las categorías',
@@ -187,7 +195,7 @@
         closed_msg: 'La tienda está cerrada en este momento'
       },
       en: {
-        nav_home: 'Home', nav_explore: 'Explore', nav_cart: 'Cart',
+        nav_home: 'Home', nav_explore: 'Explore', nav_categorias: 'Categories', nav_cart: 'Cart',
         buscar: 'Search items...',
         promo_title: 'New Year Sale', promo_discount: '25% off', promo_img: 'Promo image',
         categories_title: 'Categories', popular_title: 'Popular Products', view_all: 'View all', view_all_cats: 'View all categories',
@@ -553,6 +561,7 @@
       item.addEventListener('click', function () {
         var tab = item.getAttribute('data-tab');
         if (tab === 'cart') { CART.openCart(); return; }
+        if (tab === 'categorias') { window.location.href = './categorias.html'; return; }
         allNav.forEach(function (i) { i.classList.remove('active'); i.removeAttribute('aria-current'); });
         item.classList.add('active');
         item.setAttribute('aria-current', 'page');
