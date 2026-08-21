@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=6" />
-  <link rel="stylesheet" href="./css/admin.css?v=6" />
+  <link rel="stylesheet" href="./css/theme.css?v=7" />
+  <link rel="stylesheet" href="./css/admin.css?v=7" />
 </head>
 <body class="admin-page">
 
@@ -399,8 +399,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=6"></script>
-  <script src="./js/supabase.js?v=6"></script>
+  <script src="./config.js?v=7"></script>
+  <script src="./js/supabase.js?v=7"></script>
+  <script src="./js/color-picker.js?v=7"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -760,7 +761,9 @@
         sv('splash-what-color', sp.whatColor);
         var stName = s.name || activeStore().name || 'Mi Tienda';
         document.getElementById('ws-plan').textContent = stName;
-      }).catch(function () {});
+      }).catch(function () {}).then(function () {
+        if (window.ColorPicker) ColorPicker.syncAll();
+      });
     }
 
     // ===== Categorías =====
