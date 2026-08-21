@@ -1233,3 +1233,16 @@ html, body {
     grid-template-columns: repeat(5, 1fr);
   }
 }
+
+/* ---------- Nuevos: oferta, stock, tarjetas (v2) ---------- */
+.product-card { position: relative; }
+.prod-offer-badge {
+  position: absolute; top: 10px; left: 10px; z-index: 2;
+  background: var(--color-accent); color: #fff; font-size: .68rem; font-weight: 700;
+  padding: 3px 8px; border-radius: 999px;
+}
+.prod-stock-row { margin-top: 4px; }
+.prod-stock { font-size: .72rem; color: var(--color-success); font-weight: 600; }
+.prod-stock.out { color: var(--color-destructive); }
+.category-card { cursor: pointer; }
+.category-card:hover .cat-label { color: var(--color-primary); }

@@ -1,4 +1,4 @@
-/* OX WhatShop - Cliente Supabase + helpers */
+/* OX WhatShop - Cliente Supabase + helpers (multi-tienda) */
 const SUPABASE_CDN = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
 
 let sbClient = null;
@@ -16,6 +16,15 @@ function loadSupabase() {
     s.onerror = () => reject(new Error('No se pudo cargar Supabase'));
     document.head.appendChild(s);
   });
+}
+
+// ===== Tienda activa (multi-tienda) =====
+function getActiveStoreId() {
+  const v = Number(localStorage.getItem('whatshop_store'));
+  return Number.isInteger(v) && v > 0 ? v : 1;
+}
+function setActiveStoreId(id) {
+  localStorage.setItem('whatshop_store', String(id));
 }
 
 // ===== Helpers UI compartidos (tienda + admin) =====
@@ -65,11 +74,15 @@ function toast(message, type = '', duration = 2600) {
   }, duration);
 }
 
+function fmtMoney(value) {
+  return Number(value || 0).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
 function formatPrice(value, settings) {
   const s = settings || {};
-  const currency = s.store?.currency || '$';
-  const pos = s.store?.currencyPosition || 'before';
-  const num = Number(value || 0).toFixed(2);
+  const currency = (s.store && s.store.currency) || '$';
+  const pos = (s.store && s.store.currencyPosition) || 'before';
+  const num = fmtMoney(value);
   return pos === 'after' ? `${num} ${currency}` : `${currency}${num}`;
 }
 
@@ -95,19 +108,30 @@ async function hashPin(pin) {
   return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
+// ===== Helpers API =====
 const SBHelper = {
   async client() { return loadSupabase(); },
 
-  // ---- Settings ----
-  async getSettings() {
+  // ---- Tiendas ----
+  async getStores() {
     const c = await loadSupabase();
-    const { data, error } = await c.from('settings').select('data').eq('id', 1).single();
+    const { data, error } = await c.from('stores').select('*').order('id');
+    if (error) throw error;
+    return data || [];
+  },
+
+  // ---- Settings ----
+  async getSettings(storeId) {
+    const c = await loadSupabase();
+    const sid = storeId || getActiveStoreId();
+    const { data, error } = await c.from('settings').select('data').eq('store_id', sid).single();
     if (error) throw error;
     return data ? data.data : null;
   },
-  async saveSettings(data) {
+  async saveSettings(data, storeId) {
     const c = await loadSupabase();
-    const { error } = await c.from('settings').upsert({ id: 1, data, updated_at: new Date() });
+    const sid = storeId || getActiveStoreId();
+    const { error } = await c.from('settings').upsert({ store_id: sid, data, updated_at: new Date() }, { onConflict: 'store_id' });
     if (error) throw error;
   },
 
@@ -118,19 +142,31 @@ const SBHelper = {
     if (error) throw error;
     return data ? data.pin_hash : null;
   },
+  async setPinHash(hash) {
+    const c = await loadSupabase();
+    const { error } = await c.from('admin').update({ pin_hash: hash }).eq('id', 1);
+    if (error) throw error;
+  },
 
   // ---- Categorias ----
-  async getCategories() {
+  async getCategories(storeId) {
     const c = await loadSupabase();
-    const { data, error } = await c.from('categories').select('*').order('position');
+    const sid = storeId || getActiveStoreId();
+    const { data, error } = await c.from('categories').select('*').eq('store_id', sid).order('position');
     if (error) throw error;
     return data || [];
   },
-  async addCategory(obj) {
+  async addCategory(obj, storeId) {
     const c = await loadSupabase();
-    const { data, error } = await c.from('categories').insert(obj).select().single();
+    const sid = storeId || getActiveStoreId();
+    const { data, error } = await c.from('categories').insert({ ...obj, store_id: sid }).select().single();
     if (error) throw error;
     return data;
+  },
+  async updateCategory(id, obj) {
+    const c = await loadSupabase();
+    const { error } = await c.from('categories').update(obj).eq('id', id);
+    if (error) throw error;
   },
   async deleteCategory(id) {
     const c = await loadSupabase();
@@ -139,17 +175,27 @@ const SBHelper = {
   },
 
   // ---- Productos ----
-  async getProducts() {
+  async getProducts(storeId) {
     const c = await loadSupabase();
-    const { data, error } = await c.from('products').select('*, product_variants(*)').order('position');
+    const sid = storeId || getActiveStoreId();
+    const { data, error } = await c.from('products')
+      .select('*, product_variants(*)')
+      .eq('store_id', sid)
+      .order('position');
     if (error) throw error;
     return data || [];
   },
-  async addProduct(obj) {
+  async addProduct(obj, storeId) {
     const c = await loadSupabase();
-    const { data, error } = await c.from('products').insert(obj).select().single();
+    const sid = storeId || getActiveStoreId();
+    const { data, error } = await c.from('products').insert({ ...obj, store_id: sid }).select().single();
     if (error) throw error;
     return data;
+  },
+  async updateProduct(id, obj) {
+    const c = await loadSupabase();
+    const { error } = await c.from('products').update(obj).eq('id', id);
+    if (error) throw error;
   },
   async deleteProduct(id) {
     const c = await loadSupabase();
@@ -157,19 +203,58 @@ const SBHelper = {
     if (error) throw error;
   },
 
-  // ---- Pedidos ----
-  async addOrder(order) {
+  // ---- Variantes ----
+  async replaceVariants(productId, variants) {
     const c = await loadSupabase();
-    const { data: last, error: e0 } = await c.from('orders').select('order_number').order('order_number', { ascending: false }).limit(1);
-    if (e0) throw e0;
-    const orderNumber = (last && last.length ? last[0].order_number : 0) + 1;
-    const { data, error } = await c.from('orders').insert({ ...order, order_number: orderNumber }).select().single();
+    const { error: d0 } = await c.from('product_variants').delete().eq('product_id', productId);
+    if (d0) throw d0;
+    if (variants && variants.length) {
+      const { error } = await c.from('product_variants').insert(variants.map((v) => ({ product_id: productId, ...v })));
+      if (error) throw error;
+    }
+  },
+
+  // ---- Plantillas de tallas ----
+  async getTemplates(storeId) {
+    const c = await loadSupabase();
+    const sid = storeId || getActiveStoreId();
+    const { data, error } = await c.from('variant_templates').select('*').eq('store_id', sid).order('id');
+    if (error) throw error;
+    return data || [];
+  },
+  async addTemplate(obj, storeId) {
+    const c = await loadSupabase();
+    const sid = storeId || getActiveStoreId();
+    const { data, error } = await c.from('variant_templates').insert({ ...obj, store_id: sid }).select().single();
     if (error) throw error;
     return data;
   },
-  async getOrders() {
+  async deleteTemplate(id) {
     const c = await loadSupabase();
-    const { data, error } = await c.from('orders').select('*').order('id', { ascending: false });
+    const { error } = await c.from('variant_templates').delete().eq('id', id);
+    if (error) throw error;
+  },
+
+  // ---- Pedidos ----
+  async addOrder(order) {
+    const c = await loadSupabase();
+    const sid = order.store_id || getActiveStoreId();
+    const { data, error } = await c.rpc('create_order', {
+      p_store_id: sid,
+      p_name: order.name,
+      p_phone: order.phone || '',
+      p_payment_method: order.payment_method || '',
+      p_note: order.note || '',
+      p_items: order.items || [],
+      p_total: order.total || 0
+    });
+    if (error) throw error;
+    return data;
+  },
+  async getOrders(storeId) {
+    const c = await loadSupabase();
+    const sid = storeId || getActiveStoreId();
+    const { data, error } = await c.from('orders').select('*').eq('store_id', sid).order('id', { ascending: false });
     if (error) throw error;
     return data || [];
   },
@@ -194,17 +279,20 @@ const SBHelper = {
   },
 
   // ---- Backup: reemplazar catalogo completo (borra e inserta) ----
-  async replaceCatalog(categories, products) {
+  async replaceCatalog(categories, products, storeId) {
     const c = await loadSupabase();
-    const { error: d0 } = await c.from('products').delete().neq('id', 0);
+    const sid = storeId || getActiveStoreId();
+    const { error: d0 } = await c.from('product_variants').delete().eq('store_id', sid);
     if (d0) throw d0;
-    const { error: d1 } = await c.from('categories').delete().neq('id', 0);
+    const { error: d1 } = await c.from('products').delete().eq('store_id', sid);
     if (d1) throw d1;
+    const { error: d2 } = await c.from('categories').delete().eq('store_id', sid);
+    if (d2) throw d2;
 
     const catIdMap = {};
     for (const cat of categories || []) {
       const { data, error } = await c.from('categories')
-        .insert({ name: cat.name, image: cat.image, color: cat.color, position: cat.position })
+        .insert({ name: cat.name, image: cat.image, color: cat.color, position: cat.position, store_id: sid })
         .select().single();
       if (error) throw error;
       catIdMap[cat.id] = data.id;
@@ -217,10 +305,13 @@ const SBHelper = {
           name: p.name,
           description: p.description,
           price: p.price,
+          original_price: p.original_price ?? null,
           image: p.image,
+          images: p.images || [],
           stock: p.stock,
           featured: !!p.featured,
-          position: p.position
+          position: p.position,
+          store_id: sid
         })
         .select().single();
       if (error) throw error;
@@ -228,9 +319,15 @@ const SBHelper = {
       if (Array.isArray(p.variants) && p.variants.length) {
         const rows = p.variants.map((v) => ({
           product_id: data.id,
+          store_id: sid,
           name: v.name,
           price: v.price ?? null,
-          stock: v.stock ?? 1
+          stock: v.stock ?? 1,
+          color: v.color ?? null,
+          color_hex: v.color_hex ?? null,
+          size: v.size ?? null,
+          sku: v.sku ?? null,
+          position: v.position ?? 0
         }));
         const { error: ve } = await c.from('product_variants').insert(rows);
         if (ve) throw ve;
@@ -240,16 +337,19 @@ const SBHelper = {
   }
 };
 
-async function SBStore() {
-  const [settings, categories, products] = await Promise.all([
-    SBHelper.getSettings(),
-    SBHelper.getCategories(),
-    SBHelper.getProducts()
+// ===== Cargar tienda completa (settings + catalogo + plantillas) =====
+async function SBStore(storeId) {
+  const sid = storeId || getActiveStoreId();
+  const [settings, categories, products, templates] = await Promise.all([
+    SBHelper.getSettings(sid),
+    SBHelper.getCategories(sid),
+    SBHelper.getProducts(sid),
+    SBHelper.getTemplates(sid)
   ]);
   const categoriesWithProducts = (categories || []).map((cat) => ({
     ...cat,
     products: (products || []).filter((p) => p.category_id === cat.id)
   }));
   const uncategorized = (products || []).filter((p) => !p.category_id);
-  return { settings, categories: categoriesWithProducts, uncategorized };
+  return { settings, categories: categoriesWithProducts, uncategorized, templates };
 }
