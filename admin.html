@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Panel de Administración - WhatShop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/theme.css" />
+  <link rel="stylesheet" href="./css/admin.css" />
+</head>
+<body class="admin-page">
+  <!-- ============ LOGIN ============ -->
+  <div id="login-view" class="admin-login">
+    <div class="login-card">
+      <div class="brand">
+        <img src="./assets/logos/logoB.png" alt="Logo" />
+        <span><span class="what">What</span><span class="shop">Shop</span></span>
+      </div>
+      <p class="sub">Panel de administración</p>
+      <input id="pin" type="password" inputmode="numeric" placeholder="PIN de acceso" autocomplete="current-password" />
+      <button class="login-btn" id="login-btn">Entrar</button>
+      <p class="login-error" id="login-error">PIN incorrecto</p>
+    </div>
+  </div>
+
+  <!-- ============ PANEL ============ -->
+  <div id="panel-view" class="hidden">
+    <div class="admin-layout">
+      <!-- SIDEBAR -->
+      <aside class="admin-sidebar">
+        <div class="sidebar-brand">
+          <img src="./assets/logos/logoB.png" alt="Logo" />
+          <span><span class="what">What</span><span class="shop">Shop</span></span>
+        </div>
+        <nav class="sidebar-nav">
+          <button class="nav-item active" data-tab="tab-apariencia">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+            Apariencia
+          </button>
+          <button class="nav-item" data-tab="tab-tienda">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M4 9v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M3 9h18M9 21v-6h6v6"/></svg>
+            Tienda
+          </button>
+          <button class="nav-item" data-tab="tab-catalogo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            Catálogo
+          </button>
+          <button class="nav-item" data-tab="tab-pedidos">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
+            Pedidos
+          </button>
+          <button class="nav-item" data-tab="tab-analitica">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M8 17V9M13 17V5M18 17v-6"/></svg>
+            Analítica
+          </button>
+          <button class="nav-item" data-tab="tab-backup">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6"/><path d="M3 12h18M12 12V3"/><path d="m8 7 4-4 4 4"/></svg>
+            Backup
+          </button>
+        </nav>
+        <div class="sidebar-foot">
+          <div>OX1 · WhatShop</div>
+          <div>v1.0</div>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="admin-main">
+        <div class="admin-topbar">
+          <div class="topbar-brand">
+            <img src="./assets/logos/logoB.png" alt="Logo" />
+            <span><span class="what">What</span><span class="shop">Shop</span></span>
+          </div>
+          <div class="topbar-actions">
+            <a class="btn-ox ghost small" href="./tienda.html" target="_blank">Ver tienda</a>
+          </div>
+        </div>
+        <!-- Pestaña: Apariencia -->
+        <div id="tab-apariencia" class="tab-content">
+          <h1>Apariencia</h1>
+          <p class="page-sub">Personaliza los colores, tipografía y marca de tu tienda.</p>
+
+          <div class="panel">
+            <h3>Colores de marca</h3>
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Color primario</label>
+                <input type="color" id="theme-primary" value="#171717" />
+              </div>
+              <div class="form-field">
+                <label>Color de acento</label>
+                <input type="color" id="theme-accent" value="#A16207" />
+              </div>
+              <div class="form-field">
+                <label>Fondo de la tienda</label>
+                <input type="color" id="theme-background" value="#FFFFFF" />
+              </div>
+              <div class="form-field">
+                <label>Color de texto</label>
+                <input type="color" id="theme-foreground" value="#171717" />
+              </div>
+              <div class="form-field">
+                <label>Color secundario</label>
+                <input type="color" id="theme-secondary" value="#404040" />
+              </div>
+              <div class="form-field">
+                <label>Color de tarjetas</label>
+                <input type="color" id="theme-muted" value="#E8ECF0" />
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Tipografía y redondeo</h3>
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Fuente (títulos)</label>
+                <input type="text" id="theme-fontheading" value="Plus Jakarta Sans" />
+              </div>
+              <div class="form-field">
+                <label>Radio de borde (px)</label>
+                <input type="number" id="theme-radius" value="14" min="1" max="50" />
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Marca en la barra superior</h3>
+            <div class="toggle-row">
+              <span>Mostrar logo</span>
+              <label class="switch"><input type="checkbox" id="brand-show-logo" checked /><span class="slider"></span></label>
+            </div>
+            <div class="toggle-row">
+              <span>Mostrar nombre de la tienda</span>
+              <label class="switch"><input type="checkbox" id="brand-show-name" checked /><span class="slider"></span></label>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Fondo con degradado</h3>
+            <p class="page-sub" style="margin-bottom:12px">Activa un degradado sutil de arriba hacia abajo. El degradado va del color de fondo de la tienda hasta el color que elijas.</p>
+            <div class="toggle-row">
+              <span>Activar degradado de fondo</span>
+              <label class="switch"><input type="checkbox" id="theme-gradient-toggle" /><span class="slider"></span></label>
+            </div>
+            <div class="form-field" style="margin-top:12px">
+              <label>Color del degradado (abajo)</label>
+              <input type="color" id="theme-gradient-color" value="#FFFFFF" />
+            </div>
+          </div>
+
+          <button class="btn-ox green" id="btn-save-theme">Guardar cambios</button>
+          <p class="page-sub" id="theme-status" style="margin-top:10px"></p>
+        </div>
+
+        <!-- Pestaña: Tienda -->
+        <div id="tab-tienda" class="tab-content hidden">
+          <h1>Tienda</h1>
+          <p class="page-sub">Configura los datos generales, pagos y comunicación de tu tienda.</p>
+
+          <div class="panel">
+            <h3>Datos generales</h3>
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Nombre de la tienda</label>
+                <input type="text" id="store-name" placeholder="WhatShop" />
+              </div>
+              <div class="form-field">
+                <label>Número de WhatsApp</label>
+                <input type="text" id="store-whatsapp" placeholder="+58 412 000 0000" />
+              </div>
+              <div class="form-field">
+                <label>Moneda</label>
+                <input type="text" id="store-currency" value="$" />
+              </div>
+              <div class="form-field">
+                <label>Posición de la moneda</label>
+                <select id="store-currency-pos">
+                  <option value="before">Antes ($10)</option>
+                  <option value="after">Después (10 $)</option>
+                </select>
+              </div>
+            </div>
+            <div class="toggle-row" style="margin-top:12px">
+              <span>Tienda abierta</span>
+              <label class="switch"><input type="checkbox" id="store-open" checked /><span class="slider"></span></label>
+            </div>
+            <div class="form-field" style="margin-top:12px">
+              <label>Mensaje cuando está cerrada</label>
+              <input type="text" id="store-closed-msg" placeholder="La tienda está cerrada en este momento" />
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Métodos de pago</h3>
+            <p class="page-sub" style="margin-bottom:10px">Un método por línea. Se muestran en el checkout.</p>
+            <textarea id="store-payments" rows="4" placeholder="Efectivo&#10;Transferencia&#10;Pago móvil"></textarea>
+          </div>
+
+          <div class="panel">
+            <h3>Texto del banner promocional</h3>
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Título del banner</label>
+                <input type="text" id="banner-title" placeholder="Rebajas de Año Nuevo" />
+              </div>
+              <div class="form-field">
+                <label>Descuento del banner</label>
+                <input type="text" id="banner-discount" placeholder="25% descuento" />
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Logo de la marca</h3>
+            <div class="form-field">
+              <label>Subir logo (PNG, JPG, WebP)</label>
+              <input type="file" id="store-logo-file" accept="image/*" />
+            </div>
+            <p class="page-sub" id="logo-status"></p>
+          </div>
+
+          <button class="btn-ox green" id="btn-save-store">Guardar tienda</button>
+          <p class="page-sub" id="store-status" style="margin-top:10px"></p>
+        </div>
+
+        <!-- Pestaña: Catálogo -->
+        <div id="tab-catalogo" class="tab-content hidden">
+          <h1>Catálogo</h1>
+          <p class="page-sub">Gestiona tus categorías y productos.</p>
+
+          <div class="panel">
+            <h3>Nueva categoría</h3>
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Nombre</label>
+                <input type="text" id="new-category-name" placeholder="Nombre de la categoría" />
+              </div>
+              <div class="form-field">
+                <label>Color del recuadro</label>
+                <input type="color" id="new-category-color" value="#E8ECF0" />
+              </div>
+            </div>
+            <button class="btn-ox green" id="btn-add-category">Añadir categoría</button>
+          </div>
+
+          <div id="categories-list"></div>
+
+          <div class="panel">
+            <h3>Nuevo producto</h3>
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Nombre</label>
+                <input type="text" id="new-product-name" placeholder="Nombre del producto" />
+              </div>
+              <div class="form-field">
+                <label>Precio</label>
+                <input type="number" id="new-product-price" value="0" min="0" step="0.01" />
+              </div>
+              <div class="form-field">
+                <label>Categoría</label>
+                <select id="new-product-category"><option value="">Sin categoría</option></select>
+              </div>
+              <div class="form-field">
+                <label>Descripción</label>
+                <input type="text" id="new-product-description" placeholder="Descripción" />
+              </div>
+            </div>
+            <div class="form-field">
+              <label>Imagen del producto</label>
+              <input type="file" id="new-product-image" accept="image/*" />
+              <div id="bg-removal-preview" class="mt-3 hidden">
+                <h4 style="margin:10px 0">Quitar fondo (IA)</h4>
+                <div style="display:flex;gap:12px">
+                  <div><img id="bg-original" style="max-width:120px;max-height:150px;border:1px solid #ddd;border-radius:8px" alt="Original" /></div>
+                  <div><img id="bg-processed" style="max-width:120px;max-height:150px;border:1px solid #ddd;border-radius:8px" alt="Procesado" /></div>
+                </div>
+                <div style="margin-top:10px;display:flex;gap:8px">
+                  <button class="btn-ox small green" id="bg-apply">Aplicar fondo removido</button>
+                  <button class="btn-ox small ghost" id="bg-cancel">Cancelar</button>
+                </div>
+                <p class="page-sub" style="margin-top:6px">Primera carga descarga ~40MB de modelo de IA en el navegador.</p>
+              </div>
+              <input type="hidden" id="new-product-image-data" />
+            </div>
+            <button class="btn-ox green" id="btn-add-product">Añadir producto</button>
+          </div>
+
+          <div id="products-list"></div>
+        </div>
+
+        <!-- Pestaña: Pedidos -->
+        <div id="tab-pedidos" class="tab-content hidden">
+          <h1>Pedidos</h1>
+          <p class="page-sub">Historial de pedidos enviados por WhatsApp.</p>
+          <div id="orders-list"></div>
+          <button class="btn-ox" id="btn-refresh-orders" style="margin-top:12px">Refrescar</button>
+        </div>
+
+        <!-- Pestaña: Analítica -->
+        <div id="tab-analitica" class="tab-content hidden">
+          <h1>Analítica</h1>
+          <p class="page-sub">Estadísticas de tus ventas.</p>
+          <div id="analytics-container"></div>
+          <button class="btn-ox" id="btn-load-analytics" style="margin-top:12px">Cargar estadísticas</button>
+        </div>
+
+        <!-- Pestaña: Backup -->
+        <div id="tab-backup" class="tab-content hidden">
+          <h1>Backup</h1>
+          <p class="page-sub">Exporta e importa toda la configuración de tu tienda.</p>
+          <div class="panel">
+            <button class="btn-ox block" id="btn-export-backup" style="margin-bottom:12px">Exportar backup JSON</button>
+            <input type="file" id="import-backup" accept=".json" class="hidden" />
+            <button class="btn-ox ghost block" id="btn-import-backup">Importar backup</button>
+            <p class="page-sub" id="backup-status" style="margin-top:10px"></p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="./config.js"></script>
+  <script src="./js/supabase.js"></script>
+  <script>
+    // ===== Background Removal Library =====
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.7/dist/browser/background-removal.js';
+      script.async = false;
+      script.onload = function () { window.imglyRemoveBackgroundReady = true; };
+      document.head.appendChild(script);
+    })();
+
+    var _settings = {};
+
+    // ===== Login (PIN -> SHA-256 -> compara con admin.pin_hash) =====
+    function doLogin() {
+      var pin = document.getElementById('pin').value;
+      if (!pin) return;
+      Promise.all([hashPin(pin), SBHelper.getPinHash()])
+        .then(function (res) {
+          if (res[0] === res[1]) {
+            sessionStorage.setItem('whatshop_admin', '1');
+            showPanel();
+          } else {
+            document.getElementById('login-error').style.display = 'block';
+          }
+        })
+        .catch(function () { document.getElementById('login-error').style.display = 'block'; });
+    }
+    document.getElementById('login-btn').addEventListener('click', doLogin);
+    document.getElementById('pin').addEventListener('keydown', function (e) { if (e.key === 'Enter') doLogin(); });
+
+    function showPanel() {
+      document.getElementById('login-view').classList.add('hidden');
+      document.getElementById('panel-view').classList.remove('hidden');
+      loadSettingsForm();
+      loadCategories();
+      loadProducts();
+      loadOrders();
+      loadAnalytics();
+    }
+
+    // ===== Tabs =====
+    document.querySelectorAll('.sidebar-nav .nav-item').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.sidebar-nav .nav-item').forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        var target = document.getElementById(btn.getAttribute('data-tab'));
+        document.querySelectorAll('.tab-content').forEach(function (c) { c.classList.add('hidden'); });
+        if (target) target.classList.remove('hidden');
+      });
+    });
+
+    // ===== Merge parcial de settings (no pisa keys que no se editan) =====
+    function mergeSettings(partial) {
+      var merged = JSON.parse(JSON.stringify(_settings || {}));
+      Object.keys(partial).forEach(function (k) {
+        var v = partial[k];
+        if (v && typeof v === 'object' && !Array.isArray(v)) {
+          merged[k] = Object.assign({}, merged[k] || {}, v);
+        } else {
+          merged[k] = v;
+        }
+      });
+      return merged;
+    }
+
+    // ===== Cargar config en formularios =====
+    function loadSettingsForm() {
+      SBHelper.getSettings().then(function (res) {
+        if (!res) return;
+        _settings = res;
+        var t = res.theme || {}, s = res.store || {}, l = res.landing || {};
+        function sv(id, v) { var el = document.getElementById(id); if (el && v != null) el.value = v; }
+        sv('theme-primary', t.primary);
+        sv('theme-accent', t.accent);
+        sv('theme-background', t.background);
+        sv('theme-foreground', t.foreground);
+        sv('theme-secondary', t.secondary);
+        sv('theme-muted', t.muted);
+        sv('theme-radius', t.radius);
+        sv('theme-fontheading', t.fontHeading);
+        document.getElementById('brand-show-logo').checked = s.brandShowLogo !== false;
+        document.getElementById('brand-show-name').checked = s.brandShowName !== false;
+        document.getElementById('theme-gradient-toggle').checked = t.backgroundGradient === true;
+        sv('theme-gradient-color', t.gradientColor);
+        sv('store-name', s.name);
+        sv('store-whatsapp', s.whatsapp);
+        sv('store-currency', s.currency);
+        sv('store-currency-pos', s.currencyPosition);
+        sv('store-closed-msg', s.closedMessage);
+        document.getElementById('store-open').checked = s.open !== false;
+        sv('banner-title', l.bannerTitle);
+        sv('banner-discount', l.bannerDiscount);
+        var payments = Array.isArray(s.paymentMethods) ? s.paymentMethods.join('\n') : '';
+        document.getElementById('store-payments').value = payments;
+      }).catch(function () {});
+    }
+
+    // ===== Guardar Apariencia =====
+    document.getElementById('btn-save-theme').addEventListener('click', function () {
+      var theme = {
+        primary: document.getElementById('theme-primary').value,
+        accent: document.getElementById('theme-accent').value,
+        background: document.getElementById('theme-background').value,
+        foreground: document.getElementById('theme-foreground').value,
+        secondary: document.getElementById('theme-secondary').value,
+        muted: document.getElementById('theme-muted').value,
+        radius: parseInt(document.getElementById('theme-radius').value, 10),
+        fontHeading: document.getElementById('theme-fontheading').value,
+        backgroundGradient: document.getElementById('theme-gradient-toggle').checked,
+        gradientColor: document.getElementById('theme-gradient-color').value
+      };
+      var store = {
+        brandShowLogo: document.getElementById('brand-show-logo').checked,
+        brandShowName: document.getElementById('brand-show-name').checked
+      };
+      var merged = mergeSettings({ theme: theme, store: store });
+      SBHelper.saveSettings(merged)
+        .then(function () { _settings = merged; document.getElementById('theme-status').textContent = 'Guardado correctamente'; toast('Cambios guardados', 'success'); })
+        .catch(function () { document.getElementById('theme-status').textContent = 'Error al guardar'; });
+    });
+
+    // ===== Guardar Tienda =====
+    document.getElementById('btn-save-store').addEventListener('click', function () {
+      var payments = document.getElementById('store-payments').value.split('\n').map(function (x) { return x.trim(); }).filter(Boolean);
+      var store = {
+        name: document.getElementById('store-name').value,
+        whatsapp: document.getElementById('store-whatsapp').value,
+        currency: document.getElementById('store-currency').value,
+        currencyPosition: document.getElementById('store-currency-pos').value,
+        open: document.getElementById('store-open').checked,
+        closedMessage: document.getElementById('store-closed-msg').value,
+        paymentMethods: payments
+      };
+      var landing = {
+        bannerTitle: document.getElementById('banner-title').value,
+        bannerDiscount: document.getElementById('banner-discount').value
+      };
+      var merged = mergeSettings({ store: store, landing: landing });
+      SBHelper.saveSettings(merged)
+        .then(function () { _settings = merged; document.getElementById('store-status').textContent = 'Tienda guardada'; toast('Tienda guardada', 'success'); })
+        .catch(function () { document.getElementById('store-status').textContent = 'Error al guardar'; });
+    });
+
+    // ===== Subir logo =====
+    document.getElementById('store-logo-file').addEventListener('change', function (e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      SBHelper.uploadImage(file)
+        .then(function (url) {
+          var s = JSON.parse(JSON.stringify(_settings || {}));
+          var landing = s.landing || {};
+          landing.logo = url;
+          s.landing = landing;
+          return SBHelper.saveSettings(s).then(function () { _settings = s; });
+        })
+        .then(function () { document.getElementById('logo-status').textContent = 'Logo subido correctamente'; toast('Logo actualizado', 'success'); })
+        .catch(function () { document.getElementById('logo-status').textContent = 'Error al subir logo'; });
+    });
+
+    // ===== Categorias =====
+    function loadCategories() {
+      SBHelper.getCategories().then(function (cats) {
+        var list = document.getElementById('categories-list');
+        if (!cats.length) { list.innerHTML = '<p class="empty">No hay categorías.</p>'; return; }
+        list.innerHTML = '<div class="panel"><h3>Categorías existentes</h3>' + cats.map(function (c) {
+          return '<div class="list-row"><div class="thumb" style="background:' + (c.color || '#eee') + '"></div>' +
+            '<div class="info"><div class="title">' + c.name + '</div><div class="sub">Posición: ' + c.position + '</div></div>' +
+            '<div class="actions"><button class="btn-ox small danger" data-del-cat="' + c.id + '">Eliminar</button></div></div>';
+        }).join('') + '</div>';
+        list.querySelectorAll('[data-del-cat]').forEach(function (b) {
+          b.addEventListener('click', function () {
+            if (!confirm('¿Eliminar esta categoría?')) return;
+            SBHelper.deleteCategory(b.getAttribute('data-del-cat'))
+              .then(function () { loadCategories(); loadProducts(); });
+          });
+        });
+        // Poblar select de producto
+        var sel = document.getElementById('new-product-category');
+        sel.innerHTML = '<option value="">Sin categoría</option>' + cats.map(function (c) {
+          return '<option value="' + c.id + '">' + c.name + '</option>';
+        }).join('');
+      });
+    }
+
+    document.getElementById('btn-add-category').addEventListener('click', function () {
+      var name = document.getElementById('new-category-name').value.trim();
+      if (!name) return;
+      SBHelper.addCategory({
+        name: name,
+        color: document.getElementById('new-category-color').value
+      }).then(function () {
+        document.getElementById('new-category-name').value = '';
+        loadCategories();
+      });
+    });
+
+    // ===== Productos =====
+    function loadProducts() {
+      SBHelper.getProducts().then(function (prods) {
+        var list = document.getElementById('products-list');
+        if (!prods.length) { list.innerHTML = '<p class="empty">No hay productos.</p>'; return; }
+        list.innerHTML = '<div class="panel"><h3>Productos existentes</h3>' + prods.map(function (p) {
+          return '<div class="list-row"><div class="thumb">' + (p.image ? '<img src="' + p.image + '" alt="" />' : 'Sin foto') + '</div>' +
+            '<div class="info"><div class="title">' + p.name + '</div><div class="sub">Precio: ' + (p.price || 0) + '</div></div>' +
+            '<div class="actions"><button class="btn-ox small danger" data-del-prod="' + p.id + '">Eliminar</button></div></div>';
+        }).join('') + '</div>';
+        list.querySelectorAll('[data-del-prod]').forEach(function (b) {
+          b.addEventListener('click', function () {
+            if (!confirm('¿Eliminar este producto?')) return;
+            SBHelper.deleteProduct(b.getAttribute('data-del-prod'))
+              .then(function () { loadProducts(); });
+          });
+        });
+      });
+    }
+
+    document.getElementById('btn-add-product').addEventListener('click', function () {
+      var name = document.getElementById('new-product-name').value.trim();
+      if (!name) return;
+      var body = {
+        name: name,
+        price: parseFloat(document.getElementById('new-product-price').value) || 0,
+        category_id: document.getElementById('new-product-category').value || null,
+        description: document.getElementById('new-product-description').value,
+        image: document.getElementById('new-product-image-data').value || null
+      };
+      SBHelper.addProduct(body).then(function () {
+        document.getElementById('new-product-name').value = '';
+        document.getElementById('new-product-image-data').value = '';
+        document.getElementById('bg-removal-preview').classList.add('hidden');
+        loadProducts();
+      });
+    });
+
+    // ===== Remoción de fondo =====
+    var bgReady = false;
+    (function checkBg() {
+      if (window.imglyRemoveBackgroundReady) { bgReady = true; return; }
+      setTimeout(checkBg, 500);
+    })();
+
+    function uploadToStorage(file, done) {
+      SBHelper.uploadImage(file)
+        .then(function (url) { done(null, url); })
+        .catch(function (err) { done(err); });
+    }
+
+    document.getElementById('new-product-image').addEventListener('change', function (e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      if (!bgReady) {
+        // Fallback: subir la imagen original directamente a Storage
+        uploadToStorage(file, function (err, url) {
+          if (err) { toast('Error al subir imagen', 'error'); return; }
+          document.getElementById('new-product-image-data').value = url;
+          toast('Imagen subida', 'success');
+        });
+        return;
+      }
+      var reader = new FileReader();
+      reader.onload = function () {
+        var url = reader.result;
+        document.getElementById('bg-original').src = url;
+        document.getElementById('bg-removal-preview').classList.remove('hidden');
+        var arr = url;
+        // fetch blob
+        fetch(url).then(function (r) { return r.blob(); }).then(function (blob) {
+          return window.imglyRemoveBackground.removeBackground(blob);
+        }).then(function (outBlob) {
+          var u = URL.createObjectURL(outBlob);
+          document.getElementById('bg-processed').src = u;
+          document.getElementById('bg-processed').setAttribute('data-url', u);
+        }).catch(function (err) { console.error(err); toast('No se pudo quitar el fondo', 'error'); });
+      };
+      reader.readAsDataURL(file);
+    });
+
+    document.getElementById('bg-apply').addEventListener('click', function () {
+      var img = document.getElementById('bg-processed');
+      var u = img.getAttribute('data-url') || img.src;
+      // subir blob procesado
+      fetch(u).then(function (r) { return r.blob(); }).then(function (blob) {
+        var fd = new File([blob], 'product-' + Date.now() + '.png', { type: 'image/png' });
+        return uploadToStorage(fd, function (err, url) {
+          if (err) { toast('Error al subir imagen', 'error'); return; }
+          document.getElementById('new-product-image-data').value = url;
+          document.getElementById('bg-removal-preview').classList.add('hidden');
+          toast('Imagen procesada lista', 'success');
+        });
+      }).catch(function () { toast('Error al subir imagen', 'error'); });
+    });
+
+    document.getElementById('bg-cancel').addEventListener('click', function () {
+      document.getElementById('bg-removal-preview').classList.add('hidden');
+    });
+
+    // ===== Pedidos =====
+    function loadOrders() {
+      SBHelper.getOrders().then(function (orders) {
+        var box = document.getElementById('orders-list');
+        if (!orders.length) { box.innerHTML = '<p class="empty">No hay pedidos aún.</p>'; return; }
+        box.innerHTML = orders.map(function (o) {
+          var items = o.items || [];
+          var list = items.map(function (it) { return '· ' + (it.name || '') + ' x' + (it.qty || 1); }).join('<br>');
+          return '<div class="panel"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">' +
+            '<h3 style="margin:0">Pedido #' + o.order_number + '</h3>' +
+            '<span class="status-badge ' + (o.status || 'nuevo') + '">' + (o.status || 'nuevo') + '</span></div>' +
+            '<div class="page-sub" style="margin:8px 0">' + (o.created_at || '') + '</div>' +
+            '<div><strong>' + o.name + '</strong>' + (o.phone ? ' · ' + o.phone : '') + '</div>' +
+            '<div class="page-sub">Método: ' + (o.payment_method || '') + ' · Total: ' + (o.total || 0) + '</div>' +
+            '<div class="page-sub" style="margin-top:6px">' + list + '</div>' +
+            '<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">' +
+              '<button class="btn-ox small ghost" data-status="pagado" data-order="' + o.id + '">Pagado</button>' +
+              '<button class="btn-ox small ghost" data-status="entregado" data-order="' + o.id + '">Entregado</button>' +
+              '<button class="btn-ox small danger" data-status="cancelado" data-order="' + o.id + '">Cancelar</button>' +
+            '</div></div>';
+        }).join('');
+        box.querySelectorAll('[data-status]').forEach(function (b) {
+          b.addEventListener('click', function () {
+            SBHelper.updateOrderStatus(b.getAttribute('data-order'), b.getAttribute('data-status'))
+              .then(function () { loadOrders(); });
+          });
+        });
+      });
+    }
+    document.getElementById('btn-refresh-orders').addEventListener('click', loadOrders);
+
+    // ===== Analítica (se calcula en el cliente) =====
+    function loadAnalytics() {
+      SBHelper.getOrders().then(function (orders) {
+        var totals = { count: 0, revenue: 0 };
+        var productCounts = {};
+        (orders || []).forEach(function (o) {
+          totals.count += 1;
+          if ((o.status || 'nuevo') !== 'cancelado') totals.revenue += Number(o.total) || 0;
+          (o.items || []).forEach(function (it) {
+            var key = it.name || 'Producto';
+            productCounts[key] = (productCounts[key] || 0) + (it.qty || 1);
+          });
+        });
+        var bestSellers = Object.keys(productCounts)
+          .map(function (name) { return { name: name, qty: productCounts[name] }; })
+          .sort(function (a, b) { return b.qty - a.qty; })
+          .slice(0, 10);
+        var box = document.getElementById('analytics-container');
+        var best = bestSellers.map(function (b) {
+          return '<div class="list-row"><div class="info"><div class="title">' + b.name + '</div></div><div class="actions">' + b.qty + '</div></div>';
+        }).join('');
+        box.innerHTML = '<div class="panel"><h3>Resumen</h3>' +
+          '<div class="form-grid">' +
+            '<div class="form-field"><label>Pedidos</label><input type="text" value="' + (totals.count || 0) + '" disabled /></div>' +
+            '<div class="form-field"><label>Ingresos</label><input type="text" value="' + (totals.revenue || 0) + '" disabled /></div>' +
+          '</div></div>' +
+          '<div class="panel"><h3>Más vendidos</h3>' + (best || '<p class="empty">Sin datos</p>') + '</div>';
+      });
+    }
+    document.getElementById('btn-load-analytics').addEventListener('click', loadAnalytics);
+
+    // ===== Backup =====
+    document.getElementById('btn-export-backup').addEventListener('click', function () {
+      Promise.all([SBHelper.getSettings(), SBHelper.getCategories(), SBHelper.getProducts()])
+        .then(function (res) {
+          var data = { settings: res[0] || {}, categories: res[1] || [], products: res[2] || [] };
+          var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'whatshop-backup.json';
+          a.click();
+        });
+    });
+    document.getElementById('btn-import-backup').addEventListener('click', function () {
+      document.getElementById('import-backup').click();
+    });
+    document.getElementById('import-backup').addEventListener('change', function (e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function () {
+        try {
+          var data = JSON.parse(reader.result);
+          if (!data || typeof data !== 'object') throw new Error('inválido');
+          var tasks = [];
+          if (data.settings) tasks.push(SBHelper.saveSettings(data.settings));
+          if (Array.isArray(data.categories) || Array.isArray(data.products)) {
+            tasks.push(SBHelper.replaceCatalog(data.categories || [], data.products || []));
+          }
+          Promise.all(tasks).then(function () {
+            document.getElementById('backup-status').textContent = 'Backup importado correctamente';
+            loadSettingsForm();
+            loadCategories();
+            loadProducts();
+            toast('Backup importado', 'success');
+          }).catch(function () { document.getElementById('backup-status').textContent = 'Error al importar'; });
+        } catch (err) {
+          document.getElementById('backup-status').textContent = 'Archivo inválido';
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    // ===== Init =====
+    if (sessionStorage.getItem('whatshop_admin')) { showPanel(); }
+  </script>
+</body>
+</html>

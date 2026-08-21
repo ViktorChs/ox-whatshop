@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>OX WhatShop</title>
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./css/theme.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/landing.css" />
+</head>
+<body>
+  <!-- ============ SPLASH (carga inicial, ~3s) ============ -->
+  <div id="splash">
+    <img id="splash-logo" class="splash-logo" src="./assets/logos/logoB.png" alt="Logo" />
+    <h1 class="splash-title" aria-label="WhatShop">
+      <span id="splash-what" class="what">What</span><span id="splash-shop" class="shop">Shop</span>
+    </h1>
+    <div class="splash-spinner" role="status" aria-label="Cargando"></div>
+  </div>
+
+  <!-- ============ LANDING / ENTRADA (sin modal) ============ -->
+  <div id="app" class="hidden">
+    <main class="landing">
+      <img id="entry-logo" class="landing-logo reveal" src="./assets/logos/logoB.png" alt="Logo" />
+      <p id="entry-text" class="landing-subtitle reveal">Bienvenido a WhatShop</p>
+
+      <div class="entry-controls reveal">
+        <div id="swap-track" class="swap-track" role="button" tabindex="0" aria-label="Desliza para entrar a la tienda">
+          <div class="swap-fill"></div>
+          <div class="swap-thumb">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </div>
+          <div class="swap-label" id="swap-label">Desliza para entrar</div>
+        </div>
+
+        <button id="entry-btn" class="btn btn--accent entry-btn hidden">Entrar a la tienda</button>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="./config.js"></script>
+  <script src="./js/supabase.js"></script>
+  <script src="./js/landing.js"></script>
+</body>
+</html>
