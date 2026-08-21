@@ -75,7 +75,7 @@ git push -u origin gh-pages
 
 4. Tu tienda queda en `https://TU_USUARIO.github.io/TU_REPO/` y el admin en `.../admin.html`.
 
-> Nota: si el sitio se publica en un subdirectorio (proyecto, no `username.github.io`), las rutas absolutas (`/config.js`, `/css/...`) requieren ajustarse a relativas. Para evitar esto, usa un repositorio `TU_USUARIO.github.io` o configura un dominio personalizado en la raíz.
+> Este proyecto ya usa **rutas relativas** (`./config.js`, `./css/...`), por lo que funciona tanto en un project site (subdirectorio) como en un user site (`username.github.io`).
 
 ## 3. Uso
 
