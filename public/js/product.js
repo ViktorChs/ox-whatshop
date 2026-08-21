@@ -192,6 +192,7 @@ function init() {
     var all = [];
     (store.categories || []).forEach(function (c) { (c.products || []).forEach(function (p) { all.push(p); }); });
     (store.uncategorized || []).forEach(function (p) { all.push(p); });
+    CART.pruneCart(all.map(function (p) { return p.id; }));
     product = all.find(function (p) { return p.id === id; }) || null;
     if (!product) { document.getElementById('p-loading').textContent = t('not_found'); return; }
     variants = (product.product_variants || []).filter(function (v) { return v.color && v.size; });
