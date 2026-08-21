@@ -396,3 +396,15 @@ input, select, textarea { font-family: inherit; }
 /* ---------- Preview imagen categoria ---------- */
 .cat-preview { margin-top: 8px; }
 .cat-preview img { max-width: 140px; max-height: 90px; border-radius: 10px; border: 1px solid var(--border); object-fit: cover; }
+
+/* ---------- Galeria: quitar fondo + procesando ---------- */
+.gallery-item .bgx {
+  position: absolute; bottom: 4px; left: 4px; width: 24px; height: 24px; border-radius: 50%;
+  border: none; background: rgba(0,0,0,.65); color: #fff; font-size: 12px; line-height: 1;
+  display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2;
+}
+.gallery-item .bgx:hover { background: var(--green); }
+.gallery-item .g-spin { position: absolute; inset: 0; background: rgba(255,255,255,.7); z-index: 3; display: none; align-items: center; justify-content: center; }
+[data-theme="dark"] .gallery-item .g-spin { background: rgba(0,0,0,.6); }
+.gallery-item.processing .g-spin { display: flex; }
+.gallery-item .g-spin::after { content: ""; width: 20px; height: 20px; border-radius: 50%; border: 3px solid var(--border); border-top-color: var(--primary); animation: shop-spin .8s linear infinite; }

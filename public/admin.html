@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=10" />
-  <link rel="stylesheet" href="./css/admin.css?v=10" />
+  <link rel="stylesheet" href="./css/theme.css?v=11" />
+  <link rel="stylesheet" href="./css/admin.css?v=11" />
 </head>
 <body class="admin-page">
 
@@ -245,7 +245,12 @@
                 <div class="field" style="grid-column:1/-1"><label data-i18n="pr_desc">Descripción</label><input type="text" id="new-product-description" /></div>
               </div>
 
-              <div class="field" style="margin-top:6px"><label data-i18n="pr_images">Imágenes del producto (múltiples)</label><input type="file" id="new-product-images" accept="image/*" multiple /></div>
+              <div class="field" style="margin-top:6px"><label data-i18n="pr_images">Imágenes del producto (múltiples)</label><input type="file" id="new-product-images" accept="image/*" multiple />
+                <div style="margin-top:8px">
+                  <input type="file" id="product-camera" accept="image/*" capture="environment" class="hidden" />
+                  <button type="button" class="btn ghost small" id="btn-take-photo">&#128247; <span data-i18n="take_photo">Tomar foto</span></button>
+                </div>
+              </div>
               <div class="gallery" id="product-gallery"></div>
 
               <div class="panel" style="margin-top:16px;background:var(--bg-soft)">
@@ -421,9 +426,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=10"></script>
-  <script src="./js/supabase.js?v=10"></script>
-  <script src="./js/color-picker.js?v=10"></script>
+  <script src="./config.js?v=11"></script>
+  <script src="./js/supabase.js?v=11"></script>
+  <script src="./js/color-picker.js?v=11"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -457,7 +462,7 @@
         ti_pay: 'Métodos de pago', ti_pay_sub: 'Un método por línea.', ti_banner: 'Texto del banner promocional', ti_banner_title: 'Título del banner', ti_banner_discount: 'Descuento del banner',
         ti_msg_wa: 'Mensaje de WhatsApp', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Logo de la marca', ti_logo_upload: 'Subir logo (PNG, JPG, WebP)',
         t_productos: 'Productos', t_productos_sub: 'Gestiona productos y sus variantes (color × talla).', pr_new: 'Nuevo producto', pr_edit: 'Editar producto', pr_name: 'Nombre', pr_cat: 'Categoría', pr_price: 'Precio', pr_orig: 'Precio original (opcional, tachado)', pr_stock: 'Stock base', pr_featured: 'Destacado', pr_featured_on: 'Mostrar en Populares', pr_desc: 'Descripción',
-        pr_images: 'Imágenes del producto (múltiples)', pr_variants: 'Variantes (color × talla)', pr_sizes_src: 'Tallas: plantilla o lista libre', pr_sizes_free: 'Tallas libres (separadas por coma)', pr_apply_sizes: 'Aplicar tallas',
+        pr_images: 'Imágenes del producto (múltiples)', bg_remove: 'Quitar fondo', take_photo: 'Tomar foto', pr_variants: 'Variantes (color × talla)', pr_sizes_src: 'Tallas: plantilla o lista libre', pr_sizes_free: 'Tallas libres (separadas por coma)', pr_apply_sizes: 'Aplicar tallas',
         pr_color_name: 'Color', pr_color_hex: 'Hex', pr_add_color: 'Agregar color', pr_save: 'Guardar producto', pr_cancel: 'Cancelar edición', pr_existing: 'Productos existentes',
         pr_novariants: 'Sin variantes (usa stock base)', pr_stock2: 'Stock', pr_saving: 'Guardando…', pr_saved: 'Producto guardado',
         t_categorias: 'Categorías', t_categorias_sub: 'Crea y ordena las categorías de tu catálogo.', ca_new: 'Nueva categoría', ca_edit_title: 'Editar categoría', ca_name: 'Nombre', ca_color: 'Color del recuadro', ca_pos: 'Posición (auto al crear, editable)', ca_image: 'Imagen de la categoría', ca_border: 'Borde', ca_border_on: 'Activar borde', ca_border_color: 'Color del borde', ca_border_side: 'Ubicación', ca_bs_all: 'Todo el contorno', ca_bs_top: 'Solo arriba', ca_bs_bottom: 'Solo abajo', ca_bs_sides: 'Solo lados', ca_add: 'Guardar categoría', ca_cancel: 'Cancelar', ca_edit: 'Guardar', ca_del: 'Eliminar',
@@ -486,7 +491,7 @@
         ti_pay: 'Payment methods', ti_pay_sub: 'One method per line.', ti_banner: 'Promo banner text', ti_banner_title: 'Banner title', ti_banner_discount: 'Banner discount',
         ti_msg_wa: 'WhatsApp message', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Store logo', ti_logo_upload: 'Upload logo (PNG, JPG, WebP)',
         t_productos: 'Products', t_productos_sub: 'Manage products and their variants (color × size).', pr_new: 'New product', pr_edit: 'Edit product', pr_name: 'Name', pr_cat: 'Category', pr_price: 'Price', pr_orig: 'Original price (optional, strikethrough)', pr_stock: 'Base stock', pr_featured: 'Featured', pr_featured_on: 'Show in Popular', pr_desc: 'Description',
-        pr_images: 'Product images (multiple)', pr_variants: 'Variants (color × size)', pr_sizes_src: 'Sizes: template or free list', pr_sizes_free: 'Free sizes (comma separated)', pr_apply_sizes: 'Apply sizes',
+        pr_images: 'Product images (multiple)', bg_remove: 'Remove background', take_photo: 'Take photo', pr_variants: 'Variants (color × size)', pr_sizes_src: 'Sizes: template or free list', pr_sizes_free: 'Free sizes (comma separated)', pr_apply_sizes: 'Apply sizes',
         pr_color_name: 'Color', pr_color_hex: 'Hex', pr_add_color: 'Add color', pr_save: 'Save product', pr_cancel: 'Cancel edit', pr_existing: 'Existing products',
         pr_novariants: 'No variants (uses base stock)', pr_stock2: 'Stock', pr_saving: 'Saving…', pr_saved: 'Product saved',
         t_categorias: 'Categories', t_categorias_sub: 'Create and order your catalog categories.', ca_new: 'New category', ca_edit_title: 'Edit category', ca_name: 'Name', ca_color: 'Box color', ca_pos: 'Position (auto on create, editable)', ca_image: 'Category image', ca_border: 'Border', ca_border_on: 'Enable border', ca_border_color: 'Border color', ca_border_side: 'Position', ca_bs_all: 'Whole outline', ca_bs_top: 'Top only', ca_bs_bottom: 'Bottom only', ca_bs_sides: 'Sides only', ca_add: 'Save category', ca_cancel: 'Cancel', ca_edit: 'Save', ca_del: 'Delete',
@@ -1006,9 +1011,57 @@
     }
 
     // ===== Galería de imágenes =====
+    // ===== Galería + quitar fondo + cámara =====
+    var bgLibPromise = null;
+    function loadBgLib() {
+      if (window.imglyRemoveBackground) return Promise.resolve(window.imglyRemoveBackground);
+      if (bgLibPromise) return bgLibPromise;
+      toast('Preparando quitar fondo…');
+      bgLibPromise = new Promise(function (resolve, reject) {
+        var s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.7/dist/browser/background-removal.js';
+        s.onload = function () { resolve(window.imglyRemoveBackground); };
+        s.onerror = function () { bgLibPromise = null; reject(new Error('No se pudo cargar la librería')); };
+        document.head.appendChild(s);
+      });
+      return bgLibPromise;
+    }
+    function setGalleryProcessing(i, on) {
+      var items = document.querySelectorAll('.gallery-item');
+      var it = items[i];
+      if (!it) return;
+      it.classList.toggle('processing', on);
+    }
+    function removeBg(i) {
+      var url = _productImages[i];
+      if (!url) return;
+      setGalleryProcessing(i, true);
+      loadBgLib()
+        .then(function (lib) {
+          return fetch(url).then(function (r) { return r.blob(); })
+            .then(function (blob) { return lib.removeBackground(blob); });
+        })
+        .then(function (outBlob) {
+          var file = new File([outBlob], 'bg-' + Date.now() + '.png', { type: 'image/png' });
+          return SBHelper.uploadImage(file);
+        })
+        .then(function (newUrl) {
+          _productImages[i] = newUrl;
+          renderGallery();
+          toast('Fondo removido', 'success');
+        })
+        .catch(function (err) {
+          console.error(err);
+          setGalleryProcessing(i, false);
+          toast(t('st_error'), 'error');
+        });
+    }
     function renderGallery() {
       document.getElementById('product-gallery').innerHTML = _productImages.map(function (u, i) {
-        return '<div class="gallery-item"><img src="' + u + '" alt="" /><button class="rm" data-rm-img="' + i + '">&times;</button></div>';
+        return '<div class="gallery-item"><img src="' + u + '" alt="" />' +
+          '<button class="rm" data-rm-img="' + i + '" aria-label="x">&times;</button>' +
+          '<button class="bgx" data-bg-img="' + i + '" title="' + t('bg_remove') + '">&#10022;</button>' +
+          '<span class="g-spin hidden"></span></div>';
       }).join('');
       document.querySelectorAll('[data-rm-img]').forEach(function (b) {
         b.addEventListener('click', function () {
@@ -1016,15 +1069,30 @@
           renderGallery();
         });
       });
+      document.querySelectorAll('[data-bg-img]').forEach(function (b) {
+        b.addEventListener('click', function () { removeBg(Number(b.getAttribute('data-bg-img'))); });
+      });
     }
-    document.getElementById('new-product-images').addEventListener('change', function (e) {
-      var files = Array.prototype.slice.call(e.target.files || []);
-      if (!files.length) return;
+    function addImages(files) {
+      if (!files || !files.length) return;
       Promise.all(files.map(function (f) { return SBHelper.uploadImage(f); })).then(function (urls) {
         _productImages = _productImages.concat(urls);
         renderGallery();
-        document.getElementById('new-product-images').value = '';
+        toast('✓', 'success');
       }).catch(function () { toast(t('st_error'), 'error'); });
+    }
+    document.getElementById('new-product-images').addEventListener('change', function (e) {
+      var files = Array.prototype.slice.call(e.target.files || []);
+      addImages(files);
+      this.value = '';
+    });
+    document.getElementById('btn-take-photo').addEventListener('click', function () {
+      document.getElementById('product-camera').click();
+    });
+    document.getElementById('product-camera').addEventListener('change', function (e) {
+      var f = e.target.files[0];
+      if (f) addImages([f]);
+      this.value = '';
     });
 
     // ===== Productos =====
