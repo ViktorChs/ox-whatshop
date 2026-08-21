@@ -18,6 +18,12 @@
 </head>
 <body class="shop-page">
 
+  <div id="shop-splash">
+    <img id="splash-logo" class="splash-logo" src="./assets/logos/logoB.png" alt="" />
+    <h1 class="splash-title" aria-label="WhatShop"><span id="splash-what" class="what">What</span><span id="splash-shop" class="shop">Shop</span></h1>
+    <div class="splash-spinner" role="status" aria-label="Cargando"></div>
+  </div>
+
   <header class="top-header">
     <div class="top-header-inner">
       <div class="brand">
@@ -243,6 +249,31 @@
     }
     applyThemeMode(localStorage.getItem('whatshop_theme') === 'dark' ? 'dark' : 'light');
 
+    // ===== Splash de carga (3s: tiempo para cargar imagenes y acomodar el contenido) =====
+    var splashEl = document.getElementById('shop-splash');
+    var splashTimer = null;
+    function hideSplash() {
+      if (!splashEl) return;
+      splashEl.classList.add('fade-out');
+      setTimeout(function () { splashEl.style.display = 'none'; }, 600);
+    }
+    function startSplashTimer(seconds) {
+      clearTimeout(splashTimer);
+      splashTimer = setTimeout(hideSplash, Math.max(1, Number(seconds) || 3) * 1000);
+    }
+    function applySplash(s) {
+      if (!splashEl) return;
+      var sp = (s && s.splash) || {};
+      if (sp.background) splashEl.style.background = sp.background;
+      var lg = document.getElementById('splash-logo');
+      if (lg && sp.logo) lg.src = sp.logo;
+      var w = document.getElementById('splash-what');
+      if (w) { if (sp.whatText) w.textContent = sp.whatText; w.style.color = sp.whatColor || '#000000'; }
+      var sh = document.getElementById('splash-shop');
+      if (sh) { if (sp.shopText) sh.textContent = sp.shopText; sh.style.color = sp.shopColor || '#16A34A'; }
+    }
+    startSplashTimer(3);
+
     // ===== Cargar tienda =====
     var settings = { store: {} };
     var currentFilter = '';
@@ -253,6 +284,8 @@
         settings = store.settings || settings;
         window.__settings = settings;
         window.__store = store;
+        applySplash(settings);
+        startSplashTimer((settings.splash && settings.splash.loadingSeconds) || 3);
         applyTheme(settings);
         applyGradient();
         var s = settings.store || {};
