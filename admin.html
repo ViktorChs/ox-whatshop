@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=9" />
-  <link rel="stylesheet" href="./css/admin.css?v=9" />
+  <link rel="stylesheet" href="./css/theme.css?v=10" />
+  <link rel="stylesheet" href="./css/admin.css?v=10" />
 </head>
 <body class="admin-page">
 
@@ -421,9 +421,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=9"></script>
-  <script src="./js/supabase.js?v=9"></script>
-  <script src="./js/color-picker.js?v=9"></script>
+  <script src="./config.js?v=10"></script>
+  <script src="./js/supabase.js?v=10"></script>
+  <script src="./js/color-picker.js?v=10"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -613,11 +613,13 @@
     }
     document.querySelectorAll('.nav .nav-item[data-tab]').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var ch = btn.parentElement.querySelector('.nav-children');
-        if (ch) {
-          ch.classList.toggle('hidden');
-          var chev = btn.querySelector('.chev');
-          if (chev) chev.classList.toggle('open');
+        if (btn.classList.contains('has-children')) {
+          var ch = btn.parentElement.querySelector('.nav-children');
+          if (ch) {
+            ch.classList.toggle('hidden');
+            var chev = btn.querySelector('.chev');
+            if (chev) chev.classList.toggle('open');
+          }
         }
         switchTab(btn.getAttribute('data-tab'));
         if (btn.hasAttribute('data-ap-section')) {
