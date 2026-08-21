@@ -379,3 +379,20 @@ input, select, textarea { font-family: inherit; }
 }
 .cp-hex-input:focus { border-color: var(--primary); outline: none; }
 .cp-preview { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border); }
+
+/* ---------- Nombre de marca (WhatShop) ---------- */
+.ws-name .what { color: var(--text); }
+.ws-name .shop { color: var(--green); }
+
+/* ---------- Botones de subir archivo ---------- */
+.fu { display: flex; align-items: center; gap: 10px; }
+.fu .btn { display: inline-flex; align-items: center; gap: 6px; }
+.fu-name { font-size: .8rem; color: var(--muted); max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- Badge en proceso ---------- */
+.status-badge.en_proceso { background: #FEF3C7; color: #92400E; }
+[data-theme="dark"] .status-badge.en_proceso { background: rgba(146,64,14,.25); color: #FCD34D; }
+
+/* ---------- Preview imagen categoria ---------- */
+.cat-preview { margin-top: 8px; }
+.cat-preview img { max-width: 140px; max-height: 90px; border-radius: 10px; border: 1px solid var(--border); object-fit: cover; }

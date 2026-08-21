@@ -386,6 +386,7 @@ html, body {
   flex: 0 0 auto;
   width: 110px;
   scroll-snap-align: start;
+  border-radius: 12px;
 }
 
 .category-card .cat-img {

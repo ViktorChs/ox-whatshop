@@ -199,7 +199,7 @@
         payment_method: method,
         note: note || '',
         items: cart.map(function (it) {
-          return { id: it.id, name: it.name, price: it.price, qty: it.qty, image: it.image || null, color: it.color, size: it.size };
+          return { id: it.id, variant_id: it.variant_id || '', name: it.name, price: it.price, qty: it.qty, image: it.image || null, color: it.color, size: it.size };
         }),
         total: cartTotal(cart)
       }).catch(function (err) { console.warn('No se pudo guardar el pedido', err); });
