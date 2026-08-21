@@ -35,7 +35,7 @@
       <!-- Sidebar -->
       <aside class="sidebar" id="sidebar">
         <div class="ws">
-          <button class="ws-trigger" id="ws-trigger">
+          <div class="ws-trigger" id="ws-trigger" role="presentation">
             <span class="ws-l">
               <span class="ws-logo-wrap"><img id="ws-logo" src="./assets/logos/logoB.png" alt="WhatShop" /></span>
               <span class="ws-meta">
@@ -43,10 +43,7 @@
                 <span class="ws-plan" id="ws-plan">Mi Tienda</span>
               </span>
             </span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-          </button>
-          <div class="ws-close hidden" id="ws-close"></div>
-          <div class="ws-menu hidden" id="ws-menu"></div>
+          </div>
         </div>
 
         <nav class="nav">
@@ -564,32 +561,7 @@
       var name = activeStore().name || 'Mi Tienda';
       document.getElementById('ws-plan').textContent = name;
       document.getElementById('crumb-store').textContent = name;
-      var menu = document.getElementById('ws-menu');
-      var html = _stores.map(function (s) {
-        return '<button class="ws-item' + (s.id === getActiveStoreId() ? ' active' : '') + '" data-store="' + s.id + '">' +
-          '<span class="ws-avatar" style="width:24px;height:24px;font-size:12px">' + (s.name || '?').charAt(0).toUpperCase() + '</span>' +
-          s.name + '</button>';
-      }).join('');
-      menu.innerHTML = html;
-      menu.querySelectorAll('[data-store]').forEach(function (b) {
-        b.addEventListener('click', function () {
-          setActiveStoreId(Number(b.getAttribute('data-store')));
-          document.getElementById('ws-menu').classList.add('hidden');
-          document.getElementById('ws-close').classList.add('hidden');
-          refreshAll();
-        });
-      });
     }
-    document.getElementById('ws-trigger').addEventListener('click', function () {
-      var menu = document.getElementById('ws-menu');
-      var close = document.getElementById('ws-close');
-      var open = menu.classList.toggle('hidden');
-      close.classList.toggle('hidden', !open);
-    });
-    document.getElementById('ws-close').addEventListener('click', function () {
-      document.getElementById('ws-menu').classList.add('hidden');
-      this.classList.add('hidden');
-    });
 
     // ===== Tabs + breadcrumb =====
     var TAB_TITLES = { 'tab-apariencia': 't_apariencia', 'tab-tienda': 't_tienda', 'tab-productos': 't_productos', 'tab-categorias': 't_categorias', 'tab-plantillas': 't_plantillas', 'tab-pedidos': 't_pedidos', 'tab-analitica': 't_analitica', 'tab-backup': 't_backup', 'tab-config': 't_config' };
