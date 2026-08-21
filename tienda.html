@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/theme.css?v=7" />
-  <link rel="stylesheet" href="./css/tienda.css?v=7" />
+  <link rel="stylesheet" href="./css/theme.css?v=8" />
+  <link rel="stylesheet" href="./css/tienda.css?v=8" />
 </head>
 <body class="shop-page">
 
@@ -159,9 +159,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=7"></script>
-  <script src="./js/supabase.js?v=7"></script>
-  <script src="./js/cart.js?v=7"></script>
+  <script src="./config.js?v=8"></script>
+  <script src="./js/supabase.js?v=8"></script>
+  <script src="./js/cart.js?v=8"></script>
   <script>
     // ===== i18n =====
     var I18N = {
@@ -378,6 +378,15 @@
     }
     function hasVariants(p) { return (p.product_variants || []).some(function (v) { return v.color || v.size; }); }
 
+    function catBorderStyle(c) {
+      if (!c.border_enabled) return '';
+      var col = c.border_color || '#171717';
+      var s = c.border_side || 'all';
+      if (s === 'top') return 'border-top:2px solid ' + col;
+      if (s === 'bottom') return 'border-bottom:2px solid ' + col;
+      if (s === 'sides') return 'border-left:2px solid ' + col + ';border-right:2px solid ' + col;
+      return 'border:2px solid ' + col;
+    }
     function renderCategories() {
       var row = document.getElementById('category-row');
       var storeCats = window.__store && window.__store.categories;
@@ -385,7 +394,8 @@
       if (!cats.length) { row.innerHTML = ''; return; }
       row.innerHTML = cats.map(function (c) {
         var img = c.image ? '<img class="cat-img" src="' + c.image + '" alt="' + c.name + '" loading="lazy" />' : '<div class="placeholder-box cat-img" style="background:' + (c.color || '#E8ECF0') + '"></div>';
-        return '<div class="category-card" data-cat="' + c.id + '" role="button" tabindex="0">' + img + '<div class="cat-label">' + c.name + '</div></div>';
+        var bs = catBorderStyle(c);
+        return '<div class="category-card" data-cat="' + c.id + '" role="button" tabindex="0" style="' + bs + '">' + img + '<div class="cat-label">' + c.name + '</div></div>';
       }).join('');
       row.querySelectorAll('[data-cat]').forEach(function (card) {
         function go() { activeExploreCat = String(card.getAttribute('data-cat')); showView('explore'); renderExploreFilters(); renderExplore(); }
