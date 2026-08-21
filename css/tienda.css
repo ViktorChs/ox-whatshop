@@ -938,10 +938,6 @@ html, body {
     display: none;
   }
 
-  .shop-page {
-    padding-bottom: 24px;
-  }
-
   .products-grid {
     grid-template-columns: repeat(3, 1fr);
   }
