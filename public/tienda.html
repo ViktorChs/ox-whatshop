@@ -273,11 +273,13 @@
         } else notice.classList.add('hidden');
 
         var paySel = document.getElementById('co-payment');
-        var methods = Array.isArray(s.paymentMethods) && s.paymentMethods.length ? s.paymentMethods : [t('pay_cash'), t('pay_transfer'), t('pay_mobile'), t('pay_card')];
-        paySel.innerHTML = '<option value="" data-i18n="co_payment_sel">' + t('co_payment_sel') + '</option>';
-        methods.forEach(function (m) {
-          var opt = document.createElement('option'); opt.textContent = m; paySel.appendChild(opt);
-        });
+        if (paySel) {
+          var methods = Array.isArray(s.paymentMethods) && s.paymentMethods.length ? s.paymentMethods : [t('pay_cash'), t('pay_transfer'), t('pay_mobile'), t('pay_card')];
+          paySel.innerHTML = '<option value="" data-i18n="co_payment_sel">' + t('co_payment_sel') + '</option>';
+          methods.forEach(function (m) {
+            var opt = document.createElement('option'); opt.textContent = m; paySel.appendChild(opt);
+          });
+        }
 
         if (settings.landing && settings.landing.bannerTitle) {
           var el = document.querySelector('[data-i18n="promo_title"]'); if (el) el.textContent = settings.landing.bannerTitle;
