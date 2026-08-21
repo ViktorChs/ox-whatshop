@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=5" />
-  <link rel="stylesheet" href="./css/admin.css?v=5" />
+  <link rel="stylesheet" href="./css/theme.css?v=6" />
+  <link rel="stylesheet" href="./css/admin.css?v=6" />
 </head>
 <body class="admin-page">
 
@@ -48,10 +48,19 @@
 
         <nav class="nav">
           <div class="nav-group">
-            <button class="nav-item active" data-tab="tab-apariencia">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
-              <span data-i18n="nav_apariencia">Apariencia</span>
-            </button>
+            <div class="nav-sub">
+              <button class="nav-item has-children active" data-tab="tab-apariencia">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+                <span data-i18n="nav_apariencia">Apariencia</span>
+                <svg class="chev open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+              <div class="nav-children">
+                <button class="nav-item" data-tab="tab-apariencia" data-ap-section="colores" data-i18n="ap_dd_colores">Colores</button>
+                <button class="nav-item" data-tab="tab-apariencia" data-ap-section="tipografia" data-i18n="ap_dd_tipografia">Tipografía</button>
+                <button class="nav-item" data-tab="tab-apariencia" data-ap-section="marca" data-i18n="ap_dd_marca">Marca</button>
+                <button class="nav-item" data-tab="tab-apariencia" data-ap-section="degradado" data-i18n="ap_dd_degradado">Degradado</button>
+              </div>
+            </div>
             <button class="nav-item" data-tab="tab-tienda">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"/></svg>
               <span data-i18n="nav_tienda">Tienda</span>
@@ -147,7 +156,7 @@
           <section class="pane" id="tab-apariencia">
             <h1 data-i18n="t_apariencia">Apariencia</h1>
             <p class="page-sub" data-i18n="t_apariencia_sub">Colores, tipografía y marca de tu tienda.</p>
-            <div class="panel"><h3 data-i18n="ap_colors">Colores de marca</h3>
+            <div class="panel" id="ap-colores"><h3 data-i18n="ap_colors">Colores de marca</h3>
               <div class="grid-2">
                 <div class="field"><label data-i18n="ap_primary">Color primario</label><input type="color" id="theme-primary" value="#171717" /></div>
                 <div class="field"><label data-i18n="ap_accent">Color de acento</label><input type="color" id="theme-accent" value="#A16207" /></div>
@@ -157,17 +166,17 @@
                 <div class="field"><label data-i18n="ap_muted">Color de tarjetas</label><input type="color" id="theme-muted" value="#E8ECF0" /></div>
               </div>
             </div>
-            <div class="panel"><h3 data-i18n="ap_typo">Tipografía y redondeo</h3>
+            <div class="panel" id="ap-tipografia"><h3 data-i18n="ap_typo">Tipografía y redondeo</h3>
               <div class="grid-2">
                 <div class="field"><label data-i18n="ap_font">Fuente (títulos)</label><input type="text" id="theme-fontheading" value="Plus Jakarta Sans" /></div>
                 <div class="field"><label data-i18n="ap_radius">Radio de borde (px)</label><input type="number" id="theme-radius" value="14" min="1" max="50" /></div>
               </div>
             </div>
-            <div class="panel"><h3 data-i18n="ap_brand">Marca en la barra superior</h3>
+            <div class="panel" id="ap-marca"><h3 data-i18n="ap_brand">Marca en la barra superior</h3>
               <div class="toggle-row"><span data-i18n="ap_show_logo">Mostrar logo</span><label class="switch"><input type="checkbox" id="brand-show-logo" checked /><span class="slider"></span></label></div>
               <div class="toggle-row"><span data-i18n="ap_show_name">Mostrar nombre de la tienda</span><label class="switch"><input type="checkbox" id="brand-show-name" checked /><span class="slider"></span></label></div>
             </div>
-            <div class="panel"><h3 data-i18n="ap_gradient">Fondo con degradado</h3>
+            <div class="panel" id="ap-degradado"><h3 data-i18n="ap_gradient">Fondo con degradado</h3>
               <p class="page-sub" style="margin-bottom:12px" data-i18n="ap_gradient_sub">Degradado sutil del fondo hasta el color elegido.</p>
               <div class="toggle-row"><span data-i18n="ap_gradient_on">Activar degradado</span><label class="switch"><input type="checkbox" id="theme-gradient-toggle" /><span class="slider"></span></label></div>
               <div class="field" style="margin-top:12px"><label data-i18n="ap_gradient_color">Color del degradado (abajo)</label><input type="color" id="theme-gradient-color" value="#FFFFFF" /></div>
@@ -390,8 +399,8 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=5"></script>
-  <script src="./js/supabase.js?v=5"></script>
+  <script src="./config.js?v=6"></script>
+  <script src="./js/supabase.js?v=6"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -419,6 +428,7 @@
         t_apariencia: 'Apariencia', t_apariencia_sub: 'Colores, tipografía y marca de tu tienda.', ap_colors: 'Colores de marca', ap_primary: 'Color primario', ap_accent: 'Color de acento', ap_bg: 'Fondo de la tienda', ap_fg: 'Color de texto', ap_secondary: 'Color secundario', ap_muted: 'Color de tarjetas',
         ap_typo: 'Tipografía y redondeo', ap_font: 'Fuente (títulos)', ap_radius: 'Radio de borde (px)', ap_brand: 'Marca en la barra superior', ap_show_logo: 'Mostrar logo', ap_show_name: 'Mostrar nombre de la tienda',
         ap_gradient: 'Fondo con degradado', ap_gradient_sub: 'Degradado sutil del fondo hasta el color elegido.', ap_gradient_on: 'Activar degradado', ap_gradient_color: 'Color del degradado (abajo)',
+        ap_dd_colores: 'Colores', ap_dd_tipografia: 'Tipografía', ap_dd_marca: 'Marca', ap_dd_degradado: 'Degradado',
         btn_save: 'Guardar cambios', btn_save_store: 'Guardar tienda', btn_save_splash: 'Guardar bienvenida',
         t_tienda: 'Tienda', t_tienda_sub: 'Datos generales, pagos y comunicación.', ti_datos: 'Datos generales', ti_name: 'Nombre de la tienda', ti_whatsapp: 'Número de WhatsApp', ti_currency: 'Moneda', ti_currency_pos: 'Posición de la moneda', ti_cur_before: 'Antes ($10)', ti_cur_after: 'Después (10 $)', ti_open: 'Tienda abierta', ti_closed_msg: 'Mensaje cuando está cerrada',
         ti_pay: 'Métodos de pago', ti_pay_sub: 'Un método por línea.', ti_banner: 'Texto del banner promocional', ti_banner_title: 'Título del banner', ti_banner_discount: 'Descuento del banner',
@@ -447,6 +457,7 @@
         t_apariencia: 'Appearance', t_apariencia_sub: 'Colors, typography and branding of your store.', ap_colors: 'Brand colors', ap_primary: 'Primary color', ap_accent: 'Accent color', ap_bg: 'Store background', ap_fg: 'Text color', ap_secondary: 'Secondary color', ap_muted: 'Card color',
         ap_typo: 'Typography & radius', ap_font: 'Font (headings)', ap_radius: 'Border radius (px)', ap_brand: 'Top bar branding', ap_show_logo: 'Show logo', ap_show_name: 'Show store name',
         ap_gradient: 'Background gradient', ap_gradient_sub: 'Subtle gradient from background to chosen color.', ap_gradient_on: 'Enable gradient', ap_gradient_color: 'Gradient color (bottom)',
+        ap_dd_colores: 'Colors', ap_dd_tipografia: 'Typography', ap_dd_marca: 'Branding', ap_dd_degradado: 'Gradient',
         btn_save: 'Save changes', btn_save_store: 'Save store', btn_save_splash: 'Save welcome',
         t_tienda: 'Store', t_tienda_sub: 'General data, payments and communication.', ti_datos: 'General data', ti_name: 'Store name', ti_whatsapp: 'WhatsApp number', ti_currency: 'Currency', ti_currency_pos: 'Currency position', ti_cur_before: 'Before ($10)', ti_cur_after: 'After (10 $)', ti_open: 'Store open', ti_closed_msg: 'Closed message',
         ti_pay: 'Payment methods', ti_pay_sub: 'One method per line.', ti_banner: 'Promo banner text', ti_banner_title: 'Banner title', ti_banner_discount: 'Banner discount',
@@ -567,7 +578,8 @@
       document.querySelectorAll('.pane').forEach(function (c) { c.classList.add('hidden'); });
       var target = document.getElementById(tabId);
       if (target) target.classList.remove('hidden');
-      document.querySelectorAll('.nav .nav-item').forEach(function (b) {
+      document.querySelectorAll('.nav .nav-item[data-tab]').forEach(function (b) {
+        if (b.closest('.nav-children')) return;
         b.classList.toggle('active', b.getAttribute('data-tab') === tabId);
       });
       var crumb = document.getElementById('crumb-page');
@@ -577,7 +589,19 @@
       if (tabId === 'tab-analitica') loadAnalytics();
     }
     document.querySelectorAll('.nav .nav-item[data-tab]').forEach(function (btn) {
-      btn.addEventListener('click', function () { switchTab(btn.getAttribute('data-tab')); });
+      btn.addEventListener('click', function () {
+        var ch = btn.parentElement.querySelector('.nav-children');
+        if (ch) {
+          ch.classList.toggle('hidden');
+          var chev = btn.querySelector('.chev');
+          if (chev) chev.classList.toggle('open');
+        }
+        switchTab(btn.getAttribute('data-tab'));
+        if (btn.hasAttribute('data-ap-section')) {
+          var el = document.getElementById('ap-' + btn.getAttribute('data-ap-section'));
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
     });
 
     // ===== Sidebar collapse =====
