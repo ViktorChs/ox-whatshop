@@ -107,39 +107,6 @@
     </div>
   </aside>
 
-  <div class="checkout-overlay" id="checkout-overlay">
-    <div class="checkout-panel" role="dialog" aria-modal="true" aria-label="Checkout">
-      <h3 data-i18n="checkout_title">Datos de envío y pago</h3>
-      <div class="co-field">
-        <label for="co-name" data-i18n="co_name">Nombre completo</label>
-        <input id="co-name" type="text" autocomplete="name" data-i18n-ph="co_name_ph" placeholder="Tu nombre" />
-      </div>
-      <div class="co-field">
-        <label for="co-phone" data-i18n="co_phone">Teléfono / WhatsApp</label>
-        <input id="co-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+58 412 000 0000" />
-      </div>
-      <div class="co-field">
-        <label for="co-payment" data-i18n="co_payment">Método de pago</label>
-        <select id="co-payment">
-          <option value="" data-i18n="co_payment_sel">Selecciona...</option>
-          <option data-i18n="pay_cash">Efectivo</option>
-          <option data-i18n="pay_transfer">Transferencia</option>
-          <option data-i18n="pay_mobile">Pago móvil</option>
-          <option data-i18n="pay_card">Tarjeta</option>
-          <option>Zelle</option>
-        </select>
-      </div>
-      <div class="co-field">
-        <label for="co-note" data-i18n="co_note">Nota / referencia (opcional)</label>
-        <textarea id="co-note" data-i18n-ph="co_note_ph" placeholder="Dirección, referencia, talla..."></textarea>
-      </div>
-      <button class="btn-checkout" id="send-whatsapp">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.15-1.7-.85-2-.95-.25-.1-.45-.15-.65.15-.2.3-.75.95-.9 1.15-.15.2-.35.2-.65.05-.3-.15-1.25-.45-2.4-1.5-.9-.8-1.5-1.8-1.65-2.1-.15-.3-.02-.45.15-.6.15-.15.3-.35.45-.55.15-.2.2-.35.3-.55.1-.2.05-.4-.02-.55-.08-.15-.65-1.6-.9-2.2-.25-.55-.5-.5-.65-.5h-.55c-.2 0-.5.07-.75.35-.25.3-1 .95-1 2.35s1 2.7 1.15 2.9c.15.2 1.95 3 4.75 4.2.65.3 1.15.45 1.55.6.65.2 1.25.17 1.7.1.5-.07 1.7-.7 1.95-1.35.25-.65.25-1.2.17-1.35-.07-.1-.25-.2-.5-.3ZM12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.3l-.35-.2-3.55.93.95-3.45-.23-.37a9.4 9.4 0 0 1-1.44-5 9.42 9.42 0 0 1 9.43-9.43 9.36 9.36 0 0 1 6.65 2.76 9.36 9.36 0 0 1 2.77 6.66c0 5.2-4.24 9.4-9.42 9.4Zm8.3-17.7A11.3 11.3 0 0 0 12.04 0C5.5 0 .15 5.35.15 11.9c0 2.1.55 4.1 1.6 5.9L.03 24l6.35-1.65a11.9 11.9 0 0 0 5.66 1.44h.01c6.55 0 11.9-5.35 11.9-11.9 0-3.2-1.25-6.2-3.5-8.5Z"/></svg>
-        <span data-i18n="send_whatsapp">Enviar pedido por WhatsApp</span>
-      </button>
-    </div>
-  </div>
-
   <footer class="shop-footer">
     <div class="footer-inner">
       <div class="footer-brand">

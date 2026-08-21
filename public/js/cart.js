@@ -127,14 +127,19 @@
   function openCheckout() {
     if (!getCart().length) { if (typeof toast === 'function') toast('Tu carrito está vacío', 'error'); return; }
     closeCart();
-    document.getElementById('checkout-overlay').classList.add('open');
+    window.location.href = './checkout.html';
   }
-  function closeCheckout() { document.getElementById('checkout-overlay').classList.remove('open'); }
 
   // Construye el mensaje con la plantilla configurable
+  function sanitizeTpl(tpl) {
+    return tpl
+      .replace(/\\n/g, '\n')
+      .replace(/\\u\{([0-9a-fA-F]+)\}/g, function (_, h) { return String.fromCodePoint(parseInt(h, 16)); })
+      .replace(/\\u([0-9a-fA-F]{4})/g, function (_, h) { return String.fromCharCode(parseInt(h, 16)); });
+  }
   function buildMessage(settings, name, phone, method, note) {
     var s = (settings && settings.store) || {};
-    var tpl = s.messageTemplate;
+    var tpl = sanitizeTpl(s.messageTemplate || '');
     var cart = getCart();
     var items = cart.map(function (it, i) {
       var v = [it.color, it.size].filter(Boolean).join(' ');
@@ -161,13 +166,14 @@
       '\n\nTOTAL: ' + total;
   }
 
-  // Envía el pedido: guarda en Supabase (RPC atomico) y abre WhatsApp
-  function sendOrder(settings) {
+  // Envía el pedido: guarda en Supabase (RPC atomico) y abre WhatsApp.
+  // Devuelve true si el pedido fue procesado (para mostrar estado en checkout.html).
+  function sendOrder(settings, clearCart) {
     var cart = getCart();
-    if (!cart.length) { if (typeof toast === 'function') toast('Tu carrito está vacío', 'error'); return; }
+    if (!cart.length) { if (typeof toast === 'function') toast('Tu carrito está vacío', 'error'); return false; }
     var nameEl = document.getElementById('co-name');
     var name = nameEl.value.trim();
-    if (!name) { if (typeof toast === 'function') toast('Escribe tu nombre', 'error'); nameEl.focus(); return; }
+    if (!name) { if (typeof toast === 'function') toast('Escribe tu nombre', 'error'); nameEl.focus(); return false; }
     var phone = document.getElementById('co-phone').value.trim();
     var method = document.getElementById('co-payment').value || 'Efectivo';
     var note = document.getElementById('co-note').value.trim();
@@ -189,6 +195,12 @@
     }
 
     if (typeof openWhatsApp === 'function') openWhatsApp(msg, s.whatsapp);
+
+    if (clearCart !== false) {
+      saveCart([]);
+      updateBadge();
+    }
+    return true;
   }
 
   function wire() {
@@ -198,8 +210,6 @@
     });
     var go = document.getElementById('go-checkout');
     if (go) go.addEventListener('click', openCheckout);
-    var ov = document.getElementById('checkout-overlay');
-    if (ov) ov.addEventListener('click', function (e) { if (e.target === this) closeCheckout(); });
     var send = document.getElementById('send-whatsapp');
     if (send) send.addEventListener('click', function () { sendOrder(window.__settings || {}); });
   }
@@ -210,6 +220,6 @@
     updateBadge: updateBadge, renderCart: renderCart,
     openCart: openCart, closeCart: closeCart,
     openCheckout: openCheckout, closeCheckout: closeCheckout,
-    sendOrder: sendOrder, wire: wire
+    buildMessage: buildMessage, sendOrder: sendOrder, wire: wire
   };
 })();
