@@ -17,7 +17,7 @@
   <div id="login-view" class="admin-login">
     <div class="login-card">
       <div class="brand">
-        <img src="./assets/logos/logoB.png" alt="Logo" />
+        <img id="login-logo" src="./assets/logos/logoB.png" alt="Logo" />
         <span><span class="what">What</span><span class="shop">Shop</span></span>
       </div>
       <p class="sub" data-i18n="login_sub">Panel de administración</p>
@@ -37,10 +37,10 @@
         <div class="ws">
           <button class="ws-trigger" id="ws-trigger">
             <span class="ws-l">
-              <span class="ws-avatar" id="ws-avatar">W</span>
+              <span class="ws-logo-wrap"><img id="ws-logo" src="./assets/logos/logoB.png" alt="WhatShop" /></span>
               <span class="ws-meta">
-                <span class="ws-name" id="ws-name">Mi Tienda</span>
-                <span class="ws-plan" data-i18n="ws_plan">WhatShop</span>
+                <span class="ws-name">WhatShop</span>
+                <span class="ws-plan" id="ws-plan">Mi Tienda</span>
               </span>
             </span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -140,7 +140,7 @@
               <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
               <svg class="ic-moon" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
             </button>
-            <div class="avatar" id="topbar-avatar">W</div>
+            <div class="avatar" id="topbar-avatar"><img id="topbar-logo" src="./assets/logos/logoB.png" alt="" /></div>
           </div>
         </header>
 
@@ -493,6 +493,11 @@
       var sun = document.querySelector('.ic-sun'), moon = document.querySelector('.ic-moon');
       if (sun) sun.style.display = mode === 'dark' ? 'none' : '';
       if (moon) moon.style.display = mode === 'dark' ? '' : 'none';
+      var logo = mode === 'dark' ? './assets/logos/logoW.png' : './assets/logos/logoB.png';
+      ['ws-logo', 'topbar-logo', 'login-logo'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.src = logo;
+      });
     }
     document.getElementById('theme-toggle').addEventListener('click', function () {
       var cur = document.documentElement.getAttribute('data-theme');
@@ -557,9 +562,7 @@
     }
     function renderStores() {
       var name = activeStore().name || 'Mi Tienda';
-      document.getElementById('ws-name').textContent = name;
-      document.getElementById('ws-avatar').textContent = (name || 'W').charAt(0).toUpperCase();
-      document.getElementById('topbar-avatar').textContent = (name || 'W').charAt(0).toUpperCase();
+      document.getElementById('ws-plan').textContent = name;
       document.getElementById('crumb-store').textContent = name;
       var menu = document.getElementById('ws-menu');
       var html = _stores.map(function (s) {
@@ -762,7 +765,7 @@
         sv('splash-what-text', sp.whatText); sv('splash-what-color', sp.whatColor);
         sv('splash-shop-text', sp.shopText); sv('splash-shop-color', sp.shopColor);
         var stName = s.name || activeStore().name || 'Mi Tienda';
-        document.getElementById('ws-name').textContent = stName;
+        document.getElementById('ws-plan').textContent = stName;
       }).catch(function () {});
     }
 

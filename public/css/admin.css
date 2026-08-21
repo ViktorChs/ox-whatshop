@@ -111,6 +111,12 @@ input, select, textarea { font-family: inherit; }
 .ws-trigger:hover { background: rgba(0,0,0,.04); }
 [data-theme="dark"] .ws-trigger:hover { background: rgba(255,255,255,.05); }
 .ws-l { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.ws-logo-wrap {
+  width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.ws-logo-wrap img { width: 32px; height: 32px; object-fit: contain; }
+.avatar img { width: 26px; height: 26px; object-fit: contain; }
 .ws-avatar {
   width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
