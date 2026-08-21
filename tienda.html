@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/theme.css?v=3" />
-  <link rel="stylesheet" href="./css/tienda.css?v=3" />
+  <link rel="stylesheet" href="./css/theme.css?v=4" />
+  <link rel="stylesheet" href="./css/tienda.css?v=4" />
 </head>
 <body class="shop-page">
 
@@ -22,6 +22,16 @@
     <img id="splash-logo" class="splash-logo" src="./assets/logos/logoB.png" alt="" />
     <h1 class="splash-title" aria-label="WhatShop"><span id="splash-what" class="what">What</span><span id="splash-shop" class="shop">Shop</span></h1>
     <div class="splash-spinner" role="status" aria-label="Cargando"></div>
+  </div>
+
+  <div id="welcome-screen" class="hidden">
+    <div class="welcome-inner">
+      <img id="welcome-logo" class="welcome-logo" src="./assets/logos/logoB.png" alt="" />
+      <p id="welcome-text" class="welcome-text">Bienvenido</p>
+      <button id="welcome-btn" class="liq-btn" aria-label="Entrar a la tienda">
+        <span class="liq-label" data-i18n="enter_store">Entrar a la tienda</span>
+      </button>
+    </div>
   </div>
 
   <header class="top-header">
@@ -149,9 +159,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=3"></script>
-  <script src="./js/supabase.js?v=3"></script>
-  <script src="./js/cart.js?v=3"></script>
+  <script src="./config.js?v=4"></script>
+  <script src="./js/supabase.js?v=4"></script>
+  <script src="./js/cart.js?v=4"></script>
   <script>
     // ===== i18n =====
     var I18N = {
@@ -168,7 +178,7 @@
         send_whatsapp: 'Enviar pedido por WhatsApp',
         cart_empty: 'Tu carrito está vacío', no_products: 'No hay productos', write_name: 'Escribe tu nombre',
         add_to_cart: 'Agregar al carrito', view: 'Ver', total_label: 'TOTAL',
-        out: 'Agotado', offer: 'Oferta', variants: 'variantes', wa_hi: 'Hola, tengo una consulta sobre sus productos.',
+        out: 'Agotado', offer: 'Oferta', variants: 'variantes', enter_store: 'Entrar a la tienda', wa_hi: 'Hola, tengo una consulta sobre sus productos.',
         f_terminos: 'Términos y condiciones', f_privacidad: 'Política de privacidad',
         f_politicas: 'Políticas de compra', f_cookies: 'Política de cookies',
         f_contacto: 'Contacto', f_by: 'Plataforma de tienda de',
@@ -187,7 +197,7 @@
         send_whatsapp: 'Send order via WhatsApp',
         cart_empty: 'Your cart is empty', no_products: 'No products', write_name: 'Enter your name',
         add_to_cart: 'Add to cart', view: 'View', total_label: 'TOTAL',
-        out: 'Out of stock', offer: 'Sale', variants: 'variants', wa_hi: 'Hello, I have a question about your products.',
+        out: 'Out of stock', offer: 'Sale', variants: 'variants', enter_store: 'Enter the store', wa_hi: 'Hello, I have a question about your products.',
         f_terminos: 'Terms and conditions', f_privacidad: 'Privacy policy',
         f_politicas: 'Purchase policies', f_cookies: 'Cookie policy',
         f_contacto: 'Contact', f_by: 'Store platform by',
@@ -249,30 +259,47 @@
     }
     applyThemeMode(localStorage.getItem('whatshop_theme') === 'dark' ? 'dark' : 'light');
 
-    // ===== Splash de carga (3s: tiempo para cargar imagenes y acomodar el contenido) =====
+    // ===== Splash fijo (3s) + pantalla de bienvenida =====
     var splashEl = document.getElementById('shop-splash');
-    var splashTimer = null;
+    var welcomeShown = false;
+    function showWelcome() {
+      if (welcomeShown) return;
+      welcomeShown = true;
+      var w = document.getElementById('welcome-screen');
+      if (!w) return;
+      var sp = (settings && settings.splash) || {};
+      w.style.background = sp.background || '#FFFFFF';
+      var lg = document.getElementById('welcome-logo');
+      lg.src = sp.logo || (settings.landing && settings.landing.logo) || './assets/logos/logoB.png';
+      var tx = document.getElementById('welcome-text');
+      tx.textContent = sp.whatText || 'Bienvenido';
+      tx.style.color = sp.whatColor || '#171717';
+      w.classList.remove('hidden');
+      w.classList.add('show');
+    }
     function hideSplash() {
       if (!splashEl) return;
       splashEl.classList.add('fade-out');
-      setTimeout(function () { splashEl.style.display = 'none'; }, 600);
+      setTimeout(function () {
+        splashEl.style.display = 'none';
+        showWelcome();
+      }, 600);
     }
-    function startSplashTimer(seconds) {
-      clearTimeout(splashTimer);
-      splashTimer = setTimeout(hideSplash, Math.max(1, Number(seconds) || 3) * 1000);
+    setTimeout(hideSplash, 3000);
+    var welcomeBtn = document.getElementById('welcome-btn');
+    if (welcomeBtn) {
+      welcomeBtn.addEventListener('click', function (e) {
+        var rect = welcomeBtn.getBoundingClientRect();
+        var r = document.createElement('span');
+        r.className = 'ripple';
+        r.style.left = (e.clientX - rect.left) + 'px';
+        r.style.top = (e.clientY - rect.top) + 'px';
+        welcomeBtn.appendChild(r);
+        setTimeout(function () { r.remove(); }, 600);
+        var w = document.getElementById('welcome-screen');
+        if (w) w.classList.add('hidden');
+      });
     }
-    function applySplash(s) {
-      if (!splashEl) return;
-      var sp = (s && s.splash) || {};
-      if (sp.background) splashEl.style.background = sp.background;
-      var lg = document.getElementById('splash-logo');
-      if (lg && sp.logo) lg.src = sp.logo;
-      var w = document.getElementById('splash-what');
-      if (w) { if (sp.whatText) w.textContent = sp.whatText; w.style.color = sp.whatColor || '#000000'; }
-      var sh = document.getElementById('splash-shop');
-      if (sh) { if (sp.shopText) sh.textContent = sp.shopText; sh.style.color = sp.shopColor || '#16A34A'; }
-    }
-    startSplashTimer(3);
 
     // ===== Cargar tienda =====
     var settings = { store: {} };
@@ -284,8 +311,6 @@
         settings = store.settings || settings;
         window.__settings = settings;
         window.__store = store;
-        applySplash(settings);
-        startSplashTimer((settings.splash && settings.splash.loadingSeconds) || 3);
         applyTheme(settings);
         applyGradient();
         var s = settings.store || {};

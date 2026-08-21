@@ -979,11 +979,11 @@ html, body {
 .category-card { cursor: pointer; }
 .category-card:hover .cat-label { color: var(--color-primary); }
 
-/* ---------- Splash de carga (3s) ---------- */
+/* ---------- Splash fijo de carga (3s) ---------- */
 #shop-splash {
   position: fixed; inset: 0; z-index: 2000;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px;
-  background: var(--color-background, #FFFFFF);
+  background: #FFFFFF !important;
   transition: opacity 500ms ease, visibility 500ms ease;
 }
 #shop-splash.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
@@ -992,13 +992,84 @@ html, body {
   animation: splash-pop 700ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 #shop-splash .splash-title { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2rem, 8vw, 3.25rem); letter-spacing: -0.02em; }
-#shop-splash .splash-title .what { color: var(--color-foreground, #000); }
-#shop-splash .splash-title .shop { color: var(--color-success, #16A34A); }
+#shop-splash .splash-title .what { color: #000000 !important; }
+#shop-splash .splash-title .shop { color: #16A34A !important; }
 #shop-splash .splash-spinner {
   width: 44px; height: 44px;
-  border: 4px solid color-mix(in srgb, var(--color-success, #16A34A) 25%, transparent);
-  border-top-color: var(--color-success, #16A34A);
+  border: 4px solid color-mix(in srgb, #16A34A 25%, transparent);
+  border-top-color: #16A34A;
   border-radius: 50%; animation: shop-spin 0.9s linear infinite;
 }
 @keyframes shop-spin { to { transform: rotate(360deg); } }
 @keyframes splash-pop { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
+
+/* ---------- Pantalla de bienvenida ---------- */
+#welcome-screen {
+  position: fixed; inset: 0; z-index: 1900;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity 500ms ease, visibility 500ms ease;
+}
+#welcome-screen.show { opacity: 1; visibility: visible; }
+.welcome-inner {
+  display: flex; flex-direction: column; align-items: center; gap: 22px;
+  text-align: center; padding: 24px; max-width: 480px;
+  animation: welcome-in 600ms cubic-bezier(0.34, 1.3, 0.64, 1) both;
+}
+@keyframes welcome-in { from { opacity: 0; transform: translateY(18px) scale(0.97); } to { opacity: 1; transform: none; } }
+.welcome-logo { width: clamp(120px, 30vw, 190px); height: auto; object-fit: contain; }
+.welcome-text { font-family: var(--font-heading); font-size: clamp(1.4rem, 5vw, 2.1rem); font-weight: 700; margin: 0; }
+
+/* ---------- Boton liquid metal (CSS puro) ---------- */
+.liq-btn {
+  position: relative;
+  min-width: 172px; height: 46px; padding: 0 28px;
+  border: none; border-radius: 100px; cursor: pointer;
+  background: linear-gradient(180deg, #202020 0%, #000000 100%);
+  box-shadow:
+    0px 0px 0px 1px rgba(0, 0, 0, 0.3),
+    0px 36px 14px 0px rgba(0, 0, 0, 0.02),
+    0px 20px 12px 0px rgba(0, 0, 0, 0.08),
+    0px 9px 9px 0px rgba(0, 0, 0, 0.12),
+    0px 2px 5px 0px rgba(0, 0, 0, 0.15);
+  display: inline-flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.liq-btn::before {
+  content: "";
+  position: absolute; inset: 0; border-radius: 100px; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 35%, transparent 52%),
+    radial-gradient(120% 90% at 28% 0%, rgba(255,255,255,0.14), transparent 60%);
+}
+.liq-btn .liq-label {
+  position: relative; z-index: 2;
+  font-size: 14px; font-weight: 600; letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+.liq-btn:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0px 0px 0px 1px rgba(0, 0, 0, 0.4),
+    0px 12px 6px 0px rgba(0, 0, 0, 0.05),
+    0px 8px 5px 0px rgba(0, 0, 0, 0.1),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.15),
+    0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+}
+.liq-btn:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.4), inset 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+.liq-btn .ripple {
+  position: absolute; width: 20px; height: 20px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
+  transform: translate(-50%, -50%) scale(0);
+  pointer-events: none;
+  animation: liq-ripple 0.6s ease-out;
+}
+@keyframes liq-ripple {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+}
