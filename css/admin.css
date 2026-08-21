@@ -109,7 +109,9 @@ input, select, textarea { font-family: inherit; }
   padding: 8px; border-radius: 8px; cursor: pointer; border: none; background: transparent; width: 100%;
 }
 .ws-trigger:hover { background: rgba(0,0,0,.04); }
-[data-theme="dark"] .ws-trigger:hover { background: rgba(255,255,255,.05); }
+.ws-trigger { cursor: default; }
+.ws-trigger:hover { background: transparent; }
+[data-theme="dark"] .ws-trigger:hover { background: transparent; }
 .ws-l { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .ws-logo-wrap {
   width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
