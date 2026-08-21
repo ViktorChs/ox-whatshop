@@ -129,6 +129,7 @@
     closeCart();
     window.location.href = './checkout.html';
   }
+  function closeCheckout() { closeCart(); }
 
   // Construye el mensaje con la plantilla configurable
   function sanitizeTpl(tpl) {
