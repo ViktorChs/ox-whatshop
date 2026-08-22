@@ -47,9 +47,8 @@
   }
 
   function changeQty(id, variantId, delta) {
-    var nid = Number(id);
     var cart = getCart();
-    var idx = cart.findIndex(function (it) { return it.id === nid && (it.variant_id || '') === String(variantId || ''); });
+    var idx = cart.findIndex(function (it) { return String(it.id) === String(id) && (it.variant_id || '') === String(variantId || ''); });
     if (idx === -1) return cart;
     cart[idx].qty += delta;
     if (cart[idx].maxStock != null && cart[idx].qty > cart[idx].maxStock) cart[idx].qty = cart[idx].maxStock;
@@ -61,8 +60,14 @@
   }
 
   function removeItem(id, variantId) {
-    var nid = Number(id);
-    var cart = getCart().filter(function (it) { return !(it.id === nid && (it.variant_id || '') === String(variantId || '')); });
+    var cart = getCart();
+    var idx = cart.findIndex(function (it) { return String(it.id) === String(id) && (it.variant_id || '') === String(variantId || ''); });
+    if (idx === -1) {
+      // fallback: quitar por id aunque no coincida la variante
+      cart = cart.filter(function (it) { return String(it.id) !== String(id); });
+    } else {
+      cart.splice(idx, 1);
+    }
     saveCart(cart);
     updateBadge();
     renderCart();
