@@ -1,8 +1,8 @@
 /* OX WhatShop - Pagina de categorias (categorias.html) */
 
 var I18N = {
-  es: { back: 'Volver a la tienda', title: 'Categorías', sub: 'Elige una categoría para ver sus productos.', loading: 'Cargando…', empty: 'No hay categorías todavía.' },
-  en: { back: 'Back to store', title: 'Categories', sub: 'Pick a category to see its products.', loading: 'Loading…', empty: 'No categories yet.' }
+  es: { back: 'Volver a la tienda', title: 'Categorías', sub: 'Elige una categoría para ver sus productos.', loading: 'Cargando…', empty: 'No hay categorías todavía.', nav_home: 'Inicio', nav_explore: 'Explorar', nav_categorias: 'Categorías', nav_cart: 'Carrito', f_terminos: 'Términos y condiciones', f_privacidad: 'Política de privacidad', f_politicas: 'Políticas de compra', f_cookies: 'Política de cookies', f_contacto: 'Contacto', f_by: 'Plataforma de tienda de' },
+  en: { back: 'Back to store', title: 'Categories', sub: 'Pick a category to see its products.', loading: 'Loading…', empty: 'No categories yet.', nav_home: 'Home', nav_explore: 'Explore', nav_categorias: 'Categories', nav_cart: 'Cart', f_terminos: 'Terms and conditions', f_privacidad: 'Privacy policy', f_politicas: 'Purchase policies', f_cookies: 'Cookie policy', f_contacto: 'Contact', f_by: 'Store platform by' }
 };
 var lang = localStorage.getItem('whatshop_lang') === 'en' ? 'en' : 'es';
 function t(key) { var v = I18N[lang][key]; return v != null ? v : key; }
@@ -67,6 +67,15 @@ function init() {
   });
   document.getElementById('cart-open').addEventListener('click', function () { window.location.href = './tienda.html'; });
   document.getElementById('btn-back').addEventListener('click', function () { history.length > 1 ? history.back() : (window.location.href = './tienda.html'); });
+
+  document.querySelectorAll('.top-nav .nav-item, .bottom-nav .nav-item').forEach(function (item) {
+    item.addEventListener('click', function () {
+      var tab = item.getAttribute('data-tab');
+      if (tab === 'home') window.location.href = './tienda.html';
+      else if (tab === 'explore') window.location.href = './tienda.html?view=explore';
+      else if (tab === 'cart') window.location.href = './tienda.html';
+    });
+  });
 
   SBStore().then(function (store) {
     window.__settings = store.settings || {};
