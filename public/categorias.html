@@ -87,6 +87,19 @@
     <div class="cats-empty hidden" id="cats-empty" data-i18n="empty">No hay categorías todavía.</div>
   </main>
 
+  <div class="cart-scrim" id="cart-scrim"></div>
+  <aside class="cart-drawer" id="cart-drawer">
+    <div class="cart-head">
+      <h3 data-i18n="cart">Carrito</h3>
+      <button class="cart-close" id="cart-close" aria-label="Cerrar">&times;</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-foot">
+      <div class="cart-total-row"><span data-i18n="total">Total</span><span class="amount" id="cart-total">$0.00</span></div>
+      <button class="btn-checkout" id="go-checkout" data-i18n="checkout">Proceder al checkout</button>
+    </div>
+  </aside>
+
   <footer class="shop-footer">
     <div class="footer-inner">
       <div class="footer-brand"><img src="./assets/logos/logoB.png" alt="Logo WhatShop" /><span><span class="what">What</span><span class="shop">Shop</span></span></div>

@@ -79,3 +79,24 @@
 .pd-grid { grid-template-columns: 1fr; gap: 24px; }
 .pd-tabs { overflow-x: auto; gap: 16px; }
 .pr-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+/* ---------- Detalles y recomendaciones (base movil) ---------- */
+.pd-tabs { display: flex; gap: 16px; overflow-x: auto; border-bottom: 1px solid #eee; margin-bottom: 24px; }
+.pd-tab { background: none; border: none; padding: 0 0 10px; font-size: 14px; font-weight: 600; color: var(--secondary-text); cursor: pointer; white-space: nowrap; }
+.pd-tab.active { color: var(--primary-text); border-bottom: 2px solid var(--color-primary); }
+.pd-body { color: var(--secondary-text); line-height: 1.6; font-size: 14px; }
+.pd-body p { margin: 0 0 16px; }
+.pd-bullets { list-style: none; padding: 0; margin: 0; }
+.pd-bullets li { display: flex; gap: 10px; padding: 6px 0; }
+.pd-bullets svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; }
+.pd-img { border-radius: 12px; overflow: hidden; margin-top: 12px; }
+.pd-img img { width: 100%; height: auto; display: block; object-fit: cover; }
+.pd-img.empty { display: none; }
+.pr-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.pr-head h2 { font-size: 18px; font-weight: 800; margin: 0; }
+.pr-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.pr-card { cursor: pointer; }
+.pr-card .pr-img { border-radius: 12px; overflow: hidden; background: var(--color-muted); aspect-ratio: 1/1; }
+.pr-card .pr-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pr-card .pr-name { font-weight: 600; font-size: 13px; margin-top: 8px; }
+.pr-card .pr-price { color: var(--secondary-text); font-size: 12px; margin-top: 2px; }

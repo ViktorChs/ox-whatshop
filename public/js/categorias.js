@@ -1,8 +1,8 @@
 /* OX WhatShop - Pagina de categorias (categorias.html) */
 
 var I18N = {
-  es: { back: 'Volver a la tienda', title: 'Categorías', sub: 'Elige una categoría para ver sus productos.', loading: 'Cargando…', empty: 'No hay categorías todavía.', buscar: 'Buscar categorías...', no_results: 'Sin resultados', nav_home: 'Inicio', nav_explore: 'Explorar', nav_categorias: 'Categorías', nav_cart: 'Carrito', f_terminos: 'Términos y condiciones', f_privacidad: 'Política de privacidad', f_politicas: 'Políticas de compra', f_cookies: 'Política de cookies', f_contacto: 'Contacto', f_by: 'Plataforma de tienda de' },
-  en: { back: 'Back to store', title: 'Categories', sub: 'Pick a category to see its products.', loading: 'Loading…', empty: 'No categories yet.', buscar: 'Search categories...', no_results: 'No results', nav_home: 'Home', nav_explore: 'Explore', nav_categorias: 'Categories', nav_cart: 'Cart', f_terminos: 'Terms and conditions', f_privacidad: 'Privacy policy', f_politicas: 'Purchase policies', f_cookies: 'Cookie policy', f_contacto: 'Contact', f_by: 'Store platform by' }
+  es: { back: 'Volver a la tienda', title: 'Categorías', sub: 'Elige una categoría para ver sus productos.', loading: 'Cargando…', empty: 'No hay categorías todavía.', cart: 'Carrito', total: 'Total', checkout: 'Proceder al checkout', buscar: 'Buscar categorías...', no_results: 'Sin resultados', nav_home: 'Inicio', nav_explore: 'Explorar', nav_categorias: 'Categorías', nav_cart: 'Carrito', f_terminos: 'Términos y condiciones', f_privacidad: 'Política de privacidad', f_politicas: 'Políticas de compra', f_cookies: 'Política de cookies', f_contacto: 'Contacto', f_by: 'Plataforma de tienda de' },
+  en: { back: 'Back to store', title: 'Categories', sub: 'Pick a category to see its products.', loading: 'Loading…', empty: 'No categories yet.', cart: 'Cart', total: 'Total', checkout: 'Checkout', buscar: 'Search categories...', no_results: 'No results', nav_home: 'Home', nav_explore: 'Explore', nav_categorias: 'Categories', nav_cart: 'Cart', f_terminos: 'Terms and conditions', f_privacidad: 'Privacy policy', f_politicas: 'Purchase policies', f_cookies: 'Cookie policy', f_contacto: 'Contact', f_by: 'Store platform by' }
 };
 var lang = localStorage.getItem('whatshop_lang') === 'en' ? 'en' : 'es';
 function t(key) { var v = I18N[lang][key]; return v != null ? v : key; }
@@ -58,6 +58,7 @@ function init() {
   applyThemeMode(localStorage.getItem('whatshop_theme') === 'dark' ? 'dark' : 'light');
   document.getElementById('footer-year').textContent = new Date().getFullYear();
   CART.updateBadge();
+  CART.wire();
 
   document.getElementById('theme-toggle').addEventListener('click', function () {
     var cur = document.documentElement.getAttribute('data-theme');
@@ -68,7 +69,7 @@ function init() {
     localStorage.setItem('whatshop_lang', lang);
     applyLang();
   });
-  document.getElementById('cart-open').addEventListener('click', function () { window.location.href = './tienda.html'; });
+  document.getElementById('cart-open').addEventListener('click', CART.openCart);
 
 
   document.querySelectorAll('.top-nav .nav-item, .bottom-nav .nav-item').forEach(function (item) {
@@ -76,7 +77,7 @@ function init() {
       var tab = item.getAttribute('data-tab');
       if (tab === 'home') window.location.href = './tienda.html';
       else if (tab === 'explore') window.location.href = './tienda.html?view=explore';
-      else if (tab === 'cart') window.location.href = './tienda.html';
+      else if (tab === 'cart') CART.openCart();
     });
   });
 

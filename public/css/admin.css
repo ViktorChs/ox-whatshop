@@ -427,3 +427,11 @@ input, select, textarea { font-family: inherit; }
 /* ---------- Scrim del sidebar (movil) ---------- */
 .sidebar-scrim { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 94; display: none; }
 .sidebar-scrim.show { display: block; }
+
+/* ---------- Paletas de colores ---------- */
+.palette-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+.pal-card { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 8px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); cursor: pointer; transition: border-color .15s ease, transform .15s ease; }
+.pal-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+.pal-dots { display: flex; gap: 4px; }
+.pal-dot { width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--border); }
+.pal-name { font-size: .72rem; font-weight: 600; color: var(--muted); text-align: center; line-height: 1.2; }
