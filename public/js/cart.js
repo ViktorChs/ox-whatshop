@@ -59,9 +59,10 @@
     return cart;
   }
 
-  // Elimina del carrito items cuyo producto ya no existe en el catalogo
+  // Elimina del carrito items cuyo producto ya no existe en el catalogo.
+  // Si no hay ids validos (catalogo vacio o no cargó), NO toca el carrito.
   function pruneCart(validIds) {
-    if (!Array.isArray(validIds)) return getCart();
+    if (!Array.isArray(validIds) || !validIds.length) return getCart();
     var cart = getCart().filter(function (it) { return validIds.indexOf(it.id) > -1; });
     saveCart(cart);
     updateBadge();
@@ -98,26 +99,39 @@
       document.getElementById('cart-total').textContent = fmt(0);
       return;
     }
-    box.innerHTML = cart.map(function (it) {
-      var thumb = it.image
-        ? '<img class="placeholder-box thumb" src="' + it.image + '" alt="' + it.name + '" />'
-        : '<div class="placeholder-box thumb" role="img" aria-label="' + it.name + '"></div>';
-      var v = [it.color, it.size].filter(Boolean).join(' · ');
-      return '' +
-        '<div class="cart-item">' +
-          thumb +
-          '<div class="info">' +
-            '<div class="name">' + it.name + (v ? '<br><span style="font-size:.75rem;color:var(--secondary-text)">' + v + '</span>' : '') + '</div>' +
-            '<div class="price">' + fmt(it.price) + '</div>' +
-          '</div>' +
-          '<div class="qty-control">' +
-            '<button data-dec="' + it.id + '" data-v="' + (it.variant_id || '') + '" aria-label="-">-</button>' +
-            '<span>' + it.qty + '</span>' +
-            '<button data-inc="' + it.id + '" data-v="' + (it.variant_id || '') + '" aria-label="+">+</button>' +
-          '</div>' +
-          '<button class="remove" data-remove="' + it.id + '" data-v="' + (it.variant_id || '') + '" aria-label="x">&times;</button>' +
-        '</div>';
-    }).join('');
+    var html;
+    try {
+      html = cart.map(function (it) {
+        var thumb = it.image
+          ? '<img class="placeholder-box thumb" src="' + it.image + '" alt="' + it.name + '" />'
+          : '<div class="placeholder-box thumb" role="img" aria-label="' + it.name + '"></div>';
+        var v = [it.color, it.size].filter(Boolean).join(' · ');
+        return '' +
+          '<div class="cart-item">' +
+            thumb +
+            '<div class="info">' +
+              '<div class="name">' + it.name + (v ? '<br><span style="font-size:.75rem;color:var(--secondary-text)">' + v + '</span>' : '') + '</div>' +
+              '<div class="price">' + fmt(it.price) + '</div>' +
+            '</div>' +
+            '<div class="qty-control">' +
+              '<button data-dec="' + it.id + '" data-v="' + (it.variant_id || '') + '" aria-label="-">-</button>' +
+              '<span>' + it.qty + '</span>' +
+              '<button data-inc="' + it.id + '" data-v="' + (it.variant_id || '') + '" aria-label="+">+</button>' +
+            '</div>' +
+            '<button class="remove" data-remove="' + it.id + '" data-v="' + (it.variant_id || '') + '" aria-label="x">&times;</button>' +
+          '</div>';
+      }).join('');
+    } catch (e) {
+      console.error('renderCart error', e);
+      html = cart.map(function (it) {
+        return '<div class="cart-item"><div class="info"><div class="name">' + (it.name || 'Producto') + '</div>' +
+          '<div class="price">' + fmt(it.price) + '</div></div>' +
+          '<div class="qty-control"><button data-dec="' + it.id + '" data-v="' + (it.variant_id || '') + '">-</button>' +
+          '<span>' + it.qty + '</span><button data-inc="' + it.id + '" data-v="' + (it.variant_id || '') + '">+</button></div>' +
+          '<button class="remove" data-remove="' + it.id + '" data-v="' + (it.variant_id || '') + '">&times;</button></div>';
+      }).join('');
+    }
+    box.innerHTML = html;
     document.getElementById('cart-total').textContent = fmt(cartTotal(cart));
 
     box.querySelectorAll('[data-inc]').forEach(function (b) {
