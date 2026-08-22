@@ -78,11 +78,6 @@ function render() {
   }
   renderDetails('details');
   renderRecs();
-  var pdImg = document.getElementById('pd-img');
-  if (pdImg) {
-    if (imgs[1]) { pdImg.innerHTML = '<img src="' + imgs[1] + '" alt="" loading="lazy" />'; pdImg.classList.remove('empty'); }
-    else pdImg.classList.add('empty');
-  }
 
   var thumbs = document.getElementById('p-thumbs');
   thumbs.innerHTML = imgs.map(function (u, i) {

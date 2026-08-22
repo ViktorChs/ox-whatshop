@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=30" />
-  <link rel="stylesheet" href="./css/admin.css?v=30" />
+  <link rel="stylesheet" href="./css/theme.css?v=31" />
+  <link rel="stylesheet" href="./css/admin.css?v=31" />
 </head>
 <body class="admin-page">
 
@@ -165,6 +165,10 @@
           <section class="pane" id="tab-apariencia">
             <h1 data-i18n="t_apariencia">Apariencia</h1>
             <p class="page-sub" data-i18n="t_apariencia_sub">Colores, tipografía y marca de tu tienda.</p>
+            <div class="panel"><h3 data-i18n="palettes_title">Paletas de colores</h3>
+              <p class="page-sub" style="margin-bottom:10px" data-i18n="palettes_sub">Elige una combinación completa de colores y se aplicará a la tienda.</p>
+              <div id="palette-list" class="palette-list"></div>
+            </div>
             <div class="panel" id="ap-colores"><h3 data-i18n="ap_colors">Colores de marca</h3>
               <div class="grid-2">
                 <div class="field"><label data-i18n="ap_primary">Color primario</label><input type="color" id="theme-primary" value="#171717" /></div>
@@ -423,10 +427,6 @@
           <section class="pane hidden" id="tab-config">
             <h1 data-i18n="t_config">Configuración</h1>
             <p class="page-sub" data-i18n="t_config_sub">PIN de acceso, pantalla de bienvenida y ajustes del panel.</p>
-            <div class="panel"><h3 data-i18n="palettes_title">Paletas de colores</h3>
-              <p class="page-sub" style="margin-bottom:10px" data-i18n="palettes_sub">Elige una combinación completa de colores y se aplicará a la tienda.</p>
-              <div id="palette-list" class="palette-list"></div>
-            </div>
             <div class="panel"><h3 data-i18n="cf_pin">PIN de administrador</h3>
               <p class="page-sub" style="margin-bottom:10px" data-i18n="cf_pin_sub">PIN numérico de 6 dígitos. Cambiará el acceso al panel.</p>
               <div class="grid-2">
@@ -468,9 +468,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=30"></script>
-  <script src="./js/supabase.js?v=30"></script>
-  <script src="./js/color-picker.js?v=30"></script>
+  <script src="./config.js?v=31"></script>
+  <script src="./js/supabase.js?v=31"></script>
+  <script src="./js/color-picker.js?v=31"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
