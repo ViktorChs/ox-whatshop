@@ -209,7 +209,19 @@ const SBHelper = {
     const { error: d0 } = await c.from('product_variants').delete().eq('product_id', productId);
     if (d0) throw d0;
     if (variants && variants.length) {
-      const { error } = await c.from('product_variants').insert(variants.map((v) => ({ product_id: productId, ...v })));
+      const rows = variants.map((v) => ({
+        product_id: productId,
+        store_id: getActiveStoreId(),
+        name: v.name || [v.color, v.size].filter(Boolean).join(' ') || 'Variante',
+        color: v.color || null,
+        color_hex: v.color_hex || null,
+        size: v.size || null,
+        sku: v.sku || null,
+        price: v.price != null ? v.price : null,
+        stock: v.stock != null ? v.stock : 1,
+        position: v.position != null ? v.position : 0
+      }));
+      const { error } = await c.from('product_variants').insert(rows);
       if (error) throw error;
     }
   },
