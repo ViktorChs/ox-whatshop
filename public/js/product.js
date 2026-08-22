@@ -1,8 +1,8 @@
 /* OX WhatShop - Pagina de producto (product.html?id=) */
 
 var I18N = {
-  es: { back: 'Volver a la tienda', loading: 'Cargando…', offer: 'Oferta', color: 'Color', size: 'Talla', add_cart: 'Agregar al carrito', buy: 'Comprar ahora', cart: 'Carrito', total: 'Total', checkout: 'Proceder al checkout', co_title: 'Datos de envío y pago', co_name: 'Nombre completo', co_phone: 'Teléfono / WhatsApp', co_pay: 'Método de pago', co_note: 'Nota / referencia (opcional)', send_wa: 'Enviar pedido por WhatsApp', back_shop: 'Volver a la tienda', out: 'Agotado', stock_n: 'En stock: {n}', sell_variants: 'Elija color y talla', not_found: 'Producto no encontrado' },
-  en: { back: 'Back to store', loading: 'Loading…', offer: 'Sale', color: 'Color', size: 'Size', add_cart: 'Add to cart', buy: 'Buy now', cart: 'Cart', total: 'Total', checkout: 'Checkout', co_title: 'Shipping and payment details', co_name: 'Full name', co_phone: 'Phone / WhatsApp', co_pay: 'Payment method', co_note: 'Note / reference (optional)', send_wa: 'Send order via WhatsApp', back_shop: 'Back to store', out: 'Out of stock', stock_n: 'In stock: {n}', sell_variants: 'Choose color and size', not_found: 'Product not found' }
+  es: { back: 'Volver a la tienda', loading: 'Cargando…', offer: 'Oferta', color: 'Color', size: 'Talla', add_cart: 'Agregar al carrito', buy: 'Comprar ahora', bar_add: 'Agregar', bar_buy: 'Comprar', desc_title: 'Descripción', cart: 'Carrito', total: 'Total', checkout: 'Proceder al checkout', co_title: 'Datos de envío y pago', co_name: 'Nombre completo', co_phone: 'Teléfono / WhatsApp', co_pay: 'Método de pago', co_note: 'Nota / referencia (opcional)', send_wa: 'Enviar pedido por WhatsApp', back_shop: 'Volver a la tienda', out: 'Agotado', stock_n: 'En stock: {n}', sell_variants: 'Elija color y talla', not_found: 'Producto no encontrado' },
+  en: { back: 'Back to store', loading: 'Loading…', offer: 'Sale', color: 'Color', size: 'Size', add_cart: 'Add to cart', buy: 'Buy now', bar_add: 'Add', bar_buy: 'Buy', desc_title: 'Description', cart: 'Cart', total: 'Total', checkout: 'Checkout', co_title: 'Shipping and payment details', co_name: 'Full name', co_phone: 'Phone / WhatsApp', co_pay: 'Payment method', co_note: 'Note / reference (optional)', send_wa: 'Send order via WhatsApp', back_shop: 'Back to store', out: 'Out of stock', stock_n: 'In stock: {n}', sell_variants: 'Choose color and size', not_found: 'Product not found' }
 };
 var lang = localStorage.getItem('whatshop_lang') === 'en' ? 'en' : 'es';
 function t(key) { var v = I18N[lang][key]; return v != null ? v : key; }
@@ -96,6 +96,8 @@ function render() {
   }
   renderSizes();
   updateStock();
+  var bar = document.getElementById('p-bar');
+  if (bar) bar.classList.remove('hidden');
 }
 
 function renderSizes() {
@@ -123,11 +125,33 @@ function renderSizes() {
 function updateStock() {
   var el = document.getElementById('p-stock');
   var needSel = variants.length > 0 && (!selectedColor || !selectedSize);
-  if (needSel) { el.textContent = t('sell_variants'); el.classList.remove('out'); return; }
+  if (needSel) { el.textContent = t('sell_variants'); el.classList.remove('out'); updateBar(); return; }
   var st = variants.length ? comboStock(selectedColor, selectedSize) : totalStock();
   el.textContent = st > 0 ? t('stock_n').replace('{n}', st) : t('out');
   el.classList.toggle('out', st <= 0);
   document.getElementById('btn-add-cart').disabled = st <= 0;
+  updateBar();
+}
+
+function updateBar() {
+  var sel = document.getElementById('p-bar-sel');
+  var price = document.getElementById('p-bar-price');
+  if (!sel || !price || !product) return;
+  var nm = product.name || '';
+  if (variants.length) {
+    if (selectedColor && selectedSize) {
+      sel.textContent = nm + ' · ' + selectedColor + ' · ' + selectedSize;
+    } else if (selectedColor) {
+      sel.textContent = nm + ' · ' + selectedColor + ' · ' + t('sell_variants');
+    } else {
+      sel.textContent = nm + ' · ' + t('sell_variants');
+    }
+    var v = selectedVariant();
+    price.textContent = formatPrice(variantPrice(v), settings);
+  } else {
+    sel.textContent = nm;
+    price.textContent = formatPrice(product.price, settings);
+  }
 }
 
 function selectedVariant() {
@@ -188,6 +212,12 @@ function init() {
     applyTheme(settings);
     var name = (settings.store && settings.store.name) || 'WhatShop';
     document.getElementById('brand-name').textContent = name;
+    var logo = (settings.landing && settings.landing.logo) || './assets/logos/logoB.png';
+    var bl = document.getElementById('brand-logo');
+    bl.style.opacity = '0';
+    bl.onload = function () { bl.style.opacity = '1'; };
+    bl.onerror = function () { bl.src = './assets/logos/logoB.png'; bl.style.opacity = '1'; };
+    bl.src = logo;
     document.title = name;
     var all = [];
     (store.categories || []).forEach(function (c) { (c.products || []).forEach(function (p) { all.push(p); }); });
