@@ -43,6 +43,10 @@
         <img id="brand-logo" src="./assets/logos/logoB.png" alt="Logo" />
         <h1 id="brand-name">WhatShop</h1>
       </div>
+      <div class="search-bar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" id="search-input" data-i18n-ph="buscar" placeholder="Buscar categorías..." aria-label="Buscar categorías" />
+      </div>
       <div class="header-actions">
         <nav class="top-nav" aria-label="Navegación principal">
           <button class="nav-item" data-tab="home" aria-label="Inicio">
@@ -76,12 +80,6 @@
   </header>
 
   <main class="cats-page">
-    <div class="cats-head">
-      <button class="cats-back" id="btn-back">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-        <span data-i18n="back">Volver a la tienda</span>
-      </button>
-    </div>
     <h1 class="cats-title" data-i18n="title">Categorías</h1>
     <p class="cats-sub" data-i18n="sub">Elige una categoría para ver sus productos.</p>
     <div id="cats-loading" style="text-align:center;padding:60px 0;color:var(--secondary-text)" data-i18n="loading">Cargando…</div>
