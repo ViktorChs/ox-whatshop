@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=21" />
-  <link rel="stylesheet" href="./css/admin.css?v=21" />
+  <link rel="stylesheet" href="./css/theme.css?v=22" />
+  <link rel="stylesheet" href="./css/admin.css?v=22" />
 </head>
 <body class="admin-page">
 
@@ -225,6 +225,15 @@
             </div>
             <div class="panel"><h3 data-i18n="ti_msg_wa">Mensaje de WhatsApp</h3>
               <p class="page-sub" style="margin-bottom:10px" data-i18n="ti_msg_wa_sub">Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}</p>
+              <div class="btn-row" id="msg-var-buttons" style="margin-bottom:10px" title="Pulsa para insertar">
+                <button type="button" class="btn ghost small" data-var="{storeName}">{storeName}</button>
+                <button type="button" class="btn ghost small" data-var="{name}">{name}</button>
+                <button type="button" class="btn ghost small" data-var="{phone}">{phone}</button>
+                <button type="button" class="btn ghost small" data-var="{paymentMethod}">{paymentMethod}</button>
+                <button type="button" class="btn ghost small" data-var="{noteText}">{noteText}</button>
+                <button type="button" class="btn ghost small" data-var="{items}">{items}</button>
+                <button type="button" class="btn ghost small" data-var="{total}">{total}</button>
+              </div>
               <div class="field"><textarea id="store-msg-template" rows="6"></textarea></div>
             </div>
             <div class="panel"><h3 data-i18n="ti_logo">Logo de la marca</h3>
@@ -445,9 +454,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=21"></script>
-  <script src="./js/supabase.js?v=21"></script>
-  <script src="./js/color-picker.js?v=21"></script>
+  <script src="./config.js?v=22"></script>
+  <script src="./js/supabase.js?v=22"></script>
+  <script src="./js/color-picker.js?v=22"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -800,6 +809,19 @@
         document.getElementById('logo-status').className = 'status-line ok';
         toast(t('st_saved'), 'success');
       }).catch(function () { document.getElementById('logo-status').textContent = t('st_error'); });
+    });
+
+    // ===== Botones de variables del mensaje de WhatsApp =====
+    document.querySelectorAll('[data-var]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var ta = document.getElementById('store-msg-template');
+        if (!ta) return;
+        var val = b.getAttribute('data-var');
+        var start = ta.selectionStart, end = ta.selectionEnd;
+        ta.value = ta.value.slice(0, start) + val + ta.value.slice(end);
+        ta.selectionStart = ta.selectionEnd = start + val.length;
+        ta.focus();
+      });
     });
 
     // ===== Cargar config en formularios =====
@@ -1289,7 +1311,7 @@
               stock: st.stock != null ? st.stock : 0,
               price: st.price != null && st.price !== '' ? st.price : null,
               sku: (c.name + '-' + sz).replace(/\s+/g, '_')
-            });
+});
           });
         });
       }

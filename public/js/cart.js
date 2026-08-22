@@ -40,8 +40,9 @@
   }
 
   function changeQty(id, variantId, delta) {
+    var nid = Number(id);
     var cart = getCart();
-    var idx = cart.findIndex(function (it) { return it.id === id && (it.variant_id || '') === String(variantId || ''); });
+    var idx = cart.findIndex(function (it) { return it.id === nid && (it.variant_id || '') === String(variantId || ''); });
     if (idx === -1) return cart;
     cart[idx].qty += delta;
     if (cart[idx].qty < 1) cart.splice(idx, 1);
@@ -52,7 +53,8 @@
   }
 
   function removeItem(id, variantId) {
-    var cart = getCart().filter(function (it) { return !(it.id === id && (it.variant_id || '') === String(variantId || '')); });
+    var nid = Number(id);
+    var cart = getCart().filter(function (it) { return !(it.id === nid && (it.variant_id || '') === String(variantId || '')); });
     saveCart(cart);
     updateBadge();
     renderCart();
