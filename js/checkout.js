@@ -29,6 +29,9 @@ var settings = { store: {} };
 
 function renderItems() {
   var cart = CART.getCart();
+  if (!cart.length) { showEmpty(); return; }
+  document.getElementById('co-content').style.display = '';
+  document.getElementById('co-empty').style.display = 'none';
   var box = document.getElementById('co-items');
   box.innerHTML = cart.map(function (it) {
     var thumb = it.image ? '<img src="' + it.image + '" alt="" />' : '<div class="ph"></div>';
