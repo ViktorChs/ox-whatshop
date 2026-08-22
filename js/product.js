@@ -124,12 +124,19 @@ function renderSizes() {
 
 function updateStock() {
   var el = document.getElementById('p-stock');
+  var canBuy = true;
   var needSel = variants.length > 0 && (!selectedColor || !selectedSize);
-  if (needSel) { el.textContent = t('sell_variants'); el.classList.remove('out'); updateBar(); return; }
-  var st = variants.length ? comboStock(selectedColor, selectedSize) : totalStock();
-  el.textContent = st > 0 ? t('stock_n').replace('{n}', st) : t('out');
-  el.classList.toggle('out', st <= 0);
-  document.getElementById('btn-add-cart').disabled = st <= 0;
+  if (needSel) {
+    el.textContent = t('sell_variants'); el.classList.remove('out');
+    canBuy = false;
+  } else {
+    var st = variants.length ? comboStock(selectedColor, selectedSize) : totalStock();
+    el.textContent = st > 0 ? t('stock_n').replace('{n}', st) : t('out');
+    el.classList.toggle('out', st <= 0);
+    canBuy = st > 0;
+  }
+  document.getElementById('btn-add-cart').disabled = !canBuy;
+  document.getElementById('btn-buy').disabled = !canBuy;
   updateBar();
 }
 
@@ -174,6 +181,7 @@ function addToCartThen(checkout) {
     cp.variantId = v.id;
     CART.addItem(cp, { variantId: v.id, color: v.color, size: v.size, qty: qty });
   } else {
+    if (totalStock() <= 0) { toast(t('out'), 'error'); return; }
     CART.addItem(cp, { qty: qty });
   }
   if (checkout) CART.openCheckout();

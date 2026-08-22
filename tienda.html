@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/theme.css?v=22" />
-  <link rel="stylesheet" href="./css/tienda.css?v=22" />
+  <link rel="stylesheet" href="./css/theme.css?v=23" />
+  <link rel="stylesheet" href="./css/tienda.css?v=23" />
 </head>
 <body class="shop-page">
 
@@ -159,9 +159,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=22"></script>
-  <script src="./js/supabase.js?v=22"></script>
-  <script src="./js/cart.js?v=22"></script>
+  <script src="./config.js?v=23"></script>
+  <script src="./js/supabase.js?v=23"></script>
+  <script src="./js/cart.js?v=23"></script>
   <script>
     // ===== i18n =====
     var I18N = {
@@ -405,9 +405,14 @@
       var offer = p.original_price ? '<span class="prod-offer-badge">' + t('offer') + '</span>' : '';
       var stock = prodStock(p);
       var stockTag = stock <= 0 ? '<span class="prod-stock out">' + t('out') + '</span>' : (hasVariants(p) ? '<span class="prod-stock">' + (p.product_variants || []).filter(function (v) { return v.color && v.size; }).length + ' ' + t('variants') + '</span>' : '');
-      var btn = hasVariants(p)
-        ? '<button class="add-btn" data-go="' + p.id + '">' + t('view') + '</button>'
-        : '<button class="add-btn" data-add="' + p.id + '">' + t('add_to_cart') + '</button>';
+      var btn;
+      if (hasVariants(p)) {
+        btn = '<button class="add-btn" data-go="' + p.id + '">' + t('view') + '</button>';
+      } else if (stock <= 0) {
+        btn = '<button class="add-btn" disabled style="opacity:.5;cursor:not-allowed">' + t('out') + '</button>';
+      } else {
+        btn = '<button class="add-btn" data-add="' + p.id + '">' + t('add_to_cart') + '</button>';
+      }
       return '<article class="product-card" data-open="' + p.id + '" style="cursor:pointer">' +
         img + offer +
         '<div class="prod-body">' +
@@ -437,6 +442,7 @@
           var id = Number(btn.getAttribute('data-add'));
           var x = storeProducts.find(function (it) { return it.p.id === id; });
           if (!x) return;
+          if (prodStock(x.p) <= 0) { toast(t('out'), 'error'); return; }
           var imgs = prodImages(x.p);
           CART.addItem({ id: x.p.id, title: x.p.name, price: Number(x.p.price) || 0, image: imgs[0] || null }, { qty: 1 });
         });
