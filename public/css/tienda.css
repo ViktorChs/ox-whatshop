@@ -1026,3 +1026,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
 }
 
 .brand img { transition: opacity 300ms ease; }
+
+/* Promo visual en PC */
+@media (min-width: 768px) {
+  .promo-visual { width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; height: 13rem; }
+}
