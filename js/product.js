@@ -1,8 +1,8 @@
 /* OX WhatShop - Pagina de producto (product.html?id=) */
 
 var I18N = {
-  es: { back: 'Volver a la tienda', loading: 'Cargando…', offer: 'Oferta', color: 'Color', size: 'Talla', add_cart: 'Agregar al carrito', buy: 'Comprar ahora', bar_add: 'Agregar', bar_buy: 'Comprar', desc_title: 'Descripción', cart: 'Carrito', total: 'Total', checkout: 'Proceder al checkout', co_title: 'Datos de envío y pago', co_name: 'Nombre completo', co_phone: 'Teléfono / WhatsApp', co_pay: 'Método de pago', co_note: 'Nota / referencia (opcional)', send_wa: 'Enviar pedido por WhatsApp', back_shop: 'Volver a la tienda', out: 'Agotado', stock_n: 'En stock: {n}', sell_variants: 'Elija color y talla', not_found: 'Producto no encontrado' },
-  en: { back: 'Back to store', loading: 'Loading…', offer: 'Sale', color: 'Color', size: 'Size', add_cart: 'Add to cart', buy: 'Buy now', bar_add: 'Add', bar_buy: 'Buy', desc_title: 'Description', cart: 'Cart', total: 'Total', checkout: 'Checkout', co_title: 'Shipping and payment details', co_name: 'Full name', co_phone: 'Phone / WhatsApp', co_pay: 'Payment method', co_note: 'Note / reference (optional)', send_wa: 'Send order via WhatsApp', back_shop: 'Back to store', out: 'Out of stock', stock_n: 'In stock: {n}', sell_variants: 'Choose color and size', not_found: 'Product not found' }
+  es: { back: 'Volver a la tienda', loading: 'Cargando…', offer: 'Oferta', color: 'Color', size: 'Talla', add_cart: 'Agregar al carrito', buy: 'Comprar ahora', bar_add: 'Agregar', bar_buy: 'Comprar', desc_title: 'Descripción', cart: 'Carrito', total: 'Total', checkout: 'Proceder al checkout', co_title: 'Datos de envío y pago', co_name: 'Nombre completo', co_phone: 'Teléfono / WhatsApp', co_pay: 'Método de pago', co_note: 'Nota / referencia (opcional)', send_wa: 'Enviar pedido por WhatsApp', back_shop: 'Volver a la tienda', out: 'Agotado', stock_n: 'En stock: {n}', sell_variants: 'Elija color y talla', not_found: 'Producto no encontrado', f_terminos: 'Términos y condiciones', f_privacidad: 'Política de privacidad', f_politicas: 'Políticas de compra', f_cookies: 'Política de cookies', f_contacto: 'Contacto', f_by: 'Plataforma de tienda de' },
+  en: { back: 'Back to store', loading: 'Loading…', offer: 'Sale', color: 'Color', size: 'Size', add_cart: 'Add to cart', buy: 'Buy now', bar_add: 'Add', bar_buy: 'Buy', desc_title: 'Description', cart: 'Cart', total: 'Total', checkout: 'Checkout', co_title: 'Shipping and payment details', co_name: 'Full name', co_phone: 'Phone / WhatsApp', co_pay: 'Payment method', co_note: 'Note / reference (optional)', send_wa: 'Send order via WhatsApp', back_shop: 'Back to store', out: 'Out of stock', stock_n: 'In stock: {n}', sell_variants: 'Choose color and size', not_found: 'Product not found', f_terminos: 'Terms and conditions', f_privacidad: 'Privacy policy', f_politicas: 'Purchase policies', f_cookies: 'Cookie policy', f_contacto: 'Contact', f_by: 'Store platform by' }
 };
 var lang = localStorage.getItem('whatshop_lang') === 'en' ? 'en' : 'es';
 function t(key) { var v = I18N[lang][key]; return v != null ? v : key; }
@@ -40,6 +40,13 @@ function comboStock(color, size) {
 function totalStock() {
   if (variants.length) return variants.reduce(function (s, v) { return s + (Number(v.stock) || 0); }, 0);
   return Number(product.stock) || 0;
+}
+function availableStock() {
+  if (variants.length) {
+    if (selectedColor && selectedSize) return comboStock(selectedColor, selectedSize);
+    return 0;
+  }
+  return totalStock();
 }
 
 function render() {
@@ -134,6 +141,7 @@ function updateStock() {
     el.textContent = st > 0 ? t('stock_n').replace('{n}', st) : t('out');
     el.classList.toggle('out', st <= 0);
     canBuy = st > 0;
+    if (qty > st) { qty = Math.max(1, st); document.getElementById('qty-val').textContent = qty; }
   }
   document.getElementById('btn-add-cart').disabled = !canBuy;
   document.getElementById('btn-buy').disabled = !canBuy;
@@ -179,10 +187,10 @@ function addToCartThen(checkout) {
     if (!v || (Number(v.stock) || 0) <= 0) { toast(t('out'), 'error'); return; }
     cp.variantPrice = variantPrice(v);
     cp.variantId = v.id;
-    CART.addItem(cp, { variantId: v.id, color: v.color, size: v.size, qty: qty });
+    CART.addItem(cp, { variantId: v.id, color: v.color, size: v.size, qty: qty, maxStock: Number(v.stock) || 0 });
   } else {
     if (totalStock() <= 0) { toast(t('out'), 'error'); return; }
-    CART.addItem(cp, { qty: qty });
+    CART.addItem(cp, { qty: qty, maxStock: totalStock() });
   }
   if (checkout) CART.openCheckout();
 }
@@ -205,7 +213,7 @@ function init() {
   document.getElementById('cart-open').addEventListener('click', CART.openCart);
   document.getElementById('btn-back').addEventListener('click', function () { window.location.href = './tienda.html'; });
   document.getElementById('qty-dec').addEventListener('click', function () { qty = Math.max(1, qty - 1); document.getElementById('qty-val').textContent = qty; });
-  document.getElementById('qty-inc').addEventListener('click', function () { qty += 1; document.getElementById('qty-val').textContent = qty; });
+  document.getElementById('qty-inc').addEventListener('click', function () { qty = Math.min(qty + 1, Math.max(1, availableStock())); document.getElementById('qty-val').textContent = qty; });
   document.getElementById('btn-add-cart').addEventListener('click', function () { addToCartThen(false); });
   document.getElementById('btn-buy').addEventListener('click', function () { addToCartThen(true); });
   CART.updateBadge();

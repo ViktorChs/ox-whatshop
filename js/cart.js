@@ -12,7 +12,7 @@
 
   function itemKey(it) { return it.id + '|' + (it.variant_id || ''); }
 
-  // Producto -> item de carrito. opts: { variantId, color, size, qty }
+  // Producto -> item de carrito. opts: { variantId, color, size, qty, maxStock }
   function addItem(product, opts) {
     opts = opts || {};
     var cart = getCart();
@@ -20,17 +20,25 @@
       return it.id === product.id && (it.variant_id || '') === String(opts.variantId || '');
     });
     var price = opts.variantId ? (product.variantPrice || product.price) : product.price;
-    if (ex) { ex.qty += (opts.qty || 1); }
+    var maxStock = opts.maxStock != null ? Number(opts.maxStock) : null;
+    var q = opts.qty || 1;
+    if (maxStock != null && maxStock >= 0) q = Math.min(q, maxStock);
+    if (ex) {
+      ex.qty += q;
+      if (maxStock != null) ex.maxStock = maxStock;
+      if (ex.maxStock != null) ex.qty = Math.min(ex.qty, ex.maxStock);
+    }
     else {
       cart.push({
         id: product.id,
         variant_id: opts.variantId || '',
         name: product.title || product.name,
         price: price,
-        qty: opts.qty || 1,
+        qty: q,
         image: product.image || null,
         color: opts.color || null,
-        size: opts.size || null
+        size: opts.size || null,
+        maxStock: maxStock
       });
     }
     saveCart(cart);
@@ -45,6 +53,7 @@
     var idx = cart.findIndex(function (it) { return it.id === nid && (it.variant_id || '') === String(variantId || ''); });
     if (idx === -1) return cart;
     cart[idx].qty += delta;
+    if (cart[idx].maxStock != null && cart[idx].qty > cart[idx].maxStock) cart[idx].qty = cart[idx].maxStock;
     if (cart[idx].qty < 1) cart.splice(idx, 1);
     saveCart(cart);
     updateBadge();
