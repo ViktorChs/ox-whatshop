@@ -276,10 +276,19 @@ input, select, textarea { font-family: inherit; }
 .combo-card input { width: 100%; min-width: 0; padding: 7px 8px; border: 1px solid var(--border); border-radius: 7px; font-size: .82rem; background: var(--card); color: var(--text); }
 
 /* ---------- Galeria ---------- */
-.gallery { display: flex; flex-wrap: wrap; gap: 10px; }
-.gallery-item { position: relative; width: 90px; height: 90px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-.gallery-item .rm { position: absolute; top: 4px; right: 4px; width: 22px; height: 22px; border-radius: 50%; border: none; background: rgba(0,0,0,.65); color: #fff; font-size: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.gallery { display: flex; flex-wrap: wrap; gap: 12px; }
+.gallery-item { width: 150px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: var(--card); }
+.gallery-item .g-photo { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; background: var(--bg-soft); }
+.gallery-item .g-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gallery-item .g-actions { display: flex; }
+.gallery-item .g-action {
+  flex: 1; min-width: 0; height: 34px; border: none; background: transparent;
+  font-size: .74rem; font-weight: 600; color: var(--muted); cursor: pointer; white-space: nowrap; padding: 0 4px;
+}
+.gallery-item .g-action + .g-action { border-left: 1px solid var(--border); }
+.gallery-item .g-action:hover { background: rgba(0,0,0,.05); color: var(--text); }
+[data-theme="dark"] .gallery-item .g-action:hover { background: rgba(255,255,255,.07); }
+.gallery-item .g-action.danger:hover { color: var(--color-destructive, #dc2626); }
 
 /* ---------- Filtros pedidos ---------- */
 .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
@@ -397,14 +406,12 @@ input, select, textarea { font-family: inherit; }
 .cat-preview { margin-top: 8px; }
 .cat-preview img { max-width: 140px; max-height: 90px; border-radius: 10px; border: 1px solid var(--border); object-fit: cover; }
 
-/* ---------- Galeria: quitar fondo + procesando ---------- */
-.gallery-item .bgx {
-  position: absolute; bottom: 4px; left: 4px; width: 24px; height: 24px; border-radius: 50%;
-  border: none; background: rgba(0,0,0,.65); color: #fff; font-size: 12px; line-height: 1;
-  display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2;
-}
-.gallery-item .bgx:hover { background: var(--green); }
+/* ---------- Galeria: spinner de procesamiento ---------- */
 .gallery-item .g-spin { position: absolute; inset: 0; background: rgba(255,255,255,.7); z-index: 3; display: none; align-items: center; justify-content: center; }
 [data-theme="dark"] .gallery-item .g-spin { background: rgba(0,0,0,.6); }
 .gallery-item.processing .g-spin { display: flex; }
 .gallery-item .g-spin::after { content: ""; width: 20px; height: 20px; border-radius: 50%; border: 3px solid var(--border); border-top-color: var(--primary); animation: shop-spin .8s linear infinite; }
+
+/* ---------- Scrim del sidebar (movil) ---------- */
+.sidebar-scrim { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 94; display: none; }
+.sidebar-scrim.show { display: block; }
