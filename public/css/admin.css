@@ -193,7 +193,13 @@ input, select, textarea { font-family: inherit; }
 .cmd-btn kbd { font-family: ui-monospace, monospace; font-size: 10px; color: var(--muted-2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 4px; }
 .cmd-btn:hover { color: var(--text); }
 .lang-pill { height: 32px; padding: 0 10px; border-radius: 7px; border: 1px solid var(--border); background: transparent; color: var(--text); font-weight: 700; font-size: 12px; letter-spacing: .05em; }
-.avatar { width: 30px; height: 30px; border-radius: 999px; background: color-mix(in srgb, var(--primary) 14%, transparent); border: 1px solid color-mix(in srgb, var(--primary) 22%, transparent); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: var(--primary); }
+.avatar { width: 30px; height: 30px; border-radius: 999px; background: transparent; border: none; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; }
+.avatar img { width: 30px; height: 30px; border-radius: 999px; object-fit: contain; }
+
+/* Marca superior (solo movil) */
+.topbar-m-brand { display: none; align-items: center; gap: 8px; }
+.topbar-m-brand img { width: 28px; height: 28px; object-fit: contain; }
+.topbar-m-brand .ws-name { font-size: 14px; font-weight: 700; white-space: nowrap; }
 
 .panes { padding: 24px 28px 48px; max-width: 1100px; width: 100%; margin: 0 auto; }
 .pane h1 { font-size: 1.5rem; margin: 0 0 4px; font-family: var(--font-heading, inherit); }
@@ -333,15 +339,21 @@ input, select, textarea { font-family: inherit; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
-  .sidebar { position: fixed; z-index: 100; box-shadow: var(--shadow-2); }
+  .sidebar { position: fixed; z-index: 100; box-shadow: var(--shadow-2); background: var(--bg) !important; height: 100dvh; overflow-y: auto; padding-bottom: 24px; }
   .sidebar:not(.collapsed) { margin-left: 0; }
   .sidebar.collapsed { margin-left: -260px; }
-  .sidebar.collapsed ~ .main .topbar { padding-left: 56px; }
+  .sidebar .sidebar-foot { margin-top: auto; padding-bottom: 8px; }
   .shell.scrim::after { content: ""; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 90; }
   .panes { padding: 18px 16px 40px; }
-  .crumb span:nth-child(3), .crumb span:nth-child(4) { display: none; }
-  .cmd-btn span { display: none; }
-  .cmd-btn { width: 32px; padding: 0; justify-content: center; }
+  .topbar { padding: 0 12px; }
+  .topbar-m-brand { display: flex; }
+  .topbar .crumb { display: none; }
+  #collapse-btn { display: none; }
+  .topbar .cmd-btn { display: none; }
+  .topbar-r { gap: 6px; }
+  .lang-pill { height: 30px; padding: 0 9px; font-size: 11px; }
+  .topbar .avatar { width: 34px; height: 34px; }
+  .topbar .avatar img { width: 34px; height: 34px; }
 }
 /* ---------- Color picker personalizado (hex + transparencia) ---------- */
 .cp { position: relative; display: flex; align-items: center; gap: 8px; width: 100%; }
