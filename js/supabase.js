@@ -91,7 +91,7 @@ function openWhatsApp(message, phone) {
   const encoded = encodeURIComponent(message);
   let url;
   if (number && number.startsWith('wa.me/')) {
-    url = `${number}?text=${encoded}`;
+    url = `https://${number}?text=${encoded}`;
   } else if (number) {
     url = `https://wa.me/${number.replace(/[^0-9]/g, '')}?text=${encoded}`;
   } else {
