@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/theme.css?v=31" />
-  <link rel="stylesheet" href="./css/tienda.css?v=31" />
+  <link rel="stylesheet" href="./css/theme.css?v=32" />
+  <link rel="stylesheet" href="./css/tienda.css?v=32" />
 </head>
 <body class="shop-page">
 
@@ -67,16 +67,13 @@
     </div>
   </header>
 
+  <section class="promo-banner" aria-label="Oferta">
+    <div class="promo-visual"><img id="promo-logo" src="./assets/logos/logoB.png" alt="" /></div>
+    <div class="promo-name" id="promo-name">WhatShop</div>
+  </section>
+
   <main class="shop-inner">
     <div id="store-notice" class="store-notice hidden"></div>
-
-    <section class="promo-banner" aria-label="Oferta">
-      <div class="promo-copy">
-        <div class="promo-title" data-i18n="promo_title">Rebajas de Año Nuevo</div>
-        <div class="promo-discount" data-i18n="promo_discount">25% descuento</div>
-      </div>
-      <div class="placeholder-box promo-visual" role="img" data-i18n-aria="promo_img"></div>
-    </section>
 
     <section class="section-block" aria-label="Categorías">
       <div class="section-head">
@@ -159,9 +156,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=31"></script>
-  <script src="./js/supabase.js?v=31"></script>
-  <script src="./js/cart.js?v=31"></script>
+  <script src="./config.js?v=32"></script>
+  <script src="./js/supabase.js?v=32"></script>
+  <script src="./js/cart.js?v=32"></script>
   <script>
     // ===== i18n =====
     var I18N = {
@@ -314,24 +311,21 @@
           });
         }
 
-        if (settings.landing && settings.landing.bannerTitle) {
-          var el = document.querySelector('[data-i18n="promo_title"]'); if (el) el.textContent = settings.landing.bannerTitle;
-        }
-        if (settings.landing && settings.landing.bannerDiscount) {
-          var el2 = document.querySelector('[data-i18n="promo_discount"]'); if (el2) el2.textContent = settings.landing.bannerDiscount;
-        }
+        // Banner superior: fondo, logo y nombre
         if (settings.landing && settings.landing.bannerBackground) {
           var bannerEl = document.querySelector('.promo-banner');
           if (bannerEl) bannerEl.style.background = settings.landing.bannerBackground;
         }
-        if (settings.landing && settings.landing.bannerImage) {
-          var pv = document.querySelector('.promo-visual');
-          if (pv) {
-            pv.classList.remove('placeholder-box');
-            pv.innerHTML = '<img src="' + settings.landing.bannerImage + '" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" />';
-            pv.style.background = 'transparent';
-          }
+        var pl = document.getElementById('promo-logo');
+        if (pl) {
+          var logoUrl = (settings.landing && settings.landing.bannerImage) || (settings.landing && settings.landing.logo) || './assets/logos/logoB.png';
+          pl.style.opacity = '0';
+          pl.onload = function () { pl.style.opacity = '1'; };
+          pl.onerror = function () { pl.src = './assets/logos/logoB.png'; pl.style.opacity = '1'; };
+          pl.src = logoUrl;
         }
+        var pn = document.getElementById('promo-name');
+        if (pn) pn.textContent = (settings.landing && settings.landing.bannerName) || name;
 
         storeProducts = [];
         (store.categories || []).forEach(function (c) { (c.products || []).forEach(function (p) { storeProducts.push({ p: p, catId: c.id, catName: c.name }); }); });
