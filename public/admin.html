@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=13" />
-  <link rel="stylesheet" href="./css/admin.css?v=13" />
+  <link rel="stylesheet" href="./css/theme.css?v=14" />
+  <link rel="stylesheet" href="./css/admin.css?v=14" />
 </head>
 <body class="admin-page">
 
@@ -69,6 +69,10 @@
 
           <div class="nav-group">
             <div class="nav-heading" data-i18n="nav_cat_heading">Catálogo</div>
+            <button class="nav-item" data-tab="tab-subir">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+              <span data-i18n="nav_subir">Subir producto</span>
+            </button>
             <button class="nav-item" data-tab="tab-productos">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
               <span data-i18n="nav_productos">Productos</span>
@@ -120,6 +124,7 @@
           </button>
         </div>
       </aside>
+      <div class="sidebar-scrim" id="sidebar-scrim"></div>
 
       <!-- Main -->
       <main class="main">
@@ -226,10 +231,10 @@
             <p class="status-line" id="store-status"></p>
           </section>
 
-          <!-- ===== Productos ===== -->
-          <section class="pane hidden" id="tab-productos">
-            <h1 data-i18n="t_productos">Productos</h1>
-            <p class="page-sub" data-i18n="t_productos_sub">Gestiona productos y sus variantes (color × talla).</p>
+          <!-- ===== Subir producto ===== -->
+          <section class="pane hidden" id="tab-subir">
+            <h1 data-i18n="t_subir">Subir producto</h1>
+            <p class="page-sub" data-i18n="t_subir_sub">Crea y sube un producto nuevo con sus imágenes, variantes y stock.</p>
 
             <div class="panel" id="prod-form-panel">
               <h3><span id="prod-form-title" data-i18n="pr_new">Nuevo producto</span> <span class="status-line" id="prod-form-id" style="margin:0"></span></h3>
@@ -281,7 +286,17 @@
               </div>
               <p class="status-line" id="product-status"></p>
             </div>
+          </section>
 
+          <!-- ===== Productos (gestion) ===== -->
+          <section class="pane hidden" id="tab-productos">
+            <h1 data-i18n="t_productos">Productos</h1>
+            <p class="page-sub" data-i18n="t_productos_sub">Busca y edita los productos que has subido.</p>
+            <div class="panel">
+              <div class="field" style="margin-bottom:0"><label data-i18n="pr_filter_cat">Filtrar por categoría</label>
+                <select id="product-filter-cat"><option value="">Todas</option></select>
+              </div>
+            </div>
             <h3 style="margin:20px 0 10px" data-i18n="pr_existing">Productos existentes</h3>
             <div class="list" id="products-list"></div>
           </section>
@@ -426,9 +441,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=13"></script>
-  <script src="./js/supabase.js?v=13"></script>
-  <script src="./js/color-picker.js?v=13"></script>
+  <script src="./config.js?v=14"></script>
+  <script src="./js/supabase.js?v=14"></script>
+  <script src="./js/color-picker.js?v=14"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -449,7 +464,7 @@
       es: {
         login_sub: 'Panel de administración', login_btn: 'Entrar', login_error: 'PIN incorrecto', login_hint: 'PIN por defecto: 1234',
         ws_plan: 'WhatShop', ws_new: '+ Nueva tienda',
-        nav_apariencia: 'Apariencia', nav_tienda: 'Tienda', nav_cat_heading: 'Catálogo', nav_productos: 'Productos', nav_categorias: 'Categorías', nav_plantillas: 'Plantillas de tallas',
+        nav_apariencia: 'Apariencia', nav_tienda: 'Tienda', nav_cat_heading: 'Catálogo', nav_subir: 'Subir producto', nav_productos: 'Productos', nav_categorias: 'Categorías', nav_plantillas: 'Plantillas de tallas',
         nav_ops_heading: 'Operaciones', nav_pedidos: 'Pedidos', nav_analitica: 'Analítica', nav_sys_heading: 'Sistema', nav_backup: 'Backup', nav_config: 'Configuración',
         nav_ver_tienda: 'Ver tienda', nav_logout: 'Cerrar sesión',
         cmd_search: 'Buscar', cmd_ph: 'Ir a…', cmd_actions: 'Acciones', cmd_logout: 'Cerrar sesión',
@@ -461,10 +476,10 @@
         t_tienda: 'Tienda', t_tienda_sub: 'Datos generales, pagos y comunicación.', ti_datos: 'Datos generales', ti_name: 'Nombre de la tienda', ti_whatsapp: 'Número de WhatsApp', ti_currency: 'Moneda', ti_currency_pos: 'Posición de la moneda', ti_cur_before: 'Antes ($10)', ti_cur_after: 'Después (10 $)', ti_open: 'Tienda abierta', ti_closed_msg: 'Mensaje cuando está cerrada',
         ti_pay: 'Métodos de pago', ti_pay_sub: 'Un método por línea.', ti_banner: 'Texto del banner promocional', ti_banner_title: 'Título del banner', ti_banner_discount: 'Descuento del banner',
         ti_msg_wa: 'Mensaje de WhatsApp', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Logo de la marca', ti_logo_upload: 'Subir logo (PNG, JPG, WebP)',
-        t_productos: 'Productos', t_productos_sub: 'Gestiona productos y sus variantes (color × talla).', pr_new: 'Nuevo producto', pr_edit: 'Editar producto', pr_name: 'Nombre', pr_cat: 'Categoría', pr_price: 'Precio', pr_orig: 'Precio original (opcional, tachado)', pr_stock: 'Stock base', pr_featured: 'Destacado', pr_featured_on: 'Mostrar en Populares', pr_desc: 'Descripción',
+        t_subir: 'Subir producto', t_subir_sub: 'Crea y sube un producto nuevo con sus imágenes, variantes y stock.', t_productos: 'Productos', t_productos_sub: 'Busca y edita los productos que has subido.', pr_filter_cat: 'Filtrar por categoría', pr_filter_all: 'Todas', pr_new: 'Nuevo producto', pr_edit: 'Editar producto', pr_name: 'Nombre', pr_cat: 'Categoría', pr_price: 'Precio', pr_orig: 'Precio original (opcional, tachado)', pr_stock: 'Stock base', pr_featured: 'Destacado', pr_featured_on: 'Mostrar en Populares', pr_desc: 'Descripción',
         pr_images: 'Imágenes del producto (múltiples)', bg_remove: 'Quitar fondo', take_photo: 'Tomar foto', pr_variants: 'Variantes (color × talla)', pr_sizes_src: 'Tallas: plantilla o lista libre', pr_sizes_free: 'Tallas libres (separadas por coma)', pr_apply_sizes: 'Aplicar tallas',
         pr_color_name: 'Color', pr_color_hex: 'Hex', pr_add_color: 'Agregar color', pr_save: 'Guardar producto', pr_cancel: 'Cancelar edición', pr_existing: 'Productos existentes',
-        pr_novariants: 'Sin variantes (usa stock base)', pr_stock2: 'Stock', pr_saving: 'Guardando…', pr_saved: 'Producto guardado',
+        pr_novariants: 'Sin variantes (usa stock base)', pr_stock2: 'Stock', pr_saving: 'Guardando…', pr_saved: 'Producto guardado', bg_ask: '¿Quitar el fondo a estas imágenes?', g_del: 'Eliminar',
         t_categorias: 'Categorías', t_categorias_sub: 'Crea y ordena las categorías de tu catálogo.', ca_new: 'Nueva categoría', ca_edit_title: 'Editar categoría', ca_name: 'Nombre', ca_color: 'Color del recuadro', ca_pos: 'Posición (auto al crear, editable)', ca_image: 'Imagen de la categoría', ca_border: 'Borde', ca_border_on: 'Activar borde', ca_border_color: 'Color del borde', ca_border_side: 'Ubicación', ca_bs_all: 'Todo el contorno', ca_bs_top: 'Solo arriba', ca_bs_bottom: 'Solo abajo', ca_bs_sides: 'Solo lados', ca_add: 'Guardar categoría', ca_cancel: 'Cancelar', ca_edit: 'Guardar', ca_del: 'Eliminar',
         t_plantillas: 'Plantillas de tallas', t_plantillas_sub: 'Conjuntos de tallas según el tipo de producto (zapatos, anillos, cadenas…).', pl_new: 'Nueva plantilla', pl_name: 'Nombre', pl_values: 'Tallas (separadas por coma)', pl_add: 'Crear plantilla', pl_del: 'Eliminar',
         t_pedidos: 'Pedidos', t_pedidos_sub: 'Historial de pedidos enviados por WhatsApp.', ped_refresh: 'Refrescar', ped_none: 'No hay pedidos.', ped_wa: 'WhatsApp', ped_pagado: 'Pagado', ped_entregado: 'Entregado', ped_cancelar: 'Cancelar',
@@ -478,7 +493,7 @@
       en: {
         login_sub: 'Admin panel', login_btn: 'Enter', login_error: 'Wrong PIN', login_hint: 'Default PIN: 1234',
         ws_plan: 'WhatShop', ws_new: '+ New store',
-        nav_apariencia: 'Appearance', nav_tienda: 'Store', nav_cat_heading: 'Catalog', nav_productos: 'Products', nav_categorias: 'Categories', nav_plantillas: 'Size templates',
+        nav_apariencia: 'Appearance', nav_tienda: 'Store', nav_cat_heading: 'Catalog', nav_subir: 'Upload product', nav_productos: 'Products', nav_categorias: 'Categories', nav_plantillas: 'Size templates',
         nav_ops_heading: 'Operations', nav_pedidos: 'Orders', nav_analitica: 'Analytics', nav_sys_heading: 'System', nav_backup: 'Backup', nav_config: 'Settings',
         nav_ver_tienda: 'View store', nav_logout: 'Log out',
         cmd_search: 'Search', cmd_ph: 'Go to…', cmd_actions: 'Actions', cmd_logout: 'Log out',
@@ -490,10 +505,10 @@
         t_tienda: 'Store', t_tienda_sub: 'General data, payments and communication.', ti_datos: 'General data', ti_name: 'Store name', ti_whatsapp: 'WhatsApp number', ti_currency: 'Currency', ti_currency_pos: 'Currency position', ti_cur_before: 'Before ($10)', ti_cur_after: 'After (10 $)', ti_open: 'Store open', ti_closed_msg: 'Closed message',
         ti_pay: 'Payment methods', ti_pay_sub: 'One method per line.', ti_banner: 'Promo banner text', ti_banner_title: 'Banner title', ti_banner_discount: 'Banner discount',
         ti_msg_wa: 'WhatsApp message', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Store logo', ti_logo_upload: 'Upload logo (PNG, JPG, WebP)',
-        t_productos: 'Products', t_productos_sub: 'Manage products and their variants (color × size).', pr_new: 'New product', pr_edit: 'Edit product', pr_name: 'Name', pr_cat: 'Category', pr_price: 'Price', pr_orig: 'Original price (optional, strikethrough)', pr_stock: 'Base stock', pr_featured: 'Featured', pr_featured_on: 'Show in Popular', pr_desc: 'Description',
+        t_subir: 'Upload product', t_subir_sub: 'Create and upload a new product with images, variants and stock.', t_productos: 'Products', t_productos_sub: 'Find and edit the products you uploaded.', pr_filter_cat: 'Filter by category', pr_filter_all: 'All', pr_new: 'New product', pr_edit: 'Edit product', pr_name: 'Name', pr_cat: 'Category', pr_price: 'Price', pr_orig: 'Original price (optional, strikethrough)', pr_stock: 'Base stock', pr_featured: 'Featured', pr_featured_on: 'Show in Popular', pr_desc: 'Description',
         pr_images: 'Product images (multiple)', bg_remove: 'Remove background', take_photo: 'Take photo', pr_variants: 'Variants (color × size)', pr_sizes_src: 'Sizes: template or free list', pr_sizes_free: 'Free sizes (comma separated)', pr_apply_sizes: 'Apply sizes',
         pr_color_name: 'Color', pr_color_hex: 'Hex', pr_add_color: 'Add color', pr_save: 'Save product', pr_cancel: 'Cancel edit', pr_existing: 'Existing products',
-        pr_novariants: 'No variants (uses base stock)', pr_stock2: 'Stock', pr_saving: 'Saving…', pr_saved: 'Product saved',
+        pr_novariants: 'No variants (uses base stock)', pr_stock2: 'Stock', pr_saving: 'Saving…', pr_saved: 'Product saved', bg_ask: 'Remove background from these images?', g_del: 'Delete',
         t_categorias: 'Categories', t_categorias_sub: 'Create and order your catalog categories.', ca_new: 'New category', ca_edit_title: 'Edit category', ca_name: 'Name', ca_color: 'Box color', ca_pos: 'Position (auto on create, editable)', ca_image: 'Category image', ca_border: 'Border', ca_border_on: 'Enable border', ca_border_color: 'Border color', ca_border_side: 'Position', ca_bs_all: 'Whole outline', ca_bs_top: 'Top only', ca_bs_bottom: 'Bottom only', ca_bs_sides: 'Sides only', ca_add: 'Save category', ca_cancel: 'Cancel', ca_edit: 'Save', ca_del: 'Delete',
         t_plantillas: 'Size templates', t_plantillas_sub: 'Size sets by product type (shoes, rings, chains…).', pl_new: 'New template', pl_name: 'Name', pl_values: 'Sizes (comma separated)', pl_add: 'Create template', pl_del: 'Delete',
         t_pedidos: 'Orders', t_pedidos_sub: 'Order history sent via WhatsApp.', ped_refresh: 'Refresh', ped_none: 'No orders.', ped_wa: 'WhatsApp', ped_pagado: 'Paid', ped_entregado: 'Delivered', ped_cancelar: 'Cancel',
@@ -601,7 +616,7 @@
     }
 
     // ===== Tabs + breadcrumb =====
-    var TAB_TITLES = { 'tab-apariencia': 't_apariencia', 'tab-tienda': 't_tienda', 'tab-productos': 't_productos', 'tab-categorias': 't_categorias', 'tab-plantillas': 't_plantillas', 'tab-pedidos': 't_pedidos', 'tab-analitica': 't_analitica', 'tab-backup': 't_backup', 'tab-config': 't_config' };
+    var TAB_TITLES = { 'tab-apariencia': 't_apariencia', 'tab-tienda': 't_tienda', 'tab-subir': 't_subir', 'tab-productos': 't_productos', 'tab-categorias': 't_categorias', 'tab-plantillas': 't_plantillas', 'tab-pedidos': 't_pedidos', 'tab-analitica': 't_analitica', 'tab-backup': 't_backup', 'tab-config': 't_config' };
     function switchTab(tabId) {
       document.querySelectorAll('.pane').forEach(function (c) { c.classList.add('hidden'); });
       var target = document.getElementById(tabId);
@@ -615,6 +630,7 @@
       crumb.textContent = t(TAB_TITLES[tabId] || 't_apariencia');
       if (tabId === 'tab-pedidos') loadOrders();
       if (tabId === 'tab-analitica') loadAnalytics();
+      if (isMobile()) setSidebar(false);
     }
     document.querySelectorAll('.nav .nav-item[data-tab]').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -634,15 +650,25 @@
       });
     });
 
-    // ===== Sidebar collapse =====
+    // ===== Sidebar (drawer en movil) =====
+    function isMobile() { return window.matchMedia('(max-width: 768px)').matches; }
+    function setSidebar(open) {
+      var sb = document.getElementById('sidebar');
+      var scrim = document.getElementById('sidebar-scrim');
+      sb.classList.toggle('collapsed', !open);
+      if (scrim) scrim.classList.toggle('show', open && isMobile());
+    }
     document.getElementById('collapse-btn').addEventListener('click', function () {
-      document.getElementById('sidebar').classList.toggle('collapsed');
+      var sb = document.getElementById('sidebar');
+      setSidebar(sb.classList.contains('collapsed'));
     });
+    document.getElementById('sidebar-scrim').addEventListener('click', function () { setSidebar(false); });
 
     // ===== Command palette (Ctrl+K) =====
     var CMD_ITEMS = [
       { id: 'tab-apariencia', label: 'nav_apariencia', icon: 'settings' },
       { id: 'tab-tienda', label: 'nav_tienda', icon: 'settings' },
+      { id: 'tab-subir', label: 'nav_subir', icon: 'download' },
       { id: 'tab-productos', label: 'nav_productos', icon: 'package' },
       { id: 'tab-categorias', label: 'nav_categorias', icon: 'folder' },
       { id: 'tab-plantillas', label: 'nav_plantillas', icon: 'ruler' },
@@ -797,6 +823,7 @@
 
     // ===== Categorías =====
     var _editingCategory = null;
+    var _catNames = {};
     function resetCategoryForm() {
       _editingCategory = null;
       document.getElementById('new-category-name').value = '';
@@ -833,8 +860,14 @@
     function loadCategories() {
       SBHelper.getCategories().then(function (cats) {
         var box = document.getElementById('categories-list');
+        _catNames = {};
+        cats.forEach(function (c) { _catNames[c.id] = c.name; });
         var catSel = document.getElementById('new-product-category');
         catSel.innerHTML = '<option value="">—</option>' + cats.map(function (c) { return '<option value="' + c.id + '">' + c.name + '</option>'; }).join('');
+        var filterSel = document.getElementById('product-filter-cat');
+        if (filterSel) {
+          filterSel.innerHTML = '<option value="">' + t('pr_filter_all') + '</option>' + cats.map(function (c) { return '<option value="' + c.id + '">' + c.name + '</option>'; }).join('');
+        }
         var maxPos = cats.reduce(function (m, c) { return Math.max(m, c.position || 0); }, 0);
         if (!_editingCategory && !document.getElementById('new-category-position').value) {
           document.getElementById('new-category-position').value = maxPos + 1;
@@ -1058,10 +1091,12 @@
     }
     function renderGallery() {
       document.getElementById('product-gallery').innerHTML = _productImages.map(function (u, i) {
-        return '<div class="gallery-item"><img src="' + u + '" alt="" />' +
-          '<button class="rm" data-rm-img="' + i + '" aria-label="x">&times;</button>' +
-          '<button class="bgx" data-bg-img="' + i + '" title="' + t('bg_remove') + '">&#10022;</button>' +
-          '<span class="g-spin hidden"></span></div>';
+        return '<div class="gallery-item">' +
+          '<div class="g-photo"><img src="' + u + '" alt="" /><span class="g-spin hidden"></span></div>' +
+          '<div class="g-actions">' +
+            '<button type="button" class="g-action" data-bg-img="' + i + '" title="' + t('bg_remove') + '">&#10022; ' + t('bg_remove') + '</button>' +
+            '<button type="button" class="g-action danger" data-rm-img="' + i + '">' + t('g_del') + '</button>' +
+          '</div></div>';
       }).join('');
       document.querySelectorAll('[data-rm-img]').forEach(function (b) {
         b.addEventListener('click', function () {
@@ -1073,12 +1108,39 @@
         b.addEventListener('click', function () { removeBg(Number(b.getAttribute('data-bg-img'))); });
       });
     }
+    function processUrls(urls) {
+      return loadBgLib().then(function (lib) {
+        var results = [];
+        var chain = Promise.resolve();
+        urls.forEach(function (url) {
+          chain = chain.then(function () {
+            return fetch(url).then(function (r) { return r.blob(); })
+              .then(function (blob) { return lib.removeBackground(blob); })
+              .then(function (outBlob) {
+                return new File([outBlob], 'bg-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.png', { type: 'image/png' });
+              })
+              .then(function (file) { return SBHelper.uploadImage(file); })
+              .then(function (u) { results.push(u); });
+          });
+        });
+        return chain.then(function () { return results; });
+      });
+    }
     function addImages(files) {
       if (!files || !files.length) return;
+      var doBg = confirm(t('bg_ask'));
       Promise.all(files.map(function (f) { return SBHelper.uploadImage(f); })).then(function (urls) {
-        _productImages = _productImages.concat(urls);
-        renderGallery();
-        toast('✓', 'success');
+        if (!doBg) {
+          _productImages = _productImages.concat(urls);
+          renderGallery();
+          return;
+        }
+        toast('Quitando fondo…');
+        return processUrls(urls).then(function (processed) {
+          _productImages = _productImages.concat(processed);
+          renderGallery();
+          toast('✓', 'success');
+        });
       }).catch(function () { toast(t('st_error'), 'error'); });
     }
     document.getElementById('new-product-images').addEventListener('change', function (e) {
@@ -1116,14 +1178,18 @@
     function loadProducts() {
       SBHelper.getProducts().then(function (prods) {
         var box = document.getElementById('products-list');
-        if (!prods.length) { box.innerHTML = '<p class="empty">' + t('empty_prod') + '</p>'; return; }
-        box.innerHTML = prods.map(function (p) {
+        var filterCat = document.getElementById('product-filter-cat');
+        var fcat = filterCat ? filterCat.value : '';
+        var filtered = fcat ? prods.filter(function (p) { return String(p.category_id) === fcat; }) : prods;
+        if (!filtered.length) { box.innerHTML = '<p class="empty">' + t('empty_prod') + '</p>'; return; }
+        box.innerHTML = filtered.map(function (p) {
           var imgs = (p.images && p.images.length) ? p.images : (p.image ? [p.image] : []);
           var thumb = imgs[0] ? '<img src="' + imgs[0] + '" alt="" />' : t('empty_prod');
           var vars = (p.product_variants || []).length ? '<div class="sub">' + (p.product_variants || []).length + ' variantes</div>' : '';
+          var catName = _catNames[p.category_id] ? ' · ' + _catNames[p.category_id] : '';
           return '<div class="list-row">' +
             '<div class="thumb">' + thumb + '</div>' +
-            '<div class="info"><div class="title">' + p.name + '</div>' + vars +
+            '<div class="info"><div class="title">' + p.name + catName + '</div>' + vars +
             '<div class="sub">' + formatPrice(p.price, _settings) + (p.original_price ? ' · <s>' + formatPrice(p.original_price, _settings) + '</s>' : '') + ' · stock ' + p.stock + '</div></div>' +
             '<div class="actions">' +
               '<button class="btn ghost small" data-edit-prod="' + p.id + '">' + t('edit') + '</button>' +
@@ -1172,11 +1238,17 @@
         document.getElementById('variant-sizes-free').value = _variantSizes.join(', ');
         document.getElementById('prod-form-title').textContent = t('pr_edit');
         document.getElementById('btn-cancel-product').classList.remove('hidden');
-        document.getElementById('prod-form-panel').scrollIntoView({ behavior: 'smooth' });
+        switchTab('tab-subir');
         renderColors(); renderCombos(); renderGallery();
+        setTimeout(function () { document.getElementById('prod-form-panel').scrollIntoView({ behavior: 'smooth' }); }, 60);
       });
     }
-    document.getElementById('btn-cancel-product').addEventListener('click', resetProductForm);
+    document.getElementById('btn-cancel-product').addEventListener('click', function () {
+      resetProductForm();
+      switchTab('tab-productos');
+    });
+    var filterCatEl = document.getElementById('product-filter-cat');
+    if (filterCatEl) filterCatEl.addEventListener('change', loadProducts);
 
     document.getElementById('btn-save-product').addEventListener('click', function () {
       var name = document.getElementById('new-product-name').value.trim();
@@ -1207,7 +1279,8 @@
         });
       }
       var save;
-      if (_editingProduct) {
+      var wasEditing = !!_editingProduct;
+      if (wasEditing) {
         save = SBHelper.updateProduct(_editingProduct, base).then(function () { return SBHelper.replaceVariants(_editingProduct, variants); });
       } else {
         save = SBHelper.addProduct(base).then(function (row) { return SBHelper.replaceVariants(row.id, variants); });
@@ -1216,6 +1289,7 @@
         toast(t('pr_saved'), 'success');
         resetProductForm();
         loadProducts();
+        if (wasEditing) switchTab('tab-productos');
       }).catch(function () { toast(t('st_error'), 'error'); });
     });
 
@@ -1482,6 +1556,7 @@
     resetProductForm();
     resetCategoryForm();
     styleFileInputs();
+    if (isMobile()) setSidebar(false);
     if (sessionStorage.getItem('whatshop_admin')) { showPanel(); }
   </script>
 </body>
