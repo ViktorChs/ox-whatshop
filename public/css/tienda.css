@@ -473,7 +473,7 @@ html, body {
 }
 
 .add-btn {
-  margin-top: 8px;
+  margin-top: auto;
   padding: 10px 12px;
   border: none;
   border-radius: 10px;

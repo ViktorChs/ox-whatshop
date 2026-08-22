@@ -1,8 +1,8 @@
 /* OX WhatShop - Pagina de categorias (categorias.html) */
 
 var I18N = {
-  es: { back: 'Volver a la tienda', title: 'Categorías', sub: 'Elige una categoría para ver sus productos.', loading: 'Cargando…', empty: 'No hay categorías todavía.', nav_home: 'Inicio', nav_explore: 'Explorar', nav_categorias: 'Categorías', nav_cart: 'Carrito', f_terminos: 'Términos y condiciones', f_privacidad: 'Política de privacidad', f_politicas: 'Políticas de compra', f_cookies: 'Política de cookies', f_contacto: 'Contacto', f_by: 'Plataforma de tienda de' },
-  en: { back: 'Back to store', title: 'Categories', sub: 'Pick a category to see its products.', loading: 'Loading…', empty: 'No categories yet.', nav_home: 'Home', nav_explore: 'Explore', nav_categorias: 'Categories', nav_cart: 'Cart', f_terminos: 'Terms and conditions', f_privacidad: 'Privacy policy', f_politicas: 'Purchase policies', f_cookies: 'Cookie policy', f_contacto: 'Contact', f_by: 'Store platform by' }
+  es: { back: 'Volver a la tienda', title: 'Categorías', sub: 'Elige una categoría para ver sus productos.', loading: 'Cargando…', empty: 'No hay categorías todavía.', buscar: 'Buscar categorías...', no_results: 'Sin resultados', nav_home: 'Inicio', nav_explore: 'Explorar', nav_categorias: 'Categorías', nav_cart: 'Carrito', f_terminos: 'Términos y condiciones', f_privacidad: 'Política de privacidad', f_politicas: 'Políticas de compra', f_cookies: 'Política de cookies', f_contacto: 'Contacto', f_by: 'Plataforma de tienda de' },
+  en: { back: 'Back to store', title: 'Categories', sub: 'Pick a category to see its products.', loading: 'Loading…', empty: 'No categories yet.', buscar: 'Search categories...', no_results: 'No results', nav_home: 'Home', nav_explore: 'Explore', nav_categorias: 'Categories', nav_cart: 'Cart', f_terminos: 'Terms and conditions', f_privacidad: 'Privacy policy', f_politicas: 'Purchase policies', f_cookies: 'Cookie policy', f_contacto: 'Contact', f_by: 'Store platform by' }
 };
 var lang = localStorage.getItem('whatshop_lang') === 'en' ? 'en' : 'es';
 function t(key) { var v = I18N[lang][key]; return v != null ? v : key; }
@@ -31,10 +31,13 @@ function catBorderStyle(c) {
   return 'border:2px solid ' + col;
 }
 
+var _allCats = [];
 function render(cats) {
   var grid = document.getElementById('cats-grid');
   document.getElementById('cats-loading').classList.add('hidden');
-  if (!cats || !cats.length) { document.getElementById('cats-empty').classList.remove('hidden'); return; }
+  var emp = document.getElementById('cats-empty');
+  if (!cats || !cats.length) { emp.textContent = _allCats.length ? t('no_results') : t('empty'); emp.classList.remove('hidden'); grid.classList.add('hidden'); return; }
+  emp.classList.add('hidden');
   grid.classList.remove('hidden');
   grid.innerHTML = cats.map(function (c) {
     var media = c.image
@@ -66,7 +69,7 @@ function init() {
     applyLang();
   });
   document.getElementById('cart-open').addEventListener('click', function () { window.location.href = './tienda.html'; });
-  document.getElementById('btn-back').addEventListener('click', function () { history.length > 1 ? history.back() : (window.location.href = './tienda.html'); });
+
 
   document.querySelectorAll('.top-nav .nav-item, .bottom-nav .nav-item').forEach(function (item) {
     item.addEventListener('click', function () {
@@ -86,7 +89,13 @@ function init() {
     document.getElementById('brand-logo').src = (store.settings && store.settings.landing && store.settings.landing.logo) || './assets/logos/logoB.png';
     document.getElementById('footer-brand-name').textContent = name;
     document.title = t('title') + ' - ' + name;
-    render(store.categories || []);
+    _allCats = store.categories || [];
+    render(_allCats);
+    document.getElementById('search-input').addEventListener('input', function (e) {
+      var q = e.target.value.trim().toLowerCase();
+      var list = q ? _allCats.filter(function (c) { return (c.name || '').toLowerCase().indexOf(q) > -1; }) : _allCats;
+      render(list);
+    });
   }).catch(function (err) {
     console.error(err);
     document.getElementById('cats-loading').textContent = t('empty');

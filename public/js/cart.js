@@ -43,7 +43,6 @@
     }
     saveCart(cart);
     updateBadge();
-    if (typeof toast === 'function') toast('✓', 'success');
     return cart;
   }
 
