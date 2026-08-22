@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/theme.css?v=32" />
-  <link rel="stylesheet" href="./css/tienda.css?v=32" />
+  <link rel="stylesheet" href="./css/theme.css?v=33" />
+  <link rel="stylesheet" href="./css/tienda.css?v=33" />
 </head>
 <body class="shop-page">
 
@@ -88,6 +88,9 @@
         <h2 data-i18n="popular_title">Productos Populares</h2>
       </div>
       <div class="products-grid" id="products-grid"></div>
+      <div style="text-align:center;margin-top:20px">
+        <button class="btn-go-store" id="btn-go-store" data-i18n="go_store">Ir a la tienda</button>
+      </div>
     </section>
 
     <section class="section-block hidden" id="explore-view" aria-label="Explorar">
@@ -156,9 +159,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=32"></script>
-  <script src="./js/supabase.js?v=32"></script>
-  <script src="./js/cart.js?v=32"></script>
+  <script src="./config.js?v=33"></script>
+  <script src="./js/supabase.js?v=33"></script>
+  <script src="./js/cart.js?v=33"></script>
   <script>
     // ===== i18n =====
     var I18N = {
@@ -166,7 +169,7 @@
         nav_home: 'Inicio', nav_explore: 'Explorar', nav_categorias: 'Categorías', nav_cart: 'Carrito',
         buscar: 'Buscar productos...',
         promo_title: 'Rebajas de Año Nuevo', promo_discount: '25% descuento', promo_img: 'Imagen de promoción',
-        categories_title: 'Categorías', popular_title: 'Productos Populares', view_all: 'Ver todas', view_all_cats: 'Ver todas las categorías',
+        categories_title: 'Categorías', popular_title: 'Productos Populares', view_all: 'Ver todas', view_all_cats: 'Ver todas las categorías', go_store: 'Ir a la tienda',
         cart_title: 'Carrito', cart_total: 'Total', cart_checkout: 'Proceder al checkout',
         checkout_title: 'Datos de envío y pago', co_name: 'Nombre completo', co_name_ph: 'Tu nombre',
         co_phone: 'Teléfono / WhatsApp', co_payment: 'Método de pago', co_payment_sel: 'Selecciona...',
@@ -185,7 +188,7 @@
         nav_home: 'Home', nav_explore: 'Explore', nav_categorias: 'Categories', nav_cart: 'Cart',
         buscar: 'Search items...',
         promo_title: 'New Year Sale', promo_discount: '25% off', promo_img: 'Promo image',
-        categories_title: 'Categories', popular_title: 'Popular Products', view_all: 'View all', view_all_cats: 'View all categories',
+        categories_title: 'Categories', popular_title: 'Popular Products', view_all: 'View all', view_all_cats: 'View all categories', go_store: 'Go to store',
         cart_title: 'Cart', cart_total: 'Total', cart_checkout: 'Proceed to checkout',
         checkout_title: 'Shipping and payment details', co_name: 'Full name', co_name_ph: 'Your name',
         co_phone: 'Phone / WhatsApp', co_payment: 'Payment method', co_payment_sel: 'Select...',
@@ -374,10 +377,8 @@
       var storeCats = window.__store && window.__store.categories;
       var cats = (storeCats && storeCats.length) ? storeCats : [];
       if (!cats.length) { row.innerHTML = ''; return; }
-      row.innerHTML = cats.map(function (c) {
-        var img = c.image ? '<img class="cat-img" src="' + c.image + '" alt="' + c.name + '" loading="lazy" />' : '<div class="placeholder-box cat-img" style="background:' + (c.color || '#E8ECF0') + '"></div>';
-        var bs = catBorderStyle(c);
-        return '<div class="category-card" data-cat="' + c.id + '" role="button" tabindex="0" style="' + bs + '">' + img + '<div class="cat-label">' + c.name + '</div></div>';
+      row.innerHTML = cats.slice(0, 6).map(function (c) {
+        return '<button type="button" class="cat-pill" data-cat="' + c.id + '" style="background:' + (c.color || '#E8ECF0') + '">' + c.name + '</button>';
       }).join('');
       row.querySelectorAll('[data-cat]').forEach(function (card) {
         function go() { activeExploreCat = String(card.getAttribute('data-cat')); showView('explore'); renderExploreFilters(); renderExplore(); }
@@ -399,6 +400,8 @@
                  (p.description || '').toLowerCase().indexOf(f) > -1 ||
                  (x.catName || '').toLowerCase().indexOf(f) > -1;
         });
+      } else {
+        list = list.slice(0, 6);
       }
       if (!list.length) { grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--secondary-text)">' + t('no_products') + '</p>'; return; }
       grid.innerHTML = list.map(function (x) { return cardHtml(x); }).join('');
@@ -508,6 +511,8 @@
     if (btnCats) btnCats.addEventListener('click', goCategorias);
     var exploreViewAll = document.querySelector('#explore-view .view-all');
     if (exploreViewAll) exploreViewAll.addEventListener('click', goCategorias);
+    var goStore = document.getElementById('btn-go-store');
+    if (goStore) goStore.addEventListener('click', function () { window.location.href = './tienda.html?view=explore'; });
 
     document.getElementById('search-input').addEventListener('input', function (e) { renderProducts(e.target.value); });
     document.getElementById('lang-toggle').addEventListener('click', function () {
