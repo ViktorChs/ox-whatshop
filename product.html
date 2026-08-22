@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/theme.css?v=18" />
-  <link rel="stylesheet" href="./css/tienda.css?v=18" />
+  <link rel="stylesheet" href="./css/theme.css?v=19" />
+  <link rel="stylesheet" href="./css/tienda.css?v=19" />
   <style>
     .product-page { max-width: 980px; margin: 0 auto; padding: 20px 16px 60px; }
     .p-back { display: inline-flex; align-items: center; gap: 6px; color: var(--secondary-text); background: none; border: none; font-size: .9rem; cursor: pointer; padding: 6px 10px; border-radius: 8px; margin-bottom: 16px; }
@@ -46,6 +46,44 @@
     .p-cta { display: flex; gap: 12px; flex-wrap: wrap; }
     .p-cta .add { background: var(--color-primary); color: var(--color-on-primary); border: none; border-radius: var(--radius); padding: 14px 20px; font-weight: 700; cursor: pointer; flex: 1; min-width: 160px; }
     .p-cta .add:disabled { opacity: .5; cursor: not-allowed; }
+    .shop-page { padding-bottom: 84px; }
+    .p-desc-box { margin-bottom: 6px; }
+    .p-desc-box summary { cursor: pointer; font-weight: 600; font-size: .85rem; color: var(--secondary-text); padding: 4px 0; }
+    .p-desc { color: var(--secondary-text); line-height: 1.55; font-size: .88rem; padding-top: 6px; }
+
+    /* Barra inferior fija (talla + cantidad + precio + checkout) */
+    .p-bar {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 700;
+      background: var(--color-background, #fff);
+      border-top: 1px solid var(--color-border, #e5e5e5);
+      padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
+      display: flex; align-items: center; gap: 10px;
+    }
+    [data-theme="dark"] .p-bar { background: #171717; }
+    .p-bar-left { flex: 1; min-width: 0; }
+    .p-bar-sel { font-size: .8rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .p-bar-price { font-size: 1.15rem; font-weight: 800; }
+    .p-bar-qty { display: flex; align-items: center; gap: 6px; border: 1px solid var(--color-border); border-radius: 10px; padding: 2px 4px; flex-shrink: 0; }
+    .p-bar-qty button { width: 30px; height: 30px; border: none; background: none; border-radius: 8px; font-size: 1.05rem; cursor: pointer; }
+    .p-bar-qty button:hover { background: var(--color-muted); }
+    .p-bar-qty span { min-width: 22px; text-align: center; font-weight: 700; }
+    .p-bar-add, .p-bar-buy { min-height: 42px; border: none; border-radius: 12px; padding: 0 16px; font-weight: 700; font-size: .88rem; cursor: pointer; flex-shrink: 0; }
+    .p-bar-add { background: var(--color-primary); color: var(--color-on-primary); }
+    .p-bar-add:disabled { opacity: .5; cursor: not-allowed; }
+    .p-bar-buy { background: var(--color-success, #16a34a); color: #fff; }
+
+    @media (max-width: 480px) {
+      .p-bar { gap: 8px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px)); }
+      .p-bar-sel { font-size: .72rem; }
+      .p-bar-price { font-size: 1rem; }
+      .p-bar-add, .p-bar-buy { padding: 0 12px; font-size: .82rem; min-height: 40px; }
+      .p-bar-qty button { width: 26px; height: 26px; }
+      .product-page { padding: 10px 12px 0; }
+      .p-gallery .main { max-height: 40vh; }
+      .p-thumbs img { width: 54px; height: 54px; }
+      .p-info h1 { font-size: 1.2rem; }
+      .p-price .now { font-size: 1.3rem; }
+    }
   </style>
 </head>
 <body class="shop-page">
@@ -108,19 +146,27 @@
 
         <div class="p-stock" id="p-stock"></div>
 
-        <div class="p-qty" id="p-qty-sec">
-          <button id="qty-dec">&minus;</button>
-          <span id="qty-val">1</span>
-          <button id="qty-inc">+</button>
-        </div>
-
-        <div class="p-cta">
-          <button class="add" id="btn-add-cart" data-i18n="add_cart">Agregar al carrito</button>
-          <button class="btn-checkout" id="btn-buy" data-i18n="buy">Comprar ahora</button>
-        </div>
+        <details class="p-desc-box">
+          <summary data-i18n="desc_title">Descripción</summary>
+          <div class="p-desc" id="p-desc"></div>
+        </details>
       </div>
     </div>
   </main>
+
+  <div class="p-bar hidden" id="p-bar">
+    <div class="p-bar-left">
+      <div class="p-bar-sel" id="p-bar-sel">Elige color y talla</div>
+      <div class="p-bar-price" id="p-bar-price">$0.00</div>
+    </div>
+    <div class="p-bar-qty">
+      <button id="qty-dec" aria-label="-">&minus;</button>
+      <span id="qty-val">1</span>
+      <button id="qty-inc" aria-label="+">+</button>
+    </div>
+    <button class="p-bar-add" id="btn-add-cart" data-i18n="bar_add">Agregar</button>
+    <button class="p-bar-buy" id="btn-buy" data-i18n="bar_buy">Comprar</button>
+  </div>
 
   <div class="cart-scrim" id="cart-scrim"></div>
   <aside class="cart-drawer" id="cart-drawer">
@@ -145,9 +191,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=18"></script>
-  <script src="./js/supabase.js?v=18"></script>
-  <script src="./js/cart.js?v=18"></script>
-  <script src="./js/product.js?v=18"></script>
+  <script src="./config.js?v=19"></script>
+  <script src="./js/supabase.js?v=19"></script>
+  <script src="./js/cart.js?v=19"></script>
+  <script src="./js/product.js?v=19"></script>
 </body>
 </html>

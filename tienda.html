@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/theme.css?v=18" />
-  <link rel="stylesheet" href="./css/tienda.css?v=18" />
+  <link rel="stylesheet" href="./css/theme.css?v=19" />
+  <link rel="stylesheet" href="./css/tienda.css?v=19" />
 </head>
 <body class="shop-page">
 
@@ -22,16 +22,6 @@
     <img id="splash-logo" class="splash-logo" src="./assets/logos/logoB.png" alt="" />
     <h1 class="splash-title" aria-label="WhatShop"><span id="splash-what" class="what">What</span><span id="splash-shop" class="shop">Shop</span></h1>
     <div class="splash-spinner" role="status" aria-label="Cargando"></div>
-  </div>
-
-  <div id="welcome-screen" class="hidden">
-    <div class="welcome-inner">
-      <img id="welcome-logo" class="welcome-logo" src="./assets/logos/logoB.png" alt="" />
-      <p id="welcome-text" class="welcome-text">Bienvenido</p>
-      <button id="welcome-btn" class="liq-btn" aria-label="Entrar a la tienda">
-        <span class="liq-label" data-i18n="enter_store">Entrar a la tienda</span>
-      </button>
-    </div>
   </div>
 
   <header class="top-header">
@@ -169,9 +159,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=18"></script>
-  <script src="./js/supabase.js?v=18"></script>
-  <script src="./js/cart.js?v=18"></script>
+  <script src="./config.js?v=19"></script>
+  <script src="./js/supabase.js?v=19"></script>
+  <script src="./js/cart.js?v=19"></script>
   <script>
     // ===== i18n =====
     var I18N = {
@@ -269,58 +259,17 @@
     }
     applyThemeMode(localStorage.getItem('whatshop_theme') === 'dark' ? 'dark' : 'light');
 
-    // ===== Splash fijo (3s) + pantalla de bienvenida (solo la primera vez) =====
+    // ===== Splash fijo (3s, una sola vez) =====
     var splashEl = document.getElementById('shop-splash');
-    var splashSeen = localStorage.getItem('whatshop_splash_seen') === '1';
-    if (splashSeen) {
+    if (localStorage.getItem('whatshop_splash_seen') === '1') {
       if (splashEl) { splashEl.style.display = 'none'; splashEl.classList.add('fade-out'); }
-      var w0 = document.getElementById('welcome-screen');
-      if (w0) w0.classList.add('hidden');
     } else {
-      var welcomeShown = false;
-      function showWelcome() {
-        if (welcomeShown) return;
-        welcomeShown = true;
-        var w = document.getElementById('welcome-screen');
-        if (!w) return;
-        var sp = (settings && settings.splash) || {};
-        w.style.background = sp.background || '#FFFFFF';
-        var lg = document.getElementById('welcome-logo');
-        var logoUrl = sp.logo || (settings.landing && settings.landing.logo) || './assets/logos/logoB.png';
-        lg.style.opacity = '0';
-        lg.onload = function () { lg.style.opacity = '1'; };
-        lg.onerror = function () { lg.src = './assets/logos/logoB.png'; lg.style.opacity = '1'; };
-        lg.src = logoUrl;
-        var tx = document.getElementById('welcome-text');
-        tx.textContent = sp.whatText || 'Bienvenido';
-        tx.style.color = sp.whatColor || '#171717';
-        w.classList.remove('hidden');
-        w.classList.add('show');
-      }
-      function hideSplash() {
+      setTimeout(function () {
+        localStorage.setItem('whatshop_splash_seen', '1');
         if (!splashEl) return;
         splashEl.classList.add('fade-out');
-        setTimeout(function () {
-          splashEl.style.display = 'none';
-          showWelcome();
-        }, 600);
-      }
-      setTimeout(hideSplash, 3000);
-      var welcomeBtn = document.getElementById('welcome-btn');
-      if (welcomeBtn) {
-        welcomeBtn.addEventListener('click', function (e) {
-          var rect = welcomeBtn.getBoundingClientRect();
-          var r = document.createElement('span');
-          r.className = 'ripple';
-          r.style.left = (e.clientX - rect.left) + 'px';
-          r.style.top = (e.clientY - rect.top) + 'px';
-          welcomeBtn.appendChild(r);
-          setTimeout(function () { r.remove(); }, 600);
-          localStorage.setItem('whatshop_splash_seen', '1');
-          var w = document.getElementById('welcome-screen');
-          if (w) w.classList.add('hidden');
-        });
-      }
+        setTimeout(function () { splashEl.style.display = 'none'; }, 600);
+      }, 3000);
     }
 
     // ===== Cargar tienda =====
