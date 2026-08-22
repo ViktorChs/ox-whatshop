@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=16" />
-  <link rel="stylesheet" href="./css/admin.css?v=16" />
+  <link rel="stylesheet" href="./css/theme.css?v=17" />
+  <link rel="stylesheet" href="./css/admin.css?v=17" />
 </head>
 <body class="admin-page">
 
@@ -441,9 +441,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=16"></script>
-  <script src="./js/supabase.js?v=16"></script>
-  <script src="./js/color-picker.js?v=16"></script>
+  <script src="./config.js?v=17"></script>
+  <script src="./js/supabase.js?v=17"></script>
+  <script src="./js/color-picker.js?v=17"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -1045,6 +1045,7 @@
 
     // ===== Galería de imágenes =====
     // ===== Galería + quitar fondo + cámara =====
+    var BG_ENABLED = false; // quitar fondo oculto por ahora (reactivar = true)
     var bgLibPromise = null;
     function loadBgLib() {
       if (window.__bgLib) return Promise.resolve(window.__bgLib);
@@ -1094,10 +1095,10 @@
     }
     function renderGallery() {
       document.getElementById('product-gallery').innerHTML = _productImages.map(function (u, i) {
+        var bgBtn = BG_ENABLED ? '<button type="button" class="g-action" data-bg-img="' + i + '" title="' + t('bg_remove') + '">&#10022; ' + t('bg_remove') + '</button>' : '';
         return '<div class="gallery-item">' +
           '<div class="g-photo"><img src="' + u + '" alt="" /><span class="g-spin hidden"></span></div>' +
-          '<div class="g-actions">' +
-            '<button type="button" class="g-action" data-bg-img="' + i + '" title="' + t('bg_remove') + '">&#10022; ' + t('bg_remove') + '</button>' +
+          '<div class="g-actions">' + bgBtn +
             '<button type="button" class="g-action danger" data-rm-img="' + i + '">' + t('g_del') + '</button>' +
           '</div></div>';
       }).join('');
@@ -1131,7 +1132,7 @@
     }
     function addImages(files) {
       if (!files || !files.length) return;
-      var doBg = confirm(t('bg_ask'));
+      var doBg = BG_ENABLED && confirm(t('bg_ask'));
       Promise.all(files.map(function (f) { return SBHelper.uploadImage(f); })).then(function (urls) {
         if (!doBg) {
           _productImages = _productImages.concat(urls);
