@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=15" />
-  <link rel="stylesheet" href="./css/admin.css?v=15" />
+  <link rel="stylesheet" href="./css/theme.css?v=16" />
+  <link rel="stylesheet" href="./css/admin.css?v=16" />
 </head>
 <body class="admin-page">
 
@@ -441,9 +441,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=15"></script>
-  <script src="./js/supabase.js?v=15"></script>
-  <script src="./js/color-picker.js?v=15"></script>
+  <script src="./config.js?v=16"></script>
+  <script src="./js/supabase.js?v=16"></script>
+  <script src="./js/color-picker.js?v=16"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -1051,7 +1051,7 @@
       if (bgLibPromise) return bgLibPromise;
       toast('Preparando quitar fondo…');
       bgLibPromise = Promise.resolve().then(function () {
-        return import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.7/dist/index.mjs');
+        return import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.7/+esm');
       }).then(function (mod) {
         window.__bgLib = { removeBackground: mod.removeBackground };
         return window.__bgLib;
