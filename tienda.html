@@ -534,47 +534,19 @@
       var offer = p.original_price ? '<span class="prod-offer-badge">' + t('offer') + '</span>' : '';
       var stock = prodStock(p);
       var stockTag = stock <= 0 ? '<span class="prod-stock out">' + t('out') + '</span>' : (hasVariants(p) ? '<span class="prod-stock">' + (p.product_variants || []).filter(function (v) { return v.color && v.size; }).length + ' ' + t('variants') + '</span>' : '');
-      var btn;
-      if (hasVariants(p)) {
-        btn = '<button class="add-btn" data-go="' + p.id + '">' + t('view') + '</button>';
-      } else if (stock <= 0) {
-        btn = '<button class="add-btn" disabled style="opacity:.5;cursor:not-allowed">' + t('out') + '</button>';
-      } else {
-        btn = '<button class="add-btn" data-add="' + p.id + '">' + t('add_to_cart') + '</button>';
-      }
       return '<article class="product-card" data-open="' + p.id + '" style="cursor:pointer">' +
         img + offer +
         '<div class="prod-body">' +
           '<div class="prod-title">' + p.name + '</div>' +
           '<div class="prod-price-row"><span class="prod-price">' + fmt(p.price) + '</span>' + orig + '</div>' +
           (stockTag ? '<div class="prod-stock-row">' + stockTag + '</div>' : '') +
-          btn +
         '</div></article>';
     }
 
     function wireCards(grid) {
       grid.querySelectorAll('[data-open]').forEach(function (card) {
         card.addEventListener('click', function (e) {
-          if (e.target.closest('[data-add]') || e.target.closest('[data-go]')) return;
           window.location.href = './product.html?id=' + card.getAttribute('data-open');
-        });
-      });
-      grid.querySelectorAll('[data-go]').forEach(function (btn) {
-        btn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          window.location.href = './product.html?id=' + btn.getAttribute('data-go');
-        });
-      });
-      grid.querySelectorAll('[data-add]').forEach(function (btn) {
-        btn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          var id = Number(btn.getAttribute('data-add'));
-          var x = storeProducts.find(function (it) { return it.p.id === id; });
-          if (!x) return;
-          if (prodStock(x.p) <= 0) { toast(t('out'), 'error'); return; }
-          var imgs = prodImages(x.p);
-          CART.addItem({ id: x.p.id, title: x.p.name, price: Number(x.p.price) || 0, image: imgs[0] || null }, { qty: 1, maxStock: prodStock(x.p) });
-          toast(t('added'), 'success');
         });
       });
     }
