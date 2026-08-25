@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=36" />
-  <link rel="stylesheet" href="./css/admin.css?v=36" />
+  <link rel="stylesheet" href="./css/theme.css?v=37" />
+  <link rel="stylesheet" href="./css/admin.css?v=37" />
 </head>
 <body class="admin-page">
 
@@ -48,7 +48,7 @@
 
         <nav class="nav">
           <div class="nav-group">
-            <div class="nav-sub">
+            <div class="nav-sub" data-mode="avanzado">
               <button class="nav-item has-children active" data-tab="tab-apariencia">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
                 <span data-i18n="nav_apariencia">Apariencia</span>
@@ -81,7 +81,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
               <span data-i18n="nav_categorias">Categorías</span>
             </button>
-            <button class="nav-item" data-tab="tab-plantillas">
+            <button class="nav-item" data-mode="avanzado" data-tab="tab-plantillas">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.4 2.4 0 0 1 0-3.4l2.6-2.6a2.4 2.4 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>
               <span data-i18n="nav_plantillas">Plantillas de tallas</span>
             </button>
@@ -94,7 +94,7 @@
               <span data-i18n="nav_pedidos">Pedidos</span>
               <span class="badge hidden" id="badge-pedidos">0</span>
             </button>
-            <button class="nav-item" data-tab="tab-analitica">
+            <button class="nav-item" data-mode="avanzado" data-tab="tab-analitica">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>
               <span data-i18n="nav_analitica">Analítica</span>
             </button>
@@ -102,11 +102,15 @@
 
           <div class="nav-group">
             <div class="nav-heading" data-i18n="nav_sys_heading">Sistema</div>
-            <button class="nav-item" data-tab="tab-backup">
+            <button class="nav-item" data-tab="tab-config-basica">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
+              <span data-i18n="nav_cfg_basica">Configuración básica</span>
+            </button>
+            <button class="nav-item" data-mode="avanzado" data-tab="tab-backup">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
               <span data-i18n="nav_backup">Backup</span>
             </button>
-            <button class="nav-item" data-tab="tab-config">
+            <button class="nav-item" data-mode="avanzado" data-tab="tab-config">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
               <span data-i18n="nav_config">Configuración</span>
             </button>
@@ -145,6 +149,7 @@
             </div>
           </div>
           <div class="topbar-r">
+            <button class="lang-pill" id="mode-toggle" title="Modo" data-i18n="mode_basico">Básico</button>
             <button class="cmd-btn" id="cmd-btn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
               <span data-i18n="cmd_search">Buscar</span>
@@ -162,7 +167,7 @@
         <div class="panes">
 
           <!-- ===== Apariencia ===== -->
-          <section class="pane" id="tab-apariencia">
+          <section class="pane" data-mode="avanzado" id="tab-apariencia">
             <h1 data-i18n="t_apariencia">Apariencia</h1>
             <p class="page-sub" data-i18n="t_apariencia_sub">Colores, tipografía y marca de tu tienda.</p>
             <div class="panel"><h3 data-i18n="palettes_title">Paletas de colores</h3>
@@ -273,14 +278,14 @@
               </div>
 
               <div class="field" style="margin-top:6px"><label data-i18n="pr_images">Imágenes del producto (múltiples)</label><input type="file" id="new-product-images" accept="image/*" multiple />
-                <div style="margin-top:8px">
+                <div style="margin-top:8px" data-mode="avanzado">
                   <input type="file" id="product-camera" accept="image/*" capture="environment" class="hidden" />
                   <button type="button" class="btn ghost small" id="btn-take-photo">&#128247; <span data-i18n="take_photo">Tomar foto</span></button>
                 </div>
               </div>
               <div class="gallery" id="product-gallery"></div>
 
-              <div class="panel" style="margin-top:16px;background:var(--bg-soft)">
+              <div class="panel" style="margin-top:16px;background:var(--bg-soft)" data-mode="avanzado">
                 <h3 data-i18n="pr_variants">Variantes (color × talla)</h3>
                 <div class="variant-toolbar">
                   <div class="field" style="flex:1;min-width:200px"><label data-i18n="pr_sizes_src">Tallas: plantilla o lista libre</label>
@@ -361,7 +366,7 @@
           </section>
 
           <!-- ===== Plantillas ===== -->
-          <section class="pane hidden" id="tab-plantillas">
+          <section class="pane hidden" data-mode="avanzado" id="tab-plantillas">
             <h1 data-i18n="t_plantillas">Plantillas de tallas</h1>
             <p class="page-sub" data-i18n="t_plantillas_sub">Conjuntos de tallas según el tipo de producto (zapatos, anillos, cadenas…).</p>
             <div class="panel"><h3 data-i18n="pl_new">Nueva plantilla</h3>
@@ -384,7 +389,7 @@
           </section>
 
           <!-- ===== Analítica ===== -->
-          <section class="pane hidden" id="tab-analitica">
+          <section class="pane hidden" data-mode="avanzado" id="tab-analitica">
             <h1 data-i18n="t_analitica">Analítica</h1>
             <p class="page-sub" data-i18n="t_analitica_sub">Estadísticas de tus ventas.</p>
             <div class="filters" id="analytics-range"></div>
@@ -405,7 +410,7 @@
           </section>
 
           <!-- ===== Backup ===== -->
-          <section class="pane hidden" id="tab-backup">
+          <section class="pane hidden" data-mode="avanzado" id="tab-backup">
             <h1 data-i18n="t_backup">Backup</h1>
             <p class="page-sub" data-i18n="t_backup_sub">Exporta e importa toda la configuración y catálogo.</p>
             <div class="panel">
@@ -424,7 +429,12 @@
           </section>
 
           <!-- ===== Configuración ===== -->
-          <section class="pane hidden" id="tab-config">
+          <section class="pane hidden" id="tab-config-basica">
+            <h1 data-i18n="nav_cfg_basica">Configuración básica</h1>
+            <p class="page-sub" data-i18n="cfg_basica_sub">Selector de plantillas (próximamente).</p>
+          </section>
+
+          <section class="pane hidden" data-mode="avanzado" id="tab-config">
             <h1 data-i18n="t_config">Configuración</h1>
             <p class="page-sub" data-i18n="t_config_sub">PIN de acceso, pantalla de bienvenida y ajustes del panel.</p>
             <div class="panel"><h3 data-i18n="cf_pin">PIN de administrador</h3>
@@ -468,9 +478,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=36"></script>
-  <script src="./js/supabase.js?v=36"></script>
-  <script src="./js/color-picker.js?v=36"></script>
+  <script src="./config.js?v=37"></script>
+  <script src="./js/supabase.js?v=37"></script>
+  <script src="./js/color-picker.js?v=37"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -492,7 +502,7 @@
         login_sub: 'Panel de administración', login_btn: 'Entrar', login_error: 'PIN incorrecto', login_hint: 'PIN por defecto: 1234',
         ws_plan: 'WhatShop', ws_new: '+ Nueva tienda',
         nav_apariencia: 'Apariencia', nav_tienda: 'Tienda', nav_cat_heading: 'Catálogo', nav_subir: 'Subir producto', nav_productos: 'Productos', nav_categorias: 'Categorías', nav_plantillas: 'Plantillas de tallas',
-        nav_ops_heading: 'Operaciones', nav_pedidos: 'Pedidos', nav_analitica: 'Analítica', nav_sys_heading: 'Sistema', nav_backup: 'Backup', nav_config: 'Configuración',
+        nav_ops_heading: 'Operaciones', nav_pedidos: 'Pedidos', nav_analitica: 'Analítica', nav_sys_heading: 'Sistema', nav_backup: 'Backup', nav_config: 'Configuración', nav_cfg_basica: 'Configuración básica', cfg_basica_sub: 'Selector de plantillas (próximamente).', mode_basico: 'Básico', mode_avanzado: 'Avanzado',
         nav_ver_tienda: 'Ver tienda', nav_logout: 'Cerrar sesión',
         cmd_search: 'Buscar', cmd_ph: 'Ir a…', cmd_actions: 'Acciones', cmd_logout: 'Cerrar sesión',
         t_apariencia: 'Apariencia', t_apariencia_sub: 'Colores, tipografía y marca de tu tienda.', ap_colors: 'Colores de marca', ap_primary: 'Color primario', ap_accent: 'Color de acento', ap_bg: 'Fondo de la tienda', ap_fg: 'Color de texto', ap_secondary: 'Color secundario', ap_muted: 'Color de tarjetas',
@@ -521,7 +531,7 @@
         login_sub: 'Admin panel', login_btn: 'Enter', login_error: 'Wrong PIN', login_hint: 'Default PIN: 1234',
         ws_plan: 'WhatShop', ws_new: '+ New store',
         nav_apariencia: 'Appearance', nav_tienda: 'Store', nav_cat_heading: 'Catalog', nav_subir: 'Upload product', nav_productos: 'Products', nav_categorias: 'Categories', nav_plantillas: 'Size templates',
-        nav_ops_heading: 'Operations', nav_pedidos: 'Orders', nav_analitica: 'Analytics', nav_sys_heading: 'System', nav_backup: 'Backup', nav_config: 'Settings',
+        nav_ops_heading: 'Operations', nav_pedidos: 'Orders', nav_analitica: 'Analytics', nav_sys_heading: 'System', nav_backup: 'Backup', nav_config: 'Settings', nav_cfg_basica: 'Basic settings', cfg_basica_sub: 'Template selector (coming soon).', mode_basico: 'Basic', mode_avanzado: 'Advanced',
         nav_ver_tienda: 'View store', nav_logout: 'Log out',
         cmd_search: 'Search', cmd_ph: 'Go to…', cmd_actions: 'Actions', cmd_logout: 'Log out',
         t_apariencia: 'Appearance', t_apariencia_sub: 'Colors, typography and branding of your store.', ap_colors: 'Brand colors', ap_primary: 'Primary color', ap_accent: 'Accent color', ap_bg: 'Store background', ap_fg: 'Text color', ap_secondary: 'Secondary color', ap_muted: 'Card color',
@@ -585,7 +595,8 @@
     var _stores = [];
     var _templates = [];
     var _orderFilter = 'all';
-    var _editingProduct = null;   // id o null
+    var _editingProduct = null;
+    var _editingHadVariants = false;   // id o null
     var _variantSizes = [];
     var _variantColors = [];      // {name, hex}
     var _comboStock = {};         // "color|size" -> {stock, price}
@@ -643,7 +654,7 @@
     }
 
     // ===== Tabs + breadcrumb =====
-    var TAB_TITLES = { 'tab-apariencia': 't_apariencia', 'tab-tienda': 't_tienda', 'tab-subir': 't_subir', 'tab-productos': 't_productos', 'tab-categorias': 't_categorias', 'tab-plantillas': 't_plantillas', 'tab-pedidos': 't_pedidos', 'tab-analitica': 't_analitica', 'tab-backup': 't_backup', 'tab-config': 't_config' };
+    var TAB_TITLES = { 'tab-apariencia': 't_apariencia', 'tab-tienda': 't_tienda', 'tab-subir': 't_subir', 'tab-productos': 't_productos', 'tab-categorias': 't_categorias', 'tab-plantillas': 't_plantillas', 'tab-pedidos': 't_pedidos', 'tab-analitica': 't_analitica', 'tab-backup': 't_backup', 'tab-config': 't_config', 'tab-config-basica': 'nav_cfg_basica' };
     function switchTab(tabId) {
       document.querySelectorAll('.pane').forEach(function (c) { c.classList.add('hidden'); });
       var target = document.getElementById(tabId);
@@ -1227,7 +1238,8 @@
 
     // ===== Productos =====
     function resetProductForm() {
-      _editingProduct = null;
+_editingProduct = null;
+      _editingHadVariants = false;
       _variantSizes = []; _variantColors = []; _comboStock = {}; _productImages = [];
       document.getElementById('new-product-name').value = '';
       document.getElementById('new-product-price').value = '0';
@@ -1280,6 +1292,7 @@
         var p = prods.find(function (x) { return x.id === id; });
         if (!p) return;
         _editingProduct = p.id;
+        _editingHadVariants = !!((p.product_variants || []).length);
         document.getElementById('new-product-name').value = p.name || '';
         document.getElementById('new-product-price').value = p.price != null ? p.price : 0;
         document.getElementById('new-product-original').value = p.original_price != null ? p.original_price : '';
@@ -1348,8 +1361,10 @@
       }
       var save;
       var wasEditing = !!_editingProduct;
+      var preserveVariants = wasEditing && ADMIN_MODE === 'basico' && _editingHadVariants;
       if (wasEditing) {
-        save = SBHelper.updateProduct(_editingProduct, base).then(function () { return SBHelper.replaceVariants(_editingProduct, variants); });
+        save = SBHelper.updateProduct(_editingProduct, base);
+        if (!preserveVariants) save = save.then(function () { return SBHelper.replaceVariants(_editingProduct, variants); });
       } else {
         save = SBHelper.addProduct(base).then(function (row) { return SBHelper.replaceVariants(row.id, variants); });
       }
@@ -1672,8 +1687,29 @@
       }).catch(function () { toast(t('st_error'), 'error'); });
     });
 
+    // ===== Modo basico / avanzado =====
+    var ADMIN_MODE = localStorage.getItem('whatshop_admin_mode') === 'avanzado' ? 'avanzado' : 'basico';
+    function applyMode() {
+      document.body.classList.toggle('mode-basico', ADMIN_MODE === 'basico');
+      document.body.classList.toggle('mode-avanzado', ADMIN_MODE === 'avanzado');
+      var mt = document.getElementById('mode-toggle');
+      if (mt) mt.textContent = ADMIN_MODE === 'basico' ? t('mode_basico') : t('mode_avanzado');
+      // si la pestana activa es avanzada y estamos en basico, ir a una visible
+      if (ADMIN_MODE === 'basico') {
+        var cur = document.querySelector('.pane:not(.hidden)');
+        if (cur && cur.getAttribute('data-mode') === 'avanzado') switchTab('tab-subir');
+      }
+    }
+    document.getElementById('mode-toggle').addEventListener('click', function () {
+      ADMIN_MODE = ADMIN_MODE === 'basico' ? 'avanzado' : 'basico';
+      localStorage.setItem('whatshop_admin_mode', ADMIN_MODE);
+      applyMode();
+      toast(ADMIN_MODE === 'basico' ? t('mode_basico') : t('mode_avanzado'), 'success');
+    });
+
     // ===== Init =====
     applyLang();
+    applyMode();
     resetProductForm();
     resetCategoryForm();
     styleFileInputs();
