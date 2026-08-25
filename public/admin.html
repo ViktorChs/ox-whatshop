@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=37" />
-  <link rel="stylesheet" href="./css/admin.css?v=37" />
+  <link rel="stylesheet" href="./css/theme.css?v=38" />
+  <link rel="stylesheet" href="./css/admin.css?v=38" />
 </head>
 <body class="admin-page">
 
@@ -225,6 +225,22 @@
             <div class="panel"><h3 data-i18n="ti_pay">Métodos de pago</h3>
               <p class="page-sub" style="margin-bottom:10px" data-i18n="ti_pay_sub">Un método por línea.</p>
               <div class="field"><textarea id="store-payments" rows="4" placeholder="Efectivo&#10;Transferencia&#10;Pago móvil"></textarea></div>
+            </div>
+            <div class="panel"><h3 data-i18n="ti_design">Diseño de tarjetas</h3>
+              <div class="grid-2">
+                <div class="field"><label data-i18n="ti_corners">Esquinas</label>
+                  <select id="theme-corners">
+                    <option value="square" data-i18n="ti_corners_square">Cuadradas</option>
+                    <option value="rounded" data-i18n="ti_corners_rounded">Redondeadas</option>
+                  </select>
+                </div>
+                <div class="field"><label data-i18n="ti_card_border">Borde de tarjetas</label>
+                  <select id="theme-cardborder">
+                    <option value="none" data-i18n="ti_border_none">Sin borde</option>
+                    <option value="line" data-i18n="ti_border_line">Con borde sutil</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="panel"><h3 data-i18n="ti_banner">Banner superior</h3>
               <p class="page-sub" style="margin-bottom:10px" data-i18n="ti_banner_sub">Franja a todo el ancho bajo el menú, con el logo y el nombre.</p>
@@ -478,9 +494,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=37"></script>
-  <script src="./js/supabase.js?v=37"></script>
-  <script src="./js/color-picker.js?v=37"></script>
+  <script src="./config.js?v=38"></script>
+  <script src="./js/supabase.js?v=38"></script>
+  <script src="./js/color-picker.js?v=38"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -512,7 +528,7 @@
         btn_save: 'Guardar cambios', btn_save_store: 'Guardar tienda', btn_save_splash: 'Guardar bienvenida',
         t_tienda: 'Tienda', t_tienda_sub: 'Datos generales, pagos y comunicación.', ti_datos: 'Datos generales', ti_name: 'Nombre de la tienda', ti_whatsapp: 'Número de WhatsApp', ti_currency: 'Moneda', ti_currency_pos: 'Posición de la moneda', ti_cur_before: 'Antes ($10)', ti_cur_after: 'Después (10 $)', ti_open: 'Tienda abierta', ti_closed_msg: 'Mensaje cuando está cerrada',
         ti_pay: 'Métodos de pago', ti_pay_sub: 'Un método por línea.', ti_banner: 'Banner superior', ti_banner_sub: 'Franja a todo el ancho bajo el menú, con el logo y el nombre.', ti_banner_title: 'Nombre del banner', ti_banner_bg: 'Color de fondo', ti_banner_image: 'Imagen/logo del banner',
-        ti_msg_wa: 'Mensaje de WhatsApp', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Logo de la marca', ti_logo_upload: 'Subir logo (PNG, JPG, WebP)',
+        ti_msg_wa: 'Mensaje de WhatsApp', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Logo de la marca', ti_logo_upload: 'Subir logo (PNG, JPG, WebP)', ti_design: 'Diseño de tarjetas', ti_corners: 'Esquinas', ti_corners_square: 'Cuadradas', ti_corners_rounded: 'Redondeadas', ti_card_border: 'Borde de tarjetas', ti_border_none: 'Sin borde', ti_border_line: 'Con borde sutil',
         t_subir: 'Subir producto', t_subir_sub: 'Crea y sube un producto nuevo con sus imágenes, variantes y stock.', t_productos: 'Productos', t_productos_sub: 'Busca y edita los productos que has subido.', pr_filter_cat: 'Filtrar por categoría', pr_filter_all: 'Todas', pr_new: 'Nuevo producto', pr_edit: 'Editar producto', pr_name: 'Nombre', pr_cat: 'Categoría', pr_price: 'Precio', pr_orig: 'Precio original (opcional, tachado)', pr_stock: 'Stock base', pr_featured: 'Destacado', pr_featured_on: 'Mostrar en Populares', pr_desc: 'Descripción',
         pr_images: 'Imágenes del producto (múltiples)', bg_remove: 'Quitar fondo', take_photo: 'Tomar foto', pr_variants: 'Variantes (color × talla)', pr_sizes_src: 'Tallas: plantilla o lista libre', pr_sizes_free: 'Tallas libres (separadas por coma)', pr_apply_sizes: 'Aplicar tallas',
         pr_color_name: 'Color', pr_color_hex: 'Hex', pr_add_color: 'Agregar color', pr_save: 'Guardar producto', pr_cancel: 'Cancelar edición', pr_existing: 'Productos existentes',
@@ -541,7 +557,7 @@
         btn_save: 'Save changes', btn_save_store: 'Save store', btn_save_splash: 'Save welcome',
         t_tienda: 'Store', t_tienda_sub: 'General data, payments and communication.', ti_datos: 'General data', ti_name: 'Store name', ti_whatsapp: 'WhatsApp number', ti_currency: 'Currency', ti_currency_pos: 'Currency position', ti_cur_before: 'Before ($10)', ti_cur_after: 'After (10 $)', ti_open: 'Store open', ti_closed_msg: 'Closed message',
         ti_pay: 'Payment methods', ti_pay_sub: 'One method per line.', ti_banner: 'Top banner', ti_banner_sub: 'Full-width strip under the menu with the logo and name.', ti_banner_title: 'Banner name', ti_banner_bg: 'Background color', ti_banner_image: 'Banner image/logo',
-        ti_msg_wa: 'WhatsApp message', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Store logo', ti_logo_upload: 'Upload logo (PNG, JPG, WebP)',
+        ti_msg_wa: 'WhatsApp message', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Store logo', ti_logo_upload: 'Upload logo (PNG, JPG, WebP)', ti_design: 'Card design', ti_corners: 'Corners', ti_corners_square: 'Square', ti_corners_rounded: 'Rounded', ti_card_border: 'Card border', ti_border_none: 'No border', ti_border_line: 'Subtle border',
         t_subir: 'Upload product', t_subir_sub: 'Create and upload a new product with images, variants and stock.', t_productos: 'Products', t_productos_sub: 'Find and edit the products you uploaded.', pr_filter_cat: 'Filter by category', pr_filter_all: 'All', pr_new: 'New product', pr_edit: 'Edit product', pr_name: 'Name', pr_cat: 'Category', pr_price: 'Price', pr_orig: 'Original price (optional, strikethrough)', pr_stock: 'Base stock', pr_featured: 'Featured', pr_featured_on: 'Show in Popular', pr_desc: 'Description',
         pr_images: 'Product images (multiple)', bg_remove: 'Remove background', take_photo: 'Take photo', pr_variants: 'Variants (color × size)', pr_sizes_src: 'Sizes: template or free list', pr_sizes_free: 'Free sizes (comma separated)', pr_apply_sizes: 'Apply sizes',
         pr_color_name: 'Color', pr_color_hex: 'Hex', pr_add_color: 'Add color', pr_save: 'Save product', pr_cancel: 'Cancel edit', pr_existing: 'Existing products',
@@ -811,7 +827,11 @@
         bannerImage: document.getElementById('banner-image-data').value || null,
         bannerBackground: document.getElementById('banner-bg').value
       };
-      var merged = mergeSettings({ store: store, landing: landing });
+      var theme = {
+        corners: document.getElementById('theme-corners').value,
+        cardBorder: document.getElementById('theme-cardborder').value
+      };
+      var merged = mergeSettings({ store: store, landing: landing, theme: theme });
       SBHelper.saveSettings(merged).then(function () {
         _settings = merged;
         document.getElementById('store-status').textContent = t('st_saved');
@@ -880,6 +900,7 @@
         sv('store-name', s.name); sv('store-whatsapp', s.whatsapp); sv('store-currency', s.currency);
         sv('store-currency-pos', s.currencyPosition); sv('store-closed-msg', s.closedMessage);
         document.getElementById('store-open').checked = s.open !== false;
+        sv('theme-corners', th.corners || 'square'); sv('theme-cardborder', th.cardBorder || 'none');
         sv('banner-name', l.bannerName); sv('banner-bg', l.bannerBackground || '#E8ECF0');
         var bip = document.getElementById('banner-image-preview');
         if (l.bannerImage) { bip.src = l.bannerImage; bip.classList.remove('hidden'); } else { bip.classList.add('hidden'); bip.removeAttribute('src'); }

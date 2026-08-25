@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/theme.css?v=37" />
-  <link rel="stylesheet" href="./css/tienda.css?v=37" />
+  <link rel="stylesheet" href="./css/theme.css?v=38" />
+  <link rel="stylesheet" href="./css/tienda.css?v=38" />
 </head>
 <body class="shop-page">
 
@@ -115,6 +115,7 @@
         </aside>
         <div class="explore-content">
           <div class="products-grid" id="explore-grid"></div>
+          <div class="pagination hidden" id="explore-pagination"></div>
         </div>
       </div>
     </section>
@@ -172,9 +173,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=37"></script>
-  <script src="./js/supabase.js?v=37"></script>
-  <script src="./js/cart.js?v=37"></script>
+  <script src="./config.js?v=38"></script>
+  <script src="./js/supabase.js?v=38"></script>
+  <script src="./js/cart.js?v=38"></script>
   <script>
     // ===== i18n =====
     var I18N = {
@@ -191,7 +192,7 @@
         send_whatsapp: 'Enviar pedido por WhatsApp',
         cart_empty: 'Tu carrito está vacío', no_products: 'No hay productos', write_name: 'Escribe tu nombre',
         add_to_cart: 'Agregar al carrito', added: 'Agregado al carrito', view: 'Ver', total_label: 'TOTAL',
-        out: 'Agotado', offer: 'Oferta', variants: 'variantes', enter_store: 'Entrar a la tienda', wa_hi: 'Hola, tengo una consulta sobre sus productos.',
+        out: 'Agotado', offer: 'Oferta', variants: 'variantes', size_others: 'Otros', enter_store: 'Entrar a la tienda', wa_hi: 'Hola, tengo una consulta sobre sus productos.',
         f_terminos: 'Términos y condiciones', f_privacidad: 'Política de privacidad',
         f_politicas: 'Políticas de compra', f_cookies: 'Política de cookies',
         f_contacto: 'Contacto', f_by: 'Plataforma de tienda de',
@@ -210,7 +211,7 @@
         send_whatsapp: 'Send order via WhatsApp',
         cart_empty: 'Your cart is empty', no_products: 'No products', write_name: 'Enter your name',
         add_to_cart: 'Add to cart', added: 'Added to cart', view: 'View', total_label: 'TOTAL',
-        out: 'Out of stock', offer: 'Sale', variants: 'variants', enter_store: 'Enter the store', wa_hi: 'Hello, I have a question about your products.',
+        out: 'Out of stock', offer: 'Sale', variants: 'variants', size_others: 'Others', enter_store: 'Enter the store', wa_hi: 'Hello, I have a question about your products.',
         f_terminos: 'Terms and conditions', f_privacidad: 'Privacy policy',
         f_politicas: 'Purchase policies', f_cookies: 'Cookie policy',
         f_contacto: 'Contact', f_by: 'Store platform by',
@@ -417,46 +418,61 @@
 
     // ===== Filtros de la pagina Productos =====
     var _filters = { cats: [], min: null, max: null, colors: [], sizes: [] };
+    var _page = 1;
+    var PAGE_SIZE = 20;
     function buildFilterOptions() {
-      var colors = [], sizes = [], cseen = {}, sseen = {};
+      var colors = [], cseen = {}, groups = {}, gorder = [];
       storeProducts.forEach(function (x) {
+        var gname = x.catName || t('size_others');
         (x.p.product_variants || []).forEach(function (v) {
           if (v.color && !cseen[v.color]) { cseen[v.color] = 1; colors.push({ name: v.color, hex: v.color_hex || '#888' }); }
-          if (v.size && !sseen[v.size]) { sseen[v.size] = 1; sizes.push(v.size); }
+          if (v.size) {
+            if (!groups[gname]) { groups[gname] = {}; gorder.push(gname); }
+            groups[gname][v.size] = 1;
+          }
         });
       });
       colors.sort(function (a, b) { return a.name.localeCompare(b.name); });
-      sizes.sort(function (a, b) { return String(a).localeCompare(String(b), undefined, { numeric: true }); });
-      return { colors: colors, sizes: sizes };
+      var sizeGroups = gorder.map(function (g) {
+        var sizes = Object.keys(groups[g]).sort(function (a, b) { return String(a).localeCompare(String(b), undefined, { numeric: true }); });
+        return { name: g, sizes: sizes };
+      });
+      return { colors: colors, sizeGroups: sizeGroups };
     }
     function renderFilterPanel() {
       var opts = buildFilterOptions();
       var catsBox = document.getElementById('filter-cats');
       var cats = (window.__store && window.__store.categories) || [];
       catsBox.innerHTML = cats.map(function (c) {
-        var checked = _filters.cats.indexOf(String(c.id)) > -1;
-        return '<label class="filter-opt"><input type="checkbox" data-cat="' + c.id + '"' + (checked ? ' checked' : '') + '><span>' + c.name + '</span></label>';
+        var active = _filters.cats.indexOf(String(c.id)) > -1;
+        return '<button type="button" class="fbtn' + (active ? ' active' : '') + '" data-cat="' + c.id + '">' + c.name + '</button>';
       }).join('');
       catsBox.querySelectorAll('[data-cat]').forEach(function (b) {
-        b.addEventListener('change', function () {
+        b.addEventListener('click', function () {
           var id = String(b.getAttribute('data-cat'));
-          if (b.checked) { if (_filters.cats.indexOf(id) === -1) _filters.cats.push(id); }
-          else _filters.cats = _filters.cats.filter(function (x) { return x !== id; });
+          var idx = _filters.cats.indexOf(id);
+          if (idx > -1) _filters.cats.splice(idx, 1);
+          else _filters.cats.push(id);
+          _page = 1;
+          renderFilterPanel();
           renderExplore();
         });
       });
 
       var colBox = document.getElementById('filter-colors');
       if (opts.colors.length) {
-        colBox.innerHTML = opts.colors.map(function (c) {
-          var checked = _filters.colors.indexOf(c.name) > -1;
-          return '<label class="filter-opt"><input type="checkbox" data-color="' + c.name + '"' + (checked ? ' checked' : '') + '><span class="fcolor" style="background:' + c.hex + '"></span><span>' + c.name + '</span></label>';
-        }).join('');
+        colBox.innerHTML = '<div class="color-swatches">' + opts.colors.map(function (c) {
+          var active = _filters.colors.indexOf(c.name) > -1;
+          return '<button type="button" class="color-swatch' + (active ? ' active' : '') + '" data-color="' + c.name + '" style="--c:' + c.hex + '" title="' + c.name + '"></button>';
+        }).join('') + '</div>';
         colBox.querySelectorAll('[data-color]').forEach(function (b) {
-          b.addEventListener('change', function () {
+          b.addEventListener('click', function () {
             var v = b.getAttribute('data-color');
-            if (b.checked) { if (_filters.colors.indexOf(v) === -1) _filters.colors.push(v); }
-            else _filters.colors = _filters.colors.filter(function (x) { return x !== v; });
+            var idx = _filters.colors.indexOf(v);
+            if (idx > -1) _filters.colors.splice(idx, 1);
+            else _filters.colors.push(v);
+            _page = 1;
+            renderFilterPanel();
             renderExplore();
           });
         });
@@ -465,16 +481,22 @@
       }
 
       var szBox = document.getElementById('filter-sizes');
-      if (opts.sizes.length) {
-        szBox.innerHTML = opts.sizes.map(function (sz) {
-          var checked = _filters.sizes.indexOf(sz) > -1;
-          return '<label class="filter-opt"><input type="checkbox" data-size="' + sz + '"' + (checked ? ' checked' : '') + '><span>' + sz + '</span></label>';
+      if (opts.sizeGroups.length) {
+        szBox.innerHTML = opts.sizeGroups.map(function (g) {
+          var pills = g.sizes.map(function (sz) {
+            var active = _filters.sizes.indexOf(sz) > -1;
+            return '<button type="button" class="size-pill' + (active ? ' active' : '') + '" data-size="' + sz + '">' + sz + '</button>';
+          }).join('');
+          return '<div class="size-group"><h5>' + g.name + '</h5><div class="size-pills">' + pills + '</div></div>';
         }).join('');
         szBox.querySelectorAll('[data-size]').forEach(function (b) {
-          b.addEventListener('change', function () {
+          b.addEventListener('click', function () {
             var v = b.getAttribute('data-size');
-            if (b.checked) { if (_filters.sizes.indexOf(v) === -1) _filters.sizes.push(v); }
-            else _filters.sizes = _filters.sizes.filter(function (x) { return x !== v; });
+            var idx = _filters.sizes.indexOf(v);
+            if (idx > -1) _filters.sizes.splice(idx, 1);
+            else _filters.sizes.push(v);
+            _page = 1;
+            renderFilterPanel();
             renderExplore();
           });
         });
@@ -499,6 +521,7 @@
     }
     function clearFilters() {
       _filters = { cats: [], min: null, max: null, colors: [], sizes: [] };
+      _page = 1;
       document.getElementById('filter-min').value = '';
       document.getElementById('filter-max').value = '';
       renderFilterPanel();
@@ -526,20 +549,33 @@
       wireCards(grid);
     }
 
+    function prodColors(p) {
+      var seen = {}, out = [];
+      (p.product_variants || []).forEach(function (v) {
+        if (v.color && !seen[v.color]) {
+          seen[v.color] = 1;
+          out.push({ name: v.color, hex: v.color_hex || '#888' });
+        }
+      });
+      return out;
+    }
+
     function cardHtml(x, eager) {
       var p = x.p;
       var imgs = prodImages(p);
-      var img = imgs[0] ? '<img class="prod-img" src="' + imgs[0] + '" alt="' + p.name + '"' + (eager ? '' : ' loading="lazy"') + ' />' : '<div class="placeholder-box prod-img" style="background:var(--card-bg)" role="img" aria-label="' + p.name + '"></div>';
+      var img = imgs[0] ? '<img class="prod-img" src="' + imgs[0] + '" alt="' + p.name + '"' + (eager ? '' : ' loading="lazy"') + ' />' : '<div class="placeholder-box prod-img" style="background:var(--bg)" role="img" aria-label="' + p.name + '"></div>';
       var orig = p.original_price ? '<span class="prod-orig">' + fmt(p.original_price) + '</span>' : '';
       var offer = p.original_price ? '<span class="prod-offer-badge">' + t('offer') + '</span>' : '';
-      var stock = prodStock(p);
-      var stockTag = stock <= 0 ? '<span class="prod-stock out">' + t('out') + '</span>' : (hasVariants(p) ? '<span class="prod-stock">' + (p.product_variants || []).filter(function (v) { return v.color && v.size; }).length + ' ' + t('variants') + '</span>' : '');
+      var colors = prodColors(p);
+      var colorRow = colors.length ? '<div class="prod-colors"><span class="color-dot" style="background:' + colors[0].hex + '" title="' + colors[0].name + '"></span>' + (colors.length > 1 ? '<span class="color-more">+' + colors.length + '</span>' : '') + '</div>' : '';
       return '<article class="product-card" data-open="' + p.id + '" style="cursor:pointer">' +
         img + offer +
         '<div class="prod-body">' +
-          '<div class="prod-title">' + p.name + '</div>' +
-          '<div class="prod-price-row"><span class="prod-price">' + fmt(p.price) + '</span>' + orig + '</div>' +
-          (stockTag ? '<div class="prod-stock-row">' + stockTag + '</div>' : '') +
+          colorRow +
+          '<div class="prod-meta">' +
+            '<div class="prod-title">' + p.name + '</div>' +
+            '<div class="prod-price-row"><span class="prod-price">' + fmt(p.price) + '</span>' + orig + '</div>' +
+          '</div>' +
         '</div></article>';
     }
 
@@ -554,10 +590,35 @@
     // ===== Explorar =====
     function renderExplore() {
       var grid = document.getElementById('explore-grid');
-      var list = storeProducts.filter(filterMatches);
-      if (!list.length) { grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--secondary-text)">' + t('no_products') + '</p>'; return; }
+      var all = storeProducts.filter(filterMatches);
+      var pages = Math.max(1, Math.ceil(all.length / PAGE_SIZE));
+      if (_page > pages) _page = 1;
+      var list = all.slice((_page - 1) * PAGE_SIZE, _page * PAGE_SIZE);
+      if (!list.length) { grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--secondary-text)">' + t('no_products') + '</p>'; renderPagination(0, 0); return; }
       grid.innerHTML = list.map(function (x) { return cardHtml(x); }).join('');
       wireCards(grid);
+      renderPagination(all.length > PAGE_SIZE ? pages : 0, _page);
+    }
+
+    function renderPagination(total, cur) {
+      var box = document.getElementById('explore-pagination');
+      if (!box) return;
+      if (!total || !cur || total <= 1) { box.classList.add('hidden'); box.innerHTML = ''; return; }
+      box.classList.remove('hidden');
+      var html = cur > 1 ? '<button class="page-btn" data-page="' + (cur - 1) + '" aria-label="Anterior">&laquo;</button>' : '<button class="page-btn" disabled aria-label="Anterior">&laquo;</button>';
+      var nums = [];
+      for (var i = 1; i <= total; i++) {
+        if (i === 1 || i === total || Math.abs(i - cur) <= 1) nums.push(i);
+        else if (nums[nums.length - 1] !== '...') nums.push('...');
+      }
+      html += nums.map(function (n) {
+        return n === '...' ? '<span class="page-btn" style="border:none;background:transparent;cursor:default">&hellip;</span>' : '<button class="page-btn' + (n === cur ? ' active' : '') + '" data-page="' + n + '">' + n + '</button>';
+      }).join('');
+      html += cur < total ? '<button class="page-btn" data-page="' + (cur + 1) + '" aria-label="Siguiente">&raquo;</button>' : '<button class="page-btn" disabled aria-label="Siguiente">&raquo;</button>';
+      box.innerHTML = html;
+      box.querySelectorAll('[data-page]').forEach(function (b) {
+        b.addEventListener('click', function () { _page = Number(b.getAttribute('data-page')); renderExplore(); });
+      });
     }
 
     function showView(view) {
@@ -588,13 +649,14 @@
     var filterToggle = document.getElementById('filter-toggle');
     if (filterToggle) filterToggle.addEventListener('click', function () {
       document.getElementById('filter-panel').classList.toggle('open');
+      document.querySelector('.explore-layout').classList.toggle('has-filters');
     });
     var filterClear = document.getElementById('filter-clear');
     if (filterClear) filterClear.addEventListener('click', clearFilters);
     var fMin = document.getElementById('filter-min');
     var fMax = document.getElementById('filter-max');
-    if (fMin) fMin.addEventListener('change', function () { _filters.min = fMin.value === '' ? null : Number(fMin.value); renderExplore(); });
-    if (fMax) fMax.addEventListener('change', function () { _filters.max = fMax.value === '' ? null : Number(fMax.value); renderExplore(); });
+    if (fMin) fMin.addEventListener('change', function () { _filters.min = fMin.value === '' ? null : Number(fMin.value); _page = 1; renderExplore(); });
+    if (fMax) fMax.addEventListener('change', function () { _filters.max = fMax.value === '' ? null : Number(fMax.value); _page = 1; renderExplore(); });
 
     document.getElementById('search-input').addEventListener('input', function (e) { renderProducts(e.target.value); });
     document.getElementById('lang-toggle').addEventListener('click', function () {
