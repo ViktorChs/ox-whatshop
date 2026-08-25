@@ -108,6 +108,34 @@ async function hashPin(pin) {
   return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
+// Compresion de imagen en el navegador antes de subir (canvas)
+function compressImageFile(file, maxDim, quality) {
+  return new Promise(function (resolve) {
+    var type = ((file && file.type) || '').toLowerCase();
+    if (!type || type === 'image/gif' || type.indexOf('image/') !== 0) return resolve(file);
+    var img = new Image();
+    var url = URL.createObjectURL(file);
+    img.onload = function () {
+      var w = img.width, h = img.height;
+      var scale = Math.max(w, h) > maxDim ? maxDim / Math.max(w, h) : 1;
+      if (scale === 1) { URL.revokeObjectURL(url); return resolve(file); }
+      var canvas = document.createElement('canvas');
+      canvas.width = Math.round(w * scale);
+      canvas.height = Math.round(h * scale);
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(url);
+      var outType = type === 'image/webp' ? 'image/webp' : type === 'image/jpeg' ? 'image/jpeg' : 'image/png';
+      var outExt = outType === 'image/webp' ? 'webp' : outType === 'image/jpeg' ? 'jpg' : 'png';
+      canvas.toBlob(function (blob) {
+        if (!blob) return resolve(file);
+        resolve(new File([blob], 'img-' + Date.now() + '.' + outExt, { type: outType }));
+      }, outType, quality);
+    };
+    img.onerror = function () { URL.revokeObjectURL(url); resolve(file); };
+    img.src = url;
+  });
+}
+
 // ===== Helpers API =====
 const SBHelper = {
   async client() { return loadSupabase(); },
@@ -282,10 +310,11 @@ const SBHelper = {
   },
   async uploadImage(file) {
     const c = await loadSupabase();
-    const name = (file && file.name) || '';
+    const f = await compressImageFile(file, 1600, 0.82);
+    const name = (f && f.name) || '';
     const ext = (name.split('.').pop() || 'png').toLowerCase();
     const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-    const { error } = await c.storage.from(STORAGE_BUCKET).upload(path, file, { contentType: file.type || 'image/png' });
+    const { error } = await c.storage.from(STORAGE_BUCKET).upload(path, f, { contentType: f.type || 'image/png' });
     if (error) throw error;
     return this.publicUrl(path);
   },
