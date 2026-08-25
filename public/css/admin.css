@@ -435,3 +435,6 @@ input, select, textarea { font-family: inherit; }
 .pal-dots { display: flex; gap: 4px; }
 .pal-dot { width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--border); }
 .pal-name { font-size: .72rem; font-weight: 600; color: var(--muted); text-align: center; line-height: 1.2; }
+
+/* ---------- Modo basico / avanzado ---------- */
+body.mode-basico [data-mode="avanzado"] { display: none !important; }
