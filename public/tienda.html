@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=39" />
-  <link rel="stylesheet" href="./css/tienda.css?v=46" />
+  <link rel="stylesheet" href="./css/tienda.css?v=47" />
 </head>
 <body class="shop-page">
 
@@ -126,6 +126,7 @@
         </div>
       </div>
       <div class="reviews-track" id="reviews-track"></div>
+      <div class="reviews-dots" id="reviews-dots"></div>
     </section>
 
     <section class="section-block hidden reveal" id="explore-view" aria-label="Productos">
@@ -273,7 +274,7 @@
     // ===== i18n =====
     var I18N = {
       es: {
-        nav_home: 'Inicio', nav_explore: 'Productos', nav_cart: 'Carrito', filters: 'Filtros', clear: 'Limpiar', price: 'Precio', price_min: 'Mín', price_max: 'Máx', color: 'Color', size: 'Tallas', avail: 'Disponibilidad', avail_yes: 'Disponible', avail_low: 'Por agotarse', crumbs_products: 'Productos', reviews_title: 'Reseñas de clientes', reviews_empty: 'Sin reseñas todavía', no_variants: 'No hay productos con variantes de tallas o colores',
+        nav_home: 'Inicio', nav_explore: 'Productos', nav_cart: 'Carrito', filters: 'Filtros', clear: 'Limpiar', price: 'Precio', price_min: 'Mín', price_max: 'Máx', color: 'Color', size: 'Tallas', avail: 'Disponibilidad', avail_yes: 'Disponible', avail_low: 'Por agotarse', crumbs_products: 'Productos', reviews_title: 'Reseñas de clientes', reviews_empty: 'Sin reseñas todavía', rev_verified: 'Cliente verificado', no_variants: 'No hay productos con variantes de tallas o colores',
         buscar: 'Buscar productos...',
         promo_title: 'Rebajas de Año Nuevo', promo_discount: '25% descuento', promo_img: 'Imagen de promoción',
         categories_title: 'Categorías', popular_title: 'Productos Populares', view_all: 'Ver todas', view_all_cats: 'Ver todas las categorías', go_store: 'Ir a la tienda',
@@ -292,7 +293,7 @@
         closed_msg: 'La tienda está cerrada en este momento'
       },
       en: {
-        nav_home: 'Home', nav_explore: 'Products', nav_cart: 'Cart', filters: 'Filters', clear: 'Clear', price: 'Price', price_min: 'Min', price_max: 'Max', color: 'Color', size: 'Size', avail: 'Availability', avail_yes: 'In stock', avail_low: 'Almost gone', crumbs_products: 'Products', reviews_title: 'Customer reviews', reviews_empty: 'No reviews yet', no_variants: 'No products with size or color variants',
+        nav_home: 'Home', nav_explore: 'Products', nav_cart: 'Cart', filters: 'Filters', clear: 'Clear', price: 'Price', price_min: 'Min', price_max: 'Max', color: 'Color', size: 'Size', avail: 'Availability', avail_yes: 'In stock', avail_low: 'Almost gone', crumbs_products: 'Products', reviews_title: 'Customer reviews', reviews_empty: 'No reviews yet', rev_verified: 'Verified buyer', no_variants: 'No products with size or color variants',
         buscar: 'Search items...',
         promo_title: 'New Year Sale', promo_discount: '25% off', promo_img: 'Promo image',
         categories_title: 'Categories', popular_title: 'Popular Products', view_all: 'View all', view_all_cats: 'View all categories', go_store: 'Go to store',
@@ -728,15 +729,24 @@
     var revIdx = 0;
     function reviewCardHtml(r) {
       var img = r.image ? '<img class="review-img" src="' + r.image + '" alt="' + r.name + '" loading="lazy" />' : '<div class="review-img review-ph" role="img" aria-label="' + r.name + '"></div>';
-      return '<div class="review-card">' + img + '<div class="review-name">' + r.name + '</div><div class="review-text">' + r.text + '</div></div>';
+      return '<div class="review-card">' +
+        '<span class="review-quote">&#8220;</span>' +
+        '<div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>' +
+        img +
+        '<div class="review-name">' + r.name + '</div>' +
+        '<div class="review-verified">&#10003; ' + t('rev_verified') + '</div>' +
+        '<div class="review-text">' + r.text + '</div>' +
+      '</div>';
     }
     function renderReviews() {
       var sec = document.getElementById('reviews-section');
       if (!sec) return;
       sec.classList.remove('hidden');
       reviewsList = (settings && settings.reviews) || [];
+      var dots = document.getElementById('reviews-dots');
       if (!reviewsList.length) {
         document.getElementById('reviews-track').innerHTML = '<p class="filter-empty" style="margin:0">' + t('reviews_empty') + '</p>';
+        if (dots) dots.innerHTML = '';
         return;
       }
       revIdx = revIdx % reviewsList.length;
@@ -748,6 +758,15 @@
         cards.push(reviewCardHtml(r));
       }
       document.getElementById('reviews-track').innerHTML = cards.join('');
+      if (dots) {
+        if (reviewsList.length <= n) { dots.innerHTML = ''; return; }
+        dots.innerHTML = reviewsList.map(function (_, i) {
+          return '<button type="button" class="r-dot' + (i === revIdx ? ' active' : '') + '" data-dot="' + i + '" aria-label="' + (i + 1) + '"></button>';
+        }).join('');
+        dots.querySelectorAll('[data-dot]').forEach(function (b) {
+          b.addEventListener('click', function () { revIdx = Number(b.getAttribute('data-dot')); renderReviews(); });
+        });
+      }
     }
 
     function prodColors(p) {
@@ -1004,7 +1023,30 @@
 
     // ===== Pantalla de carga entre paginas =====
     var pageLoader = document.getElementById('page-loader');
-    function hidePageLoader() { if (pageLoader) pageLoader.classList.add('hidden'); }
+    function animateYear() {
+      var el = document.querySelector('.hero-new-sub');
+      if (!el) return;
+      var txt = el.textContent || '';
+      var m = txt.match(/(\d{4})/);
+      if (!m) return;
+      var target = Number(m[1]);
+      var t0 = null, dur = 900;
+      function ease(p) { return 1 - Math.pow(1 - p, 3); }
+      function step(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / dur, 1);
+        var val = Math.round((target - 2000) * ease(p) + 2000);
+        el.textContent = txt.replace(/\d{4}/, val);
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = txt;
+      }
+      requestAnimationFrame(step);
+    }
+    function hidePageLoader() {
+      if (pageLoader) pageLoader.classList.add('hidden');
+      document.body.classList.add('ready');
+      animateYear();
+    }
     document.addEventListener('click', function (e) {
       var a = e.target.closest('a[href]');
       var card = e.target.closest('[data-open]');
