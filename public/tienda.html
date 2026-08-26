@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=38" />
-  <link rel="stylesheet" href="./css/tienda.css?v=39" />
+  <link rel="stylesheet" href="./css/tienda.css?v=40" />
 </head>
 <body class="shop-page">
 
@@ -68,29 +68,29 @@
     <div class="promo-name" id="promo-name">WhatShop</div>
   </section>
 
+  <section class="hero-new hidden" id="hero-new" aria-label="Nuevos productos">
+    <div class="hero-new-left">
+      <h2 class="hero-new-title" data-i18n="hero_title">NUEVOS PRODUCTOS</h2>
+      <p class="hero-new-sub" data-i18n="hero_sub">Colección 2026</p>
+      <div class="hero-new-actions">
+        <button class="hero-new-cta" id="hero-cta">
+          <span data-i18n="hero_cta">Ir a la tienda</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </button>
+        <div class="hero-new-nav">
+          <button class="hero-new-navbtn" id="hero-prev" data-i18n-aria="hero_prev" aria-label="Anterior">&#8249;</button>
+          <button class="hero-new-navbtn" id="hero-next" data-i18n-aria="hero_next" aria-label="Siguiente">&#8250;</button>
+        </div>
+      </div>
+    </div>
+    <div class="hero-new-card" id="hero-main"></div>
+    <div class="hero-new-card" id="hero-side"></div>
+  </section>
+
   <main class="shop-inner">
     <div id="store-notice" class="store-notice hidden"></div>
 
     <section class="section-block" id="home-view" aria-label="Productos populares">
-      <section class="hero-new hidden" id="hero-new" aria-label="Nuevos productos">
-        <div class="hero-new-left">
-          <h2 class="hero-new-title" data-i18n="hero_title">NUEVOS PRODUCTOS</h2>
-          <p class="hero-new-sub" data-i18n="hero_sub">Colección 2026</p>
-          <div class="hero-new-actions">
-            <button class="hero-new-cta" id="hero-cta">
-              <span data-i18n="hero_cta">Ir a la tienda</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-            </button>
-            <div class="hero-new-nav">
-              <button class="hero-new-navbtn" id="hero-prev" data-i18n-aria="hero_prev" aria-label="Anterior">&#8249;</button>
-              <button class="hero-new-navbtn" id="hero-next" data-i18n-aria="hero_next" aria-label="Siguiente">&#8250;</button>
-            </div>
-          </div>
-        </div>
-        <div class="hero-new-card" id="hero-main"></div>
-        <div class="hero-new-card" id="hero-side"></div>
-      </section>
-
       <div class="section-head">
         <h2 data-i18n="popular_title">Productos Populares</h2>
       </div>
@@ -407,10 +407,10 @@
           var ims = prodImages(x.p);
           for (var ii = 0; ii < ims.length; ii++) { var im = new Image(); im.src = ims[ii]; }
         });
+        loadHero();
         renderProducts(currentFilter);
         renderFilterPanel();
         renderExplore();
-        loadHero();
         var vm = location.search.match(/[?&]view=(explore)/);
         if (vm) { _filters.cats = []; showView('explore'); renderFilterPanel(); renderExplore(); }
         var cm = location.search.match(/[?&]cat=(\d+)/);
@@ -623,13 +623,22 @@
     }
     function renderHero() {
       var box = document.getElementById('hero-new');
-      if (!box || heroList.length < 2) { if (box) box.classList.add('hidden'); return; }
+      if (!box) return;
+      if (heroList.length < 1) { box.classList.add('hidden'); return; }
+      box.classList.remove('hidden');
+      box.classList.toggle('single', heroList.length < 2);
       var center = heroList[heroIdx];
-      var side = heroList[(heroIdx + 1) % heroList.length];
+      var side = heroList.length > 1 ? heroList[(heroIdx + 1) % heroList.length] : null;
       var main = document.getElementById('hero-main');
       var sideEl = document.getElementById('hero-side');
       main.innerHTML = heroCardHtml(center);
-      sideEl.innerHTML = heroCardHtml(side);
+      if (side) {
+        sideEl.classList.remove('hidden');
+        sideEl.innerHTML = heroCardHtml(side);
+      } else {
+        sideEl.classList.add('hidden');
+        sideEl.innerHTML = '';
+      }
       [main, sideEl].forEach(function (el) {
         el.querySelectorAll('[data-open]').forEach(function (c) {
           c.addEventListener('click', function () {
@@ -682,13 +691,16 @@
       var home = document.getElementById('home-view');
       var explore = document.getElementById('explore-view');
       var banner = document.querySelector('.promo-banner');
+      var hero = document.getElementById('hero-new');
       if (view === 'explore') {
         if (home) home.classList.add('hidden');
         if (banner) banner.classList.add('hidden');
+        if (hero) hero.classList.add('hidden');
         if (explore) explore.classList.remove('hidden');
       } else {
         if (home) home.classList.remove('hidden');
         if (banner) banner.classList.remove('hidden');
+        if (hero && heroList.length >= 1) hero.classList.remove('hidden');
         if (explore) explore.classList.add('hidden');
       }
     }
