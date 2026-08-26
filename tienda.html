@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=38" />
-  <link rel="stylesheet" href="./css/tienda.css?v=43" />
+  <link rel="stylesheet" href="./css/tienda.css?v=44" />
 </head>
 <body class="shop-page">
 
@@ -119,31 +119,51 @@
         <h2 data-i18n="nav_explore">Productos</h2>
         <button class="filter-toggle" id="filter-toggle" data-i18n="filters">Filtros</button>
       </div>
-      <div class="explore-layout">
-        <aside class="filter-panel" id="filter-panel">
+      <div class="explore-layout has-filters">
+        <aside class="filter-panel open" id="filter-panel">
           <div class="filter-head">
             <h3 data-i18n="filters">Filtros</h3>
             <button class="filter-clear" id="filter-clear" data-i18n="clear">Limpiar</button>
           </div>
-          <div class="filter-group">
-            <h4 data-i18n="categories_title">Categorías</h4>
-            <div class="filter-options" id="filter-cats"></div>
-          </div>
-          <div class="filter-group">
-            <h4 data-i18n="price">Precio</h4>
-            <div class="price-range">
-              <input type="number" id="filter-min" min="0" step="0.01" placeholder="Min" data-i18n-ph="price_min" />
-              <span>&ndash;</span>
-              <input type="number" id="filter-max" min="0" step="0.01" placeholder="Max" data-i18n-ph="price_max" />
+          <div class="filter-group collapsed">
+            <button type="button" class="filter-group-head" aria-expanded="false">
+              <span data-i18n="categories_title">Categorías</span>
+              <svg class="filter-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="filter-group-body">
+              <div class="filter-options" id="filter-cats"></div>
             </div>
           </div>
-          <div class="filter-group">
-            <h4 data-i18n="color">Colores</h4>
-            <div class="filter-options" id="filter-colors"></div>
+          <div class="filter-group collapsed">
+            <button type="button" class="filter-group-head" aria-expanded="false">
+              <span data-i18n="price">Precio</span>
+              <svg class="filter-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="filter-group-body">
+              <div class="price-range">
+                <input type="number" id="filter-min" min="0" step="0.01" placeholder="Min" data-i18n-ph="price_min" />
+                <span>&ndash;</span>
+                <input type="number" id="filter-max" min="0" step="0.01" placeholder="Max" data-i18n-ph="price_max" />
+              </div>
+            </div>
           </div>
-          <div class="filter-group">
-            <h4 data-i18n="size">Tallas</h4>
-            <div class="filter-options" id="filter-sizes"></div>
+          <div class="filter-group collapsed">
+            <button type="button" class="filter-group-head" aria-expanded="false">
+              <span data-i18n="color">Colores</span>
+              <svg class="filter-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="filter-group-body">
+              <div class="filter-options" id="filter-colors"></div>
+            </div>
+          </div>
+          <div class="filter-group collapsed">
+            <button type="button" class="filter-group-head" aria-expanded="false">
+              <span data-i18n="size">Tallas</span>
+              <svg class="filter-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="filter-group-body">
+              <div class="filter-options" id="filter-sizes"></div>
+            </div>
           </div>
         </aside>
         <div class="explore-content">
@@ -797,6 +817,13 @@
     if (filterToggle) filterToggle.addEventListener('click', function () {
       document.getElementById('filter-panel').classList.toggle('open');
       document.querySelector('.explore-layout').classList.toggle('has-filters');
+    });
+    document.querySelectorAll('.filter-group-head').forEach(function (h) {
+      h.addEventListener('click', function () {
+        var g = h.closest('.filter-group');
+        g.classList.toggle('collapsed');
+        h.setAttribute('aria-expanded', g.classList.contains('collapsed') ? 'false' : 'true');
+      });
     });
     var filterClear = document.getElementById('filter-clear');
     if (filterClear) filterClear.addEventListener('click', clearFilters);
