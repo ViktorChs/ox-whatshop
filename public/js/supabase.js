@@ -44,7 +44,8 @@ function applyTheme(settings) {
     '--color-ring': t.ring,
     '--color-category-box': t.categoryBox,
     '--radius': (t.corners === 'rounded' ? (t.radius || 14) : 0) + 'px',
-    '--card-border': t.cardBorder === 'line' ? '1px solid var(--color-border, #E5E5E5)' : 'none'
+    '--card-border': t.cardBorder === 'line' ? '1px solid var(--color-border, #E5E5E5)' : 'none',
+    '--filter-bg': t.filterBg || undefined
   };
   for (const [key, value] of Object.entries(map)) {
     if (value) root.setProperty(key, value);

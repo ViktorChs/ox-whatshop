@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/theme.css?v=38" />
-  <link rel="stylesheet" href="./css/tienda.css?v=44" />
+  <link rel="stylesheet" href="./css/theme.css?v=39" />
+  <link rel="stylesheet" href="./css/tienda.css?v=45" />
 </head>
 <body class="shop-page">
 
@@ -93,37 +93,59 @@
   <main class="shop-inner">
     <div id="store-notice" class="store-notice hidden"></div>
 
-    <section class="section-block" id="home-view" aria-label="Productos populares">
-      <div class="section-head popular-head">
-        <h2 class="popular-title"><span data-i18n="popular_l1">Productos</span><br /><span data-i18n="popular_l2">Populares</span></h2>
-      </div>
-      <div class="popular-track" id="products-grid"></div>
-      <div class="popular-nav">
-        <button class="hero-new-navbtn" id="popular-prev" data-i18n-aria="hero_prev" aria-label="Anterior">&#8249;</button>
-        <button class="hero-new-navbtn" id="popular-next" data-i18n-aria="hero_next" aria-label="Siguiente">&#8250;</button>
-      </div>
-      <div class="promo-cta">
-        <div class="promo-cta-text">
-          <h3 class="promo-cta-title" data-i18n="promo_cta_title">Descubre toda la colección</h3>
-          <p class="promo-cta-sub" data-i18n="promo_cta_sub">Cientos de productos para ti</p>
+    <section class="section-block reveal" id="home-view" aria-label="Productos populares">
+      <div class="home-view-inner">
+        <div class="section-head popular-head">
+          <h2 class="popular-title"><span data-i18n="popular_l1">Productos</span><br /><span data-i18n="popular_l2">Populares</span></h2>
         </div>
-        <button class="promo-cta-btn" id="promo-cta-btn">
-          <span data-i18n="promo_cta_btn">Ver catálogo completo</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-        </button>
+        <div class="popular-track" id="products-grid"></div>
+        <div class="popular-nav">
+          <button class="hero-new-navbtn" id="popular-prev" data-i18n-aria="hero_prev" aria-label="Anterior">&#8249;</button>
+          <button class="hero-new-navbtn" id="popular-next" data-i18n-aria="hero_next" aria-label="Siguiente">&#8250;</button>
+        </div>
       </div>
     </section>
 
-    <section class="section-block hidden" id="explore-view" aria-label="Productos">
+    <div class="promo-cta reveal">
+      <div class="promo-cta-text">
+        <h3 class="promo-cta-title" data-i18n="promo_cta_title">Descubre toda la colección</h3>
+        <p class="promo-cta-sub" data-i18n="promo_cta_sub">Cientos de productos para ti</p>
+      </div>
+      <button class="promo-cta-btn" id="promo-cta-btn">
+        <span data-i18n="promo_cta_btn">Ver catálogo completo</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+      </button>
+    </div>
+
+    <section class="section-block reveal hidden" id="reviews-section" aria-label="Reseñas">
+      <div class="section-head">
+        <h2 class="reviews-title" data-i18n="reviews_title">Reseñas de clientes</h2>
+        <div class="popular-nav" id="reviews-nav">
+          <button class="hero-new-navbtn" id="reviews-prev" data-i18n-aria="hero_prev" aria-label="Anterior">&#8249;</button>
+          <button class="hero-new-navbtn" id="reviews-next" data-i18n-aria="hero_next" aria-label="Siguiente">&#8250;</button>
+        </div>
+      </div>
+      <div class="reviews-track" id="reviews-track"></div>
+    </section>
+
+    <section class="section-block hidden reveal" id="explore-view" aria-label="Productos">
+      <nav class="crumbs" aria-label="Ruta" style="margin-bottom:14px">
+        <a href="./tienda.html" data-i18n="nav_home">Inicio</a>
+        <span class="crumbs-sep">/</span>
+        <span data-i18n="crumbs_products">Productos</span>
+      </nav>
       <div class="section-head">
         <h2 data-i18n="nav_explore">Productos</h2>
         <button class="filter-toggle" id="filter-toggle" data-i18n="filters">Filtros</button>
       </div>
       <div class="explore-layout has-filters">
-        <aside class="filter-panel open" id="filter-panel">
+        <aside class="filter-panel" id="filter-panel">
           <div class="filter-head">
             <h3 data-i18n="filters">Filtros</h3>
-            <button class="filter-clear" id="filter-clear" data-i18n="clear">Limpiar</button>
+            <div style="display:flex;align-items:center;gap:6px">
+              <button class="filter-clear" id="filter-clear" data-i18n="clear">Limpiar</button>
+              <button class="filter-close" id="filter-close" aria-label="Cerrar filtros">&times;</button>
+            </div>
           </div>
           <div class="filter-group collapsed">
             <button type="button" class="filter-group-head" aria-expanded="false">
@@ -132,6 +154,15 @@
             </button>
             <div class="filter-group-body">
               <div class="filter-options" id="filter-cats"></div>
+            </div>
+          </div>
+          <div class="filter-group collapsed">
+            <button type="button" class="filter-group-head" aria-expanded="false">
+              <span data-i18n="avail">Disponibilidad</span>
+              <svg class="filter-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="filter-group-body">
+              <div class="filter-options" id="filter-avail"></div>
             </div>
           </div>
           <div class="filter-group collapsed">
@@ -171,8 +202,17 @@
           <div class="pagination hidden" id="explore-pagination"></div>
         </div>
       </div>
+      <div class="filter-scrim" id="filter-scrim"></div>
     </section>
   </main>
+
+  <button class="scroll-btn hidden" id="scroll-btn" aria-label="Subir o bajar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+  </button>
+
+  <div class="page-loader hidden" id="page-loader" role="status" aria-label="Cargando">
+    <div class="page-loader-spin"></div>
+  </div>
 
   <div class="cart-scrim" id="cart-scrim"></div>
   <aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Carrito">
@@ -226,14 +266,14 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=38"></script>
-  <script src="./js/supabase.js?v=38"></script>
-  <script src="./js/cart.js?v=38"></script>
+  <script src="./config.js?v=39"></script>
+  <script src="./js/supabase.js?v=39"></script>
+  <script src="./js/cart.js?v=39"></script>
   <script>
     // ===== i18n =====
     var I18N = {
       es: {
-        nav_home: 'Inicio', nav_explore: 'Productos', nav_cart: 'Carrito', filters: 'Filtros', clear: 'Limpiar', price: 'Precio', price_min: 'Mín', price_max: 'Máx', no_variants: 'No hay productos con variantes de tallas o colores',
+        nav_home: 'Inicio', nav_explore: 'Productos', nav_cart: 'Carrito', filters: 'Filtros', clear: 'Limpiar', price: 'Precio', price_min: 'Mín', price_max: 'Máx', color: 'Color', size: 'Tallas', avail: 'Disponibilidad', avail_yes: 'Disponible', avail_low: 'Por agotarse', crumbs_products: 'Productos', reviews_title: 'Reseñas de clientes', reviews_empty: 'Sin reseñas todavía', no_variants: 'No hay productos con variantes de tallas o colores',
         buscar: 'Buscar productos...',
         promo_title: 'Rebajas de Año Nuevo', promo_discount: '25% descuento', promo_img: 'Imagen de promoción',
         categories_title: 'Categorías', popular_title: 'Productos Populares', view_all: 'Ver todas', view_all_cats: 'Ver todas las categorías', go_store: 'Ir a la tienda',
@@ -252,7 +292,7 @@
         closed_msg: 'La tienda está cerrada en este momento'
       },
       en: {
-        nav_home: 'Home', nav_explore: 'Products', nav_cart: 'Cart', filters: 'Filters', clear: 'Clear', price: 'Price', price_min: 'Min', price_max: 'Max', no_variants: 'No products with size or color variants',
+        nav_home: 'Home', nav_explore: 'Products', nav_cart: 'Cart', filters: 'Filters', clear: 'Clear', price: 'Price', price_min: 'Min', price_max: 'Max', color: 'Color', size: 'Size', avail: 'Availability', avail_yes: 'In stock', avail_low: 'Almost gone', crumbs_products: 'Products', reviews_title: 'Customer reviews', reviews_empty: 'No reviews yet', no_variants: 'No products with size or color variants',
         buscar: 'Search items...',
         promo_title: 'New Year Sale', promo_discount: '25% off', promo_img: 'Promo image',
         categories_title: 'Categories', popular_title: 'Popular Products', view_all: 'View all', view_all_cats: 'View all categories', go_store: 'Go to store',
@@ -363,6 +403,7 @@
     var settings = { store: {} };
     var currentFilter = '';
     var storeProducts = [];   // productos reales: {p, catId}
+    var bannerHidden = false;
     (async function loadConfig() {
       try {
         var store = await SBStore();
@@ -373,8 +414,11 @@
         applyGradient();
         var s = settings.store || {};
         heroEnabled = s.showHero !== false;
+        bannerHidden = s.showBanner === false;
         var bannerEl0 = document.querySelector('.promo-banner');
-        if (bannerEl0) bannerEl0.classList.toggle('hidden', s.showBanner === false);
+        if (bannerEl0) bannerEl0.classList.toggle('hidden', bannerHidden);
+        var fp = document.getElementById('filter-panel');
+        if (fp) fp.classList.toggle('filter-bold', s.filterBold === true);
         var name = s.name || 'WhatShop';
         var logo = (settings.landing && settings.landing.logo) || './assets/logos/logoB.png';
         document.getElementById('brand-name').textContent = name;
@@ -446,6 +490,7 @@
         });
         loadHero();
         renderPopular(currentFilter);
+        renderReviews();
         renderFilterPanel();
         renderExplore();
         var vm = location.search.match(/[?&]view=(explore)/);
@@ -474,7 +519,7 @@
     function hasVariants(p) { return (p.product_variants || []).some(function (v) { return v.color || v.size; }); }
 
     // ===== Filtros de la pagina Productos =====
-    var _filters = { cats: [], min: null, max: null, colors: [], sizes: [] };
+    var _filters = { cats: [], min: null, max: null, colors: [], sizes: [], avail: null };
     var _page = 1;
     var PAGE_SIZE = 20;
     function buildFilterOptions() {
@@ -516,6 +561,22 @@
         });
       });
 
+      var availBox = document.getElementById('filter-avail');
+      availBox.innerHTML = ['yes', 'low'].map(function (a) {
+        var active = _filters.avail === a;
+        var label = a === 'yes' ? t('avail_yes') : t('avail_low');
+        return '<button type="button" class="fbtn' + (active ? ' active' : '') + '" data-avail="' + a + '">' + label + '</button>';
+      }).join('');
+      availBox.querySelectorAll('[data-avail]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var v = b.getAttribute('data-avail');
+          _filters.avail = _filters.avail === v ? null : v;
+          _page = 1;
+          renderFilterPanel();
+          renderExplore();
+        });
+      });
+
       var colBox = document.getElementById('filter-colors');
       if (opts.colors.length) {
         colBox.innerHTML = '<div class="color-swatches">' + opts.colors.map(function (c) {
@@ -544,7 +605,9 @@
             var active = _filters.sizes.indexOf(sz) > -1;
             return '<button type="button" class="size-pill' + (active ? ' active' : '') + '" data-size="' + sz + '">' + sz + '</button>';
           }).join('');
-          return '<div class="size-group"><h5>' + g.name + '</h5><div class="size-pills">' + pills + '</div></div>';
+          return '<div class="size-group collapsed">' +
+            '<button type="button" class="size-group-head" aria-expanded="false"><span>' + g.name + '</span><svg class="filter-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>' +
+            '<div class="size-group-body"><div class="size-pills">' + pills + '</div></div></div>';
         }).join('');
         szBox.querySelectorAll('[data-size]').forEach(function (b) {
           b.addEventListener('click', function () {
@@ -555,6 +618,13 @@
             _page = 1;
             renderFilterPanel();
             renderExplore();
+          });
+        });
+        szBox.querySelectorAll('.size-group-head').forEach(function (h) {
+          h.addEventListener('click', function () {
+            var g = h.closest('.size-group');
+            g.classList.toggle('collapsed');
+            h.setAttribute('aria-expanded', g.classList.contains('collapsed') ? 'false' : 'true');
           });
         });
       } else {
@@ -574,10 +644,15 @@
         var hasS = (p.product_variants || []).some(function (v) { return v.size && f.sizes.indexOf(v.size) > -1; });
         if (!hasS) return false;
       }
+      if (f.avail) {
+        var st = prodStock(p);
+        if (f.avail === 'yes' && st <= 0) return false;
+        if (f.avail === 'low' && (st <= 0 || st > 5)) return false;
+      }
       return true;
     }
     function clearFilters() {
-      _filters = { cats: [], min: null, max: null, colors: [], sizes: [] };
+      _filters = { cats: [], min: null, max: null, colors: [], sizes: [], avail: null };
       _page = 1;
       document.getElementById('filter-min').value = '';
       document.getElementById('filter-max').value = '';
@@ -640,6 +715,30 @@
       var next = document.getElementById('popular-next');
       if (prev) prev.style.visibility = on ? 'visible' : 'hidden';
       if (next) next.style.visibility = on ? 'visible' : 'hidden';
+    }
+
+    // ===== Reseñas de clientes (carrusel) =====
+    var reviewsList = [];
+    var revIdx = 0;
+    function reviewCardHtml(r) {
+      var img = r.image ? '<img class="review-img" src="' + r.image + '" alt="' + r.name + '" loading="lazy" />' : '<div class="review-img review-ph" role="img" aria-label="' + r.name + '"></div>';
+      return '<div class="review-card">' + img + '<div class="review-name">' + r.name + '</div><div class="review-text">' + r.text + '</div></div>';
+    }
+    function renderReviews() {
+      var sec = document.getElementById('reviews-section');
+      if (!sec) return;
+      reviewsList = (settings && settings.reviews) || [];
+      if (!reviewsList.length) { sec.classList.add('hidden'); return; }
+      sec.classList.remove('hidden');
+      revIdx = revIdx % reviewsList.length;
+      var n = window.innerWidth >= 768 ? 3 : 1;
+      var count = Math.min(n, reviewsList.length);
+      var cards = [];
+      for (var k = 0; k < count; k++) {
+        var r = reviewsList.length <= n ? reviewsList[k] : reviewsList[(revIdx + k) % reviewsList.length];
+        cards.push(reviewCardHtml(r));
+      }
+      document.getElementById('reviews-track').innerHTML = cards.join('');
     }
 
     function prodColors(p) {
@@ -779,7 +878,7 @@
         if (explore) explore.classList.remove('hidden');
       } else {
         if (home) home.classList.remove('hidden');
-        if (banner) banner.classList.remove('hidden');
+        if (banner) banner.classList.toggle('hidden', bannerHidden);
         if (hero && heroEnabled && heroList.length >= 1) hero.classList.remove('hidden');
         if (explore) explore.classList.add('hidden');
       }
@@ -810,14 +909,21 @@
     var popularNext = document.getElementById('popular-next');
     if (popularPrev) popularPrev.addEventListener('click', function () { if (!popList.length) return; popIdx = (popIdx - 1 + popList.length) % popList.length; renderPopular(currentFilter); });
     if (popularNext) popularNext.addEventListener('click', function () { if (!popList.length) return; popIdx = (popIdx + 1) % popList.length; renderPopular(currentFilter); });
-    window.addEventListener('resize', function () { renderPopular(currentFilter); });
+    window.addEventListener('resize', function () { renderPopular(currentFilter); renderReviews(); });
 
     // Filtros
+    var filterPanelEl = document.getElementById('filter-panel');
+    var filterScrim = document.getElementById('filter-scrim');
+    function closeFilters() { filterPanelEl.classList.remove('open'); filterScrim.classList.remove('open'); }
+    function openFilters() { filterPanelEl.classList.add('open'); filterScrim.classList.add('open'); }
     var filterToggle = document.getElementById('filter-toggle');
     if (filterToggle) filterToggle.addEventListener('click', function () {
-      document.getElementById('filter-panel').classList.toggle('open');
-      document.querySelector('.explore-layout').classList.toggle('has-filters');
+      if (filterPanelEl.classList.contains('open')) closeFilters();
+      else openFilters();
     });
+    var filterClose = document.getElementById('filter-close');
+    if (filterClose) filterClose.addEventListener('click', closeFilters);
+    if (filterScrim) filterScrim.addEventListener('click', closeFilters);
     document.querySelectorAll('.filter-group-head').forEach(function (h) {
       h.addEventListener('click', function () {
         var g = h.closest('.filter-group');
@@ -831,6 +937,12 @@
     var fMax = document.getElementById('filter-max');
     if (fMin) fMin.addEventListener('change', function () { _filters.min = fMin.value === '' ? null : Number(fMin.value); _page = 1; renderExplore(); });
     if (fMax) fMax.addEventListener('change', function () { _filters.max = fMax.value === '' ? null : Number(fMax.value); _page = 1; renderExplore(); });
+
+    // Reseñas: navegacion + resize
+    var rvPrev = document.getElementById('reviews-prev');
+    var rvNext = document.getElementById('reviews-next');
+    if (rvPrev) rvPrev.addEventListener('click', function () { if (!reviewsList.length) return; revIdx = (revIdx - 1 + reviewsList.length) % reviewsList.length; renderReviews(); });
+    if (rvNext) rvNext.addEventListener('click', function () { if (!reviewsList.length) return; revIdx = (revIdx + 1) % reviewsList.length; renderReviews(); });
 
     document.getElementById('search-input').addEventListener('input', function (e) { renderPopular(e.target.value); });
     document.getElementById('lang-toggle').addEventListener('click', function () {
@@ -858,6 +970,49 @@
 
     function on(id, ev, fn) { var el = document.getElementById(id); if (el) el.addEventListener(ev, fn); }
     on('cart-open', 'click', CART.openCart);
+
+    // ===== Boton arriba/abajo =====
+    var scrollBtn = document.getElementById('scroll-btn');
+    var scrollUpIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>';
+    var scrollDownIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>';
+    function updateScrollBtn() {
+      if (!scrollBtn) return;
+      if (window.scrollY > 120) { scrollBtn.classList.remove('hidden'); scrollBtn.innerHTML = scrollUpIcon; }
+      else { scrollBtn.classList.add('hidden'); scrollBtn.innerHTML = scrollDownIcon; }
+    }
+    window.addEventListener('scroll', updateScrollBtn, { passive: true });
+    updateScrollBtn();
+    if (scrollBtn) scrollBtn.addEventListener('click', function () {
+      if (window.scrollY > 120) window.scrollTo({ top: 0, behavior: 'smooth' });
+      else window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    });
+
+    // ===== Pantalla de carga entre paginas =====
+    var pageLoader = document.getElementById('page-loader');
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href]');
+      var card = e.target.closest('[data-open]');
+      var go = e.target.closest('#btn-go-store, #promo-cta-btn, #hero-cta, #hero-prev, #hero-next, #popular-prev, #popular-next, #reviews-prev, #reviews-next, .filter-toggle, .filter-close, #filter-scrim, .nav-item, .page-btn, .fbtn, .color-swatch, .size-pill, .size-group-head, .filter-group-head, .filter-clear, #filter-min, #filter-max, .cat-pill, #cart-close, .qty-control button, .cart-item .remove');
+      if (a && a.getAttribute('href') && a.getAttribute('href').indexOf('#') !== 0) {
+        if (pageLoader) pageLoader.classList.remove('hidden');
+      } else if (card) {
+        if (pageLoader) pageLoader.classList.remove('hidden');
+      }
+    });
+    window.addEventListener('load', function () { if (pageLoader) pageLoader.classList.add('hidden'); });
+
+    // ===== Animaciones: fade on scroll =====
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduced && 'IntersectionObserver' in window) {
+      var revealObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('visible'); revealObs.unobserve(en.target); }
+        });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.reveal').forEach(function (el) { revealObs.observe(el); });
+    } else {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
+    }
   </script>
 </body>
 </html>
