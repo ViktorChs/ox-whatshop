@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=38" />
-  <link rel="stylesheet" href="./css/tienda.css?v=41" />
+  <link rel="stylesheet" href="./css/tienda.css?v=42" />
 </head>
 <body class="shop-page">
 
@@ -85,16 +85,21 @@
     </div>
     <div class="hero-new-card" id="hero-main"></div>
     <div class="hero-new-card" id="hero-side"></div>
+    <div class="hero-new-card" id="hero-side2"></div>
   </section>
 
   <main class="shop-inner">
     <div id="store-notice" class="store-notice hidden"></div>
 
     <section class="section-block" id="home-view" aria-label="Productos populares">
-      <div class="section-head">
-        <h2 data-i18n="popular_title">Productos Populares</h2>
+      <div class="section-head popular-head">
+        <h2 class="popular-title"><span data-i18n="popular_l1">Productos</span><br /><span data-i18n="popular_l2">Populares</span></h2>
+        <div class="popular-nav">
+          <button class="hero-new-navbtn" id="popular-prev" data-i18n-aria="hero_prev" aria-label="Anterior">&#8249;</button>
+          <button class="hero-new-navbtn" id="popular-next" data-i18n-aria="hero_next" aria-label="Siguiente">&#8250;</button>
+        </div>
       </div>
-      <div class="products-grid" id="products-grid"></div>
+      <div class="popular-track" id="products-grid"></div>
       <div style="text-align:center;margin-top:20px">
         <button class="btn-go-store" id="btn-go-store" data-i18n="go_store">Ir a la tienda</button>
       </div>
@@ -211,7 +216,7 @@
         send_whatsapp: 'Enviar pedido por WhatsApp',
         cart_empty: 'Tu carrito está vacío', no_products: 'No hay productos', write_name: 'Escribe tu nombre',
         add_to_cart: 'Agregar al carrito', added: 'Agregado al carrito', view: 'Ver', total_label: 'TOTAL',
-        out: 'Agotado', offer: 'Oferta', variants: 'variantes', size_others: 'Otros', hero_title: 'NUEVOS PRODUCTOS', hero_sub: 'Colección 2026', hero_cta: 'Ir a la tienda', hero_prev: 'Anterior', hero_next: 'Siguiente', enter_store: 'Entrar a la tienda', wa_hi: 'Hola, tengo una consulta sobre sus productos.',
+        out: 'Agotado', offer: 'Oferta', variants: 'variantes', size_others: 'Otros', hero_title: 'NUEVOS PRODUCTOS', hero_sub: 'Colección 2026', hero_cta: 'Ir a la tienda', hero_prev: 'Anterior', hero_next: 'Siguiente', popular_l1: 'Productos', popular_l2: 'Populares', enter_store: 'Entrar a la tienda', wa_hi: 'Hola, tengo una consulta sobre sus productos.',
         f_terminos: 'Términos y condiciones', f_privacidad: 'Política de privacidad',
         f_politicas: 'Políticas de compra', f_cookies: 'Política de cookies',
         f_contacto: 'Contacto', f_by: 'Plataforma de tienda de',
@@ -230,7 +235,7 @@
         send_whatsapp: 'Send order via WhatsApp',
         cart_empty: 'Your cart is empty', no_products: 'No products', write_name: 'Enter your name',
         add_to_cart: 'Add to cart', added: 'Added to cart', view: 'View', total_label: 'TOTAL',
-        out: 'Out of stock', offer: 'Sale', variants: 'variants', size_others: 'Others', hero_title: 'NEW PRODUCTS', hero_sub: '2026 Collection', hero_cta: 'Go to store', hero_prev: 'Previous', hero_next: 'Next', enter_store: 'Enter the store', wa_hi: 'Hello, I have a question about your products.',
+        out: 'Out of stock', offer: 'Sale', variants: 'variants', size_others: 'Others', hero_title: 'NEW PRODUCTS', hero_sub: '2026 Collection', hero_cta: 'Go to store', hero_prev: 'Previous', hero_next: 'Next', popular_l1: 'Products', popular_l2: 'Popular', enter_store: 'Enter the store', wa_hi: 'Hello, I have a question about your products.',
         f_terminos: 'Terms and conditions', f_privacidad: 'Privacy policy',
         f_politicas: 'Purchase policies', f_cookies: 'Cookie policy',
         f_contacto: 'Contact', f_by: 'Store platform by',
@@ -257,7 +262,7 @@
       document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
         el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
       });
-      renderProducts(currentFilter);
+      renderPopular(currentFilter);
       renderFilterPanel();
       renderExplore();
     }
@@ -338,6 +343,9 @@
         applyTheme(settings);
         applyGradient();
         var s = settings.store || {};
+        heroEnabled = s.showHero !== false;
+        var bannerEl0 = document.querySelector('.promo-banner');
+        if (bannerEl0) bannerEl0.classList.toggle('hidden', s.showBanner === false);
         var name = s.name || 'WhatShop';
         var logo = (settings.landing && settings.landing.logo) || './assets/logos/logoB.png';
         document.getElementById('brand-name').textContent = name;
@@ -408,7 +416,7 @@
           for (var ii = 0; ii < ims.length; ii++) { var im = new Image(); im.src = ims[ii]; }
         });
         loadHero();
-        renderProducts(currentFilter);
+        renderPopular(currentFilter);
         renderFilterPanel();
         renderExplore();
         var vm = location.search.match(/[?&]view=(explore)/);
@@ -548,8 +556,21 @@
       renderExplore();
     }
 
-    // ===== Render productos (tarjetas -> pagina de producto) =====
-    function renderProducts(filter) {
+    // ===== Productos Populares (carrusel) =====
+    var popList = [];
+    var popIdx = 0;
+    function popularVisible() { return window.innerWidth >= 768 ? 3 : 2; }
+    function popularCardHtml(p) {
+      var imgs = prodImages(p);
+      var img = imgs[0] ? '<img class="popular-img" src="' + imgs[0] + '" alt="' + p.name + '" loading="lazy" />' : '<div class="popular-img" style="background:var(--bg)" role="img" aria-label="' + p.name + '"></div>';
+      return '<article class="popular-card" data-open="' + p.id + '">' +
+        img +
+        '<div class="popular-overlay">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/></svg>' +
+          '<span>' + p.name + '</span>' +
+        '</div></article>';
+    }
+    function renderPopular(filter) {
       currentFilter = filter || '';
       var grid = document.getElementById('products-grid');
       var list = storeProducts;
@@ -564,9 +585,29 @@
       } else {
         list = list.slice(0, 6);
       }
-      if (!list.length) { grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--secondary-text)">' + t('no_products') + '</p>'; return; }
-      grid.innerHTML = list.map(function (x) { return cardHtml(x, true); }).join('');
-      wireCards(grid);
+      popList = list;
+      if (popIdx >= popList.length && popList.length) popIdx = 0;
+      if (!popList.length) { grid.innerHTML = '<p style="text-align:center;color:var(--secondary-text)">' + t('no_products') + '</p>'; togglePopularArrows(false); return; }
+      var visible = popularVisible();
+      var n = Math.min(visible, popList.length);
+      var cards = [];
+      for (var k = 0; k < n; k++) {
+        var item = popList.length <= visible ? popList[k] : popList[(popIdx + k) % popList.length];
+        cards.push(popularCardHtml(item.p));
+      }
+      grid.innerHTML = cards.join('');
+      grid.querySelectorAll('[data-open]').forEach(function (card) {
+        card.addEventListener('click', function () {
+          window.location.href = './product.html?id=' + card.getAttribute('data-open');
+        });
+      });
+      togglePopularArrows(popList.length > visible);
+    }
+    function togglePopularArrows(on) {
+      var prev = document.getElementById('popular-prev');
+      var next = document.getElementById('popular-next');
+      if (prev) prev.style.visibility = on ? 'visible' : 'hidden';
+      if (next) next.style.visibility = on ? 'visible' : 'hidden';
     }
 
     function prodColors(p) {
@@ -610,6 +651,7 @@
     // ===== Hero: Nuevos productos (carousel) =====
     var heroList = [];
     var heroIdx = 0;
+    var heroEnabled = true;
     function heroCardHtml(p) {
       var imgs = prodImages(p);
       var img = imgs[0] ? '<img class="hero-img" src="' + imgs[0] + '" alt="' + p.name + '" loading="lazy" />' : '<div class="hero-img" style="background:var(--bg)" role="img" aria-label="' + p.name + '"></div>';
@@ -624,22 +666,20 @@
     function renderHero() {
       var box = document.getElementById('hero-new');
       if (!box) return;
-      if (heroList.length < 1) { box.classList.add('hidden'); return; }
+      if (!heroEnabled || heroList.length < 1) { box.classList.add('hidden'); return; }
       box.classList.remove('hidden');
-      box.classList.toggle('single', heroList.length < 2);
-      var center = heroList[heroIdx].p;
-      var side = heroList.length > 1 ? heroList[(heroIdx + 1) % heroList.length].p : null;
-      var main = document.getElementById('hero-main');
-      var sideEl = document.getElementById('hero-side');
-      main.innerHTML = heroCardHtml(center);
-      if (side) {
-        sideEl.classList.remove('hidden');
-        sideEl.innerHTML = heroCardHtml(side);
-      } else {
-        sideEl.classList.add('hidden');
-        sideEl.innerHTML = '';
+      var els = [document.getElementById('hero-main'), document.getElementById('hero-side'), document.getElementById('hero-side2')];
+      for (var k = 0; k < 3; k++) {
+        var el = els[k];
+        if (k < heroList.length) {
+          el.classList.remove('hidden');
+          el.innerHTML = heroCardHtml(heroList[(heroIdx + k) % heroList.length].p);
+        } else {
+          el.classList.add('hidden');
+          el.innerHTML = '';
+        }
       }
-      [main, sideEl].forEach(function (el) {
+      els.forEach(function (el) {
         el.querySelectorAll('[data-open]').forEach(function (c) {
           c.addEventListener('click', function () {
             window.location.href = './product.html?id=' + c.getAttribute('data-open');
@@ -702,7 +742,7 @@
       } else {
         if (home) home.classList.remove('hidden');
         if (banner) banner.classList.remove('hidden');
-        if (hero && heroList.length >= 1) hero.classList.remove('hidden');
+        if (hero && heroEnabled && heroList.length >= 1) hero.classList.remove('hidden');
         if (explore) explore.classList.add('hidden');
       }
     }
@@ -724,6 +764,13 @@
     if (heroPrev) heroPrev.addEventListener('click', function () { if (heroList.length < 2) return; heroIdx = (heroIdx - 1 + heroList.length) % heroList.length; renderHero(); });
     if (heroNext) heroNext.addEventListener('click', function () { if (heroList.length < 2) return; heroIdx = (heroIdx + 1) % heroList.length; renderHero(); });
 
+    // Populares: navegacion + resize
+    var popularPrev = document.getElementById('popular-prev');
+    var popularNext = document.getElementById('popular-next');
+    if (popularPrev) popularPrev.addEventListener('click', function () { if (!popList.length) return; popIdx = (popIdx - 1 + popList.length) % popList.length; renderPopular(currentFilter); });
+    if (popularNext) popularNext.addEventListener('click', function () { if (!popList.length) return; popIdx = (popIdx + 1) % popList.length; renderPopular(currentFilter); });
+    window.addEventListener('resize', function () { renderPopular(currentFilter); });
+
     // Filtros
     var filterToggle = document.getElementById('filter-toggle');
     if (filterToggle) filterToggle.addEventListener('click', function () {
@@ -737,7 +784,7 @@
     if (fMin) fMin.addEventListener('change', function () { _filters.min = fMin.value === '' ? null : Number(fMin.value); _page = 1; renderExplore(); });
     if (fMax) fMax.addEventListener('change', function () { _filters.max = fMax.value === '' ? null : Number(fMax.value); _page = 1; renderExplore(); });
 
-    document.getElementById('search-input').addEventListener('input', function (e) { renderProducts(e.target.value); });
+    document.getElementById('search-input').addEventListener('input', function (e) { renderPopular(e.target.value); });
     document.getElementById('lang-toggle').addEventListener('click', function () {
       lang = lang === 'es' ? 'en' : 'es';
       localStorage.setItem('whatshop_lang', lang);
