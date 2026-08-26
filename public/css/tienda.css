@@ -1088,11 +1088,11 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .hero-new {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px var(--space-page) 4px;
+  padding: 16px var(--space-page) 4px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  margin-bottom: 28px;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
 .hero-new.single .hero-new-card:first-child {
@@ -1200,7 +1200,14 @@ html, body { max-width: 100%; overflow-x: hidden; }
 @media (min-width: 768px) {
   .hero-new {
     grid-template-columns: 240px 1.2fr 0.8fr;
-    align-items: center;
+    align-items: end;
     gap: 20px;
+    padding-top: 20px;
+  }
+  .hero-new-left {
+    grid-column: auto;
+  }
+  .hero-new-card .hero-img {
+    max-height: 300px;
   }
 }

@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=38" />
-  <link rel="stylesheet" href="./css/tienda.css?v=40" />
+  <link rel="stylesheet" href="./css/tienda.css?v=41" />
 </head>
 <body class="shop-page">
 
@@ -627,8 +627,8 @@
       if (heroList.length < 1) { box.classList.add('hidden'); return; }
       box.classList.remove('hidden');
       box.classList.toggle('single', heroList.length < 2);
-      var center = heroList[heroIdx];
-      var side = heroList.length > 1 ? heroList[(heroIdx + 1) % heroList.length] : null;
+      var center = heroList[heroIdx].p;
+      var side = heroList.length > 1 ? heroList[(heroIdx + 1) % heroList.length].p : null;
       var main = document.getElementById('hero-main');
       var sideEl = document.getElementById('hero-side');
       main.innerHTML = heroCardHtml(center);
@@ -648,7 +648,9 @@
       });
     }
     function loadHero() {
-      heroList = storeProducts.slice().sort(function (a, b) { return (Number(b.p.id) || 0) - (Number(a.p.id) || 0); }).slice(0, 6);
+      var byIdDesc = function (a, b) { return (Number(b.p.id) || 0) - (Number(a.p.id) || 0); };
+      var featured = storeProducts.filter(function (x) { return x.p.featured; }).sort(byIdDesc).slice(0, 6);
+      heroList = featured.length ? featured : storeProducts.slice().sort(byIdDesc).slice(0, 6);
       heroIdx = 0;
       renderHero();
     }
