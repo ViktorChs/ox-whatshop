@@ -1083,3 +1083,117 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .filter-panel { display: none; }
   .filter-panel.open { display: block; }
 }
+
+/* ---------- Hero: Nuevos productos ---------- */
+.hero-new {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.hero-new-left {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hero-new-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  color: var(--primary-text);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.hero-new-sub {
+  color: var(--secondary-text);
+  font-size: 0.92rem;
+  margin: 0 0 6px;
+}
+
+.hero-new-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hero-new-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--color-primary, #171717);
+  color: var(--color-on-primary, #fff);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  min-height: 44px;
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.hero-new-cta:hover { opacity: 0.92; }
+.hero-new-cta:active { transform: scale(0.97); }
+
+.hero-new-cta svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+.hero-new-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.hero-new-navbtn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border-c);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--primary-text);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.hero-new-navbtn:hover { background: var(--card-bg); border-color: var(--color-primary); }
+
+.hero-new-card {
+  min-width: 0;
+}
+
+.hero-new-card .hero-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius);
+}
+
+.hero-new-card .hero-new-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hero-new-card .prod-meta {
+  padding-top: 2px;
+}
+
+.hero-new-card .prod-title { font-size: 14px; }
+.hero-new-card .prod-price { font-size: 0.95rem; }
+
+@media (min-width: 768px) {
+  .hero-new {
+    grid-template-columns: 240px 1.2fr 0.8fr;
+    align-items: center;
+    gap: 20px;
+  }
+}
