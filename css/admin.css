@@ -299,7 +299,10 @@ input, select, textarea { font-family: inherit; }
 /* ---------- Filtros pedidos ---------- */
 .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
 .chip { padding: 6px 13px; border-radius: 999px; border: 1px solid var(--border); background: transparent; font-size: .82rem; color: var(--muted); font-weight: 600; }
+.chip:hover { border-color: var(--primary); color: var(--text); }
 .chip.active { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+.font-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.font-chip { border-radius: 8px; padding: 8px 12px; cursor: pointer; }
 .order-body { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border); font-size: .85rem; color: var(--text); }
 .order-body.open { display: block; }
 .order-items { margin: 8px 0; padding: 10px 12px; background: var(--bg-soft); border-radius: 8px; }
