@@ -370,6 +370,10 @@
     try { uiCache = JSON.parse(localStorage.getItem('whatshop_ui_cache') || 'null'); } catch (e) {}
     if (uiCache) {
       if (uiCache.theme) applyTheme(uiCache.theme);
+      if (uiCache.showBanner === false) {
+        var pb0 = document.querySelector('.promo-banner');
+        if (pb0) pb0.classList.add('hidden');
+      }
       var cLogo = uiCache.logo || null;
       var cImg = uiCache.bannerImage || cLogo;
       if (cLogo || cImg) {
@@ -441,7 +445,8 @@
             theme: settings.theme || null,
             logo: (settings.landing && settings.landing.logo) || null,
             bannerImage: (settings.landing && settings.landing.bannerImage) || null,
-            name: name
+            name: name,
+            showBanner: s.showBanner !== false
           }));
         } catch (e) {}
 
@@ -1010,7 +1015,7 @@
         if (pageLoader) pageLoader.classList.remove('hidden');
       }
     });
-    window.addEventListener('load', function () { if (pageLoader) pageLoader.classList.add('hidden'); });
+    setTimeout(hidePageLoader, 7000);
 
     // ===== Animaciones: fade on scroll =====
     var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
