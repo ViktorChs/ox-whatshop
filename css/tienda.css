@@ -1101,6 +1101,18 @@ html, body { max-width: 100%; overflow-x: hidden; }
   grid-column: 1 / -1;
 }
 
+.home-top.has-hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-top.has-hero .hero-new {
+  flex: 1 1 auto;
+  align-content: end;
+  margin-bottom: 0;
+}
+
 .hero-new-left {
   grid-column: 1 / -1;
   display: flex;
@@ -1187,34 +1199,43 @@ html, body { max-width: 100%; overflow-x: hidden; }
 }
 
 .hero-new-card .hero-new-inner {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  cursor: pointer;
 }
 
-.hero-new-card .prod-meta {
-  padding-top: 2px;
-}
-
-.hero-new-card .prod-title { font-size: 14px; }
-.hero-new-card .prod-price { font-size: 0.95rem; }
-
-.hero-new-inner .prod-price-row {
+.card-overlay {
+  position: absolute;
+  inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  opacity: 0;
+  transition: opacity 180ms ease;
+  text-align: center;
+  padding: 10px;
+}
+
+.hero-new-inner:hover .card-overlay,
+.hero-new-inner:active .card-overlay {
+  opacity: 1;
+}
+
+.card-overlay svg {
+  width: 32px;
+  height: 32px;
   flex-shrink: 0;
 }
 
-.hero-new-inner .prod-price {
-  font-weight: 700;
-  color: var(--primary-text);
-}
-
-.hero-new-inner .prod-orig {
-  font-size: 0.8rem;
-  color: var(--secondary-text);
-  text-decoration: line-through;
+.card-overlay span {
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.25;
 }
 
 @media (min-width: 768px) {
@@ -1226,9 +1247,6 @@ html, body { max-width: 100%; overflow-x: hidden; }
   }
   .hero-new-left {
     grid-column: auto;
-  }
-  .hero-new-card .hero-img {
-    width: min(100%, calc(100vh - 300px));
   }
 }
 
@@ -1249,7 +1267,9 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
 .popular-nav {
   display: flex;
+  justify-content: center;
   gap: 8px;
+  margin-top: 18px;
 }
 
 .popular-track {
@@ -1260,52 +1280,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
 }
 
 .popular-card {
-  position: relative;
   flex: 0 0 auto;
   width: clamp(130px, 42vw, 260px);
-  aspect-ratio: 1 / 1;
-  border-radius: var(--radius);
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.popular-card .popular-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.popular-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: rgba(0, 0, 0, 0.45);
-  color: #fff;
-  opacity: 0;
-  transition: opacity 180ms ease;
-  text-align: center;
-  padding: 10px;
-}
-
-.popular-card:hover .popular-overlay {
-  opacity: 1;
-}
-
-.popular-overlay svg {
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
-}
-
-.popular-overlay span {
-  font-weight: 600;
-  font-size: 0.9rem;
-  line-height: 1.25;
 }
 
 @media (min-width: 768px) {
@@ -1313,3 +1289,51 @@ html, body { max-width: 100%; overflow-x: hidden; }
     width: clamp(150px, 21vw, 300px);
   }
 }
+
+/* ---------- Banda promocional / CTA ---------- */
+.promo-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+  padding: 22px 24px;
+  border-radius: var(--radius);
+  background: linear-gradient(120deg, var(--color-primary, #171717), var(--color-accent, #A16207));
+  color: var(--color-on-primary, #fff);
+}
+
+.promo-cta-title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin: 0 0 4px;
+}
+
+.promo-cta-sub {
+  font-size: 0.9rem;
+  opacity: 0.85;
+  margin: 0;
+}
+
+.promo-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--color-on-primary, #fff);
+  color: var(--color-primary, #171717);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  min-height: 44px;
+  transition: transform 150ms ease, opacity 150ms ease;
+}
+
+.promo-cta-btn:hover { opacity: 0.92; }
+.promo-cta-btn:active { transform: scale(0.97); }
+
+.promo-cta-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
