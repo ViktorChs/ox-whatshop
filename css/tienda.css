@@ -395,6 +395,8 @@ html, body {
 .product-card .prod-img {
   width: 100%;
   aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
 }
 
 .product-card .prod-body {
@@ -1197,17 +1199,117 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .hero-new-card .prod-title { font-size: 14px; }
 .hero-new-card .prod-price { font-size: 0.95rem; }
 
+.hero-new-inner .prod-price-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.hero-new-inner .prod-price {
+  font-weight: 700;
+  color: var(--primary-text);
+}
+
+.hero-new-inner .prod-orig {
+  font-size: 0.8rem;
+  color: var(--secondary-text);
+  text-decoration: line-through;
+}
+
 @media (min-width: 768px) {
   .hero-new {
-    grid-template-columns: 240px 1.2fr 0.8fr;
+    grid-template-columns: 200px 1fr 1fr 1fr;
     align-items: end;
-    gap: 20px;
-    padding-top: 20px;
+    gap: 16px;
+    padding-top: 16px;
   }
   .hero-new-left {
     grid-column: auto;
   }
   .hero-new-card .hero-img {
-    max-height: 300px;
+    width: min(100%, calc(100vh - 300px));
+  }
+}
+
+/* ---------- Productos Populares (carrusel) ---------- */
+.popular-head {
+  align-items: flex-end;
+}
+
+.popular-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--primary-text);
+  margin: 0;
+}
+
+.popular-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.popular-track {
+  display: flex;
+  gap: 16px;
+  margin-top: 14px;
+  overflow: hidden;
+}
+
+.popular-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(130px, 42vw, 260px);
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.popular-card .popular-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.popular-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  opacity: 0;
+  transition: opacity 180ms ease;
+  text-align: center;
+  padding: 10px;
+}
+
+.popular-card:hover .popular-overlay {
+  opacity: 1;
+}
+
+.popular-overlay svg {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.popular-overlay span {
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+
+@media (min-width: 768px) {
+  .popular-card {
+    width: clamp(150px, 21vw, 300px);
   }
 }
