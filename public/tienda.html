@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=38" />
-  <link rel="stylesheet" href="./css/tienda.css?v=42" />
+  <link rel="stylesheet" href="./css/tienda.css?v=43" />
 </head>
 <body class="shop-page">
 
@@ -24,6 +24,7 @@
     <div class="splash-spinner" role="status" aria-label="Cargando"></div>
   </div>
 
+  <div class="home-top" id="home-top">
   <header class="top-header">
     <div class="top-header-inner">
       <div class="brand">
@@ -87,6 +88,7 @@
     <div class="hero-new-card" id="hero-side"></div>
     <div class="hero-new-card" id="hero-side2"></div>
   </section>
+  </div>
 
   <main class="shop-inner">
     <div id="store-notice" class="store-notice hidden"></div>
@@ -94,14 +96,21 @@
     <section class="section-block" id="home-view" aria-label="Productos populares">
       <div class="section-head popular-head">
         <h2 class="popular-title"><span data-i18n="popular_l1">Productos</span><br /><span data-i18n="popular_l2">Populares</span></h2>
-        <div class="popular-nav">
-          <button class="hero-new-navbtn" id="popular-prev" data-i18n-aria="hero_prev" aria-label="Anterior">&#8249;</button>
-          <button class="hero-new-navbtn" id="popular-next" data-i18n-aria="hero_next" aria-label="Siguiente">&#8250;</button>
-        </div>
       </div>
       <div class="popular-track" id="products-grid"></div>
-      <div style="text-align:center;margin-top:20px">
-        <button class="btn-go-store" id="btn-go-store" data-i18n="go_store">Ir a la tienda</button>
+      <div class="popular-nav">
+        <button class="hero-new-navbtn" id="popular-prev" data-i18n-aria="hero_prev" aria-label="Anterior">&#8249;</button>
+        <button class="hero-new-navbtn" id="popular-next" data-i18n-aria="hero_next" aria-label="Siguiente">&#8250;</button>
+      </div>
+      <div class="promo-cta">
+        <div class="promo-cta-text">
+          <h3 class="promo-cta-title" data-i18n="promo_cta_title">Descubre toda la colección</h3>
+          <p class="promo-cta-sub" data-i18n="promo_cta_sub">Cientos de productos para ti</p>
+        </div>
+        <button class="promo-cta-btn" id="promo-cta-btn">
+          <span data-i18n="promo_cta_btn">Ver catálogo completo</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </button>
       </div>
     </section>
 
@@ -216,7 +225,7 @@
         send_whatsapp: 'Enviar pedido por WhatsApp',
         cart_empty: 'Tu carrito está vacío', no_products: 'No hay productos', write_name: 'Escribe tu nombre',
         add_to_cart: 'Agregar al carrito', added: 'Agregado al carrito', view: 'Ver', total_label: 'TOTAL',
-        out: 'Agotado', offer: 'Oferta', variants: 'variantes', size_others: 'Otros', hero_title: 'NUEVOS PRODUCTOS', hero_sub: 'Colección 2026', hero_cta: 'Ir a la tienda', hero_prev: 'Anterior', hero_next: 'Siguiente', popular_l1: 'Productos', popular_l2: 'Populares', enter_store: 'Entrar a la tienda', wa_hi: 'Hola, tengo una consulta sobre sus productos.',
+        out: 'Agotado', offer: 'Oferta', variants: 'variantes', size_others: 'Otros', hero_title: 'NUEVOS PRODUCTOS', hero_sub: 'Colección 2026', hero_cta: 'Ir a la tienda', hero_prev: 'Anterior', hero_next: 'Siguiente', popular_l1: 'Productos', popular_l2: 'Populares', promo_cta_title: 'Descubre toda la colección', promo_cta_sub: 'Cientos de productos para ti', promo_cta_btn: 'Ver catálogo completo', enter_store: 'Entrar a la tienda', wa_hi: 'Hola, tengo una consulta sobre sus productos.',
         f_terminos: 'Términos y condiciones', f_privacidad: 'Política de privacidad',
         f_politicas: 'Políticas de compra', f_cookies: 'Política de cookies',
         f_contacto: 'Contacto', f_by: 'Plataforma de tienda de',
@@ -235,7 +244,7 @@
         send_whatsapp: 'Send order via WhatsApp',
         cart_empty: 'Your cart is empty', no_products: 'No products', write_name: 'Enter your name',
         add_to_cart: 'Add to cart', added: 'Added to cart', view: 'View', total_label: 'TOTAL',
-        out: 'Out of stock', offer: 'Sale', variants: 'variants', size_others: 'Others', hero_title: 'NEW PRODUCTS', hero_sub: '2026 Collection', hero_cta: 'Go to store', hero_prev: 'Previous', hero_next: 'Next', popular_l1: 'Products', popular_l2: 'Popular', enter_store: 'Enter the store', wa_hi: 'Hello, I have a question about your products.',
+        out: 'Out of stock', offer: 'Sale', variants: 'variants', size_others: 'Others', hero_title: 'NEW PRODUCTS', hero_sub: '2026 Collection', hero_cta: 'Go to store', hero_prev: 'Previous', hero_next: 'Next', popular_l1: 'Products', popular_l2: 'Popular', promo_cta_title: 'Discover the full collection', promo_cta_sub: 'Hundreds of products for you', promo_cta_btn: 'See full catalog', enter_store: 'Enter the store', wa_hi: 'Hello, I have a question about your products.',
         f_terminos: 'Terms and conditions', f_privacidad: 'Privacy policy',
         f_politicas: 'Purchase policies', f_cookies: 'Cookie policy',
         f_contacto: 'Contact', f_by: 'Store platform by',
@@ -562,12 +571,15 @@
     function popularVisible() { return window.innerWidth >= 768 ? 3 : 2; }
     function popularCardHtml(p) {
       var imgs = prodImages(p);
-      var img = imgs[0] ? '<img class="popular-img" src="' + imgs[0] + '" alt="' + p.name + '" loading="lazy" />' : '<div class="popular-img" style="background:var(--bg)" role="img" aria-label="' + p.name + '"></div>';
-      return '<article class="popular-card" data-open="' + p.id + '">' +
+      var img = imgs[0] ? '<img class="prod-img" src="' + imgs[0] + '" alt="' + p.name + '" loading="lazy" />' : '<div class="placeholder-box prod-img" style="background:var(--bg)" role="img" aria-label="' + p.name + '"></div>';
+      var orig = p.original_price ? '<span class="prod-orig">' + fmt(p.original_price) + '</span>' : '';
+      return '<article class="product-card popular-card" data-open="' + p.id + '">' +
         img +
-        '<div class="popular-overlay">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/></svg>' +
-          '<span>' + p.name + '</span>' +
+        '<div class="prod-body">' +
+          '<div class="prod-meta">' +
+            '<div class="prod-title">' + p.name + '</div>' +
+            '<div class="prod-price-row"><span class="prod-price">' + fmt(p.price) + '</span>' + orig + '</div>' +
+          '</div>' +
         '</div></article>';
     }
     function renderPopular(filter) {
@@ -655,18 +667,23 @@
     function heroCardHtml(p) {
       var imgs = prodImages(p);
       var img = imgs[0] ? '<img class="hero-img" src="' + imgs[0] + '" alt="' + p.name + '" loading="lazy" />' : '<div class="hero-img" style="background:var(--bg)" role="img" aria-label="' + p.name + '"></div>';
-      var orig = p.original_price ? '<span class="prod-orig">' + fmt(p.original_price) + '</span>' : '';
-      return '<article class="hero-new-inner" data-open="' + p.id + '" style="cursor:pointer">' +
+      return '<article class="hero-new-inner" data-open="' + p.id + '">' +
         img +
-        '<div class="prod-meta">' +
-          '<div class="prod-title">' + p.name + '</div>' +
-          '<div class="prod-price-row"><span class="prod-price">' + fmt(p.price) + '</span>' + orig + '</div>' +
+        '<div class="card-overlay">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/></svg>' +
+          '<span>' + p.name + '</span>' +
         '</div></article>';
+    }
+    function updateHomeTop() {
+      var top = document.getElementById('home-top');
+      var hero = document.getElementById('hero-new');
+      if (!top) return;
+      top.classList.toggle('has-hero', hero && !hero.classList.contains('hidden'));
     }
     function renderHero() {
       var box = document.getElementById('hero-new');
       if (!box) return;
-      if (!heroEnabled || heroList.length < 1) { box.classList.add('hidden'); return; }
+      if (!heroEnabled || heroList.length < 1) { box.classList.add('hidden'); updateHomeTop(); return; }
       box.classList.remove('hidden');
       var els = [document.getElementById('hero-main'), document.getElementById('hero-side'), document.getElementById('hero-side2')];
       for (var k = 0; k < 3; k++) {
@@ -686,6 +703,7 @@
           });
         });
       });
+      updateHomeTop();
     }
     function loadHero() {
       var byIdDesc = function (a, b) { return (Number(b.p.id) || 0) - (Number(a.p.id) || 0); };
@@ -745,6 +763,7 @@
         if (hero && heroEnabled && heroList.length >= 1) hero.classList.remove('hidden');
         if (explore) explore.classList.add('hidden');
       }
+      updateHomeTop();
     }
 
     // ===== Init =====
@@ -755,6 +774,8 @@
     function goStoreBtn() { window.location.href = './tienda.html?view=explore'; }
     var goStore = document.getElementById('btn-go-store');
     if (goStore) goStore.addEventListener('click', goStoreBtn);
+    var promoCta = document.getElementById('promo-cta-btn');
+    if (promoCta) promoCta.addEventListener('click', goStoreBtn);
 
     // Hero: navegacion + CTA
     var heroCta = document.getElementById('hero-cta');
