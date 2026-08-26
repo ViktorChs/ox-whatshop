@@ -19,6 +19,7 @@
   --space-page: 16px;
   --radius: 0px;
   --card-border: none;
+  --filter-bg: var(--color-muted, #EFEFEF);
 }
 
 /* Modo oscuro */
@@ -1298,6 +1299,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
     align-items: end;
     gap: 16px;
     padding-top: 16px;
+    padding-bottom: 6rem;
   }
   .hero-new-left {
     grid-column: auto;
@@ -1401,7 +1403,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
   width: 100vw;
   margin-left: calc(50% - 50vw);
   padding: 60px var(--space-page) 48px;
-  background: var(--color-muted, #EFEFEF);
+  background: var(--bg);
 }
 #home-view .home-view-inner {
   width: 100%;

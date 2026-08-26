@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=39" />
-  <link rel="stylesheet" href="./css/tienda.css?v=45" />
+  <link rel="stylesheet" href="./css/tienda.css?v=46" />
 </head>
 <body class="shop-page">
 
@@ -210,7 +210,7 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
   </button>
 
-  <div class="page-loader hidden" id="page-loader" role="status" aria-label="Cargando">
+  <div class="page-loader" id="page-loader" role="status" aria-label="Cargando">
     <div class="page-loader-spin"></div>
   </div>
 
@@ -503,7 +503,8 @@
           renderExplore();
         }
         CART.updateBadge();
-      } catch (e) { console.warn('No se pudo cargar config', e); }
+        hidePageLoader();
+      } catch (e) { console.warn('No se pudo cargar config', e); hidePageLoader(); }
     })();
 
     function fmt(v) { return typeof window.formatPrice === 'function' ? window.formatPrice(v, settings) : String(Number(v || 0).toFixed(2)); }
@@ -727,9 +728,12 @@
     function renderReviews() {
       var sec = document.getElementById('reviews-section');
       if (!sec) return;
-      reviewsList = (settings && settings.reviews) || [];
-      if (!reviewsList.length) { sec.classList.add('hidden'); return; }
       sec.classList.remove('hidden');
+      reviewsList = (settings && settings.reviews) || [];
+      if (!reviewsList.length) {
+        document.getElementById('reviews-track').innerHTML = '<p class="filter-empty" style="margin:0">' + t('reviews_empty') + '</p>';
+        return;
+      }
       revIdx = revIdx % reviewsList.length;
       var n = window.innerWidth >= 768 ? 3 : 1;
       var count = Math.min(n, reviewsList.length);
@@ -871,15 +875,21 @@
       var explore = document.getElementById('explore-view');
       var banner = document.querySelector('.promo-banner');
       var hero = document.getElementById('hero-new');
+      var promoCta = document.querySelector('.promo-cta');
+      var reviews = document.getElementById('reviews-section');
       if (view === 'explore') {
         if (home) home.classList.add('hidden');
         if (banner) banner.classList.add('hidden');
         if (hero) hero.classList.add('hidden');
+        if (promoCta) promoCta.classList.add('hidden');
+        if (reviews) reviews.classList.add('hidden');
         if (explore) explore.classList.remove('hidden');
       } else {
         if (home) home.classList.remove('hidden');
         if (banner) banner.classList.toggle('hidden', bannerHidden);
         if (hero && heroEnabled && heroList.length >= 1) hero.classList.remove('hidden');
+        if (promoCta) promoCta.classList.remove('hidden');
+        if (reviews) reviews.classList.remove('hidden');
         if (explore) explore.classList.add('hidden');
       }
       updateHomeTop();
@@ -989,6 +999,7 @@
 
     // ===== Pantalla de carga entre paginas =====
     var pageLoader = document.getElementById('page-loader');
+    function hidePageLoader() { if (pageLoader) pageLoader.classList.add('hidden'); }
     document.addEventListener('click', function (e) {
       var a = e.target.closest('a[href]');
       var card = e.target.closest('[data-open]');
