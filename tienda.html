@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=39" />
-  <link rel="stylesheet" href="./css/tienda.css?v=47" />
+  <link rel="stylesheet" href="./css/tienda.css?v=48" />
 </head>
 <body class="shop-page">
 
@@ -73,20 +73,20 @@
     <div class="hero-new-left">
       <h2 class="hero-new-title" data-i18n="hero_title">NUEVOS PRODUCTOS</h2>
       <p class="hero-new-sub" data-i18n="hero_sub">Colección 2026</p>
-      <div class="hero-new-actions">
-        <button class="hero-new-cta" id="hero-cta">
-          <span data-i18n="hero_cta">Ir a la tienda</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-        </button>
-        <div class="hero-new-nav">
-          <button class="hero-new-navbtn" id="hero-prev" data-i18n-aria="hero_prev" aria-label="Anterior">&#8249;</button>
-          <button class="hero-new-navbtn" id="hero-next" data-i18n-aria="hero_next" aria-label="Siguiente">&#8250;</button>
-        </div>
+      <div class="hero-new-nav">
+        <button class="hero-new-navbtn" id="hero-prev" data-i18n-aria="hero_prev" aria-label="Anterior">&#8249;</button>
+        <button class="hero-new-navbtn" id="hero-next" data-i18n-aria="hero_next" aria-label="Siguiente">&#8250;</button>
       </div>
     </div>
-    <div class="hero-new-card" id="hero-main"></div>
-    <div class="hero-new-card" id="hero-side"></div>
-    <div class="hero-new-card" id="hero-side2"></div>
+    <div class="hero-new-cards" id="hero-cards">
+      <div class="hero-new-card" id="hero-main"></div>
+      <div class="hero-new-card" id="hero-side"></div>
+      <div class="hero-new-card" id="hero-side2"></div>
+    </div>
+    <button class="hero-new-cta" id="hero-cta">
+      <span data-i18n="hero_cta">Ir a la tienda</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+    </button>
   </section>
   </div>
 
@@ -977,6 +977,25 @@
     var rvNext = document.getElementById('reviews-next');
     if (rvPrev) rvPrev.addEventListener('click', function () { if (!reviewsList.length) return; revIdx = (revIdx - 1 + reviewsList.length) % reviewsList.length; renderReviews(); });
     if (rvNext) rvNext.addEventListener('click', function () { if (!reviewsList.length) return; revIdx = (revIdx + 1) % reviewsList.length; renderReviews(); });
+
+    // Carrusel hero: arrastre con mouse/finger
+    var heroCardsEl = document.getElementById('hero-cards');
+    if (heroCardsEl) {
+      var hDown = false, hStartX = 0, hStartScroll = 0, hMoved = false;
+      heroCardsEl.addEventListener('pointerdown', function (e) {
+        hDown = true; hMoved = false; hStartX = e.clientX; hStartScroll = heroCardsEl.scrollLeft;
+        if (heroCardsEl.setPointerCapture) heroCardsEl.setPointerCapture(e.pointerId);
+      });
+      heroCardsEl.addEventListener('pointermove', function (e) {
+        if (!hDown) return;
+        var dx = e.clientX - hStartX;
+        if (Math.abs(dx) > 5) hMoved = true;
+        heroCardsEl.scrollLeft = hStartScroll - dx;
+      });
+      heroCardsEl.addEventListener('pointerup', function () { hDown = false; });
+      heroCardsEl.addEventListener('pointercancel', function () { hDown = false; });
+      heroCardsEl.addEventListener('click', function (e) { if (hMoved) { e.preventDefault(); e.stopPropagation(); } }, true);
+    }
 
     document.getElementById('search-input').addEventListener('input', function (e) { renderPopular(e.target.value); });
     document.getElementById('lang-toggle').addEventListener('click', function () {
