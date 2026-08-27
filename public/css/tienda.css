@@ -320,7 +320,7 @@ html, body {
 
 .section-head h2 {
   font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-size: 2.1rem;
   font-weight: 700;
 }
 
@@ -1148,14 +1148,10 @@ html, body { max-width: 100%; overflow-x: hidden; }
   max-width: 1200px;
   margin: 0 auto;
   padding: 16px var(--space-page) 4px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
   margin-bottom: 20px;
-}
-
-.hero-new.single .hero-new-card:first-child {
-  grid-column: 1 / -1;
 }
 
 .home-top.has-hero {
@@ -1166,15 +1162,33 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
 .home-top.has-hero .hero-new {
   flex: 1 1 auto;
-  align-content: end;
+  justify-content: flex-end;
   margin-bottom: 0;
 }
 
 .hero-new-left {
-  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
   gap: 6px;
+  order: 1;
+}
+
+.hero-new-cards {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 6px;
+  order: 2;
+  scrollbar-width: none;
+}
+.hero-new-cards::-webkit-scrollbar { display: none; }
+
+.hero-new-card {
+  flex: 0 0 72%;
+  min-width: 0;
+  scroll-snap-align: start;
 }
 
 .hero-new-title {
@@ -1202,27 +1216,29 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .hero-new-cta {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   padding: 12px 18px;
   border: none;
   border-radius: var(--radius);
-  background: var(--color-primary, #171717);
-  color: var(--color-on-primary, #fff);
+  background: var(--card-bg);
+  color: var(--primary-text);
   font-weight: 700;
   font-size: 0.9rem;
   cursor: pointer;
   min-height: 44px;
   transition: opacity 150ms ease, transform 150ms ease;
+  order: 3;
+  width: 100%;
 }
+
+.hero-new-cta svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--color-primary, #171717); }
 
 .hero-new-cta:hover { opacity: 0.92; }
 .hero-new-cta:active { transform: scale(0.97); }
 
-.hero-new-cta svg { width: 18px; height: 18px; flex-shrink: 0; }
-
 .hero-new-nav {
-  display: flex;
-  gap: 8px;
+  display: none;
 }
 
 .hero-new-navbtn {
@@ -1297,15 +1313,20 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
 @media (min-width: 768px) {
   .hero-new {
+    display: grid;
     grid-template-columns: 200px 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
     align-items: end;
+    align-content: end;
     gap: 16px;
     padding-top: 16px;
     padding-bottom: 6rem;
   }
-  .hero-new-left {
-    grid-column: auto;
-  }
+  .hero-new-left { grid-column: 1; grid-row: 1; order: 0; }
+  .hero-new-cards { grid-column: 2 / -1; grid-row: 1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; overflow: visible; }
+  .hero-new-card { flex: none; scroll-snap-align: none; }
+  .hero-new-cta { grid-column: 1; grid-row: 2; width: auto; justify-self: start; order: 0; }
+  .hero-new-nav { display: flex; gap: 8px; }
 }
 
 /* ---------- Productos Populares (carrusel) ---------- */
@@ -1535,7 +1556,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
-  .hero-new-title, .hero-new-sub, .hero-new-actions, .hero-new-card, .home-view-inner { opacity: 1; animation: none; }
+  .hero-new-title, .hero-new-sub, .hero-new-cards, .hero-new-cta, .home-view-inner { opacity: 1; animation: none; }
   .hero-new-title::after, .popular-title::after { width: 100%; transition: none; }
   .hero-new-cta::after, .promo-cta-btn::after { animation: none; }
   .hero-new-inner .hero-img, .product-card .prod-img { transition: none; }
@@ -1552,16 +1573,17 @@ html, body { max-width: 100%; overflow-x: hidden; }
   from { opacity: 0; transform: translateY(22px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.hero-new-title, .hero-new-sub, .hero-new-actions, .hero-new-card, .home-view-inner {
+.hero-new-title, .hero-new-sub, .hero-new-cards, .hero-new-cta, .home-view-inner {
   opacity: 0;
 }
 body.ready .hero-new-title { animation: fadeUp .6s ease .05s both; }
 body.ready .hero-new-sub { animation: fadeUp .6s ease .15s both; }
-body.ready .hero-new-actions { animation: fadeUp .6s ease .25s both; }
-body.ready .hero-new-card:nth-child(2) { animation: fadeUp .6s ease .35s both; }
-body.ready .hero-new-card:nth-child(3) { animation: fadeUp .6s ease .45s both; }
-body.ready .hero-new-card:nth-child(4) { animation: fadeUp .6s ease .55s both; }
-body.ready .home-view-inner { animation: fadeUp .7s ease .65s both; }
+body.ready .hero-new-cards { animation: fadeUp .6s ease .25s both; }
+body.ready .hero-new-cards .hero-new-card:nth-child(1) { animation: fadeUp .6s ease .35s both; }
+body.ready .hero-new-cards .hero-new-card:nth-child(2) { animation: fadeUp .6s ease .45s both; }
+body.ready .hero-new-cards .hero-new-card:nth-child(3) { animation: fadeUp .6s ease .55s both; }
+body.ready .hero-new-cta { animation: fadeUp .6s ease .65s both; }
+body.ready .home-view-inner { animation: fadeUp .7s ease .75s both; }
 
 .hero-new-inner { overflow: hidden; border-radius: var(--radius); }
 .hero-new-inner .hero-img, .product-card .prod-img { transition: transform 400ms ease; }
