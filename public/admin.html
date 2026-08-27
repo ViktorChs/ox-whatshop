@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=40" />
-  <link rel="stylesheet" href="./css/admin.css?v=40" />
+  <link rel="stylesheet" href="./css/theme.css?v=41" />
+  <link rel="stylesheet" href="./css/admin.css?v=41" />
 </head>
 <body class="admin-page">
 
@@ -262,7 +262,7 @@
                 <div class="field"><label data-i18n="wh_badge_icon">Icono de la insignia (URL)</label><input type="text" id="wh-badgeicon" placeholder="https://..." /></div>
                 <div class="field"><label data-i18n="wh_title">Título</label><textarea id="wh-title" rows="2">Tu Estilo&#10;Tu Historia</textarea></div>
                 <div class="field"><label data-i18n="wh_subtitle">Subtítulo</label><input type="text" id="wh-subtitle" value="Moda seleccionada para cada uno de ti." /></div>
-                <div class="field"><label data-i18n="wh_btn_text">Texto del botón</label><input type="text" id="wh-btntext" value="Empezar" /></div>
+                <div class="field"><label data-i18n="wh_btn_text">Texto del botón</label><input type="text" id="wh-btntext" value="Ir a la tienda" /></div>
                 <div class="field"><label data-i18n="wh_btn_link">Enlace del botón</label><input type="text" id="wh-btnlink" value="#catalogo" placeholder="#catalogo o https://..." /></div>
                 <div class="field"><label data-i18n="wh_dots_total">Total de puntos</label><input type="number" id="wh-dotstotal" value="3" min="0" max="10" /></div>
                 <div class="field"><label data-i18n="wh_dots_active">Punto activo</label><input type="number" id="wh-dotsactive" value="0" min="0" max="9" /></div>
@@ -556,9 +556,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=40"></script>
-  <script src="./js/supabase.js?v=40"></script>
-  <script src="./js/color-picker.js?v=40"></script>
+  <script src="./config.js?v=41"></script>
+  <script src="./js/supabase.js?v=41"></script>
+  <script src="./js/color-picker.js?v=41"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -1096,7 +1096,7 @@
     // ===== Hero de bienvenida =====
     var DEFAULT_HERO = {
       styles: { bg_color: '#F8F6FA', primary_color: '#251738', text_primary: '#1C1427', text_secondary: '#6E6877', font_family_title: 'Playfair Display, serif', font_family_body: 'Inter, sans-serif', button_bg: '#221535', button_text_color: '#FFFFFF', button_border_radius: '24px' },
-      content: { badge_text: 'DESCUBRE', badge_icon_url: '', title: 'Tu Estilo\nTu Historia', subtitle: 'Moda seleccionada para cada uno de ti.', button_text: 'Empezar', button_link: '#catalogo', show_button_arrow: true },
+      content: { badge_text: 'DESCUBRE', badge_icon_url: '', title: 'Tu Estilo\nTu Historia', subtitle: 'Moda seleccionada para cada uno de ti.', button_text: 'Ir a la tienda', button_link: '#catalogo', show_button_arrow: true },
       gallery: { images: [ { id: 1, url: '', alt: 'Estilo femenino', shape_type: 'rounded-card-top' }, { id: 2, url: '', alt: 'Estilo masculino', shape_type: 'rounded-card-bottom' } ], active_dot_index: 0, total_dots: 3 }
     };
     var _heroConfig = null;
