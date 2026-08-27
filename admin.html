@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=39" />
-  <link rel="stylesheet" href="./css/admin.css?v=39" />
+  <link rel="stylesheet" href="./css/theme.css?v=40" />
+  <link rel="stylesheet" href="./css/admin.css?v=40" />
 </head>
 <body class="admin-page">
 
@@ -244,7 +244,37 @@
             </div>
             <div class="panel"><h3 data-i18n="ti_sections">Secciones de la portada</h3>
               <div class="toggle-row"><span data-i18n="ti_show_banner">Mostrar banner superior</span><label class="switch"><input type="checkbox" id="store-show-banner" checked /><span class="slider"></span></label></div>
-              <div class="toggle-row"><span data-i18n="ti_show_hero">Mostrar Nuevos productos</span><label class="switch"><input type="checkbox" id="store-show-hero" checked /><span class="slider"></span></label></div>
+              <div class="toggle-row"><span data-i18n="ti_show_hero">Mostrar Hero de bienvenida</span><label class="switch"><input type="checkbox" id="store-show-hero" checked /><span class="slider"></span></label></div>
+            </div>
+            <div class="panel"><h3 data-i18n="wh_panel">Hero de bienvenida</h3>
+              <p class="page-sub" style="margin-bottom:10px" data-i18n="wh_sub">Edita el hero de la portada: colores, textos e imágenes.</p>
+              <div class="grid-2">
+                <div class="field"><label data-i18n="wh_bg">Fondo</label><input type="color" id="wh-bg" value="#F8F6FA" /></div>
+                <div class="field"><label data-i18n="wh_primary">Color primario</label><input type="color" id="wh-primary" value="#251738" /></div>
+                <div class="field"><label data-i18n="wh_text1">Texto principal</label><input type="color" id="wh-text1" value="#1C1427" /></div>
+                <div class="field"><label data-i18n="wh_text2">Texto secundario</label><input type="color" id="wh-text2" value="#6E6877" /></div>
+                <div class="field"><label data-i18n="wh_btn_bg">Fondo del botón</label><input type="color" id="wh-btnbg" value="#221535" /></div>
+                <div class="field"><label data-i18n="wh_btn_color">Texto del botón</label><input type="color" id="wh-btncolor" value="#FFFFFF" /></div>
+                <div class="field"><label data-i18n="wh_font_title">Fuente del título</label><input type="text" id="wh-fonttitle" value="Playfair Display, serif" /></div>
+                <div class="field"><label data-i18n="wh_font_body">Fuente del cuerpo</label><input type="text" id="wh-fontbody" value="Inter, sans-serif" /></div>
+                <div class="field"><label data-i18n="wh_btn_radius">Radio del botón (px)</label><input type="number" id="wh-btnradius" value="24" min="0" max="60" /></div>
+                <div class="field"><label data-i18n="wh_badge">Texto de la insignia</label><input type="text" id="wh-badge" value="DESCUBRE" /></div>
+                <div class="field"><label data-i18n="wh_badge_icon">Icono de la insignia (URL)</label><input type="text" id="wh-badgeicon" placeholder="https://..." /></div>
+                <div class="field"><label data-i18n="wh_title">Título</label><textarea id="wh-title" rows="2">Tu Estilo&#10;Tu Historia</textarea></div>
+                <div class="field"><label data-i18n="wh_subtitle">Subtítulo</label><input type="text" id="wh-subtitle" value="Moda seleccionada para cada uno de ti." /></div>
+                <div class="field"><label data-i18n="wh_btn_text">Texto del botón</label><input type="text" id="wh-btntext" value="Empezar" /></div>
+                <div class="field"><label data-i18n="wh_btn_link">Enlace del botón</label><input type="text" id="wh-btnlink" value="#catalogo" placeholder="#catalogo o https://..." /></div>
+                <div class="field"><label data-i18n="wh_dots_total">Total de puntos</label><input type="number" id="wh-dotstotal" value="3" min="0" max="10" /></div>
+                <div class="field"><label data-i18n="wh_dots_active">Punto activo</label><input type="number" id="wh-dotsactive" value="0" min="0" max="9" /></div>
+              </div>
+              <div class="toggle-row"><span data-i18n="wh_btn_arrow">Mostrar flecha en el botón</span><label class="switch"><input type="checkbox" id="wh-btnarrow" checked /><span class="slider"></span></label></div>
+              <h4 style="margin:14px 0 8px" data-i18n="wh_gallery">Galería (tarjetas de imagen)</h4>
+              <div id="wh-gallery" style="display:flex;flex-direction:column;gap:10px"></div>
+              <div class="btn-row" style="margin-top:10px">
+                <button class="btn primary" id="btn-add-wh-img" data-i18n="wh_add_img">Agregar imagen</button>
+                <button class="btn green" id="btn-save-hero" data-i18n="wh_save">Guardar hero</button>
+              </div>
+              <p class="status-line" id="hero-status"></p>
             </div>
             <div class="panel"><h3 data-i18n="ti_typo">Tipografía</h3>
               <div class="field"><label data-i18n="ap_font">Fuente (títulos)</label><div class="font-options" id="font-options-basic"></div></div>
@@ -526,9 +556,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=39"></script>
-  <script src="./js/supabase.js?v=39"></script>
-  <script src="./js/color-picker.js?v=39"></script>
+  <script src="./config.js?v=40"></script>
+  <script src="./js/supabase.js?v=40"></script>
+  <script src="./js/color-picker.js?v=40"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -560,7 +590,7 @@
         btn_save: 'Guardar cambios', btn_save_store: 'Guardar tienda', btn_save_splash: 'Guardar bienvenida',
         t_tienda: 'Tienda', t_tienda_sub: 'Datos generales, pagos y comunicación.', ti_datos: 'Datos generales', ti_name: 'Nombre de la tienda', ti_whatsapp: 'Número de WhatsApp', ti_currency: 'Moneda', ti_currency_pos: 'Posición de la moneda', ti_cur_before: 'Antes ($10)', ti_cur_after: 'Después (10 $)', ti_open: 'Tienda abierta', ti_closed_msg: 'Mensaje cuando está cerrada',
         ti_pay: 'Métodos de pago', ti_pay_sub: 'Un método por línea.', ti_banner: 'Banner superior', ti_banner_sub: 'Franja a todo el ancho bajo el menú, con el logo y el nombre.', ti_banner_title: 'Nombre del banner', ti_banner_bg: 'Color de fondo', ti_banner_image: 'Imagen/logo del banner',
-        ti_msg_wa: 'Mensaje de WhatsApp', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Logo de la marca', ti_logo_upload: 'Subir logo (PNG, JPG, WebP)', ti_design: 'Diseño de tarjetas', ti_corners: 'Esquinas', ti_corners_square: 'Cuadradas', ti_corners_rounded: 'Redondeadas', ti_card_border: 'Borde de tarjetas', ti_border_none: 'Sin borde', ti_border_line: 'Con borde sutil', ti_sections: 'Secciones de la portada', ti_show_banner: 'Mostrar banner superior', ti_show_hero: 'Mostrar Nuevos productos', ti_typo: 'Tipografía', ti_filter_design: 'Filtros de la tienda', ti_filter_bg: 'Color de fondo de los filtros', ti_filter_bold: 'Títulos de filtros en negrita', rev_title: 'Reseñas de clientes', rev_sub: 'Imagen, nombre y texto de cada reseña. Se muestran como carrusel en la tienda.', rev_name: 'Nombre', rev_image: 'Imagen del cliente', rev_text: 'Texto de la reseña', rev_add: 'Agregar reseña', rev_cancel: 'Cancelar', rev_edit: 'Editar', rev_del: 'Eliminar', rev_save: 'Guardar reseñas', rev_confirm: '¿Eliminar esta reseña?', rev_empty: 'Sin reseñas', rev_req: 'Escribe nombre y texto',
+        ti_msg_wa: 'Mensaje de WhatsApp', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Logo de la marca', ti_logo_upload: 'Subir logo (PNG, JPG, WebP)', ti_design: 'Diseño de tarjetas', ti_corners: 'Esquinas', ti_corners_square: 'Cuadradas', ti_corners_rounded: 'Redondeadas', ti_card_border: 'Borde de tarjetas', ti_border_none: 'Sin borde', ti_border_line: 'Con borde sutil', ti_sections: 'Secciones de la portada', ti_show_banner: 'Mostrar banner superior', ti_show_hero: 'Mostrar Hero de bienvenida', wh_panel: 'Hero de bienvenida', wh_sub: 'Edita el hero de la portada: colores, textos e imágenes.', wh_bg: 'Fondo', wh_primary: 'Color primario', wh_text1: 'Texto principal', wh_text2: 'Texto secundario', wh_btn_bg: 'Fondo del botón', wh_btn_color: 'Texto del botón', wh_font_title: 'Fuente del título', wh_font_body: 'Fuente del cuerpo', wh_btn_radius: 'Radio del botón (px)', wh_badge: 'Texto de la insignia', wh_badge_icon: 'Icono de la insignia (URL)', wh_title: 'Título', wh_subtitle: 'Subtítulo', wh_btn_text: 'Texto del botón', wh_btn_link: 'Enlace del botón', wh_dots_total: 'Total de puntos', wh_dots_active: 'Punto activo', wh_btn_arrow: 'Mostrar flecha en el botón', wh_gallery: 'Galería (tarjetas de imagen)', wh_add_img: 'Agregar imagen', wh_save: 'Guardar hero', ti_typo: 'Tipografía', ti_filter_design: 'Filtros de la tienda', ti_filter_bg: 'Color de fondo de los filtros', ti_filter_bold: 'Títulos de filtros en negrita', rev_title: 'Reseñas de clientes', rev_sub: 'Imagen, nombre y texto de cada reseña. Se muestran como carrusel en la tienda.', rev_name: 'Nombre', rev_image: 'Imagen del cliente', rev_text: 'Texto de la reseña', rev_add: 'Agregar reseña', rev_cancel: 'Cancelar', rev_edit: 'Editar', rev_del: 'Eliminar', rev_save: 'Guardar reseñas', rev_confirm: '¿Eliminar esta reseña?', rev_empty: 'Sin reseñas', rev_req: 'Escribe nombre y texto',
         t_subir: 'Subir producto', t_subir_sub: 'Crea y sube un producto nuevo con sus imágenes, variantes y stock.', t_productos: 'Productos', t_productos_sub: 'Busca y edita los productos que has subido.', pr_filter_cat: 'Filtrar por categoría', pr_filter_all: 'Todas', pr_new: 'Nuevo producto', pr_edit: 'Editar producto', pr_name: 'Nombre', pr_cat: 'Categoría', pr_price: 'Precio', pr_orig: 'Precio original (opcional, tachado)', pr_stock: 'Stock base', pr_featured: 'Destacado', pr_featured_on: 'Mostrar en Nuevos productos', pr_desc: 'Descripción',
         pr_images: 'Imágenes del producto (múltiples)', bg_remove: 'Quitar fondo', take_photo: 'Tomar foto', pr_variants: 'Variantes (color × talla)', pr_sizes_src: 'Tallas: plantilla o lista libre', pr_sizes_free: 'Tallas libres (separadas por coma)', pr_apply_sizes: 'Aplicar tallas',
         pr_color_name: 'Color', pr_color_hex: 'Hex', pr_add_color: 'Agregar color', pr_save: 'Guardar producto', pr_cancel: 'Cancelar edición', pr_existing: 'Productos existentes',
@@ -589,7 +619,7 @@
         btn_save: 'Save changes', btn_save_store: 'Save store', btn_save_splash: 'Save welcome',
         t_tienda: 'Store', t_tienda_sub: 'General data, payments and communication.', ti_datos: 'General data', ti_name: 'Store name', ti_whatsapp: 'WhatsApp number', ti_currency: 'Currency', ti_currency_pos: 'Currency position', ti_cur_before: 'Before ($10)', ti_cur_after: 'After (10 $)', ti_open: 'Store open', ti_closed_msg: 'Closed message',
         ti_pay: 'Payment methods', ti_pay_sub: 'One method per line.', ti_banner: 'Top banner', ti_banner_sub: 'Full-width strip under the menu with the logo and name.', ti_banner_title: 'Banner name', ti_banner_bg: 'Background color', ti_banner_image: 'Banner image/logo',
-        ti_msg_wa: 'WhatsApp message', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Store logo', ti_logo_upload: 'Upload logo (PNG, JPG, WebP)', ti_design: 'Card design', ti_corners: 'Corners', ti_corners_square: 'Square', ti_corners_rounded: 'Rounded', ti_card_border: 'Card border', ti_border_none: 'No border', ti_border_line: 'Subtle border', ti_sections: 'Home sections', ti_show_banner: 'Show top banner', ti_show_hero: 'Show New products', ti_typo: 'Typography', ti_filter_design: 'Store filters', ti_filter_bg: 'Filters background color', ti_filter_bold: 'Bold filter titles', rev_title: 'Customer reviews', rev_sub: 'Image, name and text of each review. Shown as a carousel in the store.', rev_name: 'Name', rev_image: 'Customer image', rev_text: 'Review text', rev_add: 'Add review', rev_cancel: 'Cancel', rev_edit: 'Edit', rev_del: 'Delete', rev_save: 'Save reviews', rev_confirm: 'Delete this review?', rev_empty: 'No reviews', rev_req: 'Enter name and text',
+        ti_msg_wa: 'WhatsApp message', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Store logo', ti_logo_upload: 'Upload logo (PNG, JPG, WebP)', ti_design: 'Card design', ti_corners: 'Corners', ti_corners_square: 'Square', ti_corners_rounded: 'Rounded', ti_card_border: 'Card border', ti_border_none: 'No border', ti_border_line: 'Subtle border', ti_sections: 'Home sections', ti_show_banner: 'Show top banner', ti_show_hero: 'Show welcome hero', wh_panel: 'Welcome hero', wh_sub: 'Edit the homepage hero: colors, texts and images.', wh_bg: 'Background', wh_primary: 'Primary color', wh_text1: 'Primary text', wh_text2: 'Secondary text', wh_btn_bg: 'Button background', wh_btn_color: 'Button text', wh_font_title: 'Title font', wh_font_body: 'Body font', wh_btn_radius: 'Button radius (px)', wh_badge: 'Badge text', wh_badge_icon: 'Badge icon (URL)', wh_title: 'Title', wh_subtitle: 'Subtitle', wh_btn_text: 'Button text', wh_btn_link: 'Button link', wh_dots_total: 'Total dots', wh_dots_active: 'Active dot', wh_btn_arrow: 'Show button arrow', wh_gallery: 'Gallery (image cards)', wh_add_img: 'Add image', wh_save: 'Save hero', ti_typo: 'Typography', ti_filter_design: 'Store filters', ti_filter_bg: 'Filters background color', ti_filter_bold: 'Bold filter titles', rev_title: 'Customer reviews', rev_sub: 'Image, name and text of each review. Shown as a carousel in the store.', rev_name: 'Name', rev_image: 'Customer image', rev_text: 'Review text', rev_add: 'Add review', rev_cancel: 'Cancel', rev_edit: 'Edit', rev_del: 'Delete', rev_save: 'Save reviews', rev_confirm: 'Delete this review?', rev_empty: 'No reviews', rev_req: 'Enter name and text',
         t_subir: 'Upload product', t_subir_sub: 'Create and upload a new product with images, variants and stock.', t_productos: 'Products', t_productos_sub: 'Find and edit the products you uploaded.', pr_filter_cat: 'Filter by category', pr_filter_all: 'All', pr_new: 'New product', pr_edit: 'Edit product', pr_name: 'Name', pr_cat: 'Category', pr_price: 'Price', pr_orig: 'Original price (optional, strikethrough)', pr_stock: 'Base stock', pr_featured: 'Featured', pr_featured_on: 'Show in New products', pr_desc: 'Description',
         pr_images: 'Product images (multiple)', bg_remove: 'Remove background', take_photo: 'Take photo', pr_variants: 'Variants (color × size)', pr_sizes_src: 'Sizes: template or free list', pr_sizes_free: 'Free sizes (comma separated)', pr_apply_sizes: 'Apply sizes',
         pr_color_name: 'Color', pr_color_hex: 'Hex', pr_add_color: 'Add color', pr_save: 'Save product', pr_cancel: 'Cancel edit', pr_existing: 'Existing products',
@@ -934,6 +964,8 @@
         document.getElementById('store-filterbold').checked = s.filterBold === true;
         _reviews = Array.isArray(res.reviews) ? res.reviews : [];
         renderReviewsList();
+        _heroConfig = res.heroConfig || DEFAULT_HERO;
+        fillHeroForm();
         document.getElementById('brand-show-logo').checked = s.brandShowLogo !== false;
         document.getElementById('brand-show-name').checked = s.brandShowName !== false;
         document.getElementById('theme-gradient-toggle').checked = th.backgroundGradient === true;
@@ -1059,6 +1091,122 @@
         document.getElementById('reviews-status').className = 'status-line ok';
         toast(t('st_saved'), 'success');
       }).catch(function () { document.getElementById('reviews-status').textContent = t('st_error'); });
+    });
+
+    // ===== Hero de bienvenida =====
+    var DEFAULT_HERO = {
+      styles: { bg_color: '#F8F6FA', primary_color: '#251738', text_primary: '#1C1427', text_secondary: '#6E6877', font_family_title: 'Playfair Display, serif', font_family_body: 'Inter, sans-serif', button_bg: '#221535', button_text_color: '#FFFFFF', button_border_radius: '24px' },
+      content: { badge_text: 'DESCUBRE', badge_icon_url: '', title: 'Tu Estilo\nTu Historia', subtitle: 'Moda seleccionada para cada uno de ti.', button_text: 'Empezar', button_link: '#catalogo', show_button_arrow: true },
+      gallery: { images: [ { id: 1, url: '', alt: 'Estilo femenino', shape_type: 'rounded-card-top' }, { id: 2, url: '', alt: 'Estilo masculino', shape_type: 'rounded-card-bottom' } ], active_dot_index: 0, total_dots: 3 }
+    };
+    var _heroConfig = null;
+    function fillHeroForm() {
+      var h = _heroConfig || DEFAULT_HERO;
+      var st = h.styles || {}, ct = h.content || {}, ga = h.gallery || {};
+      function sv(id, v) { var el = document.getElementById(id); if (el && v != null) el.value = v; }
+      sv('wh-bg', st.bg_color); sv('wh-primary', st.primary_color); sv('wh-text1', st.text_primary); sv('wh-text2', st.text_secondary);
+      sv('wh-fonttitle', st.font_family_title); sv('wh-fontbody', st.font_family_body); sv('wh-btnbg', st.button_bg); sv('wh-btncolor', st.button_text_color);
+      sv('wh-btnradius', (st.button_border_radius || '').toString().replace('px', ''));
+      sv('wh-badge', ct.badge_text); sv('wh-badgeicon', ct.badge_icon_url || ''); sv('wh-title', ct.title || '');
+      sv('wh-subtitle', ct.subtitle || ''); sv('wh-btntext', ct.button_text || ''); sv('wh-btnlink', ct.button_link || '#catalogo');
+      sv('wh-dotstotal', ga.total_dots != null ? ga.total_dots : 3); sv('wh-dotsactive', ga.active_dot_index != null ? ga.active_dot_index : 0);
+      document.getElementById('wh-btnarrow').checked = ct.show_button_arrow !== false;
+      renderHeroGallery();
+    }
+    function renderHeroGallery() {
+      var box = document.getElementById('wh-gallery');
+      if (!box) return;
+      var imgs = ((_heroConfig && _heroConfig.gallery) || {}).images || [];
+      if (!imgs.length) imgs = [{ id: 1, url: '', alt: '', shape_type: 'rounded-card-top' }, { id: 2, url: '', alt: '', shape_type: 'rounded-card-bottom' }];
+      box.innerHTML = imgs.map(function (im, i) {
+        return '<div class="combo-card" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">' +
+          '<input type="number" class="wh-img-id" value="' + (im.id || i + 1) + '" style="width:60px" title="id" />' +
+          '<input type="text" class="wh-img-url" value="' + (im.url || '') + '" placeholder="https://imagen.jpg" style="flex:1;min-width:140px" />' +
+          '<label class="btn ghost small" style="margin:0">Subir<input type="file" class="wh-img-file" accept="image/*" style="display:none" /></label>' +
+          '<select class="wh-img-shape" style="width:150px"><option value="rounded-card-top"' + (im.shape_type === 'rounded-card-top' ? ' selected' : '') + '>Redondeada arriba</option><option value="rounded-card-bottom"' + (im.shape_type === 'rounded-card-bottom' ? ' selected' : '') + '>Redondeada abajo</option><option value="rect"' + (im.shape_type === 'rect' ? ' selected' : '') + '>Recta</option></select>' +
+          '<input type="text" class="wh-img-alt" value="' + (im.alt || '') + '" placeholder="alt" style="flex:1;min-width:100px" />' +
+          '<button type="button" class="btn danger small wh-img-del">x</button>' +
+        '</div>';
+      }).join('');
+      box.querySelectorAll('.wh-img-del').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var row = b.closest('.combo-card');
+          var box2 = document.getElementById('wh-gallery');
+          if (box2.children.length <= 1) return;
+          row.remove();
+        });
+      });
+      box.querySelectorAll('.wh-img-file').forEach(function (f) {
+        f.addEventListener('change', function (e) {
+          var file = e.target.files[0];
+          if (!file) return;
+          SBHelper.uploadImage(file).then(function (url) {
+            f.closest('.combo-card').querySelector('.wh-img-url').value = url;
+            toast(t('st_saved'), 'success');
+          }).catch(function () { toast(t('st_error'), 'error'); });
+        });
+      });
+    }
+    document.getElementById('btn-add-wh-img').addEventListener('click', function () {
+      var box = document.getElementById('wh-gallery');
+      var div = document.createElement('div');
+      div.className = 'combo-card';
+      div.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap;align-items:center';
+      div.innerHTML = '<input type="number" class="wh-img-id" value="' + (box.children.length + 1) + '" style="width:60px" title="id" />' +
+        '<input type="text" class="wh-img-url" placeholder="https://imagen.jpg" style="flex:1;min-width:140px" />' +
+        '<label class="btn ghost small" style="margin:0">Subir<input type="file" class="wh-img-file" accept="image/*" style="display:none" /></label>' +
+        '<select class="wh-img-shape" style="width:150px"><option value="rounded-card-top">Redondeada arriba</option><option value="rounded-card-bottom">Redondeada abajo</option><option value="rect">Recta</option></select>' +
+        '<input type="text" class="wh-img-alt" placeholder="alt" style="flex:1;min-width:100px" />' +
+        '<button type="button" class="btn danger small wh-img-del">x</button>';
+      box.appendChild(div);
+      div.querySelector('.wh-img-del').addEventListener('click', function () { if (box.children.length > 1) div.remove(); });
+      div.querySelector('.wh-img-file').addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        if (!file) return;
+        SBHelper.uploadImage(file).then(function (url) { div.querySelector('.wh-img-url').value = url; toast(t('st_saved'), 'success'); }).catch(function () { toast(t('st_error'), 'error'); });
+      });
+    });
+    document.getElementById('btn-save-hero').addEventListener('click', function () {
+      var styles = {
+        bg_color: document.getElementById('wh-bg').value,
+        primary_color: document.getElementById('wh-primary').value,
+        text_primary: document.getElementById('wh-text1').value,
+        text_secondary: document.getElementById('wh-text2').value,
+        font_family_title: document.getElementById('wh-fonttitle').value,
+        font_family_body: document.getElementById('wh-fontbody').value,
+        button_bg: document.getElementById('wh-btnbg').value,
+        button_text_color: document.getElementById('wh-btncolor').value,
+        button_border_radius: document.getElementById('wh-btnradius').value + 'px'
+      };
+      var images = Array.prototype.map.call(document.querySelectorAll('#wh-gallery .combo-card'), function (row, i) {
+        return {
+          id: Number(row.querySelector('.wh-img-id').value) || i + 1,
+          url: row.querySelector('.wh-img-url').value.trim(),
+          alt: row.querySelector('.wh-img-alt').value.trim(),
+          shape_type: row.querySelector('.wh-img-shape').value
+        };
+      });
+      var content = {
+        badge_text: document.getElementById('wh-badge').value,
+        badge_icon_url: document.getElementById('wh-badgeicon').value.trim(),
+        title: document.getElementById('wh-title').value,
+        subtitle: document.getElementById('wh-subtitle').value,
+        button_text: document.getElementById('wh-btntext').value,
+        button_link: document.getElementById('wh-btnlink').value.trim() || '#catalogo',
+        show_button_arrow: document.getElementById('wh-btnarrow').checked
+      };
+      var heroConfig = {
+        styles: styles,
+        content: content,
+        gallery: { images: images, active_dot_index: Number(document.getElementById('wh-dotsactive').value) || 0, total_dots: Number(document.getElementById('wh-dotstotal').value) || 0 }
+      };
+      var merged = mergeSettings({ heroConfig: heroConfig });
+      SBHelper.saveSettings(merged).then(function () {
+        _settings = merged;
+        document.getElementById('hero-status').textContent = t('st_saved');
+        document.getElementById('hero-status').className = 'status-line ok';
+        toast(t('st_saved'), 'success');
+      }).catch(function () { document.getElementById('hero-status').textContent = t('st_error'); });
     });
 
     // ===== Categorías =====
