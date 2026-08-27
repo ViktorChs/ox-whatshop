@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=39" />
-  <link rel="stylesheet" href="./css/tienda.css?v=49" />
+  <link rel="stylesheet" href="./css/tienda.css?v=50" />
 </head>
 <body class="shop-page">
 
@@ -69,24 +69,20 @@
     <div class="promo-name" id="promo-name">WhatShop</div>
   </section>
 
-  <section class="hero-new hidden" id="hero-new" aria-label="Nuevos productos">
-    <div class="hero-new-left">
-      <h2 class="hero-new-title" data-i18n="hero_title">NUEVOS PRODUCTOS</h2>
-      <p class="hero-new-sub" data-i18n="hero_sub">Colección 2026</p>
-      <div class="hero-new-nav">
-        <button class="hero-new-navbtn" id="hero-prev" data-i18n-aria="hero_prev" aria-label="Anterior">&#8249;</button>
-        <button class="hero-new-navbtn" id="hero-next" data-i18n-aria="hero_next" aria-label="Siguiente">&#8250;</button>
-      </div>
+  <section class="welcome-hero hidden" id="welcome-hero" aria-label="Bienvenida">
+    <div class="welcome-hero-left">
+      <div class="welcome-badge" id="wh-badge"></div>
+      <h2 class="welcome-hero-title" id="wh-title"></h2>
+      <p class="welcome-hero-sub" id="wh-sub"></p>
     </div>
-    <div class="hero-new-cards" id="hero-cards">
-      <div class="hero-new-card" id="hero-main"></div>
-      <div class="hero-new-card" id="hero-side"></div>
-      <div class="hero-new-card" id="hero-side2"></div>
+    <div class="welcome-gallery" id="wh-gallery"></div>
+    <div class="welcome-foot">
+      <div class="welcome-dots" id="wh-dots"></div>
+      <button class="welcome-cta" id="wh-cta">
+        <span id="wh-cta-text"></span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+      </button>
     </div>
-    <button class="hero-new-cta" id="hero-cta">
-      <span data-i18n="hero_cta">Ir a la tienda</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-    </button>
   </section>
   </div>
 
@@ -494,7 +490,7 @@
           var ims = prodImages(x.p);
           for (var ii = 0; ii < ims.length; ii++) { var im = new Image(); im.src = ims[ii]; }
         });
-        loadHero();
+        renderWelcomeHero();
         renderPopular(currentFilter);
         renderReviews();
         renderFilterPanel();
@@ -807,57 +803,58 @@
       });
     }
 
-    // ===== Hero: Nuevos productos (carousel) =====
-    var heroList = [];
-    var heroIdx = 0;
+    // ===== Hero de bienvenida (configurable) =====
     var heroEnabled = true;
-    function heroCardHtml(p) {
-      var imgs = prodImages(p);
-      var img = imgs[0] ? '<img class="hero-img" src="' + imgs[0] + '" alt="' + p.name + '" loading="lazy" />' : '<div class="hero-img" style="background:var(--bg)" role="img" aria-label="' + p.name + '"></div>';
-      return '<article class="hero-new-inner" data-open="' + p.id + '">' +
-        img +
-        '<div class="card-overlay">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/></svg>' +
-          '<span>' + p.name + '</span>' +
-        '</div></article>';
-    }
+    function heroConfig() { return (settings && settings.heroConfig) || {}; }
+    function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
     function updateHomeTop() {
       var top = document.getElementById('home-top');
-      var hero = document.getElementById('hero-new');
+      var hero = document.getElementById('welcome-hero');
       if (!top) return;
       top.classList.toggle('has-hero', hero && !hero.classList.contains('hidden'));
     }
-    function renderHero() {
-      var box = document.getElementById('hero-new');
+    function renderWelcomeHero() {
+      var box = document.getElementById('welcome-hero');
       if (!box) return;
-      if (!heroEnabled || heroList.length < 1) { box.classList.add('hidden'); updateHomeTop(); return; }
+      if (!heroEnabled) { box.classList.add('hidden'); updateHomeTop(); return; }
       box.classList.remove('hidden');
-      var els = [document.getElementById('hero-main'), document.getElementById('hero-side'), document.getElementById('hero-side2')];
-      for (var k = 0; k < 3; k++) {
-        var el = els[k];
-        if (k < heroList.length) {
-          el.classList.remove('hidden');
-          el.innerHTML = heroCardHtml(heroList[(heroIdx + k) % heroList.length].p);
-        } else {
-          el.classList.add('hidden');
-          el.innerHTML = '';
-        }
-      }
-      els.forEach(function (el) {
-        el.querySelectorAll('[data-open]').forEach(function (c) {
-          c.addEventListener('click', function () {
-            window.location.href = './product.html?id=' + c.getAttribute('data-open');
-          });
-        });
-      });
+      var hc = heroConfig();
+      var st = hc.styles || {}, ct = hc.content || {}, ga = hc.gallery || {};
+      box.style.setProperty('--hero-bg', st.bg_color || '#F8F6FA');
+      box.style.setProperty('--hero-primary', st.primary_color || '#251738');
+      box.style.setProperty('--hero-text1', st.text_primary || '#1C1427');
+      box.style.setProperty('--hero-text2', st.text_secondary || '#6E6877');
+      box.style.setProperty('--hero-title-font', st.font_family_title || 'Playfair Display, serif');
+      box.style.setProperty('--hero-body-font', st.font_family_body || 'Inter, sans-serif');
+      box.style.setProperty('--hero-btn-bg', st.button_bg || '#221535');
+      box.style.setProperty('--hero-btn-color', st.button_text_color || '#FFFFFF');
+      box.style.setProperty('--hero-btn-radius', st.button_border_radius || '24px');
+      document.getElementById('wh-title').innerHTML = (ct.title || '').split('\n').map(esc).join('<br />');
+      document.getElementById('wh-sub').textContent = ct.subtitle || '';
+      var badge = document.getElementById('wh-badge');
+      var bIcon = ct.badge_icon_url;
+      badge.innerHTML = bIcon
+        ? '<img class="welcome-badge-icon" src="' + esc(bIcon) + '" alt="" />'
+        : '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.26L21 9.27l-4.5 4.38 1.06 6.6L12 17.35l-5.56 2.9 1.06-6.6L3 9.27l6.1-1.01Z"/></svg>';
+      badge.insertAdjacentText('beforeend', ' ' + (ct.badge_text || ''));
+      var gal = document.getElementById('wh-gallery');
+      var imgs = ga.images || [];
+      gal.innerHTML = imgs.filter(function (im) { return im && im.url; }).map(function (im) {
+        return '<div class="welcome-card ' + esc(im.shape_type || 'rounded-card-top') + '">' +
+          '<img src="' + esc(im.url) + '" alt="' + esc(im.alt || '') + '" loading="lazy" />' +
+        '</div>';
+      }).join('');
+      var dots = document.getElementById('wh-dots');
+      var total = Number(ga.total_dots) || 0;
+      var active = Number(ga.active_dot_index) || 0;
+      dots.innerHTML = '';
+      for (var d = 0; d < total; d++) dots.innerHTML += '<span class="w-dot' + (d === active ? ' active' : '') + '"></span>';
+      var ctaText = document.getElementById('wh-cta-text');
+      ctaText.textContent = ct.button_text || 'Empezar';
+      document.getElementById('wh-cta').style.display = ct.show_button_arrow === false ? '' : '';
+      var arrow = document.querySelector('#wh-cta svg');
+      if (arrow) arrow.style.display = ct.show_button_arrow === false ? 'none' : '';
       updateHomeTop();
-    }
-    function loadHero() {
-      var byIdDesc = function (a, b) { return (Number(b.p.id) || 0) - (Number(a.p.id) || 0); };
-      var featured = storeProducts.filter(function (x) { return x.p.featured; }).sort(byIdDesc).slice(0, 6);
-      heroList = featured.length ? featured : storeProducts.slice().sort(byIdDesc).slice(0, 6);
-      heroIdx = 0;
-      renderHero();
     }
 
     // ===== Explorar =====
@@ -898,7 +895,7 @@
       var home = document.getElementById('home-view');
       var explore = document.getElementById('explore-view');
       var banner = document.querySelector('.promo-banner');
-      var hero = document.getElementById('hero-new');
+      var hero = document.getElementById('welcome-hero');
       var promoCta = document.querySelector('.promo-cta');
       var reviews = document.getElementById('reviews-section');
       if (view === 'explore') {
@@ -924,19 +921,19 @@
     CART.wire();
     CART.updateBadge();
 
-    function goStoreBtn() { window.location.href = './tienda.html?view=explore'; }
+    function goStoreBtn() { var pl = document.getElementById('page-loader'); if (pl) pl.classList.remove('hidden'); window.location.href = './tienda.html?view=explore'; }
     var goStore = document.getElementById('btn-go-store');
     if (goStore) goStore.addEventListener('click', goStoreBtn);
     var promoCta = document.getElementById('promo-cta-btn');
     if (promoCta) promoCta.addEventListener('click', goStoreBtn);
 
-    // Hero: navegacion + CTA
-    var heroCta = document.getElementById('hero-cta');
-    if (heroCta) heroCta.addEventListener('click', goStoreBtn);
-    var heroPrev = document.getElementById('hero-prev');
-    var heroNext = document.getElementById('hero-next');
-    if (heroPrev) heroPrev.addEventListener('click', function () { if (heroList.length < 2) return; heroIdx = (heroIdx - 1 + heroList.length) % heroList.length; renderHero(); });
-    if (heroNext) heroNext.addEventListener('click', function () { if (heroList.length < 2) return; heroIdx = (heroIdx + 1) % heroList.length; renderHero(); });
+    // Hero de bienvenida: CTA
+    var whCta = document.getElementById('wh-cta');
+    if (whCta) whCta.addEventListener('click', function () {
+      var link = ((heroConfig().content || {}).button_link || '#catalogo').trim();
+      if (link && link !== '#' && link.indexOf('#') !== 0) { window.location.href = link; return; }
+      goStoreBtn();
+    });
 
     // Populares: navegacion + resize
     var popularPrev = document.getElementById('popular-prev');
@@ -977,25 +974,6 @@
     var rvNext = document.getElementById('reviews-next');
     if (rvPrev) rvPrev.addEventListener('click', function () { if (!reviewsList.length) return; revIdx = (revIdx - 1 + reviewsList.length) % reviewsList.length; renderReviews(); });
     if (rvNext) rvNext.addEventListener('click', function () { if (!reviewsList.length) return; revIdx = (revIdx + 1) % reviewsList.length; renderReviews(); });
-
-    // Carrusel hero: arrastre con mouse/finger
-    var heroCardsEl = document.getElementById('hero-cards');
-    if (heroCardsEl) {
-      var hDown = false, hStartX = 0, hStartScroll = 0, hMoved = false;
-      heroCardsEl.addEventListener('pointerdown', function (e) {
-        hDown = true; hMoved = false; hStartX = e.clientX; hStartScroll = heroCardsEl.scrollLeft;
-        if (heroCardsEl.setPointerCapture) heroCardsEl.setPointerCapture(e.pointerId);
-      });
-      heroCardsEl.addEventListener('pointermove', function (e) {
-        if (!hDown) return;
-        var dx = e.clientX - hStartX;
-        if (Math.abs(dx) > 5) hMoved = true;
-        heroCardsEl.scrollLeft = hStartScroll - dx;
-      });
-      heroCardsEl.addEventListener('pointerup', function () { hDown = false; });
-      heroCardsEl.addEventListener('pointercancel', function () { hDown = false; });
-      heroCardsEl.addEventListener('click', function (e) { if (hMoved) { e.preventDefault(); e.stopPropagation(); } }, true);
-    }
 
     document.getElementById('search-input').addEventListener('input', function (e) { renderPopular(e.target.value); });
     document.getElementById('lang-toggle').addEventListener('click', function () {
@@ -1042,34 +1020,13 @@
 
     // ===== Pantalla de carga entre paginas =====
     var pageLoader = document.getElementById('page-loader');
-    function animateYear() {
-      var el = document.querySelector('.hero-new-sub');
-      if (!el) return;
-      var txt = el.textContent || '';
-      var m = txt.match(/(\d{4})/);
-      if (!m) return;
-      var target = Number(m[1]);
-      var t0 = null, dur = 900;
-      function ease(p) { return 1 - Math.pow(1 - p, 3); }
-      function step(ts) {
-        if (!t0) t0 = ts;
-        var p = Math.min((ts - t0) / dur, 1);
-        var val = Math.round((target - 2000) * ease(p) + 2000);
-        el.textContent = txt.replace(/\d{4}/, val);
-        if (p < 1) requestAnimationFrame(step);
-        else el.textContent = txt;
-      }
-      requestAnimationFrame(step);
-    }
     function hidePageLoader() {
       if (pageLoader) pageLoader.classList.add('hidden');
       document.body.classList.add('ready');
-      animateYear();
     }
     document.addEventListener('click', function (e) {
       var a = e.target.closest('a[href]');
       var card = e.target.closest('[data-open]');
-      var go = e.target.closest('#btn-go-store, #promo-cta-btn, #hero-cta, #hero-prev, #hero-next, #popular-prev, #popular-next, #reviews-prev, #reviews-next, .filter-toggle, .filter-close, #filter-scrim, .nav-item, .page-btn, .fbtn, .color-swatch, .size-pill, .size-group-head, .filter-group-head, .filter-clear, #filter-min, #filter-max, .cat-pill, #cart-close, .qty-control button, .cart-item .remove');
       if (a && a.getAttribute('href') && a.getAttribute('href').indexOf('#') !== 0) {
         if (pageLoader) pageLoader.classList.remove('hidden');
       } else if (card) {
