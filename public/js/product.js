@@ -154,12 +154,6 @@ function updateStock() {
     canBuy = st > 0;
     if (qty > st) { qty = Math.max(1, st); document.getElementById('qty-val').textContent = qty; }
   }
-  document.getElementById('btn-add-cart').disabled = !canBuy;
-  document.getElementById('btn-buy').disabled = !canBuy;
-  var dAdd = document.getElementById('p-cta-add');
-  var dBuy = document.getElementById('p-cta-buy');
-  if (dAdd) dAdd.disabled = !canBuy;
-  if (dBuy) dBuy.disabled = !canBuy;
   var cl = document.getElementById('p-color-label');
   if (cl) cl.textContent = t('color') + (selectedColor ? ': ' + selectedColor : '');
   var sl = document.getElementById('p-size-label');
@@ -286,7 +280,12 @@ function init() {
   document.getElementById('cart-open').addEventListener('click', CART.openCart);
   document.getElementById('btn-back').addEventListener('click', function () { window.location.href = './tienda.html'; });
   document.getElementById('qty-dec').addEventListener('click', function () { qty = Math.max(1, qty - 1); document.getElementById('qty-val').textContent = qty; });
-  document.getElementById('qty-inc').addEventListener('click', function () { qty = Math.min(qty + 1, Math.max(1, availableStock())); document.getElementById('qty-val').textContent = qty; });
+  document.getElementById('qty-inc').addEventListener('click', function () {
+      var cap = availableStock();
+      if (cap <= 0) cap = Math.max(1, totalStock() || 99);
+      qty = Math.min(qty + 1, cap);
+      document.getElementById('qty-val').textContent = qty;
+    });
   document.getElementById('btn-add-cart').addEventListener('click', function () { addToCartThen(false); });
   document.getElementById('btn-buy').addEventListener('click', function () { addToCartThen(true); });
   var dAdd = document.getElementById('p-cta-add');
