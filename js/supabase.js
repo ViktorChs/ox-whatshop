@@ -335,7 +335,7 @@ const SBHelper = {
     const catIdMap = {};
     for (const cat of categories || []) {
       const { data, error } = await c.from('categories')
-        .insert({ name: cat.name, image: cat.image, color: cat.color, position: cat.position, store_id: sid })
+        .insert({ name: cat.name, image: cat.image, color: cat.color, icon: cat.icon || null, position: cat.position, store_id: sid })
         .select().single();
       if (error) throw error;
       catIdMap[cat.id] = data.id;

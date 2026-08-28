@@ -14,8 +14,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Noto+Serif+Dives+Akuru&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/theme.css?v=39" />
-  <link rel="stylesheet" href="./css/tienda.css?v=55" />
+  <link rel="stylesheet" href="./css/theme.css?v=40" />
+  <link rel="stylesheet" href="./css/tienda.css?v=56" />
 </head>
 <body class="shop-page">
 
@@ -94,6 +94,7 @@
         <h2 data-i18n="nav_explore">Productos</h2>
         <button class="filter-toggle" id="filter-toggle" data-i18n="filters">Filtros</button>
       </div>
+      <div class="cat-circles" id="cat-circles"></div>
       <div class="explore-layout has-filters">
         <aside class="filter-panel" id="filter-panel">
           <div class="filter-head">
@@ -218,9 +219,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=39"></script>
-  <script src="./js/supabase.js?v=39"></script>
-  <script src="./js/cart.js?v=39"></script>
+  <script src="./config.js?v=40"></script>
+  <script src="./js/supabase.js?v=40"></script>
+  <script src="./js/cart.js?v=40"></script>
   <script>
     // ===== i18n =====
     var I18N = {
@@ -586,6 +587,7 @@
       } else {
         szBox.innerHTML = '<p class="filter-empty">' + t('no_variants') + '</p>';
       }
+      renderCategoryCircles();
     }
     function filterMatches(x) {
       var p = x.p, f = _filters;
@@ -695,6 +697,48 @@
       var arrow = document.querySelector('#wh-cta svg');
       if (arrow) arrow.style.display = ct.show_button_arrow === false ? 'none' : '';
       updateHomeTop();
+    }
+
+    // ===== Categorias circulares =====
+    var CATEGORY_ICONS = {
+      default: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>',
+      bag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>',
+      shoe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16c5 0 9-3 12-8 1-2 3-3 5-3 1 0 2 1 2 2 0 2-2 7-7 9H2"/><path d="M2 16v3h14v-3"/></svg>',
+      ring: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M12 14v8M8 18h8"/></svg>',
+      dress: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3l5 3 5-3 2 4-3 2v12H8V9L5 7Z"/></svg>',
+      watch: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 2M9 2h6M9 22h6"/></svg>',
+      hat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17c0-5 3-10 8-10s8 5 8 10"/><path d="M2 17h20v3H2z"/></svg>',
+      tshirt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3 3 7l3 4 3-2v12h6V9l3 2 3-4-6-4a3 3 0 0 0-6 0Z"/></svg>',
+      jewel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l3 5-7 13L5 8Z"/><path d="M5 8h14"/></svg>',
+      perfume: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8v3H8zM6 9h12l-1 12H7Z"/><path d="M10 6v3M14 6v3"/></svg>',
+      phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M12 18h.01"/></svg>',
+      home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+      sport: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.5 5.5 3.5 9S14.5 18.5 12 21c-2.5-2.5-3.5-5.5-3.5-9S9.5 5.5 12 3Z"/></svg>',
+      food: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16l-1 12H5Z"/><path d="M9 8V4M15 8V4M12 8v12"/></svg>',
+      car: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-5h11L19 11"/><path d="M4 11h16v6H4z"/><circle cx="8" cy="17" r="1.6"/><circle cx="16" cy="17" r="1.6"/></svg>',
+      book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h14"/></svg>'
+    };
+    function renderCategoryCircles() {
+      var box = document.getElementById('cat-circles');
+      if (!box) return;
+      var cats = (window.__store && window.__store.categories) || [];
+      box.innerHTML = cats.map(function (c) {
+        var active = _filters.cats.indexOf(String(c.id)) > -1;
+        var icon = CATEGORY_ICONS[c.icon] || CATEGORY_ICONS['default'];
+        return '<button type="button" class="cat-circle' + (active ? ' active' : '') + '" data-cat-circle="' + c.id + '" style="--cc:' + (c.color || '#E8ECF0') + '">' +
+          '<span class="cat-circle-icon">' + icon + '</span>' +
+          '<span class="cat-circle-name">' + c.name + '</span>' +
+        '</button>';
+      }).join('');
+      box.querySelectorAll('[data-cat-circle]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var id = String(b.getAttribute('data-cat-circle'));
+          _filters.cats = _filters.cats.indexOf(id) > -1 ? [] : [id];
+          _page = 1;
+          renderFilterPanel();
+          renderExplore();
+        });
+      });
     }
 
     // ===== Explorar =====
