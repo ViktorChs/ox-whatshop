@@ -1156,16 +1156,18 @@ html, body { max-width: 100%; overflow-x: hidden; }
   --hero-btn-radius: 24px;
   width: 100vw;
   margin-left: calc(50% - 50vw);
+  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--hero-bg);
   color: var(--hero-text1);
   font-family: var(--hero-body-font), var(--font-body);
-  padding: 26px var(--space-page) 22px;
+  padding: 20px var(--space-page);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  gap: 18px;
+  gap: 22px;
 }
 
 .home-top.has-hero {
@@ -1208,7 +1210,7 @@ html, body { max-width: 100%; overflow-x: hidden; }
 .welcome-hero-title {
   font-family: var(--hero-title-font), var(--font-heading);
   color: var(--hero-text1);
-  font-size: clamp(2.4rem, 9vw, 4.8rem);
+  font-size: clamp(3rem, 11vw, 6rem);
   font-weight: 800;
   line-height: 1.08;
   letter-spacing: -0.01em;
@@ -1232,9 +1234,9 @@ body.ready .welcome-hero-title::after { width: 90px; }
 
 .welcome-hero-sub {
   color: var(--hero-text2);
-  font-size: clamp(1rem, 2.6vw, 1.25rem);
+  font-size: clamp(1.15rem, 3vw, 1.5rem);
   margin: 0;
-  max-width: 520px;
+  max-width: 620px;
 }
 
 .welcome-foot {
@@ -1302,12 +1304,12 @@ body.ready .welcome-cta::after { animation: shine 1.1s ease .9s; }
     max-width: 1152px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 var(--space-page) 6rem;
-    gap: 24px;
+    padding: 0 var(--space-page);
+    gap: 28px;
   }
-  .welcome-hero-title { font-size: clamp(3rem, 6vw, 5.4rem); }
-  .welcome-hero-sub { font-size: clamp(1.1rem, 2vw, 1.35rem); }
-  .welcome-cta { padding: 18px 40px; font-size: 1.1rem; min-height: 56px; }
+  .welcome-hero-title { font-size: clamp(4rem, 8vw, 7rem); }
+  .welcome-hero-sub { font-size: clamp(1.2rem, 2.2vw, 1.5rem); }
+  .welcome-cta { padding: 20px 44px; font-size: 1.15rem; min-height: 58px; }
 }
 
 /* ---------- Breadcrumb ---------- */
