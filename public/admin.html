@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=42" />
-  <link rel="stylesheet" href="./css/admin.css?v=42" />
+  <link rel="stylesheet" href="./css/theme.css?v=43" />
+  <link rel="stylesheet" href="./css/admin.css?v=43" />
 </head>
 <body class="admin-page">
 
@@ -420,6 +420,10 @@
                 <div class="cat-preview"><img id="new-category-image-preview" class="hidden" alt="" /></div>
                 <input type="hidden" id="new-category-image-data" />
               </div>
+              <div class="field"><label data-i18n="ca_icon">Icono del círculo</label>
+                <input type="hidden" id="new-category-icon" value="" />
+                <div class="cat-icon-options" id="cat-icon-options"></div>
+              </div>
               <div class="panel" style="margin-top:12px;background:var(--bg-soft)">
                 <h3 data-i18n="ca_border">Borde</h3>
                 <div class="toggle-row"><span data-i18n="ca_border_on">Activar borde</span><label class="switch"><input type="checkbox" id="cat-border-toggle" /><span class="slider"></span></label></div>
@@ -556,9 +560,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=42"></script>
-  <script src="./js/supabase.js?v=42"></script>
-  <script src="./js/color-picker.js?v=42"></script>
+  <script src="./config.js?v=43"></script>
+  <script src="./js/supabase.js?v=43"></script>
+  <script src="./js/color-picker.js?v=43"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -595,7 +599,7 @@
         pr_images: 'Imágenes del producto (múltiples)', bg_remove: 'Quitar fondo', take_photo: 'Tomar foto', pr_variants: 'Variantes (color × talla)', pr_sizes_src: 'Tallas: plantilla o lista libre', pr_sizes_free: 'Tallas libres (separadas por coma)', pr_apply_sizes: 'Aplicar tallas',
         pr_color_name: 'Color', pr_color_hex: 'Hex', pr_add_color: 'Agregar color', pr_save: 'Guardar producto', pr_cancel: 'Cancelar edición', pr_existing: 'Productos existentes',
         pr_novariants: 'Sin variantes (usa stock base)', pr_stock2: 'Stock', pr_saving: 'Guardando…', pr_saved: 'Producto guardado', bg_ask: '¿Quitar el fondo a estas imágenes?', g_del: 'Eliminar',
-        t_categorias: 'Categorías', t_categorias_sub: 'Crea y ordena las categorías de tu catálogo.', ca_new: 'Nueva categoría', ca_edit_title: 'Editar categoría', ca_name: 'Nombre', ca_color: 'Color del recuadro', ca_pos: 'Posición (auto al crear, editable)', ca_image: 'Imagen de la categoría', ca_border: 'Borde', ca_border_on: 'Activar borde', ca_border_color: 'Color del borde', ca_border_side: 'Ubicación', ca_bs_all: 'Todo el contorno', ca_bs_top: 'Solo arriba', ca_bs_bottom: 'Solo abajo', ca_bs_sides: 'Solo lados', ca_add: 'Guardar categoría', ca_cancel: 'Cancelar', ca_edit: 'Guardar', ca_del: 'Eliminar',
+        t_categorias: 'Categorías', t_categorias_sub: 'Crea y ordena las categorías de tu catálogo.', ca_new: 'Nueva categoría', ca_edit_title: 'Editar categoría', ca_name: 'Nombre', ca_color: 'Color del recuadro', ca_pos: 'Posición (auto al crear, editable)', ca_image: 'Imagen de la categoría', ca_icon: 'Icono del círculo', ca_border: 'Borde', ca_border_on: 'Activar borde', ca_border_color: 'Color del borde', ca_border_side: 'Ubicación', ca_bs_all: 'Todo el contorno', ca_bs_top: 'Solo arriba', ca_bs_bottom: 'Solo abajo', ca_bs_sides: 'Solo lados', ca_add: 'Guardar categoría', ca_cancel: 'Cancelar', ca_edit: 'Guardar', ca_del: 'Eliminar',
         t_plantillas: 'Plantillas de tallas', t_plantillas_sub: 'Conjuntos de tallas según el tipo de producto (zapatos, anillos, cadenas…).', pl_new: 'Nueva plantilla', pl_name: 'Nombre', pl_values: 'Tallas (separadas por coma)', pl_add: 'Crear plantilla', pl_del: 'Eliminar',
         t_pedidos: 'Pedidos', t_pedidos_sub: 'Historial de pedidos enviados por WhatsApp.', ped_refresh: 'Refrescar', ped_none: 'No hay pedidos.', ped_wa: 'WhatsApp', ped_pagado: 'Pagado', ped_entregado: 'Entregado', ped_cancelar: 'Cancelar',
         t_analitica: 'Analítica', t_analitica_sub: 'Estadísticas de tus ventas.', an_totals: 'Resumen', an_orders: 'Pedidos', an_revenue: 'Ingresos', an_best: 'Más vendidos', an_byday: 'Pedidos por día', an_load: 'Cargar estadísticas', an_csv: 'Exportar CSV', an_nodata: 'Sin datos',
@@ -624,7 +628,7 @@
         pr_images: 'Product images (multiple)', bg_remove: 'Remove background', take_photo: 'Take photo', pr_variants: 'Variants (color × size)', pr_sizes_src: 'Sizes: template or free list', pr_sizes_free: 'Free sizes (comma separated)', pr_apply_sizes: 'Apply sizes',
         pr_color_name: 'Color', pr_color_hex: 'Hex', pr_add_color: 'Add color', pr_save: 'Save product', pr_cancel: 'Cancel edit', pr_existing: 'Existing products',
         pr_novariants: 'No variants (uses base stock)', pr_stock2: 'Stock', pr_saving: 'Saving…', pr_saved: 'Product saved', bg_ask: 'Remove background from these images?', g_del: 'Delete',
-        t_categorias: 'Categories', t_categorias_sub: 'Create and order your catalog categories.', ca_new: 'New category', ca_edit_title: 'Edit category', ca_name: 'Name', ca_color: 'Box color', ca_pos: 'Position (auto on create, editable)', ca_image: 'Category image', ca_border: 'Border', ca_border_on: 'Enable border', ca_border_color: 'Border color', ca_border_side: 'Position', ca_bs_all: 'Whole outline', ca_bs_top: 'Top only', ca_bs_bottom: 'Bottom only', ca_bs_sides: 'Sides only', ca_add: 'Save category', ca_cancel: 'Cancel', ca_edit: 'Save', ca_del: 'Delete',
+        t_categorias: 'Categories', t_categorias_sub: 'Create and order your catalog categories.', ca_new: 'New category', ca_edit_title: 'Edit category', ca_name: 'Name', ca_color: 'Box color', ca_pos: 'Position (auto on create, editable)', ca_image: 'Category image', ca_icon: 'Circle icon', ca_border: 'Border', ca_border_on: 'Enable border', ca_border_color: 'Border color', ca_border_side: 'Position', ca_bs_all: 'Whole outline', ca_bs_top: 'Top only', ca_bs_bottom: 'Bottom only', ca_bs_sides: 'Sides only', ca_add: 'Save category', ca_cancel: 'Cancel', ca_edit: 'Save', ca_del: 'Delete',
         t_plantillas: 'Size templates', t_plantillas_sub: 'Size sets by product type (shoes, rings, chains…).', pl_new: 'New template', pl_name: 'Name', pl_values: 'Sizes (comma separated)', pl_add: 'Create template', pl_del: 'Delete',
         t_pedidos: 'Orders', t_pedidos_sub: 'Order history sent via WhatsApp.', ped_refresh: 'Refresh', ped_none: 'No orders.', ped_wa: 'WhatsApp', ped_pagado: 'Paid', ped_entregado: 'Delivered', ped_cancelar: 'Cancel',
         t_analitica: 'Analytics', t_analitica_sub: 'Your sales statistics.', an_totals: 'Summary', an_orders: 'Orders', an_revenue: 'Revenue', an_best: 'Best sellers', an_byday: 'Orders per day', an_load: 'Load stats', an_csv: 'Export CSV', an_nodata: 'No data',
@@ -1212,12 +1216,45 @@
     // ===== Categorías =====
     var _editingCategory = null;
     var _catNames = {};
+    var CAT_ICONS = {
+      default: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>',
+      bag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>',
+      shoe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16c5 0 9-3 12-8 1-2 3-3 5-3 1 0 2 1 2 2 0 2-2 7-7 9H2"/><path d="M2 16v3h14v-3"/></svg>',
+      ring: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M12 14v8M8 18h8"/></svg>',
+      dress: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3l5 3 5-3 2 4-3 2v12H8V9L5 7Z"/></svg>',
+      watch: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><path d="M12 9v3l2 2M9 2h6M9 22h6"/></svg>',
+      hat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17c0-5 3-10 8-10s8 5 8 10"/><path d="M2 17h20v3H2z"/></svg>',
+      tshirt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3 3 7l3 4 3-2v12h6V9l3 2 3-4-6-4a3 3 0 0 0-6 0Z"/></svg>',
+      jewel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l3 5-7 13L5 8Z"/><path d="M5 8h14"/></svg>',
+      perfume: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8v3H8zM6 9h12l-1 12H7Z"/><path d="M10 6v3M14 6v3"/></svg>',
+      phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M12 18h.01"/></svg>',
+      home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+      sport: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.5 5.5 3.5 9S14.5 18.5 12 21c-2.5-2.5-3.5-5.5-3.5-9S9.5 5.5 12 3Z"/></svg>',
+      food: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16l-1 12H5Z"/><path d="M9 8V4M15 8V4M12 8v12"/></svg>',
+      car: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-5h11L19 11"/><path d="M4 11h16v6H4z"/><circle cx="8" cy="17" r="1.6"/><circle cx="16" cy="17" r="1.6"/></svg>',
+      book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h14"/></svg>'
+    };
+    function renderCatIconOptions() {
+      var box = document.getElementById('cat-icon-options');
+      if (!box) return;
+      var cur = document.getElementById('new-category-icon').value;
+      box.innerHTML = Object.keys(CAT_ICONS).map(function (k) {
+        return '<button type="button" class="cat-icon-opt' + (k === cur ? ' active' : '') + '" data-cat-icon="' + k + '" title="' + k + '">' + CAT_ICONS[k] + '</button>';
+      }).join('');
+      box.querySelectorAll('[data-cat-icon]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.getElementById('new-category-icon').value = b.getAttribute('data-cat-icon');
+          renderCatIconOptions();
+        });
+      });
+    }
     function resetCategoryForm() {
       _editingCategory = null;
       document.getElementById('new-category-name').value = '';
       document.getElementById('new-category-position').value = '';
       document.getElementById('new-category-color').value = '#E8ECF0';
       document.getElementById('new-category-image-data').value = '';
+      document.getElementById('new-category-icon').value = '';
       var prev = document.getElementById('new-category-image-preview');
       prev.classList.add('hidden'); prev.removeAttribute('src');
       document.getElementById('cat-border-toggle').checked = false;
@@ -1226,6 +1263,7 @@
       document.getElementById('cat-border-options').style.display = 'none';
       document.getElementById('cat-form-title').textContent = t('ca_new');
       document.getElementById('btn-cancel-category').classList.add('hidden');
+      renderCatIconOptions();
       if (window.ColorPicker) ColorPicker.syncAll();
     }
     function editCategory(cat) {
@@ -1236,12 +1274,14 @@
       var prev = document.getElementById('new-category-image-preview');
       if (cat.image) { prev.src = cat.image; prev.classList.remove('hidden'); } else { prev.classList.add('hidden'); prev.removeAttribute('src'); }
       document.getElementById('new-category-image-data').value = cat.image || '';
+      document.getElementById('new-category-icon').value = cat.icon || '';
       document.getElementById('cat-border-toggle').checked = !!cat.border_enabled;
       document.getElementById('cat-border-color').value = cat.border_color || '#171717';
       document.getElementById('cat-border-side').value = cat.border_side || 'all';
       document.getElementById('cat-border-options').style.display = cat.border_enabled ? '' : 'none';
       document.getElementById('cat-form-title').textContent = t('ca_edit_title');
       document.getElementById('btn-cancel-category').classList.remove('hidden');
+      renderCatIconOptions();
       if (window.ColorPicker) ColorPicker.syncAll();
       document.getElementById('cat-form-panel').scrollIntoView({ behavior: 'smooth' });
     }
@@ -1296,6 +1336,7 @@
         color: document.getElementById('new-category-color').value,
         position: parseInt(document.getElementById('new-category-position').value, 10) || 0,
         image: document.getElementById('new-category-image-data').value || null,
+        icon: document.getElementById('new-category-icon').value || '',
         border_enabled: borderEnabled,
         border_color: document.getElementById('cat-border-color').value,
         border_side: document.getElementById('cat-border-side').value

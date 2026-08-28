@@ -19,6 +19,7 @@ db.exec(`
     name TEXT NOT NULL,
     image TEXT,
     color TEXT DEFAULT '#E8ECF0',
+    icon TEXT,
     position INTEGER DEFAULT 0
   );
 

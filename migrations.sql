@@ -29,6 +29,7 @@ alter table public.categories add column if not exists store_id bigint;
 update public.categories set store_id = 1 where store_id is null;
 alter table public.categories alter column store_id set not null;
 alter table public.categories add constraint categories_store_fk foreign key (store_id) references public.stores(id) on delete cascade;
+alter table public.categories add column if not exists icon text;
 
 -- ---------- products: store, oferta, galeria ----------
 alter table public.products add column if not exists store_id bigint;

@@ -23,7 +23,8 @@
   .p-section h4 { font-size: 14px; }
   .swatches { gap: 12px; }
   .swatch { width: 40px; height: 40px; }
-  .size-pill { min-width: 48px; height: 46px; font-size: 14px; border-radius: 8px; }
+  .size-pill { min-width: 48px; width: auto; height: 46px; font-size: 14px; border-radius: 8px; }
+  .sizes { flex-direction: row; flex-wrap: wrap; }
   .p-size-guide { float: right; }
 
   .p-cta-row { display: flex; gap: 12px; margin-top: 4px; }
