@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=41" />
-  <link rel="stylesheet" href="./css/admin.css?v=41" />
+  <link rel="stylesheet" href="./css/theme.css?v=42" />
+  <link rel="stylesheet" href="./css/admin.css?v=42" />
 </head>
 <body class="admin-page">
 
@@ -255,7 +255,7 @@
                 <div class="field"><label data-i18n="wh_text2">Texto secundario</label><input type="color" id="wh-text2" value="#6E6877" /></div>
                 <div class="field"><label data-i18n="wh_btn_bg">Fondo del botón</label><input type="color" id="wh-btnbg" value="#221535" /></div>
                 <div class="field"><label data-i18n="wh_btn_color">Texto del botón</label><input type="color" id="wh-btncolor" value="#FFFFFF" /></div>
-                <div class="field"><label data-i18n="wh_font_title">Fuente del título</label><input type="text" id="wh-fonttitle" value="Playfair Display, serif" /></div>
+                <div class="field"><label data-i18n="wh_font_title">Fuente del título</label><input type="text" id="wh-fonttitle" value="Cinzel, serif" /></div>
                 <div class="field"><label data-i18n="wh_font_body">Fuente del cuerpo</label><input type="text" id="wh-fontbody" value="Inter, sans-serif" /></div>
                 <div class="field"><label data-i18n="wh_btn_radius">Radio del botón (px)</label><input type="number" id="wh-btnradius" value="24" min="0" max="60" /></div>
                 <div class="field"><label data-i18n="wh_badge">Texto de la insignia</label><input type="text" id="wh-badge" value="DESCUBRE" /></div>
@@ -556,9 +556,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=41"></script>
-  <script src="./js/supabase.js?v=41"></script>
-  <script src="./js/color-picker.js?v=41"></script>
+  <script src="./config.js?v=42"></script>
+  <script src="./js/supabase.js?v=42"></script>
+  <script src="./js/color-picker.js?v=42"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -1095,7 +1095,7 @@
 
     // ===== Hero de bienvenida =====
     var DEFAULT_HERO = {
-      styles: { bg_color: '#F8F6FA', primary_color: '#251738', text_primary: '#1C1427', text_secondary: '#6E6877', font_family_title: 'Playfair Display, serif', font_family_body: 'Inter, sans-serif', button_bg: '#221535', button_text_color: '#FFFFFF', button_border_radius: '24px' },
+      styles: { bg_color: '#F8F6FA', primary_color: '#251738', text_primary: '#1C1427', text_secondary: '#6E6877', font_family_title: 'Cinzel, serif', font_family_body: 'Inter, sans-serif', button_bg: '#221535', button_text_color: '#FFFFFF', button_border_radius: '24px' },
       content: { badge_text: 'DESCUBRE', badge_icon_url: '', title: 'Tu Estilo\nTu Historia', subtitle: 'Moda seleccionada para cada uno de ti.', button_text: 'Ir a la tienda', button_link: '#catalogo', show_button_arrow: true },
       gallery: { images: [ { id: 1, url: '', alt: 'Estilo femenino', shape_type: 'rounded-card-top' }, { id: 2, url: '', alt: 'Estilo masculino', shape_type: 'rounded-card-bottom' } ], active_dot_index: 0, total_dots: 3 }
     };
