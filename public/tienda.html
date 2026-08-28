@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Noto+Serif+Dives+Akuru&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=39" />
-  <link rel="stylesheet" href="./css/tienda.css?v=52" />
+  <link rel="stylesheet" href="./css/tienda.css?v=53" />
 </head>
 <body class="shop-page">
 
@@ -72,9 +72,7 @@
       <h2 class="welcome-hero-title" id="wh-title"></h2>
       <p class="welcome-hero-sub" id="wh-sub"></p>
     </div>
-    <div class="welcome-gallery" id="wh-gallery"></div>
     <div class="welcome-foot">
-      <div class="welcome-dots" id="wh-dots"></div>
       <button class="welcome-cta" id="wh-cta">
         <span id="wh-cta-text"></span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
@@ -672,7 +670,7 @@
       if (!heroEnabled) { box.classList.add('hidden'); updateHomeTop(); return; }
       box.classList.remove('hidden');
       var hc = heroConfig();
-      var st = hc.styles || {}, ct = hc.content || {}, ga = hc.gallery || {};
+      var st = hc.styles || {}, ct = hc.content || {};
       box.style.setProperty('--hero-bg', st.bg_color || '#F8F6FA');
       box.style.setProperty('--hero-primary', st.primary_color || '#251738');
       box.style.setProperty('--hero-text1', st.text_primary || '#1C1427');
@@ -690,18 +688,6 @@
         ? '<img class="welcome-badge-icon" src="' + esc(bIcon) + '" alt="" />'
         : '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.26L21 9.27l-4.5 4.38 1.06 6.6L12 17.35l-5.56 2.9 1.06-6.6L3 9.27l6.1-1.01Z"/></svg>';
       badge.insertAdjacentText('beforeend', ' ' + (ct.badge_text || ''));
-      var gal = document.getElementById('wh-gallery');
-      var imgs = ga.images || [];
-      gal.innerHTML = imgs.filter(function (im) { return im && im.url; }).map(function (im) {
-        return '<div class="welcome-card ' + esc(im.shape_type || 'rounded-card-top') + '">' +
-          '<img src="' + esc(im.url) + '" alt="' + esc(im.alt || '') + '" loading="lazy" />' +
-        '</div>';
-      }).join('');
-      var dots = document.getElementById('wh-dots');
-      var total = Number(ga.total_dots) || 0;
-      var active = Number(ga.active_dot_index) || 0;
-      dots.innerHTML = '';
-      for (var d = 0; d < total; d++) dots.innerHTML += '<span class="w-dot' + (d === active ? ' active' : '') + '"></span>';
       var ctaText = document.getElementById('wh-cta-text');
       ctaText.textContent = ct.button_text || 'Ir a la tienda';
       document.getElementById('wh-cta').style.display = ct.show_button_arrow === false ? '' : '';
