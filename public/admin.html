@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=43" />
-  <link rel="stylesheet" href="./css/admin.css?v=43" />
+  <link rel="stylesheet" href="./css/theme.css?v=44" />
+  <link rel="stylesheet" href="./css/admin.css?v=44" />
 </head>
 <body class="admin-page">
 
@@ -255,8 +255,8 @@
                 <div class="field"><label data-i18n="wh_text2">Texto secundario</label><input type="color" id="wh-text2" value="#6E6877" /></div>
                 <div class="field"><label data-i18n="wh_btn_bg">Fondo del botón</label><input type="color" id="wh-btnbg" value="#221535" /></div>
                 <div class="field"><label data-i18n="wh_btn_color">Texto del botón</label><input type="color" id="wh-btncolor" value="#FFFFFF" /></div>
-                <div class="field"><label data-i18n="wh_font_title">Fuente del título</label><input type="text" id="wh-fonttitle" value="Cinzel, serif" /></div>
-                <div class="field"><label data-i18n="wh_font_body">Fuente del cuerpo</label><input type="text" id="wh-fontbody" value="Inter, sans-serif" /></div>
+                <div class="field" style="grid-column:1/-1"><label data-i18n="wh_font_title">Fuente del título</label><input type="hidden" id="wh-fonttitle" value="Cinzel, serif" /><div class="font-options" id="wh-fonttitle-options"></div></div>
+                <div class="field" style="grid-column:1/-1"><label data-i18n="wh_font_body">Fuente del cuerpo</label><input type="hidden" id="wh-fontbody" value="Inter, sans-serif" /><div class="font-options" id="wh-fontbody-options"></div></div>
                 <div class="field"><label data-i18n="wh_btn_radius">Radio del botón (px)</label><input type="number" id="wh-btnradius" value="24" min="0" max="60" /></div>
                 <div class="field"><label data-i18n="wh_badge">Texto de la insignia</label><input type="text" id="wh-badge" value="DESCUBRE" /></div>
                 <div class="field"><label data-i18n="wh_badge_icon">Icono de la insignia (URL)</label><input type="text" id="wh-badgeicon" placeholder="https://..." /></div>
@@ -560,9 +560,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=43"></script>
-  <script src="./js/supabase.js?v=43"></script>
-  <script src="./js/color-picker.js?v=43"></script>
+  <script src="./config.js?v=44"></script>
+  <script src="./js/supabase.js?v=44"></script>
+  <script src="./js/color-picker.js?v=44"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -997,7 +997,8 @@
     }
 
     // ===== Fuentes + Reseñas =====
-    var FONTS = ['Plus Jakarta Sans', 'Inter', 'Poppins', 'Montserrat', 'Roboto', 'Open Sans', 'Lato', 'Playfair Display'];
+    var FONTS = ['Plus Jakarta Sans', 'Inter', 'Poppins', 'Montserrat', 'Roboto', 'Open Sans', 'Lato', 'Playfair Display', 'Cinzel', 'Dosis', 'Jost', 'Nunito Sans', 'Oswald', 'Quicksand', 'Raleway', 'Roboto Condensed', 'Source Serif 4', 'Noto Serif Dives Akuru'];
+    var HERO_FONTS = ['Cinzel', 'Playfair Display', 'Dosis', 'Jost', 'Nunito Sans', 'Oswald', 'Quicksand', 'Raleway', 'Roboto Condensed', 'Source Serif 4', 'Plus Jakarta Sans', 'Inter', 'Poppins', 'Montserrat', 'Roboto', 'Open Sans', 'Lato', 'Noto Serif Dives Akuru'];
     function renderFontOptions() {
       var cur = document.getElementById('theme-fontheading').value || 'Plus Jakarta Sans';
       ['font-options-adv', 'font-options-basic'].forEach(function (id) {
@@ -1009,7 +1010,25 @@
         box.querySelectorAll('[data-font]').forEach(function (b) {
           b.addEventListener('click', function () {
             document.getElementById('theme-fontheading').value = b.getAttribute('data-font');
-            renderFontOptions();
+renderFontOptions();
+    renderHeroFontOptions();
+          });
+        });
+      });
+    }
+    function renderHeroFontOptions() {
+      [['wh-fonttitle-options', 'wh-fonttitle'], ['wh-fontbody-options', 'wh-fontbody']].forEach(function (pair) {
+        var box = document.getElementById(pair[0]);
+        if (!box) return;
+        var cur = document.getElementById(pair[1]).value || '';
+        box.innerHTML = HERO_FONTS.map(function (f) {
+          var norm = cur.split(',')[0].trim();
+          return '<button type="button" class="chip font-chip' + (norm === f ? ' active' : '') + '" data-hfont="' + f + '" style="font-family:\'' + f + '\',sans-serif">' + f + '</button>';
+        }).join('');
+        box.querySelectorAll('[data-hfont]').forEach(function (b) {
+          b.addEventListener('click', function () {
+            document.getElementById(pair[1]).value = b.getAttribute('data-hfont') + ', sans-serif';
+            renderHeroFontOptions();
           });
         });
       });
@@ -1116,6 +1135,7 @@
       sv('wh-dotstotal', ga.total_dots != null ? ga.total_dots : 3); sv('wh-dotsactive', ga.active_dot_index != null ? ga.active_dot_index : 0);
       document.getElementById('wh-btnarrow').checked = ct.show_button_arrow !== false;
       renderHeroGallery();
+      renderHeroFontOptions();
     }
     function renderHeroGallery() {
       var box = document.getElementById('wh-gallery');
