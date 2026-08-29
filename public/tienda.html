@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Noto+Serif+Dives+Akuru&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=40" />
-  <link rel="stylesheet" href="./css/tienda.css?v=58" />
+  <link rel="stylesheet" href="./css/tienda.css?v=59" />
 </head>
 <body class="shop-page">
 
@@ -139,15 +139,6 @@
                 <span>&ndash;</span>
                 <input type="number" id="filter-max" min="0" step="0.01" placeholder="Max" data-i18n-ph="price_max" />
               </div>
-            </div>
-          </div>
-          <div class="filter-group collapsed">
-            <button type="button" class="filter-group-head" aria-expanded="false">
-              <span data-i18n="color">Colores</span>
-              <svg class="filter-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-            </button>
-            <div class="filter-group-body">
-              <div class="filter-options" id="filter-colors"></div>
             </div>
           </div>
           <div class="filter-group collapsed" id="filter-size-group">
@@ -482,15 +473,14 @@
     function hasVariants(p) { return (p.product_variants || []).some(function (v) { return v.color || v.size; }); }
 
     // ===== Filtros de la pagina Productos =====
-    var _filters = { cats: [], min: null, max: null, colors: [], sizes: [], avail: null };
+    var _filters = { cats: [], min: null, max: null, sizes: [], avail: null };
     var _page = 1;
     var PAGE_SIZE = 20;
     function buildFilterOptions() {
-      var colors = [], cseen = {}, groups = {}, gorder = [];
+      var groups = {}, gorder = [];
       var catSel = _filters.cats.length ? _filters.cats : null;
       storeProducts.forEach(function (x) {
         (x.p.product_variants || []).forEach(function (v) {
-          if (v.color && !cseen[v.color]) { cseen[v.color] = 1; colors.push({ name: v.color, hex: v.color_hex || '#888' }); }
           if (v.size) {
             if (catSel && (x.catId == null || catSel.indexOf(String(x.catId)) === -1)) return;
             var gname = x.catName || t('size_others');
@@ -499,12 +489,11 @@
           }
         });
       });
-      colors.sort(function (a, b) { return a.name.localeCompare(b.name); });
       var sizeGroups = gorder.map(function (g) {
         var sizes = Object.keys(groups[g]).sort(function (a, b) { return String(a).localeCompare(String(b), undefined, { numeric: true }); });
         return { name: g, sizes: sizes };
       });
-      return { colors: colors, sizeGroups: sizeGroups };
+      return { sizeGroups: sizeGroups };
     }
     function renderFilterPanel() {
       var opts = buildFilterOptions();
@@ -541,27 +530,6 @@
           renderExplore();
         });
       });
-
-      var colBox = document.getElementById('filter-colors');
-      if (opts.colors.length) {
-        colBox.innerHTML = '<div class="color-swatches">' + opts.colors.map(function (c) {
-          var active = _filters.colors.indexOf(c.name) > -1;
-          return '<button type="button" class="color-swatch' + (active ? ' active' : '') + '" data-color="' + c.name + '" style="--c:' + c.hex + '" title="' + c.name + '"></button>';
-        }).join('') + '</div>';
-        colBox.querySelectorAll('[data-color]').forEach(function (b) {
-          b.addEventListener('click', function () {
-            var v = b.getAttribute('data-color');
-            var idx = _filters.colors.indexOf(v);
-            if (idx > -1) _filters.colors.splice(idx, 1);
-            else _filters.colors.push(v);
-            _page = 1;
-            renderFilterPanel();
-            renderExplore();
-          });
-        });
-      } else {
-        colBox.innerHTML = '<p class="filter-empty">' + t('no_variants') + '</p>';
-      }
 
       var szBox = document.getElementById('filter-sizes');
       var szGroup = document.getElementById('filter-size-group');
@@ -609,10 +577,6 @@
       if (f.cats.length && (x.catId == null || f.cats.indexOf(String(x.catId)) === -1)) return false;
       if (f.min !== null && f.min !== '' && (Number(p.price) || 0) < Number(f.min)) return false;
       if (f.max !== null && f.max !== '' && (Number(p.price) || 0) > Number(f.max)) return false;
-      if (f.colors.length) {
-        var hasC = (p.product_variants || []).some(function (v) { return v.color && f.colors.indexOf(v.color) > -1; });
-        if (!hasC) return false;
-      }
       if (f.sizes.length) {
         var hasS = (p.product_variants || []).some(function (v) { return v.size && f.sizes.indexOf(v.size) > -1; });
         if (!hasS) return false;
@@ -625,23 +589,12 @@
       return true;
     }
     function clearFilters() {
-      _filters = { cats: [], min: null, max: null, colors: [], sizes: [], avail: null };
+      _filters = { cats: [], min: null, max: null, sizes: [], avail: null };
       _page = 1;
       document.getElementById('filter-min').value = '';
       document.getElementById('filter-max').value = '';
       renderFilterPanel();
       renderExplore();
-    }
-
-    function prodColors(p) {
-      var seen = {}, out = [];
-      (p.product_variants || []).forEach(function (v) {
-        if (v.color && !seen[v.color]) {
-          seen[v.color] = 1;
-          out.push({ name: v.color, hex: v.color_hex || '#888' });
-        }
-      });
-      return out;
     }
 
     function cardHtml(x, eager) {
@@ -650,17 +603,12 @@
       var img = imgs[0] ? '<img class="prod-img" src="' + imgs[0] + '" alt="' + p.name + '"' + (eager ? '' : ' loading="lazy"') + ' />' : '<div class="placeholder-box prod-img" style="background:var(--bg)" role="img" aria-label="' + p.name + '"></div>';
       var orig = p.original_price ? '<span class="prod-orig">' + fmt(p.original_price) + '</span>' : '';
       var offer = p.original_price ? '<span class="prod-offer-badge">' + t('offer') + '</span>' : '';
-      var colors = prodColors(p);
-      var colorRow = colors.length ? '<div class="prod-colors"><span class="color-dot" style="background:' + colors[0].hex + '" title="' + colors[0].name + '"></span>' + (colors.length > 1 ? '<span class="color-more">+' + colors.length + '</span>' : '') + '</div>' : '';
-      return '<article class="product-card" data-open="' + p.id + '" style="cursor:pointer">' +
+      return '<a class="product-card" href="./product.html?id=' + p.id + '">' +
         img + offer +
         '<div class="prod-body">' +
-          colorRow +
-          '<div class="prod-meta">' +
-            '<div class="prod-title">' + p.name + '</div>' +
-            '<div class="prod-price-row"><span class="prod-price">' + fmt(p.price) + '</span>' + orig + '</div>' +
-          '</div>' +
-        '</div></article>';
+          '<div class="prod-title">' + p.name + '</div>' +
+          '<div class="prod-price-row"><span class="prod-price">' + fmt(p.price) + '</span>' + orig + '</div>' +
+        '</div></a>';
     }
 
     function wireCards(grid) {
