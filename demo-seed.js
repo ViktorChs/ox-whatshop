@@ -1,4 +1,11 @@
 // Genera demo.sql con 12 categorias y 50 productos (con variantes color x talla)
+const KW = ['ring', 'bag', 'shoes', 'necklace', 'tshirt', 'watch', 'sunglasses', 'cap', 'shirt', 'pants', 'wallet', 'bracelet'];
+function imagesFor(id, catIdx) {
+  const kw = KW[catIdx] || 'product';
+  const img = `https://loremflickr.com/600/600/${kw}?lock=${id}`;
+  const imgs = [1, 2, 3].map((n) => `https://loremflickr.com/600/600/${kw}?lock=${id * 10 + n}`);
+  return { img, imgs };
+}
 const TEMPLATES = {
   zapatos: [1, [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48]],
   anillos: [2, ["10","11","12","13","14","15","16","17","18","19","20","21","22"]],
@@ -88,8 +95,9 @@ sql += "-- Productos\n";
 P.forEach((p, idx) => {
   const id = idx + 1;
   const [, name, price, orig, desc, featured, variant] = p;
+  const { img, imgs } = imagesFor(id, p[0]);
   sql += `insert into products (id, store_id, category_id, name, description, price, original_price, image, images, stock, featured, position)\n`;
-  sql += `values (${id}, 1, ${p[0]+1}, '${name}', '${desc}', ${price}, ${orig || "null"}, null, '[]', ${rand(8, 40)}, ${featured ? "true" : "false"}, ${id});\n`;
+  sql += `values (${id}, 1, ${p[0]+1}, '${name}', '${desc}', ${price}, ${orig || "null"}, '${img}', '${JSON.stringify(imgs)}', ${rand(8, 40)}, ${featured ? "true" : "false"}, ${id});\n`;
 
   if (variant && variant.colors) {
     let sizes;
