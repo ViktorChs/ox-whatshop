@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Noto+Serif+Dives+Akuru&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=40" />
-  <link rel="stylesheet" href="./css/tienda.css?v=56" />
+  <link rel="stylesheet" href="./css/tienda.css?v=57" />
 </head>
 <body class="shop-page">
 
@@ -85,16 +85,21 @@
     <div id="store-notice" class="store-notice hidden"></div>
 
     <section class="section-block hidden reveal" id="explore-view" aria-label="Productos">
-      <nav class="crumbs" aria-label="Ruta" style="margin-bottom:14px">
-        <a href="./tienda.html" data-i18n="nav_home">Inicio</a>
-        <span class="crumbs-sep">/</span>
-        <span data-i18n="crumbs_products">Productos</span>
-      </nav>
-      <div class="section-head">
-        <h2 data-i18n="nav_explore">Productos</h2>
-        <button class="filter-toggle" id="filter-toggle" data-i18n="filters">Filtros</button>
+      <div class="explore-top">
+        <nav class="crumbs" aria-label="Ruta" style="margin-bottom:12px">
+          <a href="./tienda.html" data-i18n="nav_home">Inicio</a>
+          <span class="crumbs-sep">/</span>
+          <span data-i18n="crumbs_products">Productos</span>
+        </nav>
+        <div class="section-head">
+          <h2 data-i18n="nav_explore">Productos</h2>
+          <button class="filter-toggle" id="filter-toggle" data-i18n="filters">Filtros</button>
+        </div>
+        <div class="cat-circles-wrap">
+          <div class="cat-circles" id="cat-circles"></div>
+          <button class="cat-scroll-btn hidden" id="cat-scroll-btn" aria-label="Más categorías">&#8250;</button>
+        </div>
       </div>
-      <div class="cat-circles" id="cat-circles"></div>
       <div class="explore-layout has-filters">
         <aside class="filter-panel" id="filter-panel">
           <div class="filter-head">
@@ -739,6 +744,17 @@
           renderExplore();
         });
       });
+      updateCatScroll();
+    }
+    function updateCatScroll() {
+      var track = document.getElementById('cat-circles');
+      var btn = document.getElementById('cat-scroll-btn');
+      if (!track || !btn) return;
+      var more = track.scrollWidth > track.clientWidth + 4;
+      btn.classList.toggle('hidden', !more);
+      if (!more) return;
+      var atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8;
+      btn.classList.toggle('hidden', atEnd);
     }
 
     // ===== Explorar =====
@@ -867,6 +883,15 @@
 
     function on(id, ev, fn) { var el = document.getElementById(id); if (el) el.addEventListener(ev, fn); }
     on('cart-open', 'click', CART.openCart);
+
+    // Categorias circulares: boton ">" para ver mas
+    var catTrack = document.getElementById('cat-circles');
+    var catBtn = document.getElementById('cat-scroll-btn');
+    if (catTrack && catBtn) {
+      catBtn.addEventListener('click', function () { catTrack.scrollBy({ left: 340, behavior: 'smooth' }); });
+      catTrack.addEventListener('scroll', updateCatScroll, { passive: true });
+    }
+    window.addEventListener('resize', updateCatScroll);
 
     // ===== Boton arriba/abajo =====
     var scrollBtn = document.getElementById('scroll-btn');
