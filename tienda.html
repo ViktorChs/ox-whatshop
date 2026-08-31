@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Dosis:wght@200..800&family=Jost:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Noto+Serif+Dives+Akuru&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=40" />
-  <link rel="stylesheet" href="./css/tienda.css?v=65" />
+  <link rel="stylesheet" href="./css/tienda.css?v=66" />
 </head>
 <body class="shop-page">
 
@@ -121,6 +121,15 @@
           </div>
           <div class="filter-group collapsed">
             <button type="button" class="filter-group-head" aria-expanded="false">
+              <span data-i18n="subcat_options">Subcategorías</span>
+              <svg class="filter-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="filter-group-body">
+              <div class="filter-options" id="filter-subs"></div>
+            </div>
+          </div>
+          <div class="filter-group collapsed">
+            <button type="button" class="filter-group-head" aria-expanded="false">
               <span data-i18n="avail">Disponibilidad</span>
               <svg class="filter-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
             </button>
@@ -168,6 +177,24 @@
         <div class="explore-content">
           <div class="products-grid" id="explore-grid"></div>
           <div class="pagination hidden" id="explore-pagination"></div>
+          <footer class="shop-footer">
+            <div class="footer-inner">
+              <div class="footer-brand">
+                <img src="./assets/logos/logoB.png" alt="Logo WhatShop" />
+                <span><span class="what">What</span><span class="shop">Shop</span></span>
+              </div>
+              <div class="footer-links">
+                <a href="./terminos.html" data-i18n="f_terminos">Términos y condiciones</a>
+                <a href="./privacidad.html" data-i18n="f_privacidad">Política de privacidad</a>
+                <a href="./politicas.html" data-i18n="f_politicas">Políticas de compra</a>
+                <a href="./cookies.html" data-i18n="f_cookies">Política de cookies</a>
+                <a href="./contacto.html" data-i18n="f_contacto">Contacto</a>
+              </div>
+              <div class="footer-copy">
+                <span>&copy; <span id="footer-year"></span> <span id="footer-brand-name">WhatShop</span> · <span data-i18n="f_by">Plataforma de tienda de</span> OX1</span>
+              </div>
+            </div>
+          </footer>
         </div>
       </div>
       <div class="filter-scrim" id="filter-scrim"></div>
@@ -198,25 +225,6 @@
     </div>
   </aside>
 
-  <footer class="shop-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="./assets/logos/logoB.png" alt="Logo WhatShop" />
-        <span><span class="what">What</span><span class="shop">Shop</span></span>
-      </div>
-      <div class="footer-links">
-        <a href="./terminos.html" data-i18n="f_terminos">Términos y condiciones</a>
-        <a href="./privacidad.html" data-i18n="f_privacidad">Política de privacidad</a>
-        <a href="./politicas.html" data-i18n="f_politicas">Políticas de compra</a>
-        <a href="./cookies.html" data-i18n="f_cookies">Política de cookies</a>
-        <a href="./contacto.html" data-i18n="f_contacto">Contacto</a>
-      </div>
-      <div class="footer-copy">
-        <span>&copy; <span id="footer-year"></span> <span id="footer-brand-name">WhatShop</span> · <span data-i18n="f_by">Plataforma de tienda de</span> OX1</span>
-      </div>
-    </div>
-  </footer>
-
   <nav class="bottom-nav" aria-label="Navegación">
     <button class="nav-item active" data-tab="explore" aria-label="Productos" aria-current="page">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
@@ -237,7 +245,7 @@
     // ===== i18n =====
     var I18N = {
       es: {
-        nav_home: 'Inicio', nav_explore: 'Productos', nav_cart: 'Carrito', filters: 'Filtros', clear: 'Limpiar', price: 'Precio', price_min: 'Mín', price_max: 'Máx', price_search: 'Buscar', color: 'Color', color_options: 'Opciones de color', color_more: 'Ver más colores', color_less: 'Ver menos', cat_all: 'Todo', cat_show_all: 'Ver todas las categorías', size: 'Tallas', avail: 'Disponibilidad', avail_yes: 'Disponible', avail_low: 'Por agotarse', crumbs_products: 'Productos', reviews_title: 'Reseñas de clientes', reviews_empty: 'Sin reseñas todavía', rev_verified: 'Cliente verificado', no_variants: 'No hay productos con variantes de tallas o colores',
+        nav_home: 'Inicio', nav_explore: 'Productos', nav_cart: 'Carrito', filters: 'Filtros', clear: 'Limpiar', price: 'Precio', price_min: 'Mín', price_max: 'Máx', price_search: 'Buscar', color: 'Color', color_options: 'Opciones de color', color_more: 'Ver más colores', color_less: 'Ver menos', cat_all: 'Todo', subcat_options: 'Subcategorías', size: 'Tallas', avail: 'Disponibilidad', avail_yes: 'Disponible', avail_low: 'Por agotarse', crumbs_products: 'Productos', reviews_title: 'Reseñas de clientes', reviews_empty: 'Sin reseñas todavía', rev_verified: 'Cliente verificado', no_variants: 'No hay productos con variantes de tallas o colores',
         buscar: 'Buscar productos...',
         promo_title: 'Rebajas de Año Nuevo', promo_discount: '25% descuento', promo_img: 'Imagen de promoción',
         categories_title: 'Categorías', popular_title: 'Productos Populares', view_all: 'Ver todas', view_all_cats: 'Ver todas las categorías', go_store: 'Ir a la tienda',
@@ -256,7 +264,7 @@
         closed_msg: 'La tienda está cerrada en este momento'
       },
       en: {
-        nav_home: 'Home', nav_explore: 'Products', nav_cart: 'Cart', filters: 'Filters', clear: 'Clear', price: 'Price', price_min: 'Min', price_max: 'Max', price_search: 'Search', color: 'Color', color_options: 'Color options', color_more: 'See more colors', color_less: 'See less', cat_all: 'All', cat_show_all: 'See all categories', size: 'Size', avail: 'Availability', avail_yes: 'In stock', avail_low: 'Almost gone', crumbs_products: 'Products', reviews_title: 'Customer reviews', reviews_empty: 'No reviews yet', rev_verified: 'Verified buyer', no_variants: 'No products with size or color variants',
+        nav_home: 'Home', nav_explore: 'Products', nav_cart: 'Cart', filters: 'Filters', clear: 'Clear', price: 'Price', price_min: 'Min', price_max: 'Max', price_search: 'Search', color: 'Color', color_options: 'Color options', color_more: 'See more colors', color_less: 'See less', cat_all: 'All', subcat_options: 'Subcategories', size: 'Size', avail: 'Availability', avail_yes: 'In stock', avail_low: 'Almost gone', crumbs_products: 'Products', reviews_title: 'Customer reviews', reviews_empty: 'No reviews yet', rev_verified: 'Verified buyer', no_variants: 'No products with size or color variants',
         buscar: 'Search items...',
         promo_title: 'New Year Sale', promo_discount: '25% off', promo_img: 'Promo image',
         categories_title: 'Categories', popular_title: 'Popular Products', view_all: 'View all', view_all_cats: 'View all categories', go_store: 'Go to store',
@@ -497,7 +505,6 @@
     var _page = 1;
     var PAGE_SIZE = 20;
     var _colorShow = 5;
-    var _showAllCats = false;
     var _priceMax = 1000;
     function buildFilterOptions() {
       var colors = [], cseen = {}, groups = {}, gorder = [];
@@ -526,19 +533,10 @@
       var opts = buildFilterOptions();
       var catsBox = document.getElementById('filter-cats');
       var cats = (window.__store && window.__store.categories) || [];
-      catsBox.innerHTML = cats.map(function (c, i) {
-        var catActive = _filters.cats.indexOf(String(c.id)) > -1;
-        var subs = c.subcategories || [];
-        var subsHtml = '<button type="button" class="fbtn' + (catActive ? ' active' : '') + '" data-cat="' + c.id + '">' + t('cat_all') + ' ' + c.name + '</button>' +
-          subs.map(function (sc) {
-            var scActive = _filters.subcats.indexOf(String(sc.id)) > -1;
-            return '<button type="button" class="fbtn' + (scActive ? ' active' : '') + '" data-subcat="' + sc.id + '">' + sc.name + '</button>';
-          }).join('');
-        return '<div class="size-group' + ((!_showAllCats && i >= 3) ? ' collapsed' : '') + '">' +
-          '<button type="button" class="size-group-head" aria-expanded="false"><span>' + c.name + '</span><svg class="filter-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>' +
-          '<div class="size-group-body">' + subsHtml + '</div></div>';
-      }).join('') +
-        '<button type="button" class="fbtn" id="show-all-cats" style="width:100%;margin-top:8px">' + t('cat_show_all') + '</button>';
+      catsBox.innerHTML = '<div class="cat-list">' + cats.map(function (c) {
+        var active = _filters.cats.indexOf(String(c.id)) > -1;
+        return '<button type="button" class="fbtn' + (active ? ' active' : '') + '" data-cat="' + c.id + '">' + c.name + '</button>';
+      }).join('') + '</div>';
       catsBox.querySelectorAll('[data-cat]').forEach(function (b) {
         b.addEventListener('click', function () {
           var id = String(b.getAttribute('data-cat'));
@@ -550,29 +548,34 @@
           renderExplore();
         });
       });
-      catsBox.querySelectorAll('[data-subcat]').forEach(function (b) {
-        b.addEventListener('click', function () {
-          var id = String(b.getAttribute('data-subcat'));
-          var idx = _filters.subcats.indexOf(id);
-          if (idx > -1) _filters.subcats.splice(idx, 1);
-          else _filters.subcats.push(id);
-          _page = 1;
-          renderFilterPanel();
-          renderExplore();
+
+      var subsBox = document.getElementById('filter-subs');
+      var subsGroup = subsBox ? subsBox.closest('.filter-group') : null;
+      var allSubs = (window.__store && window.__store.subcategories) || [];
+      if (!allSubs.length) {
+        if (subsGroup) subsGroup.classList.add('hidden');
+      } else {
+        if (subsGroup) subsGroup.classList.remove('hidden');
+        subsBox.innerHTML = '<div class="cat-list">' + cats.map(function (c) {
+          var subs = (c.subcategories || []);
+          if (!subs.length) return '';
+          return '<div class="sub-head">' + c.name + '</div>' + subs.map(function (sc) {
+            var scActive = _filters.subcats.indexOf(String(sc.id)) > -1;
+            return '<button type="button" class="fbtn' + (scActive ? ' active' : '') + '" data-subcat="' + sc.id + '">' + sc.name + '</button>';
+          }).join('');
+        }).join('') + '</div>';
+        subsBox.querySelectorAll('[data-subcat]').forEach(function (b) {
+          b.addEventListener('click', function () {
+            var id = String(b.getAttribute('data-subcat'));
+            var idx = _filters.subcats.indexOf(id);
+            if (idx > -1) _filters.subcats.splice(idx, 1);
+            else _filters.subcats.push(id);
+            _page = 1;
+            renderFilterPanel();
+            renderExplore();
+          });
         });
-      });
-      catsBox.querySelectorAll('.size-group-head').forEach(function (h) {
-        h.addEventListener('click', function () {
-          var g = h.closest('.size-group');
-          g.classList.toggle('collapsed');
-          h.setAttribute('aria-expanded', g.classList.contains('collapsed') ? 'false' : 'true');
-        });
-      });
-      var sa = document.getElementById('show-all-cats');
-      if (sa) sa.addEventListener('click', function () {
-        _showAllCats = !_showAllCats;
-        renderFilterPanel();
-      });
+      }
 
       var availBox = document.getElementById('filter-avail');
       availBox.innerHTML = ['yes', 'low'].map(function (a) {
