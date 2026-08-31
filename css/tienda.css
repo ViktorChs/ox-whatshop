@@ -1044,7 +1044,7 @@ html, body { max-width: 100%; overflow-x: clip; }
 .explore-layout { display: block; }
 .filter-panel { display: none; background: transparent; border: none; border-radius: var(--radius); padding: 16px; margin-bottom: 16px; font-family: var(--font-body); }
 .filter-panel.open { display: block; }
-.filter-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.filter-head { display: flex; align-items: center; justify-content: flex-end; border-bottom: 1px solid var(--color-border); margin: 0 0 10px; padding-bottom: 6px; }
 .filter-head h3 { margin: 0; font-size: 1rem; }
 .filter-clear { background: none; border: none; color: var(--color-primary, #171717); font-weight: 700; font-size: .8rem; cursor: pointer; }
 .filter-close { display: none; border: none; background: none; color: var(--primary-text); font-size: 1.4rem; line-height: 1; cursor: pointer; width: 34px; height: 34px; }
@@ -1089,6 +1089,7 @@ html, body { max-width: 100%; overflow-x: clip; }
   background: none;
   border: none;
   border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.18);
   padding: 8px 0;
   cursor: pointer;
   font-size: .82rem;
@@ -1096,14 +1097,8 @@ html, body { max-width: 100%; overflow-x: clip; }
   text-align: left;
 }
 .sg-toggle {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 1px solid currentColor;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   font-size: .95rem;
+  font-weight: 600;
   line-height: 1;
   flex-shrink: 0;
 }
@@ -1119,7 +1114,7 @@ html, body { max-width: 100%; overflow-x: clip; }
 
 /* Categorias: botones pill */
 .filter-options { display: flex; flex-wrap: nowrap; gap: 8px; flex-direction: column; }
-.filter-group-title { font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; color: var(--secondary-text); font-weight: 700; margin: 0 0 8px; }
+.filter-group-title { font-size: 1rem; text-transform: uppercase; letter-spacing: .03em; color: var(--secondary-text); font-weight: 700; margin: 0 0 8px; }
 .fbtn { padding: 8px 14px; border-radius: var(--radius); border: 1px solid var(--color-border); background: transparent; color: var(--primary-text); font-weight: 600; font-size: .85rem; cursor: pointer; transition: all 150ms ease; min-height: 36px; }
 .fbtn:hover { border-color: var(--color-primary); }
 .fbtn.active { background: var(--color-primary, #171717); color: var(--color-on-primary, #fff); border-color: var(--color-primary, #171717); }
