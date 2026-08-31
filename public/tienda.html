@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Dosis:wght@200..800&family=Jost:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Noto+Serif+Dives+Akuru&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=40" />
-  <link rel="stylesheet" href="./css/tienda.css?v=67" />
+  <link rel="stylesheet" href="./css/tienda.css?v=68" />
 </head>
 <body class="shop-page">
 
@@ -106,11 +106,8 @@
           <div class="filter-head">
             <button class="filter-close" id="filter-close" aria-label="Cerrar filtros">&times;</button>
           </div>
-          <div class="filter-group collapsed">
-            <button type="button" class="filter-group-head" aria-expanded="false">
-              <span data-i18n="categories_title">Categorías</span>
-              <svg class="filter-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-            </button>
+          <div class="filter-group">
+            <h4 class="filter-group-title" data-i18n="categories_title">Categorías</h4>
             <div class="filter-group-body">
               <div class="filter-options" id="filter-cats"></div>
             </div>
@@ -544,7 +541,7 @@
             return '<button type="button" class="cat-item sub' + (scActive ? ' active' : '') + '" data-subcat="' + sc.id + '">' + sc.name + '</button>';
           }).join('');
         return '<div class="size-group' + (i < 2 ? '' : ' collapsed') + '">' +
-          '<button type="button" class="size-group-head" aria-expanded="false"><span>' + c.name + '</span><svg class="filter-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>' +
+          '<button type="button" class="size-group-head" aria-expanded="false"><span>' + c.name + '</span><span class="sg-toggle"></span></button>' +
           '<div class="size-group-body">' + items + '</div></div>';
       }).join('') +
         (cats.length > 3 ? '<button type="button" class="see-more" id="show-all-cats">' + (_showAllCats ? t('cat_less') : t('cat_more')) + '</button>' : '');
@@ -664,7 +661,7 @@
           }).join('');
           var more = g.sizes.length > 8 ? '<button type="button" class="see-more" data-seemore="' + g.name + '">' + (show >= g.sizes.length ? t('size_less') : t('size_more')) + '</button>' : '';
           return '<div class="size-group collapsed">' +
-            '<button type="button" class="size-group-head" aria-expanded="false"><span>' + g.name + '</span><svg class="filter-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>' +
+            '<button type="button" class="size-group-head" aria-expanded="false"><span>' + g.name + '</span><span class="sg-toggle"></span></button>' +
             '<div class="size-group-body"><div class="size-grid">' + pills + '</div>' + more + '</div></div>';
         }).join('');
         szBox.querySelectorAll('[data-size]').forEach(function (b) {
