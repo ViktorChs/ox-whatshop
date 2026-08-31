@@ -212,7 +212,7 @@ const SBHelper = {
     const c = await loadSupabase();
     const sid = storeId || getActiveStoreId();
     const { data, error } = await c.from('subcategories').select('*').eq('store_id', sid).order('position');
-    if (error) throw error;
+    if (error) return [];
     return data || [];
   },
   async addSubcategory(obj, storeId) {
@@ -412,13 +412,14 @@ const SBHelper = {
 // ===== Cargar tienda completa (settings + catalogo + plantillas) =====
 async function SBStore(storeId) {
   const sid = storeId || getActiveStoreId();
-  const [settings, categories, products, templates, subcategories] = await Promise.all([
+  const [settings, categories, products, templates] = await Promise.all([
     SBHelper.getSettings(sid),
     SBHelper.getCategories(sid),
     SBHelper.getProducts(sid),
-    SBHelper.getTemplates(sid),
-    SBHelper.getSubcategories(sid)
+    SBHelper.getTemplates(sid)
   ]);
+  let subcategories = [];
+  try { subcategories = await SBHelper.getSubcategories(sid); } catch (e) { subcategories = []; }
   const categoriesWithProducts = (categories || []).map((cat) => ({
     ...cat,
     subcategories: (subcategories || []).filter((s) => s.category_id === cat.id),
