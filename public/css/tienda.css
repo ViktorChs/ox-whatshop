@@ -454,6 +454,25 @@ html, body {
   gap: 6px;
   margin-top: auto;
 }
+.card-add {
+  margin-left: auto;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-primary, #171717);
+  color: var(--color-on-primary, #fff);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 150ms ease, opacity 150ms ease;
+}
+.card-add:hover { opacity: .9; transform: scale(1.08); }
 
 .product-card .prod-price {
   font-weight: 700;
@@ -948,7 +967,7 @@ html, body {
   }
 
   .products-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .category-card,
@@ -1099,7 +1118,8 @@ html, body { max-width: 100%; overflow-x: clip; }
   color: var(--primary-text);
   text-align: left;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 2px;
 }
 .sg-toggle {
   font-size: .95rem;
@@ -1153,8 +1173,8 @@ html, body { max-width: 100%; overflow-x: clip; }
 .cat-list { display: flex; flex-direction: column; gap: 8px; }
 .sub-head { font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--secondary-text); margin: 10px 0 6px; font-weight: 700; }
 .sub-head:first-child { margin-top: 0; }
-.cat-item { display: flex; align-items: center; width: 100%; background: none; border: none; color: var(--primary-text); font-size: .85rem; font-weight: 400; text-align: left; padding: 6px 2px; cursor: pointer; }
-.cat-item.sub { padding-left: 16px; color: var(--secondary-text); }
+.cat-item { display: flex; align-items: center; width: 100%; background: none; border: none; color: var(--primary-text); font-size: .85rem; font-weight: 700; text-align: left; padding: 6px 2px; cursor: pointer; }
+.cat-item.sub { padding-left: 16px; color: var(--secondary-text); font-weight: 400; }
 .cat-item:hover { color: var(--color-primary); }
 .cat-item.active { color: var(--color-primary); font-weight: 600; }
 .cat-item.sub.active { color: var(--primary-text); font-weight: 600; }

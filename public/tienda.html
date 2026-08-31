@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Dosis:wght@200..800&family=Jost:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Noto+Serif+Dives+Akuru&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=40" />
-  <link rel="stylesheet" href="./css/tienda.css?v=70" />
+  <link rel="stylesheet" href="./css/tienda.css?v=71" />
 </head>
 <body class="shop-page">
 
@@ -744,7 +744,9 @@
         img + offer +
         '<div class="prod-body">' +
           '<div class="prod-title">' + p.name + '</div>' +
-          '<div class="prod-price-row"><span class="prod-price">' + fmt(p.price) + '</span>' + orig + '</div>' +
+          '<div class="prod-price-row"><span class="prod-price">' + fmt(p.price) + '</span>' + orig +
+            '<button type="button" class="card-add" data-add-card="' + p.id + '" aria-label="Agregar al carrito">+</button>' +
+          '</div>' +
         '</div></a>';
     }
 
@@ -909,6 +911,19 @@
       if (!list.length) { grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--secondary-text)">' + t('no_products') + '</p>'; renderPagination(0, 0); return; }
       grid.innerHTML = list.map(function (x) { return cardHtml(x); }).join('');
       wireCards(grid);
+      grid.querySelectorAll('[data-add-card]').forEach(function (b) {
+        b.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var id = Number(b.getAttribute('data-add-card'));
+          var x = storeProducts.find(function (it) { return it.p.id === id; });
+          if (!x) return;
+          if (prodStock(x.p) <= 0) { toast(t('out'), 'error'); return; }
+          var imgs = prodImages(x.p);
+          CART.addItem({ id: x.p.id, title: x.p.name, price: Number(x.p.price) || 0, image: imgs[0] || null }, { qty: 1, maxStock: prodStock(x.p) });
+          toast(t('added'), 'success');
+        });
+      });
       renderPagination(all.length > PAGE_SIZE ? pages : 0, _page);
     }
 
