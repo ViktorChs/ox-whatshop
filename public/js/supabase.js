@@ -45,7 +45,7 @@ function applyTheme(settings) {
     '--color-category-box': t.categoryBox,
     '--radius': (t.corners === 'rounded' ? (t.radius || 14) : 0) + 'px',
     '--card-border': t.cardBorder === 'line' ? '1px solid var(--color-border, #E5E5E5)' : 'none',
-    '--filter-bg': t.filterBg || undefined,
+    '--filter-bg': undefined,
     '--card-shadow': t.cardShadow === 'none' ? 'none' : (t.cardShadow === 'media' ? '0 4px 16px rgba(0, 0, 0, 0.10)' : '0 2px 12px rgba(0, 0, 0, 0.08)')
   };
   for (const [key, value] of Object.entries(map)) {
@@ -204,6 +204,32 @@ const SBHelper = {
   async deleteCategory(id) {
     const c = await loadSupabase();
     const { error } = await c.from('categories').delete().eq('id', id);
+    if (error) throw error;
+  },
+
+  // ---- Subcategorias ----
+  async getSubcategories(storeId) {
+    const c = await loadSupabase();
+    const sid = storeId || getActiveStoreId();
+    const { data, error } = await c.from('subcategories').select('*').eq('store_id', sid).order('position');
+    if (error) throw error;
+    return data || [];
+  },
+  async addSubcategory(obj, storeId) {
+    const c = await loadSupabase();
+    const sid = storeId || getActiveStoreId();
+    const { data, error } = await c.from('subcategories').insert({ ...obj, store_id: sid }).select().single();
+    if (error) throw error;
+    return data;
+  },
+  async updateSubcategory(id, obj) {
+    const c = await loadSupabase();
+    const { error } = await c.from('subcategories').update(obj).eq('id', id);
+    if (error) throw error;
+  },
+  async deleteSubcategory(id) {
+    const c = await loadSupabase();
+    const { error } = await c.from('subcategories').delete().eq('id', id);
     if (error) throw error;
   },
 
@@ -386,16 +412,18 @@ const SBHelper = {
 // ===== Cargar tienda completa (settings + catalogo + plantillas) =====
 async function SBStore(storeId) {
   const sid = storeId || getActiveStoreId();
-  const [settings, categories, products, templates] = await Promise.all([
+  const [settings, categories, products, templates, subcategories] = await Promise.all([
     SBHelper.getSettings(sid),
     SBHelper.getCategories(sid),
     SBHelper.getProducts(sid),
-    SBHelper.getTemplates(sid)
+    SBHelper.getTemplates(sid),
+    SBHelper.getSubcategories(sid)
   ]);
   const categoriesWithProducts = (categories || []).map((cat) => ({
     ...cat,
+    subcategories: (subcategories || []).filter((s) => s.category_id === cat.id),
     products: (products || []).filter((p) => p.category_id === cat.id)
   }));
   const uncategorized = (products || []).filter((p) => !p.category_id);
-  return { settings, categories: categoriesWithProducts, uncategorized, templates };
+  return { settings, categories: categoriesWithProducts, uncategorized, templates, subcategories };
 }

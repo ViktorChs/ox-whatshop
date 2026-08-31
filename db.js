@@ -23,9 +23,18 @@ db.exec(`
     position INTEGER DEFAULT 0
   );
 
+  CREATE TABLE IF NOT EXISTS subcategories (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    category_id INTEGER,
+    name TEXT NOT NULL,
+    position INTEGER DEFAULT 0,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+  );
+
   CREATE TABLE IF NOT EXISTS products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     category_id INTEGER,
+    subcategory_id INTEGER,
     name TEXT NOT NULL,
     description TEXT DEFAULT '',
     price REAL NOT NULL DEFAULT 0,

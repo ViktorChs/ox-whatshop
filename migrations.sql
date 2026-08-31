@@ -65,6 +65,16 @@ create table if not exists public.variant_templates (
   created_at timestamptz default now()
 );
 
+-- ---------- subcategorias ----------
+create table if not exists public.subcategories (
+  id bigserial primary key,
+  store_id bigint not null default 1 references public.stores(id) on delete cascade,
+  category_id bigint references public.categories(id) on delete cascade,
+  name text not null,
+  position int default 0
+);
+alter table public.products add column if not exists subcategory_id bigint;
+
 insert into public.variant_templates (store_id, name, values)
 select 1, 'Zapatos Latinoamérica (2-48)', (
   select jsonb_agg((s::text)::float::text order by s)
