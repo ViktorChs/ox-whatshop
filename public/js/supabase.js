@@ -50,9 +50,13 @@ function applyTheme(settings) {
   for (const [key, value] of Object.entries(map)) {
     if (value) root.setProperty(key, value);
   }
-  if (t.fontHeading) root.setProperty('--font-heading', `'${t.fontHeading}', system-ui, sans-serif`);
-  if (t.fontBody) root.setProperty('--font-body', `'${t.fontBody}', system-ui, sans-serif`);
-  if (t.fontHeading) injectFont(t.fontHeading);
+  if (t.fontHeading) {
+    const body = t.fontBody || t.fontHeading;
+    root.setProperty('--font-heading', `'${t.fontHeading}', system-ui, sans-serif`);
+    root.setProperty('--font-body', `'${body}', system-ui, sans-serif`);
+    injectFont(t.fontHeading);
+    if (body !== t.fontHeading) injectFont(body);
+  }
 }
 
 function injectFont(fontName) {
