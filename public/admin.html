@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=47" />
-  <link rel="stylesheet" href="./css/admin.css?v=47" />
+  <link rel="stylesheet" href="./css/theme.css?v=48" />
+  <link rel="stylesheet" href="./css/admin.css?v=48" />
 </head>
 <body class="admin-page">
 
@@ -579,9 +579,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=47"></script>
+  <script src="./config.js?v=48"></script>
   <script src="./js/supabase.js?v=48"></script>
-  <script src="./js/color-picker.js?v=47"></script>
+  <script src="./js/color-picker.js?v=48"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -1461,7 +1461,7 @@ renderFontOptions();
       box.querySelectorAll('[data-del-sub]').forEach(function (b) {
         b.addEventListener('click', function () {
           if (!confirm(t('sc_confirm'))) return;
-          SBHelper.deleteSubcategory(b.getAttribute('data-del-sub')).then(function () { loadSubcategories(); });
+          SBHelper.deleteSubcategory(b.getAttribute('data-del-sub')).then(function () { loadSubcategories(); }).catch(function () { toast(t('st_error'), 'error'); });
         });
       });
     }
@@ -1478,8 +1478,8 @@ renderFontOptions();
       var name = document.getElementById('subcategory-name').value.trim();
       if (!cid || !name) { toast(t('sc_req'), 'error'); return; }
       var obj = { category_id: cid, name: name, position: _subs.length + 1 };
-      if (_editingSub) SBHelper.updateSubcategory(_editingSub, obj).then(function () { _editingSub = null; document.getElementById('subcategory-name').value = ''; document.getElementById('btn-cancel-subcategory').classList.add('hidden'); loadSubcategories(); toast(t('st_saved'), 'success'); });
-      else SBHelper.addSubcategory(obj).then(function () { document.getElementById('subcategory-name').value = ''; loadSubcategories(); toast(t('st_saved'), 'success'); });
+      if (_editingSub) SBHelper.updateSubcategory(_editingSub, obj).then(function () { _editingSub = null; document.getElementById('subcategory-name').value = ''; document.getElementById('btn-cancel-subcategory').classList.add('hidden'); loadSubcategories(); toast(t('st_saved'), 'success'); }).catch(function () { toast(t('st_error'), 'error'); });
+      else SBHelper.addSubcategory(obj).then(function () { document.getElementById('subcategory-name').value = ''; loadSubcategories(); toast(t('st_saved'), 'success'); }).catch(function () { toast(t('st_error'), 'error'); });
     });
     document.getElementById('btn-cancel-subcategory').addEventListener('click', function () {
       _editingSub = null;

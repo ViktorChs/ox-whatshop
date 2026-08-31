@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Dosis:wght@200..800&family=Jost:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Noto+Serif+Dives+Akuru&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=40" />
-  <link rel="stylesheet" href="./css/tienda.css?v=69" />
+  <link rel="stylesheet" href="./css/tienda.css?v=70" />
 </head>
 <body class="shop-page">
 
@@ -503,6 +503,7 @@
     var _colorShow = 5;
     var _priceMax = 1000;
     var _showAllCats = false;
+    var _catGroupCollapsed = {};
     var _sizeShowMap = {};
     function buildFilterOptions() {
       var colors = [], cseen = {}, groups = {}, gorder = [];
@@ -540,7 +541,8 @@
             var scActive = _filters.subcats.indexOf(String(sc.id)) > -1;
             return '<button type="button" class="cat-item sub' + (scActive ? ' active' : '') + '" data-subcat="' + sc.id + '">' + sc.name + '</button>';
           }).join('');
-        return '<div class="size-group' + (i < 2 ? '' : ' collapsed') + '">' +
+        var collapsed = _catGroupCollapsed[String(c.id)] != null ? _catGroupCollapsed[String(c.id)] : (_showAllCats ? false : i >= 2);
+        return '<div class="size-group' + (collapsed ? ' collapsed' : '') + '">' +
           '<button type="button" class="size-group-head" aria-expanded="false"><span>' + c.name + '</span><span class="sg-toggle"></span></button>' +
           '<div class="size-group-body">' + items + '</div></div>';
       }).join('') +
@@ -572,10 +574,12 @@
           var g = h.closest('.size-group');
           g.classList.toggle('collapsed');
           h.setAttribute('aria-expanded', g.classList.contains('collapsed') ? 'false' : 'true');
+          var catBtn = g.querySelector('[data-cat]');
+          if (catBtn) _catGroupCollapsed[String(catBtn.getAttribute('data-cat'))] = g.classList.contains('collapsed');
         });
       });
       var sa = document.getElementById('show-all-cats');
-      if (sa) sa.addEventListener('click', function () { _showAllCats = !_showAllCats; renderFilterPanel(); });
+      if (sa) sa.addEventListener('click', function () { _showAllCats = !_showAllCats; _catGroupCollapsed = {}; renderFilterPanel(); });
 
       var subsBox = document.getElementById('filter-subs');
       var subsGroup = subsBox ? subsBox.closest('.filter-group') : null;
@@ -627,7 +631,7 @@
         var visible = opts.colors.slice(0, show);
         colBox.innerHTML = '<div class="color-list">' + visible.map(function (c) {
           var active = _filters.colors.indexOf(c.name) > -1;
-          return '<button type="button" class="color-item' + (active ? ' active' : '') + '" data-color="' + c.name + '"><span class="color-dot" style="background:' + c.hex + '"></span>' + c.name + '</button>';
+          return '<button type="button" class="color-item' + (active ? ' active' : '') + '" data-color="' + c.name + '">' + c.name + '</button>';
         }).join('') + '</div>' +
           (opts.colors.length > _colorShow ? '<button type="button" class="color-more" id="color-more">' + t('color_more') + '</button>' : '') +
           (opts.colors.length > 5 ? '<button type="button" class="color-more" id="color-less">' + t('color_less') + '</button>' : '');
