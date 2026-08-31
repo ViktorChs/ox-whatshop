@@ -45,17 +45,16 @@ function applyTheme(settings) {
     '--color-category-box': t.categoryBox,
     '--radius': (t.corners === 'rounded' ? (t.radius || 14) : 0) + 'px',
     '--card-border': t.cardBorder === 'line' ? '1px solid var(--color-border, #E5E5E5)' : 'none',
-    '--filter-bg': t.filterBg || undefined
+    '--filter-bg': t.filterBg || undefined,
+    '--card-shadow': t.cardShadow === 'none' ? 'none' : (t.cardShadow === 'media' ? '0 4px 16px rgba(0, 0, 0, 0.10)' : '0 2px 12px rgba(0, 0, 0, 0.08)')
   };
   for (const [key, value] of Object.entries(map)) {
     if (value) root.setProperty(key, value);
   }
   if (t.fontHeading) {
-    const body = t.fontBody || t.fontHeading;
     root.setProperty('--font-heading', `'${t.fontHeading}', system-ui, sans-serif`);
-    root.setProperty('--font-body', `'${body}', system-ui, sans-serif`);
+    root.setProperty('--font-body', `'${t.fontHeading}', system-ui, sans-serif`);
     injectFont(t.fontHeading);
-    if (body !== t.fontHeading) injectFont(body);
   }
 }
 
