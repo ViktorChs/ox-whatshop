@@ -22,12 +22,14 @@ alter table public.settings alter column store_id set not null;
 alter table public.settings drop constraint if exists settings_pkey;
 alter table public.settings drop column if exists id;
 alter table public.settings add primary key (store_id);
+alter table public.settings drop constraint if exists settings_store_fk;
 alter table public.settings add constraint settings_store_fk foreign key (store_id) references public.stores(id) on delete cascade;
 
 -- ---------- categories ----------
 alter table public.categories add column if not exists store_id bigint;
 update public.categories set store_id = 1 where store_id is null;
 alter table public.categories alter column store_id set not null;
+alter table public.categories drop constraint if exists categories_store_fk;
 alter table public.categories add constraint categories_store_fk foreign key (store_id) references public.stores(id) on delete cascade;
 alter table public.categories add column if not exists icon text;
 
@@ -35,6 +37,7 @@ alter table public.categories add column if not exists icon text;
 alter table public.products add column if not exists store_id bigint;
 update public.products set store_id = 1 where store_id is null;
 alter table public.products alter column store_id set not null;
+alter table public.products drop constraint if exists products_store_fk;
 alter table public.products add constraint products_store_fk foreign key (store_id) references public.stores(id) on delete cascade;
 alter table public.products add column if not exists original_price numeric;
 alter table public.products add column if not exists images jsonb default '[]';
@@ -43,6 +46,7 @@ alter table public.products add column if not exists images jsonb default '[]';
 alter table public.product_variants add column if not exists store_id bigint;
 update public.product_variants set store_id = 1 where store_id is null;
 alter table public.product_variants alter column store_id set not null;
+alter table public.product_variants drop constraint if exists product_variants_store_fk;
 alter table public.product_variants add constraint product_variants_store_fk foreign key (store_id) references public.stores(id) on delete cascade;
 alter table public.product_variants add column if not exists color text;
 alter table public.product_variants add column if not exists color_hex text;
@@ -54,6 +58,7 @@ alter table public.product_variants add column if not exists position int defaul
 alter table public.orders add column if not exists store_id bigint;
 update public.orders set store_id = 1 where store_id is null;
 alter table public.orders alter column store_id set not null;
+alter table public.orders drop constraint if exists orders_store_fk;
 alter table public.orders add constraint orders_store_fk foreign key (store_id) references public.stores(id) on delete cascade;
 
 -- ---------- plantillas de tallas ----------
