@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
-  <link rel="stylesheet" href="./css/theme.css?v=45" />
-  <link rel="stylesheet" href="./css/admin.css?v=45" />
+  <link rel="stylesheet" href="./css/theme.css?v=46" />
+  <link rel="stylesheet" href="./css/admin.css?v=46" />
 </head>
 <body class="admin-page">
 
@@ -287,9 +287,6 @@
               <div class="field"><label data-i18n="ap_font">Fuente (títulos)</label><div class="font-options" id="font-options-basic"></div></div>
             </div>
             <div class="panel"><h3 data-i18n="ti_filter_design">Filtros de la tienda</h3>
-              <div class="grid-2">
-                <div class="field"><label data-i18n="ti_filter_bg">Color de fondo de los filtros</label><input type="color" id="theme-filterbg" value="#EFEFEF" /></div>
-              </div>
               <div class="toggle-row"><span data-i18n="ti_filter_bold">Títulos de filtros en negrita</span><label class="switch"><input type="checkbox" id="store-filterbold" /><span class="slider"></span></label></div>
             </div>
             <div class="panel"><h3 data-i18n="rev_title">Reseñas de clientes</h3>
@@ -353,6 +350,7 @@
               <div class="grid-2">
                 <div class="field"><label data-i18n="pr_name">Nombre</label><input type="text" id="new-product-name" /></div>
                 <div class="field"><label data-i18n="pr_cat">Categoría</label><select id="new-product-category"><option value="">Sin categoría</option></select></div>
+                <div class="field"><label data-i18n="pr_subcat">Subcategoría</label><select id="new-product-subcategory"><option value="">Sin subcategoría</option></select></div>
                 <div class="field"><label data-i18n="pr_price">Precio</label><input type="number" id="new-product-price" value="0" min="0" step="0.01" /></div>
                 <div class="field"><label data-i18n="pr_orig">Precio original (opcional, tachado)</label><input type="number" id="new-product-original" min="0" step="0.01" placeholder="" /></div>
                 <div class="field"><label data-i18n="pr_stock">Stock base</label><input type="number" id="new-product-stock" value="1" min="0" /></div>
@@ -450,6 +448,19 @@
                 <button class="btn green" id="btn-save-category" data-i18n="ca_add">Guardar categoría</button>
                 <button class="btn ghost hidden" id="btn-cancel-category" data-i18n="ca_cancel">Cancelar</button>
               </div>
+            </div>
+            <div class="panel">
+              <h3 data-i18n="sc_title">Subcategorías</h3>
+              <p class="page-sub" style="margin-bottom:10px" data-i18n="sc_sub">Agrega subcategorías a cada categoría (ej. Anillos > Casamiento).</p>
+              <div class="grid-2">
+                <div class="field"><label data-i18n="sc_cat">Categoría</label><select id="sub-category"></select></div>
+                <div class="field"><label data-i18n="sc_name">Nombre de la subcategoría</label><input type="text" id="subcategory-name" /></div>
+              </div>
+              <div class="btn-row" style="margin-top:10px">
+                <button class="btn primary" id="btn-add-subcategory" data-i18n="sc_add">Agregar subcategoría</button>
+                <button class="btn ghost hidden" id="btn-cancel-subcategory" data-i18n="sc_cancel">Cancelar</button>
+              </div>
+              <div class="list" id="subcategories-list" style="margin-top:12px"></div>
             </div>
             <div class="list" id="categories-list"></div>
           </section>
@@ -567,9 +578,9 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=45"></script>
-  <script src="./js/supabase.js?v=46"></script>
-  <script src="./js/color-picker.js?v=45"></script>
+  <script src="./config.js?v=46"></script>
+  <script src="./js/supabase.js?v=47"></script>
+  <script src="./js/color-picker.js?v=46"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
     var ICONS = {
@@ -606,7 +617,7 @@
         pr_images: 'Imágenes del producto (múltiples)', bg_remove: 'Quitar fondo', take_photo: 'Tomar foto', pr_variants: 'Variantes (color × talla)', pr_sizes_src: 'Tallas: plantilla o lista libre', pr_sizes_free: 'Tallas libres (separadas por coma)', pr_apply_sizes: 'Aplicar tallas',
         pr_color_name: 'Color', pr_color_hex: 'Hex', pr_add_color: 'Agregar color', pr_save: 'Guardar producto', pr_cancel: 'Cancelar edición', pr_existing: 'Productos existentes',
         pr_novariants: 'Sin variantes (usa stock base)', pr_stock2: 'Stock', pr_saving: 'Guardando…', pr_saved: 'Producto guardado', bg_ask: '¿Quitar el fondo a estas imágenes?', g_del: 'Eliminar',
-        t_categorias: 'Categorías', t_categorias_sub: 'Crea y ordena las categorías de tu catálogo.', ca_new: 'Nueva categoría', ca_edit_title: 'Editar categoría', ca_name: 'Nombre', ca_color: 'Color del recuadro', ca_pos: 'Posición (auto al crear, editable)', ca_image: 'Imagen de la categoría', ca_icon: 'Icono del círculo', ca_border: 'Borde', ca_border_on: 'Activar borde', ca_border_color: 'Color del borde', ca_border_side: 'Ubicación', ca_bs_all: 'Todo el contorno', ca_bs_top: 'Solo arriba', ca_bs_bottom: 'Solo abajo', ca_bs_sides: 'Solo lados', ca_add: 'Guardar categoría', ca_cancel: 'Cancelar', ca_edit: 'Guardar', ca_del: 'Eliminar',
+        t_categorias: 'Categorías', t_categorias_sub: 'Crea y ordena las categorías de tu catálogo.', ca_new: 'Nueva categoría', ca_edit_title: 'Editar categoría', ca_name: 'Nombre', ca_color: 'Color del recuadro', ca_pos: 'Posición (auto al crear, editable)', ca_image: 'Imagen de la categoría', ca_icon: 'Icono del círculo', ca_border: 'Borde', ca_border_on: 'Activar borde', ca_border_color: 'Color del borde', ca_border_side: 'Ubicación', ca_bs_all: 'Todo el contorno', ca_bs_top: 'Solo arriba', ca_bs_bottom: 'Solo abajo', ca_bs_sides: 'Solo lados', ca_add: 'Guardar categoría', ca_cancel: 'Cancelar', ca_edit: 'Guardar', ca_del: 'Eliminar', sc_title: 'Subcategorías', sc_sub: 'Agrega subcategorías a cada categoría (ej. Anillos > Casamiento).', sc_cat: 'Categoría', sc_name: 'Nombre de la subcategoría', sc_add: 'Agregar subcategoría', sc_cancel: 'Cancelar', sc_del: 'Eliminar', sc_confirm: '¿Eliminar esta subcategoría?', sc_empty: 'Sin subcategorías', sc_req: 'Elige categoría y escribe el nombre', sc_other: 'Otros', pr_subcat: 'Subcategoría',
         t_plantillas: 'Plantillas de tallas', t_plantillas_sub: 'Conjuntos de tallas según el tipo de producto (zapatos, anillos, cadenas…).', pl_new: 'Nueva plantilla', pl_name: 'Nombre', pl_values: 'Tallas (separadas por coma)', pl_add: 'Crear plantilla', pl_del: 'Eliminar',
         t_pedidos: 'Pedidos', t_pedidos_sub: 'Historial de pedidos enviados por WhatsApp.', ped_refresh: 'Refrescar', ped_none: 'No hay pedidos.', ped_wa: 'WhatsApp', ped_pagado: 'Pagado', ped_entregado: 'Entregado', ped_cancelar: 'Cancelar',
         t_analitica: 'Analítica', t_analitica_sub: 'Estadísticas de tus ventas.', an_totals: 'Resumen', an_orders: 'Pedidos', an_revenue: 'Ingresos', an_best: 'Más vendidos', an_byday: 'Pedidos por día', an_load: 'Cargar estadísticas', an_csv: 'Exportar CSV', an_nodata: 'Sin datos',
@@ -635,7 +646,7 @@
         pr_images: 'Product images (multiple)', bg_remove: 'Remove background', take_photo: 'Take photo', pr_variants: 'Variants (color × size)', pr_sizes_src: 'Sizes: template or free list', pr_sizes_free: 'Free sizes (comma separated)', pr_apply_sizes: 'Apply sizes',
         pr_color_name: 'Color', pr_color_hex: 'Hex', pr_add_color: 'Add color', pr_save: 'Save product', pr_cancel: 'Cancel edit', pr_existing: 'Existing products',
         pr_novariants: 'No variants (uses base stock)', pr_stock2: 'Stock', pr_saving: 'Saving…', pr_saved: 'Product saved', bg_ask: 'Remove background from these images?', g_del: 'Delete',
-        t_categorias: 'Categories', t_categorias_sub: 'Create and order your catalog categories.', ca_new: 'New category', ca_edit_title: 'Edit category', ca_name: 'Name', ca_color: 'Box color', ca_pos: 'Position (auto on create, editable)', ca_image: 'Category image', ca_icon: 'Circle icon', ca_border: 'Border', ca_border_on: 'Enable border', ca_border_color: 'Border color', ca_border_side: 'Position', ca_bs_all: 'Whole outline', ca_bs_top: 'Top only', ca_bs_bottom: 'Bottom only', ca_bs_sides: 'Sides only', ca_add: 'Save category', ca_cancel: 'Cancel', ca_edit: 'Save', ca_del: 'Delete',
+        t_categorias: 'Categories', t_categorias_sub: 'Create and order your catalog categories.', ca_new: 'New category', ca_edit_title: 'Edit category', ca_name: 'Name', ca_color: 'Box color', ca_pos: 'Position (auto on create, editable)', ca_image: 'Category image', ca_icon: 'Circle icon', ca_border: 'Border', ca_border_on: 'Enable border', ca_border_color: 'Border color', ca_border_side: 'Position', ca_bs_all: 'Whole outline', ca_bs_top: 'Top only', ca_bs_bottom: 'Bottom only', ca_bs_sides: 'Sides only', ca_add: 'Save category', ca_cancel: 'Cancel', ca_edit: 'Save', ca_del: 'Delete', sc_title: 'Subcategories', sc_sub: 'Add subcategories to each category (e.g., Rings > Wedding).', sc_cat: 'Category', sc_name: 'Subcategory name', sc_add: 'Add subcategory', sc_cancel: 'Cancel', sc_del: 'Delete', sc_confirm: 'Delete this subcategory?', sc_empty: 'No subcategories', sc_req: 'Pick a category and enter a name', sc_other: 'Others', pr_subcat: 'Subcategory',
         t_plantillas: 'Size templates', t_plantillas_sub: 'Size sets by product type (shoes, rings, chains…).', pl_new: 'New template', pl_name: 'Name', pl_values: 'Sizes (comma separated)', pl_add: 'Create template', pl_del: 'Delete',
         t_pedidos: 'Orders', t_pedidos_sub: 'Order history sent via WhatsApp.', ped_refresh: 'Refresh', ped_none: 'No orders.', ped_wa: 'WhatsApp', ped_pagado: 'Paid', ped_entregado: 'Delivered', ped_cancelar: 'Cancel',
         t_analitica: 'Analytics', t_analitica_sub: 'Your sales statistics.', an_totals: 'Summary', an_orders: 'Orders', an_revenue: 'Revenue', an_best: 'Best sellers', an_byday: 'Orders per day', an_load: 'Load stats', an_csv: 'Export CSV', an_nodata: 'No data',
@@ -720,6 +731,7 @@
     function refreshAll() {
       loadSettingsForm();
       loadCategories();
+      loadSubcategories();
       loadProducts();
       loadTemplates();
       loadOrders();
@@ -907,8 +919,7 @@
         corners: document.getElementById('theme-corners').value,
         cardBorder: document.getElementById('theme-cardborder').value,
         cardShadow: document.getElementById('theme-cardshadow').value,
-        fontHeading: document.getElementById('theme-fontheading').value,
-        filterBg: document.getElementById('theme-filterbg').value
+        fontHeading: document.getElementById('theme-fontheading').value
       };
       var merged = mergeSettings({ store: store, landing: landing, theme: theme });
       SBHelper.saveSettings(merged).then(function () {
@@ -971,7 +982,7 @@
         function sv(id, v) { var el = document.getElementById(id); if (el && v != null) el.value = v; }
         sv('theme-primary', th.primary); sv('theme-accent', th.accent); sv('theme-background', th.background);
         sv('theme-foreground', th.foreground); sv('theme-secondary', th.secondary); sv('theme-muted', th.muted);
-        sv('theme-radius', th.radius); sv('theme-fontheading', th.fontHeading); sv('theme-filterbg', th.filterBg || '#EFEFEF');
+        sv('theme-radius', th.radius); sv('theme-fontheading', th.fontHeading);
         renderFontOptions();
         document.getElementById('store-filterbold').checked = s.filterBold === true;
         _reviews = Array.isArray(res.reviews) ? res.reviews : [];
@@ -1244,6 +1255,7 @@ renderFontOptions();
     // ===== Categorías =====
     var _editingCategory = null;
     var _catNames = {};
+    var _subCats = [];
     var CAT_ICONS = {
       default: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>',
       bag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>',
@@ -1317,7 +1329,9 @@ renderFontOptions();
       SBHelper.getCategories().then(function (cats) {
         var box = document.getElementById('categories-list');
         _catNames = {};
+        _subCats = cats || [];
         cats.forEach(function (c) { _catNames[c.id] = c.name; });
+        populateSubSelects();
         var catSel = document.getElementById('new-product-category');
         catSel.innerHTML = '<option value="">—</option>' + cats.map(function (c) { return '<option value="' + c.id + '">' + c.name + '</option>'; }).join('');
         var filterSel = document.getElementById('product-filter-cat');
@@ -1396,6 +1410,80 @@ renderFontOptions();
     document.getElementById('cat-border-toggle').addEventListener('change', function () {
       document.getElementById('cat-border-options').style.display = this.checked ? '' : 'none';
     });
+
+    // ===== Subcategorias =====
+    var _subs = [];
+    var _editingSub = null;
+    function populateSubSelects() {
+      var scat = document.getElementById('sub-category');
+      if (scat) {
+        var cats = _subCats || [];
+        scat.innerHTML = cats.map(function (c) { return '<option value="' + c.id + '">' + c.name + '</option>'; }).join('');
+        if (!cats.length) scat.innerHTML = '<option value="">' + t('empty_cat') + '</option>';
+      }
+    }
+    function fillProductSubcategory(catId) {
+      var sel = document.getElementById('new-product-subcategory');
+      if (!sel) return;
+      var subs = _subs.filter(function (s) { return String(s.category_id) === String(catId); });
+      sel.innerHTML = '<option value="">Sin subcategoría</option>' + subs.map(function (s) { return '<option value="' + s.id + '">' + s.name + '</option>'; }).join('');
+    }
+    function renderSubcategories() {
+      var box = document.getElementById('subcategories-list');
+      if (!box) return;
+      if (!_subs.length) { box.innerHTML = '<p class="empty">' + t('sc_empty') + '</p>'; return; }
+      var byCat = {};
+      _subs.forEach(function (s) { (byCat[s.category_id] = byCat[s.category_id] || []).push(s); });
+      box.innerHTML = Object.keys(byCat).map(function (cid) {
+        var cat = _subCats.find(function (c) { return String(c.id) === String(cid); });
+        return '<div class="sub" style="font-weight:700;margin:8px 0 4px">' + (cat ? cat.name : t('sc_other')) + '</div>' +
+          byCat[cid].map(function (s) {
+            return '<div class="list-row"><div class="info"><div class="title">' + s.name + '</div></div>' +
+              '<div class="actions">' +
+                '<button class="btn ghost small" data-edit-sub="' + s.id + '">' + t('edit') + '</button>' +
+                '<button class="btn danger small" data-del-sub="' + s.id + '">' + t('sc_del') + '</button>' +
+              '</div></div>';
+          }).join('');
+      }).join('');
+      box.querySelectorAll('[data-edit-sub]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var s = _subs.find(function (x) { return String(x.id) === String(b.getAttribute('data-edit-sub')); });
+          if (!s) return;
+          _editingSub = s.id;
+          document.getElementById('sub-category').value = String(s.category_id);
+          document.getElementById('subcategory-name').value = s.name;
+          document.getElementById('btn-cancel-subcategory').classList.remove('hidden');
+        });
+      });
+      box.querySelectorAll('[data-del-sub]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          if (!confirm(t('sc_confirm'))) return;
+          SBHelper.deleteSubcategory(b.getAttribute('data-del-sub')).then(function () { loadSubcategories(); });
+        });
+      });
+    }
+    function loadSubcategories() {
+      SBHelper.getSubcategories().then(function (subs) {
+        _subs = subs || [];
+        renderSubcategories();
+        var pc = document.getElementById('new-product-category');
+        if (pc) fillProductSubcategory(pc.value);
+      });
+    }
+    document.getElementById('btn-add-subcategory').addEventListener('click', function () {
+      var cid = document.getElementById('sub-category').value;
+      var name = document.getElementById('subcategory-name').value.trim();
+      if (!cid || !name) { toast(t('sc_req'), 'error'); return; }
+      var obj = { category_id: cid, name: name, position: _subs.length + 1 };
+      if (_editingSub) SBHelper.updateSubcategory(_editingSub, obj).then(function () { _editingSub = null; document.getElementById('subcategory-name').value = ''; document.getElementById('btn-cancel-subcategory').classList.add('hidden'); loadSubcategories(); toast(t('st_saved'), 'success'); });
+      else SBHelper.addSubcategory(obj).then(function () { document.getElementById('subcategory-name').value = ''; loadSubcategories(); toast(t('st_saved'), 'success'); });
+    });
+    document.getElementById('btn-cancel-subcategory').addEventListener('click', function () {
+      _editingSub = null;
+      document.getElementById('subcategory-name').value = '';
+      this.classList.add('hidden');
+    });
+    document.getElementById('new-product-category').addEventListener('change', function () { fillProductSubcategory(this.value); });
 
     // ===== Plantillas =====
     function loadTemplates() {
@@ -1683,6 +1771,9 @@ _editingProduct = null;
         document.getElementById('new-product-description').value = p.description || '';
         var sel = document.getElementById('new-product-category');
         sel.value = p.category_id != null ? String(p.category_id) : '';
+        fillProductSubcategory(p.category_id != null ? String(p.category_id) : '');
+        var subSel = document.getElementById('new-product-subcategory');
+        if (subSel) subSel.value = p.subcategory_id != null ? String(p.subcategory_id) : '';
         _productImages = (p.images && p.images.length) ? p.images.slice() : (p.image ? [p.image] : []);
         var vs = p.product_variants || [];
         _variantColors = [];
@@ -1724,6 +1815,7 @@ _editingProduct = null;
         featured: document.getElementById('new-product-featured').checked,
         description: document.getElementById('new-product-description').value.trim(),
         category_id: document.getElementById('new-product-category').value || null,
+        subcategory_id: document.getElementById('new-product-subcategory').value || null,
         image: _productImages[0] || null,
         images: _productImages
       };
