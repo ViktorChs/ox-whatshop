@@ -1005,7 +1005,7 @@ html, body {
 .explore-filters::-webkit-scrollbar { display: none; }
 
 /* ---------- Adaptacion movil (evita desborde horizontal) ---------- */
-html, body { max-width: 100%; overflow-x: hidden; }
+html, body { max-width: 100%; overflow-x: clip; }
 *, *::before, *::after { box-sizing: border-box; }
 .brand { min-width: 0; }
 .brand h1 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
