@@ -2,7 +2,10 @@
 
 (function () {
   function getCart() {
-    try { return JSON.parse(localStorage.getItem('whatshop_cart') || '[]'); }
+    try { return (JSON.parse(localStorage.getItem('whatshop_cart') || '[]') || []).map(function (it) {
+      it.variant_id = it.variant_id != null ? String(it.variant_id) : '';
+      return it;
+    }); }
     catch (e) { return []; }
   }
   function saveCart(c) { localStorage.setItem('whatshop_cart', JSON.stringify(c)); }
@@ -65,11 +68,32 @@
     return cart;
   }
 
+  function changeQtyAt(idx, delta) {
+    var cart = getCart();
+    if (!cart[idx]) return cart;
+    cart[idx].qty += delta;
+    if (cart[idx].qty < 1) cart.splice(idx, 1);
+    saveCart(cart);
+    updateBadge();
+    renderCart();
+    return cart;
+  }
+
+  function removeAt(idx) {
+    var cart = getCart();
+    if (!cart[idx]) return cart;
+    cart.splice(idx, 1);
+    saveCart(cart);
+    updateBadge();
+    renderCart();
+    return cart;
+  }
+
   // Elimina del carrito items cuyo producto ya no existe en el catalogo.
   // Si no hay ids validos (catalogo vacio o no cargó), NO toca el carrito.
   function pruneCart(validIds) {
     if (!Array.isArray(validIds) || !validIds.length) return getCart();
-    var cart = getCart().filter(function (it) { return validIds.indexOf(it.id) > -1; });
+    var cart = getCart().filter(function (it) { return validIds.some(function (v) { return String(v) === String(it.id); }); });
     saveCart(cart);
     updateBadge();
     renderCart();
@@ -107,7 +131,7 @@
     }
     var html;
     try {
-      html = cart.map(function (it) {
+      html = cart.map(function (it, i) {
         var thumb = it.image
           ? '<img class="placeholder-box thumb" src="' + it.image + '" alt="' + it.name + '" />'
           : '<div class="placeholder-box thumb" role="img" aria-label="' + it.name + '"></div>';
@@ -120,34 +144,34 @@
               '<div class="price">' + fmt(it.price) + '</div>' +
             '</div>' +
             '<div class="qty-control">' +
-              '<button data-dec="' + it.id + '" data-v="' + (it.variant_id || '') + '" aria-label="-">-</button>' +
+              '<button data-dec="' + i + '" aria-label="-">-</button>' +
               '<span>' + it.qty + '</span>' +
-              '<button data-inc="' + it.id + '" data-v="' + (it.variant_id || '') + '" aria-label="+">+</button>' +
+              '<button data-inc="' + i + '" aria-label="+">+</button>' +
             '</div>' +
-            '<button class="remove" data-remove="' + it.id + '" data-v="' + (it.variant_id || '') + '" aria-label="x">&times;</button>' +
+            '<button class="remove" data-remove="' + i + '" aria-label="x">&times;</button>' +
           '</div>';
       }).join('');
     } catch (e) {
       console.error('renderCart error', e);
-      html = cart.map(function (it) {
+      html = cart.map(function (it, i) {
         return '<div class="cart-item"><div class="info"><div class="name">' + (it.name || 'Producto') + '</div>' +
           '<div class="price">' + fmt(it.price) + '</div></div>' +
-          '<div class="qty-control"><button data-dec="' + it.id + '" data-v="' + (it.variant_id || '') + '">-</button>' +
-          '<span>' + it.qty + '</span><button data-inc="' + it.id + '" data-v="' + (it.variant_id || '') + '">+</button></div>' +
-          '<button class="remove" data-remove="' + it.id + '" data-v="' + (it.variant_id || '') + '">&times;</button></div>';
+          '<div class="qty-control"><button data-dec="' + i + '">-</button>' +
+          '<span>' + it.qty + '</span><button data-inc="' + i + '">+</button></div>' +
+          '<button class="remove" data-remove="' + i + '">&times;</button></div>';
       }).join('');
     }
     box.innerHTML = html;
     document.getElementById('cart-total').textContent = fmt(cartTotal(cart));
 
     box.querySelectorAll('[data-inc]').forEach(function (b) {
-      b.addEventListener('click', function () { changeQty(b.getAttribute('data-inc'), b.getAttribute('data-v'), 1); });
+      b.addEventListener('click', function () { changeQtyAt(Number(b.getAttribute('data-inc')), 1); });
     });
     box.querySelectorAll('[data-dec]').forEach(function (b) {
-      b.addEventListener('click', function () { changeQty(b.getAttribute('data-dec'), b.getAttribute('data-v'), -1); });
+      b.addEventListener('click', function () { changeQtyAt(Number(b.getAttribute('data-dec')), -1); });
     });
     box.querySelectorAll('[data-remove]').forEach(function (b) {
-      b.addEventListener('click', function () { removeItem(b.getAttribute('data-remove'), b.getAttribute('data-v')); });
+      b.addEventListener('click', function () { removeAt(Number(b.getAttribute('data-remove'))); });
     });
   }
 
@@ -247,7 +271,7 @@
 
   window.CART = {
     getCart: getCart, saveCart: saveCart, cartCount: cartCount, cartTotal: cartTotal,
-    addItem: addItem, changeQty: changeQty, removeItem: removeItem, pruneCart: pruneCart,
+    addItem: addItem, changeQty: changeQty, changeQtyAt: changeQtyAt, removeItem: removeItem, removeAt: removeAt, pruneCart: pruneCart,
     updateBadge: updateBadge, renderCart: renderCart,
     openCart: openCart, closeCart: closeCart,
     openCheckout: openCheckout, closeCheckout: closeCheckout,
