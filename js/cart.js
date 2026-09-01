@@ -17,9 +17,10 @@
     opts = opts || {};
     var cart = getCart();
     var ex = cart.find(function (it) {
-      return it.id === product.id && (it.variant_id || '') === String(opts.variantId || '');
+      return String(it.id) === String(product.id) && String(it.variant_id || '') === String(opts.variantId || '');
     });
-    var price = opts.variantId ? (product.variantPrice || product.price) : product.price;
+    var hasVariant = opts.variantId != null && String(opts.variantId) !== '';
+    var price = hasVariant ? (product.variantPrice || product.price) : product.price;
     var q = opts.qty || 1;
     if (ex) {
       ex.qty += q;
@@ -27,7 +28,7 @@
     else {
       cart.push({
         id: product.id,
-        variant_id: opts.variantId || '',
+        variant_id: hasVariant ? String(opts.variantId) : '',
         name: product.title || product.name,
         price: price,
         qty: q,
@@ -43,7 +44,7 @@
 
   function changeQty(id, variantId, delta) {
     var cart = getCart();
-    var idx = cart.findIndex(function (it) { return String(it.id) === String(id) && (it.variant_id || '') === String(variantId || ''); });
+    var idx = cart.findIndex(function (it) { return String(it.id) === String(id) && String(it.variant_id || '') === String(variantId || ''); });
     if (idx === -1) return cart;
     cart[idx].qty += delta;
     if (cart[idx].qty < 1) cart.splice(idx, 1);
@@ -55,7 +56,7 @@
 
   function removeItem(id, variantId) {
     var cart = getCart();
-    var idx = cart.findIndex(function (it) { return String(it.id) === String(id) && (it.variant_id || '') === String(variantId || ''); });
+    var idx = cart.findIndex(function (it) { return String(it.id) === String(id) && String(it.variant_id || '') === String(variantId || ''); });
     if (idx === -1) return cart;
     cart.splice(idx, 1);
     saveCart(cart);
