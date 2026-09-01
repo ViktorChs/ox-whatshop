@@ -31,8 +31,10 @@
 .swatches { display: flex; gap: 10px; flex-wrap: wrap; }
 .swatch { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--color-border); cursor: pointer; }
 .swatch.active { border-color: var(--color-primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 15%, transparent); }
-.sizes { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.size-pill { min-width: 48px; height: 40px; padding: 0 14px; border-radius: 10px; border: 1.5px solid var(--color-border); background: var(--color-background); color: var(--primary-text); font-weight: 600; font-size: .88rem; cursor: pointer; text-align: center; display: inline-flex; align-items: center; justify-content: center; }
+.sizes { display: grid; grid-template-columns: repeat(auto-fill, minmax(44px, 1fr)); gap: 8px; align-items: center; }
+.size-pill { min-width: 0; width: 100%; height: 40px; padding: 0 6px; border-radius: 10px; border: 1.5px solid var(--color-border); background: var(--color-background); color: var(--primary-text); font-weight: 600; font-size: .88rem; cursor: pointer; text-align: center; display: inline-flex; align-items: center; justify-content: center; }
+.size-pill::after { display: none; }
+.size-pill:hover { background: var(--color-primary); color: var(--color-on-primary); border-color: var(--color-primary); }
 .size-pill.active { border-color: var(--color-primary); background: var(--color-primary); color: var(--color-on-primary); }
 .size-pill.soldout { opacity: .4; text-decoration: line-through; cursor: not-allowed; }
 .p-stock { font-size: .82rem; color: var(--secondary-text); }
