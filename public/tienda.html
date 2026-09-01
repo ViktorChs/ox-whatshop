@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Dosis:wght@200..800&family=Jost:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Oswald:wght@200..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=Noto+Serif+Dives+Akuru&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=40" />
-  <link rel="stylesheet" href="./css/tienda.css?v=71" />
+  <link rel="stylesheet" href="./css/tienda.css?v=72" />
 </head>
 <body class="shop-page">
 
@@ -141,9 +141,9 @@
                 <input type="range" id="filter-max-range" min="0" max="1000" step="1" value="1000" />
               </div>
               <div class="price-range">
-                <input type="number" id="filter-min" min="0" step="0.01" placeholder="Min" data-i18n-ph="price_min" />
+                <input type="number" id="filter-min" min="0" step="1" placeholder="Min" data-i18n-ph="price_min" />
                 <span>&ndash;</span>
-                <input type="number" id="filter-max" min="0" step="0.01" placeholder="Max" data-i18n-ph="price_max" />
+                <input type="number" id="filter-max" min="0" step="1" placeholder="Max" data-i18n-ph="price_max" />
                 <button type="button" class="price-apply" id="price-apply" data-i18n="price_search">Buscar</button>
               </div>
             </div>
@@ -502,9 +502,10 @@
     var PAGE_SIZE = 20;
     var _colorShow = 5;
     var _priceMax = 1000;
-    var _showAllCats = false;
+    var _catShowCount = 3;
     var _catGroupCollapsed = {};
     var _sizeShowMap = {};
+    var _sizeGroupCollapsed = {};
     function buildFilterOptions() {
       var colors = [], cseen = {}, groups = {}, gorder = [];
       var subMap = {};
@@ -533,7 +534,7 @@
       var catsBox = document.getElementById('filter-cats');
       var cats = (window.__store && window.__store.categories) || [];
       catsBox.innerHTML = cats.map(function (c, i) {
-        if (i >= 3 && !_showAllCats) return '';
+        if (i >= _catShowCount) return '';
         var catActive = _filters.cats.indexOf(String(c.id)) > -1;
         var subs = c.subcategories || [];
         var items = '<button type="button" class="cat-item' + (catActive ? ' active' : '') + '" data-cat="' + c.id + '">' + c.name + '</button>' +
@@ -541,12 +542,12 @@
             var scActive = _filters.subcats.indexOf(String(sc.id)) > -1;
             return '<button type="button" class="cat-item sub' + (scActive ? ' active' : '') + '" data-subcat="' + sc.id + '">' + sc.name + '</button>';
           }).join('');
-        var collapsed = _catGroupCollapsed[String(c.id)] != null ? _catGroupCollapsed[String(c.id)] : (_showAllCats ? false : i >= 2);
+        var collapsed = _catGroupCollapsed[String(c.id)] != null ? _catGroupCollapsed[String(c.id)] : i >= 2;
         return '<div class="size-group' + (collapsed ? ' collapsed' : '') + '">' +
           '<button type="button" class="size-group-head" aria-expanded="false"><span>' + c.name + '</span><span class="sg-toggle"></span></button>' +
           '<div class="size-group-body">' + items + '</div></div>';
       }).join('') +
-        (cats.length > 3 ? '<button type="button" class="see-more" id="show-all-cats">' + (_showAllCats ? t('cat_less') : t('cat_more')) + '</button>' : '');
+        (cats.length > 3 ? '<button type="button" class="see-more" id="show-all-cats">' + (_catShowCount < cats.length ? t('cat_more') : t('cat_less')) + '</button>' : '');
       catsBox.querySelectorAll('[data-cat]').forEach(function (b) {
         b.addEventListener('click', function () {
           var id = String(b.getAttribute('data-cat'));
@@ -579,7 +580,12 @@
         });
       });
       var sa = document.getElementById('show-all-cats');
-      if (sa) sa.addEventListener('click', function () { _showAllCats = !_showAllCats; _catGroupCollapsed = {}; renderFilterPanel(); });
+      if (sa) sa.addEventListener('click', function () {
+        if (_catShowCount < cats.length) _catShowCount = Math.min(_catShowCount + 5, cats.length);
+        else _catShowCount = 3;
+        _catGroupCollapsed = {};
+        renderFilterPanel();
+      });
 
       var subsBox = document.getElementById('filter-subs');
       var subsGroup = subsBox ? subsBox.closest('.filter-group') : null;
@@ -593,7 +599,7 @@
           if (!subs.length) return '';
           return '<div class="sub-head">' + c.name + '</div>' + subs.map(function (sc) {
             var scActive = _filters.subcats.indexOf(String(sc.id)) > -1;
-            return '<button type="button" class="cat-item' + (scActive ? ' active' : '') + '" data-subcat="' + sc.id + '">' + sc.name + '</button>';
+            return '<button type="button" class="cat-item sub' + (scActive ? ' active' : '') + '" data-subcat="' + sc.id + '">' + sc.name + '</button>';
           }).join('');
         }).join('') + '</div>';
         subsBox.querySelectorAll('[data-subcat]').forEach(function (b) {
@@ -664,7 +670,8 @@
             return '<button type="button" class="size-pill' + (active ? ' active' : '') + '" data-size="' + sz + '">' + sz + '</button>';
           }).join('');
           var more = g.sizes.length > 8 ? '<button type="button" class="see-more" data-seemore="' + g.name + '">' + (show >= g.sizes.length ? t('size_less') : t('size_more')) + '</button>' : '';
-          return '<div class="size-group collapsed">' +
+          var scoll = _sizeGroupCollapsed[g.name] != null ? _sizeGroupCollapsed[g.name] : true;
+          return '<div class="size-group' + (scoll ? ' collapsed' : '') + '" data-sgname="' + g.name + '">' +
             '<button type="button" class="size-group-head" aria-expanded="false"><span>' + g.name + '</span><span class="sg-toggle"></span></button>' +
             '<div class="size-group-body"><div class="size-grid">' + pills + '</div>' + more + '</div></div>';
         }).join('');
@@ -693,6 +700,8 @@
             var g = h.closest('.size-group');
             g.classList.toggle('collapsed');
             h.setAttribute('aria-expanded', g.classList.contains('collapsed') ? 'false' : 'true');
+            var name = g.getAttribute('data-sgname');
+            if (name) _sizeGroupCollapsed[name] = g.classList.contains('collapsed');
           });
         });
       } else {
@@ -1007,9 +1016,11 @@
       return m;
     }
     function applyPrice() {
-      var a = Number(fMin.value), b = Number(fMax.value);
+      var a = Math.round(Number(fMin.value)), b = Math.round(Number(fMax.value));
       _filters.min = isNaN(a) || a === 0 ? null : a;
       _filters.max = isNaN(b) || b === 0 ? null : b;
+      fMin.value = isNaN(a) ? '' : a;
+      fMax.value = isNaN(b) ? '' : b;
       if (mr) mr.value = _filters.min != null ? _filters.min : 0;
       if (xr) xr.value = _filters.max != null ? _filters.max : _priceMax;
       _page = 1;

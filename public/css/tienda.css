@@ -1085,7 +1085,7 @@ html, body { max-width: 100%; overflow-x: clip; }
   font-size: .8rem;
   text-transform: uppercase;
   letter-spacing: .03em;
-  color: var(--secondary-text);
+  color: var(--color-primary, #171717);
   font-weight: 500;
   text-align: left;
 }
@@ -1123,7 +1123,7 @@ html, body { max-width: 100%; overflow-x: clip; }
 }
 .sg-toggle {
   font-size: .95rem;
-  font-weight: 600;
+  font-weight: 100;
   line-height: 1;
   flex-shrink: 0;
 }
@@ -1165,6 +1165,7 @@ html, body { max-width: 100%; overflow-x: clip; }
 .price-range { display: flex; align-items: center; gap: 8px; }
 .price-range input { flex: 1; min-width: 0; padding: 9px 10px; border: 1px solid var(--color-border); border-radius: var(--radius); font-size: .88rem; background: var(--color-background); color: var(--primary-text); }
 .price-slider { position: relative; height: 28px; margin: 4px 0 10px; }
+.price-slider::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 4px; transform: translateY(-50%); background: var(--color-border); border-radius: 2px; }
 .price-slider input[type="range"] { position: absolute; left: 0; right: 0; width: 100%; margin: 0; height: 28px; background: none; pointer-events: none; -webkit-appearance: none; appearance: none; }
 .price-slider input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; pointer-events: auto; width: 16px; height: 16px; border-radius: 50%; background: var(--color-primary, #171717); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.3); cursor: pointer; }
 .price-slider input[type="range"]::-moz-range-thumb { pointer-events: auto; width: 14px; height: 14px; border-radius: 50%; background: var(--color-primary, #171717); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.3); cursor: pointer; }
