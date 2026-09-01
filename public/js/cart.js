@@ -20,13 +20,9 @@
       return it.id === product.id && (it.variant_id || '') === String(opts.variantId || '');
     });
     var price = opts.variantId ? (product.variantPrice || product.price) : product.price;
-    var maxStock = opts.maxStock != null ? Number(opts.maxStock) : null;
     var q = opts.qty || 1;
-    if (maxStock != null && maxStock >= 0) q = Math.min(q, maxStock);
     if (ex) {
       ex.qty += q;
-      if (maxStock != null) ex.maxStock = maxStock;
-      if (ex.maxStock != null) ex.qty = Math.min(ex.qty, ex.maxStock);
     }
     else {
       cart.push({
@@ -37,8 +33,7 @@
         qty: q,
         image: product.image || null,
         color: opts.color || null,
-        size: opts.size || null,
-        maxStock: maxStock
+        size: opts.size || null
       });
     }
     saveCart(cart);
@@ -51,7 +46,6 @@
     var idx = cart.findIndex(function (it) { return String(it.id) === String(id) && (it.variant_id || '') === String(variantId || ''); });
     if (idx === -1) return cart;
     cart[idx].qty += delta;
-    if (cart[idx].maxStock != null && cart[idx].qty > cart[idx].maxStock) cart[idx].qty = cart[idx].maxStock;
     if (cart[idx].qty < 1) cart.splice(idx, 1);
     saveCart(cart);
     updateBadge();
@@ -62,12 +56,8 @@
   function removeItem(id, variantId) {
     var cart = getCart();
     var idx = cart.findIndex(function (it) { return String(it.id) === String(id) && (it.variant_id || '') === String(variantId || ''); });
-    if (idx === -1) {
-      // fallback: quitar por id aunque no coincida la variante
-      cart = cart.filter(function (it) { return String(it.id) !== String(id); });
-    } else {
-      cart.splice(idx, 1);
-    }
+    if (idx === -1) return cart;
+    cart.splice(idx, 1);
     saveCart(cart);
     updateBadge();
     renderCart();
