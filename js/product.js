@@ -278,7 +278,7 @@ function init() {
     applyThemeMode(cur === 'dark' ? 'light' : 'dark');
   });
   document.getElementById('cart-open').addEventListener('click', CART.openCart);
-  document.getElementById('btn-back').addEventListener('click', function () { window.location.href = './tienda.html'; });
+  document.getElementById('btn-back').addEventListener('click', function () { window.location.href = './tienda.html?view=explore'; });
   document.getElementById('qty-dec').addEventListener('click', function () { qty = Math.max(1, qty - 1); document.getElementById('qty-val').textContent = qty; });
   document.getElementById('qty-inc').addEventListener('click', function () {
       var cap = availableStock();
