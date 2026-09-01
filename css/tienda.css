@@ -1064,7 +1064,8 @@ html, body { max-width: 100%; overflow-x: clip; }
 .explore-content { min-height: calc(100vh - 90px); display: flex; flex-direction: column; }
 .explore-content .shop-footer { margin-top: auto; }
 .explore-content .pagination { flex-shrink: 0; }
-.filter-panel { display: none; background: transparent; border: none; border-radius: var(--radius); padding: 16px; margin-bottom: 16px; font-family: var(--font-body); }
+.filter-panel { display: none; background: transparent; border: none; border-radius: var(--radius); padding: 16px; margin-bottom: 16px; font-family: var(--font-body); scrollbar-width: none; }
+.filter-panel::-webkit-scrollbar { display: none; }
 .filter-panel.open { display: block; }
 .filter-head { display: flex; align-items: center; justify-content: flex-end; border-bottom: 1px solid var(--color-border); margin: 0 0 10px; padding-bottom: 6px; }
 .filter-head h3 { margin: 0; font-size: 1rem; }
