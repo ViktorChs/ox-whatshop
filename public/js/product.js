@@ -205,7 +205,17 @@ function addToCartThen(checkout) {
     if (totalStock() <= 0) { toast(t('out'), 'error'); return; }
     CART.addItem(cp, { qty: qty, maxStock: totalStock() });
   }
-  if (!checkout) toast(t('added'), 'success');
+  if (!checkout) {
+    toast(t('added'), 'success');
+    ['btn-add-cart', 'p-cta-add'].forEach(function (id) {
+      var b = document.getElementById(id);
+      if (!b) return;
+      b.classList.add('added');
+      var old = b.textContent;
+      b.textContent = '\u2713';
+      setTimeout(function () { b.classList.remove('added'); b.textContent = old; }, 800);
+    });
+  }
   if (checkout) CART.openCheckout();
 }
 
@@ -278,6 +288,8 @@ function init() {
     applyThemeMode(cur === 'dark' ? 'light' : 'dark');
   });
   document.getElementById('cart-open').addEventListener('click', CART.openCart);
+  var cb = document.getElementById('btn-cart-bar');
+  if (cb) cb.addEventListener('click', CART.openCart);
   document.getElementById('btn-back').addEventListener('click', function () { window.location.href = './tienda.html?view=explore'; });
   document.getElementById('qty-dec').addEventListener('click', function () { qty = Math.max(1, qty - 1); document.getElementById('qty-val').textContent = qty; });
   document.getElementById('qty-inc').addEventListener('click', function () {

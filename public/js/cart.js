@@ -87,7 +87,7 @@
 
   function updateBadge() {
     var n = cartCount(getCart());
-    ['cart-badge', 'cart-badge-m'].forEach(function (id) {
+    ['cart-badge', 'cart-badge-m', 'cart-badge-bar'].forEach(function (id) {
       var b = document.getElementById(id);
       if (b) {
         b.textContent = n;

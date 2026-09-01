@@ -102,3 +102,20 @@
 .pr-card .pr-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pr-card .pr-name { font-weight: 600; font-size: 13px; margin-top: 8px; }
 .pr-card .pr-price { color: var(--secondary-text); font-size: 12px; margin-top: 2px; }
+
+/* ---------- Carrito en barra inferior + animaciones ---------- */
+.p-bar-cart { position: relative; width: 42px; height: 42px; flex-shrink: 0; border: 1px solid var(--color-border, #e5e5e5); border-radius: 12px; background: none; color: var(--primary-text); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.p-bar-cart svg { width: 20px; height: 20px; }
+.p-bar-cart .cart-badge { position: absolute; top: -6px; right: -6px; margin-left: 0; }
+.p-bar-cart:hover { border-color: var(--color-primary); }
+
+.p-layout > * { animation: fadeUp 450ms ease both; }
+.p-gallery .main img { animation: heroZoomIn 700ms ease both; }
+
+.p-bar-add.added, .p-bar-buy.added { background: var(--color-success, #16a34a); color: #fff; animation: cardPop 350ms ease; }
+.p-cta-add.added { background: var(--color-success, #16a34a); color: #fff; animation: cardPop 350ms ease; }
+@keyframes cardPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
