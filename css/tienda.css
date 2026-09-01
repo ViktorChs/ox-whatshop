@@ -10,9 +10,9 @@
   --secondary-text: var(--color-secondary, #666666);
   --card-bg: var(--color-muted, #EFEFEF);
   --border-c: var(--color-border, #E5E5E5);
-  --nav-bg: var(--color-primary, #171717);
-  --nav-text: var(--color-on-primary, #FFFFFF);
-  --nav-inactive: rgba(255, 255, 255, 0.6);
+  --nav-bg: #FFFFFF;
+  --nav-text: var(--color-foreground, #171717);
+  --nav-inactive: rgba(23, 23, 23, 0.55);
   --placeholder-bg: #E4E4E4;
   --search-bg: #F5F5F5;
   --accent: var(--color-accent, #A16207);
@@ -1067,8 +1067,9 @@ html, body { max-width: 100%; overflow-x: clip; }
 .filter-panel { display: none; background: transparent; border: none; border-radius: var(--radius); padding: 16px; margin-bottom: 16px; font-family: var(--font-body); scrollbar-width: none; }
 .filter-panel::-webkit-scrollbar { display: none; }
 .filter-panel.open { display: block; }
-.filter-head { display: flex; align-items: center; justify-content: flex-end; border-bottom: 1px solid var(--color-border); margin: 0 0 10px; padding-bottom: 6px; }
+.filter-head { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--color-border); margin: 0 0 10px; padding-bottom: 6px; }
 .filter-head h3 { margin: 0; font-size: 1rem; }
+.filter-head .filter-group-title { margin: 0; }
 .filter-clear { background: none; border: none; color: var(--color-primary, #171717); font-weight: 700; font-size: .8rem; cursor: pointer; }
 .filter-close { display: none; border: none; background: none; color: var(--primary-text); font-size: 1.4rem; line-height: 1; cursor: pointer; width: 34px; height: 34px; }
 .filter-group { padding: 10px 0; border-top: 1px solid var(--color-border); }
