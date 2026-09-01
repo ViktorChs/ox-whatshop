@@ -473,6 +473,14 @@ html, body {
   transition: transform 150ms ease, opacity 150ms ease;
 }
 .card-add:hover { opacity: .9; transform: scale(1.08); }
+.card-add.added { background: var(--color-success, #16a34a); border-color: var(--color-success, #16a34a); animation: cardAddPop 350ms ease; }
+@keyframes cardAddPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.products-grid .product-card { animation: fadeUp 420ms ease both; }
 
 .product-card .prod-price {
   font-weight: 700;
@@ -1211,12 +1219,13 @@ html, body { max-width: 100%; overflow-x: clip; }
   .filter-scrim { display: none; }
 }
 @media (max-width: 1023px) {
-  .filter-panel { display: block; position: fixed; top: 0; left: 0; bottom: 0; height: 100dvh; width: 100%; transform: translateX(-100%); transition: transform 280ms ease; z-index: 960; margin: 0; border-radius: 0; overflow-y: auto; background: var(--bg); overscroll-behavior: contain; }
+  .filter-panel { display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; height: 100dvh; max-height: 100dvh; transform: translateX(-100%); transition: transform 280ms ease; z-index: 960; margin: 0; border-radius: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; box-sizing: border-box; background: var(--bg); overscroll-behavior: contain; }
   .filter-panel.open { transform: translateX(0); }
   .filter-close { display: block; }
   .filter-scrim { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 950; opacity: 0; visibility: hidden; transition: opacity 250ms ease, visibility 250ms ease; }
   .filter-scrim.open { opacity: 1; visibility: visible; }
 }
+body.filter-open { overflow: hidden; }
 
 /* ---------- Hero de bienvenida (configurable) ---------- */
 .welcome-hero {
@@ -1583,3 +1592,8 @@ body.product-page .top-header { display: block !important; }
 @media (max-width: 767px) {
   body.product-page .top-header { display: none !important; }
 }
+
+/* Quitar flechitas de inputs number por defecto */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type='number'] { -moz-appearance: textfield; appearance: textfield; }

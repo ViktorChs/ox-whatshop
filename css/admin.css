@@ -446,3 +446,8 @@ input, select, textarea { font-family: inherit; }
 
 /* ---------- Modo basico / avanzado ---------- */
 body.mode-basico [data-mode="avanzado"] { display: none !important; }
+
+/* Quitar flechitas de inputs number por defecto */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type='number'] { -moz-appearance: textfield; appearance: textfield; }
