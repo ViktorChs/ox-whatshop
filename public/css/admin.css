@@ -352,7 +352,7 @@ input, select, textarea { font-family: inherit; }
   .sidebar.collapsed { margin-left: -260px; }
   .sidebar .sidebar-foot { margin-top: auto; padding-bottom: 8px; }
   .shell.scrim::after { content: ""; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 90; }
-  .panes { padding: 18px 16px 40px; }
+.panes { padding: 18px 16px 40px; }
   .topbar { padding: 0 12px; }
   .topbar-m-brand { display: flex; }
   .topbar .crumb { display: none; }
@@ -362,6 +362,8 @@ input, select, textarea { font-family: inherit; }
   .lang-pill { height: 30px; padding: 0 9px; font-size: 11px; }
   .topbar .avatar { width: 34px; height: 34px; }
   .topbar .avatar img { width: 34px; height: 34px; }
+  .sticky-bar { position: relative !important; }
+  details.section-collapse summary { padding: 12px 14px; font-size: .88rem; }
 }
 /* ---------- Color picker personalizado (hex + transparencia) ---------- */
 .cp { position: relative; display: flex; align-items: center; gap: 8px; width: 100%; }
@@ -451,3 +453,25 @@ body.mode-basico [data-mode="avanzado"] { display: none !important; }
 input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 input[type='number'] { -moz-appearance: textfield; appearance: textfield; }
+
+/* ---------- Secciones colapsables ---------- */
+details.section-collapse { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; background: var(--card); scroll-margin-top: 70px; }
+details.section-collapse[open] { box-shadow: var(--shadow-2); }
+details.section-collapse summary { padding: 14px 18px; font-weight: 700; font-size: .92rem; cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; color: var(--text); transition: background .15s ease; }
+details.section-collapse summary:hover { background: rgba(0,0,0,.03); }
+[data-theme="dark"] details.section-collapse summary:hover { background: rgba(255,255,255,.04); }
+details.section-collapse summary::-webkit-details-marker { display: none; }
+details.section-collapse summary::before { content: "▸"; font-size: .8rem; transition: transform .2s ease; color: var(--muted); }
+details.section-collapse[open] summary::before { transform: rotate(90deg); }
+details.section-collapse .panel { margin-bottom: 0; border: none; box-shadow: none; border-radius: 0; padding: 0 18px 18px; }
+details.section-collapse .panel > h3 { margin-top: 0; }
+
+/* ---------- Barra de guardado sticky ---------- */
+.sticky-bar { position: sticky; bottom: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 22px; background: var(--card); border-top: 1px solid var(--border); box-shadow: 0 -4px 16px rgba(0,0,0,.06); margin-top: 18px; }
+.sticky-bar .status-msg { font-size: .85rem; color: var(--muted); min-height: 18px; }
+.sticky-bar .status-msg.ok { color: var(--green); }
+.sticky-bar .btn-group { display: flex; gap: 8px; flex-shrink: 0; }
+
+/* ---------- Indicador de cambios sin guardar ---------- */
+.unsaved-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-warning, #F59E0B); display: inline-block; margin-left: 6px; vertical-align: middle; animation: pulse-dot 1.5s ease infinite; }
+@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: .4; } }

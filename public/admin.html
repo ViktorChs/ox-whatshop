@@ -48,22 +48,34 @@
 
         <nav class="nav">
           <div class="nav-group">
-            <div class="nav-sub" data-mode="avanzado">
-              <button class="nav-item has-children active" data-tab="tab-apariencia">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
-                <span data-i18n="nav_apariencia">Apariencia</span>
-                <svg class="chev open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-              </button>
-              <div class="nav-children">
-                <button class="nav-item" data-tab="tab-apariencia" data-ap-section="colores" data-i18n="ap_dd_colores">Colores</button>
-                <button class="nav-item" data-tab="tab-apariencia" data-ap-section="tipografia" data-i18n="ap_dd_tipografia">Tipografía</button>
-                <button class="nav-item" data-tab="tab-apariencia" data-ap-section="marca" data-i18n="ap_dd_marca">Marca</button>
-                <button class="nav-item" data-tab="tab-apariencia" data-ap-section="degradado" data-i18n="ap_dd_degradado">Degradado</button>
-              </div>
-            </div>
+            <div class="nav-heading" data-i18n="nav_app_heading">Apariencia</div>
+            <button class="nav-item" data-tab="tab-ap-colores">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+              <span data-i18n="nav_ap_colores">Colores</span>
+            </button>
+            <button class="nav-item" data-tab="tab-ap-tipografia">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+              <span data-i18n="nav_ap_tipografia">Tipografía</span>
+            </button>
+            <button class="nav-item" data-tab="tab-ap-marca">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-4.5a2.5 2.5 0 0 1 0-5H20"/><path d="M4 7h4.5a2.5 2.5 0 0 0 0-5H4"/><path d="M4 17h4.5a2.5 2.5 0 0 1 0 5H4"/><path d="M20 17h-4.5a2.5 2.5 0 0 0 0 5H20"/><path d="M12 2v20"/></svg>
+              <span data-i18n="nav_ap_marca">Marca</span>
+            </button>
+          </div>
+
+          <div class="nav-group">
+            <div class="nav-heading" data-i18n="nav_store_heading">Tienda</div>
             <button class="nav-item" data-tab="tab-tienda">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"/></svg>
-              <span data-i18n="nav_tienda">Tienda</span>
+              <span data-i18n="nav_tienda">General</span>
+            </button>
+            <button class="nav-item" data-tab="tab-hero-banner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 3v18"/></svg>
+              <span data-i18n="nav_hero_banner">Hero & Banner</span>
+            </button>
+            <button class="nav-item" data-tab="tab-contenido">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+              <span data-i18n="nav_contenido">Contenido</span>
             </button>
           </div>
 
@@ -102,10 +114,6 @@
 
           <div class="nav-group">
             <div class="nav-heading" data-i18n="nav_sys_heading">Sistema</div>
-            <button class="nav-item" data-tab="tab-config-basica">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
-              <span data-i18n="nav_cfg_basica">Configuración básica</span>
-            </button>
             <button class="nav-item" data-mode="avanzado" data-tab="tab-backup">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
               <span data-i18n="nav_backup">Backup</span>
@@ -145,7 +153,7 @@
               <span id="crumb-store">Mi Tienda</span>
               <span class="sep">/</span>
               <span class="sep">/</span>
-              <b id="crumb-page">Apariencia</b>
+              <b id="crumb-page" data-key="t_ap_colores">Colores</b>
             </div>
           </div>
           <div class="topbar-r">
@@ -166,94 +174,145 @@
 
         <div class="panes">
 
-          <!-- ===== Apariencia ===== -->
-          <section class="pane" data-mode="avanzado" id="tab-apariencia">
-            <h1 data-i18n="t_apariencia">Apariencia</h1>
-            <p class="page-sub" data-i18n="t_apariencia_sub">Colores, tipografía y marca de tu tienda.</p>
-            <div class="panel"><h3 data-i18n="palettes_title">Paletas de colores</h3>
-              <p class="page-sub" style="margin-bottom:10px" data-i18n="palettes_sub">Elige una combinación completa de colores y se aplicará a la tienda.</p>
-              <div id="palette-list" class="palette-list"></div>
-            </div>
-            <div class="panel" id="ap-colores"><h3 data-i18n="ap_colors">Colores de marca</h3>
-              <div class="grid-2">
-                <div class="field"><label data-i18n="ap_primary">Color primario</label><input type="color" id="theme-primary" value="#171717" /></div>
-                <div class="field"><label data-i18n="ap_accent">Color de acento</label><input type="color" id="theme-accent" value="#A16207" /></div>
-                <div class="field"><label data-i18n="ap_bg">Fondo de la tienda</label><input type="color" id="theme-background" value="#FFFFFF" /></div>
-                <div class="field"><label data-i18n="ap_fg">Color de texto</label><input type="color" id="theme-foreground" value="#171717" /></div>
-                <div class="field"><label data-i18n="ap_secondary">Color secundario</label><input type="color" id="theme-secondary" value="#404040" /></div>
-                <div class="field"><label data-i18n="ap_muted">Color de tarjetas</label><input type="color" id="theme-muted" value="#E8ECF0" /></div>
-              </div>
-            </div>
-            <div class="panel" id="ap-tipografia"><h3 data-i18n="ap_typo">Tipografía y redondeo</h3>
-              <div class="grid-2">
-                <div class="field"><label data-i18n="ap_font">Fuente (títulos)</label><input type="hidden" id="theme-fontheading" value="Plus Jakarta Sans" /><div class="font-options" id="font-options-adv"></div></div>
-                <div class="field"><label data-i18n="ap_radius">Radio de borde (px)</label><input type="number" id="theme-radius" value="14" min="1" max="50" /></div>
-              </div>
-            </div>
-            <div class="panel" id="ap-marca"><h3 data-i18n="ap_brand">Marca en la barra superior</h3>
-              <div class="toggle-row"><span data-i18n="ap_show_logo">Mostrar logo</span><label class="switch"><input type="checkbox" id="brand-show-logo" checked /><span class="slider"></span></label></div>
-              <div class="toggle-row"><span data-i18n="ap_show_name">Mostrar nombre de la tienda</span><label class="switch"><input type="checkbox" id="brand-show-name" checked /><span class="slider"></span></label></div>
-            </div>
-            <div class="panel" id="ap-degradado"><h3 data-i18n="ap_gradient">Fondo con degradado</h3>
-              <p class="page-sub" style="margin-bottom:12px" data-i18n="ap_gradient_sub">Degradado sutil del fondo hasta el color elegido.</p>
-              <div class="toggle-row"><span data-i18n="ap_gradient_on">Activar degradado</span><label class="switch"><input type="checkbox" id="theme-gradient-toggle" /><span class="slider"></span></label></div>
-              <div class="field" style="margin-top:12px"><label data-i18n="ap_gradient_color">Color del degradado (abajo)</label><input type="color" id="theme-gradient-color" value="#FFFFFF" /></div>
-            </div>
-            <button class="btn green" id="btn-save-theme" data-i18n="btn_save">Guardar cambios</button>
-            <p class="status-line" id="theme-status"></p>
-          </section>
+<!-- ===== Apariencia: Colores ===== -->
+           <section class="pane" id="tab-ap-colores">
+             <h1 data-i18n="t_ap_colores">Colores</h1>
+             <p class="page-sub" data-i18n="t_ap_colores_sub">Paletas y colores de marca de tu tienda.</p>
+             <details class="section-collapse" open>
+               <summary data-i18n="palettes_title">Paletas de colores</summary>
+               <div class="panel"><p class="page-sub" style="margin-bottom:10px" data-i18n="palettes_sub">Elige una combinación completa de colores y se aplicará a la tienda.</p>
+                 <div id="palette-list" class="palette-list"></div>
+               </div>
+             </details>
+             <details class="section-collapse" open>
+               <summary data-i18n="ap_colors">Colores de marca</summary>
+               <div class="panel"><div class="grid-2">
+                 <div class="field"><label data-i18n="ap_primary">Color primario</label><input type="color" id="theme-primary" value="#171717" /></div>
+                 <div class="field"><label data-i18n="ap_accent">Color de acento</label><input type="color" id="theme-accent" value="#A16207" /></div>
+                 <div class="field"><label data-i18n="ap_bg">Fondo de la tienda</label><input type="color" id="theme-background" value="#FFFFFF" /></div>
+                 <div class="field"><label data-i18n="ap_fg">Color de texto</label><input type="color" id="theme-foreground" value="#171717" /></div>
+                 <div class="field"><label data-i18n="ap_secondary">Color secundario</label><input type="color" id="theme-secondary" value="#404040" /></div>
+                 <div class="field"><label data-i18n="ap_muted">Color de tarjetas</label><input type="color" id="theme-muted" value="#E8ECF0" /></div>
+               </div></div>
+             </details>
+             <div class="sticky-bar">
+               <span class="status-msg" id="status-colores"></span>
+               <div class="btn-group"><button class="btn green" id="btn-save-colores" data-i18n="btn_save">Guardar cambios</button></div>
+             </div>
+           </section>
 
-          <!-- ===== Tienda ===== -->
-          <section class="pane hidden" id="tab-tienda">
-            <h1 data-i18n="t_tienda">Tienda</h1>
-            <p class="page-sub" data-i18n="t_tienda_sub">Datos generales, pagos y comunicación.</p>
-            <div class="panel"><h3 data-i18n="ti_datos">Datos generales</h3>
-              <div class="grid-2">
-                <div class="field"><label data-i18n="ti_name">Nombre de la tienda</label><input type="text" id="store-name" placeholder="WhatShop" /></div>
-                <div class="field"><label data-i18n="ti_whatsapp">Número de WhatsApp</label><input type="text" id="store-whatsapp" placeholder="+58 412 000 0000" /></div>
-                <div class="field"><label data-i18n="ti_currency">Moneda</label><input type="text" id="store-currency" value="$" /></div>
-                <div class="field"><label data-i18n="ti_currency_pos">Posición de la moneda</label>
-                  <select id="store-currency-pos">
-                    <option value="before" data-i18n="ti_cur_before">Antes ($10)</option>
-                    <option value="after" data-i18n="ti_cur_after">Después (10 $)</option>
-                  </select>
-                </div>
-              </div>
-              <div class="toggle-row" style="margin-top:8px"><span data-i18n="ti_open">Tienda abierta</span><label class="switch"><input type="checkbox" id="store-open" checked /><span class="slider"></span></label></div>
-              <div class="field" style="margin-top:10px"><label data-i18n="ti_closed_msg">Mensaje cuando está cerrada</label><input type="text" id="store-closed-msg" placeholder="La tienda está cerrada en este momento" /></div>
-            </div>
-            <div class="panel"><h3 data-i18n="ti_pay">Métodos de pago</h3>
-              <p class="page-sub" style="margin-bottom:10px" data-i18n="ti_pay_sub">Un método por línea.</p>
-              <div class="field"><textarea id="store-payments" rows="4" placeholder="Efectivo&#10;Transferencia&#10;Pago móvil"></textarea></div>
-            </div>
-            <div class="panel"><h3 data-i18n="ti_design">Diseño de tarjetas</h3>
-              <div class="grid-2">
-                <div class="field"><label data-i18n="ti_corners">Esquinas</label>
-                  <select id="theme-corners">
-                    <option value="square" data-i18n="ti_corners_square">Cuadradas</option>
-                    <option value="rounded" data-i18n="ti_corners_rounded">Redondeadas</option>
-                  </select>
-                </div>
-                <div class="field"><label data-i18n="ti_card_border">Borde de tarjetas</label>
-                  <select id="theme-cardborder">
-                    <option value="none" data-i18n="ti_border_none">Sin borde</option>
-                    <option value="line" data-i18n="ti_border_line">Con borde sutil</option>
-                  </select>
-                </div>
-                <div class="field"><label data-i18n="ti_card_shadow">Sombra de tarjetas</label>
-                  <select id="theme-cardshadow">
-                    <option value="sutil" data-i18n="cs_sutil">Sutil</option>
-                    <option value="none" data-i18n="cs_none">Sin sombra</option>
-                    <option value="media" data-i18n="cs_media">Media</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="panel"><h3 data-i18n="ti_sections">Secciones de la portada</h3>
-              <div class="toggle-row"><span data-i18n="ti_show_banner">Mostrar banner superior</span><label class="switch"><input type="checkbox" id="store-show-banner" checked /><span class="slider"></span></label></div>
-              <div class="toggle-row"><span data-i18n="ti_show_hero">Mostrar Hero de bienvenida</span><label class="switch"><input type="checkbox" id="store-show-hero" checked /><span class="slider"></span></label></div>
-              <div class="toggle-row"><span data-i18n="ti_show_cats">Mostrar botones de categorías</span><label class="switch"><input type="checkbox" id="store-show-cats" checked /><span class="slider"></span></label></div>
-            </div>
+<!-- ===== Apariencia: Tipografía ===== -->
+           <section class="pane hidden" id="tab-ap-tipografia">
+             <h1 data-i18n="t_ap_tipografia">Tipografía</h1>
+             <p class="page-sub" data-i18n="t_ap_tipografia_sub">Fuentes y redondeo general de la tienda.</p>
+             <details class="section-collapse" open>
+               <summary data-i18n="ap_typo">Tipografía y redondeo</summary>
+               <div class="panel"><div class="grid-2">
+                 <div class="field"><label data-i18n="ap_font">Fuente (títulos)</label><input type="hidden" id="theme-fontheading" value="Plus Jakarta Sans" /><div class="font-options" id="font-options-adv"></div></div>
+                 <div class="field"><label data-i18n="ap_radius">Radio de borde (px)</label><input type="number" id="theme-radius" value="14" min="1" max="50" /></div>
+               </div></div>
+             </details>
+             <div class="sticky-bar">
+               <span class="status-msg" id="status-tipografia"></span>
+               <div class="btn-group"><button class="btn green" id="btn-save-tipografia" data-i18n="btn_save">Guardar cambios</button></div>
+             </div>
+           </section>
+
+<!-- ===== Apariencia: Marca ===== -->
+           <section class="pane hidden" id="tab-ap-marca">
+             <h1 data-i18n="t_ap_marca">Marca</h1>
+             <p class="page-sub" data-i18n="t_ap_marca_sub">Logo, nombre y degradado de fondo.</p>
+             <details class="section-collapse" open>
+               <summary data-i18n="ap_brand">Marca en la barra superior</summary>
+               <div class="panel"><div class="toggle-row"><span data-i18n="ap_show_logo">Mostrar logo</span><label class="switch"><input type="checkbox" id="brand-show-logo" checked /><span class="slider"></span></label></div>
+                 <div class="toggle-row"><span data-i18n="ap_show_name">Mostrar nombre de la tienda</span><label class="switch"><input type="checkbox" id="brand-show-name" checked /><span class="slider"></span></label></div>
+               </div>
+             </details>
+             <details class="section-collapse" open>
+               <summary data-i18n="ap_gradient">Fondo con degradado</summary>
+               <div class="panel"><p class="page-sub" style="margin-bottom:12px" data-i18n="ap_gradient_sub">Degradado sutil del fondo hasta el color elegido.</p>
+                 <div class="toggle-row"><span data-i18n="ap_gradient_on">Activar degradado</span><label class="switch"><input type="checkbox" id="theme-gradient-toggle" /><span class="slider"></span></label></div>
+                 <div class="field" style="margin-top:12px"><label data-i18n="ap_gradient_color">Color del degradado (abajo)</label><input type="color" id="theme-gradient-color" value="#FFFFFF" /></div>
+               </div>
+             </details>
+             <div class="sticky-bar">
+               <span class="status-msg" id="status-marca"></span>
+               <div class="btn-group"><button class="btn green" id="btn-save-marca" data-i18n="btn_save">Guardar cambios</button></div>
+             </div>
+           </section>
+
+          <!-- ===== Tienda: General ===== -->
+<section class="pane hidden" id="tab-tienda">
+             <h1 data-i18n="t_tienda">General</h1>
+             <p class="page-sub" data-i18n="t_tienda_sub">Datos generales, pagos y diseño.</p>
+             <details class="section-collapse" open>
+               <summary data-i18n="ti_datos">Datos generales</summary>
+               <div class="panel"><div class="grid-2">
+                 <div class="field"><label data-i18n="ti_name">Nombre de la tienda</label><input type="text" id="store-name" placeholder="WhatShop" /></div>
+                 <div class="field"><label data-i18n="ti_whatsapp">Número de WhatsApp</label><input type="text" id="store-whatsapp" placeholder="+58 412 000 0000" /></div>
+                 <div class="field"><label data-i18n="ti_currency">Moneda</label><input type="text" id="store-currency" value="$" /></div>
+                 <div class="field"><label data-i18n="ti_currency_pos">Posición de la moneda</label>
+                   <select id="store-currency-pos">
+                     <option value="before" data-i18n="ti_cur_before">Antes ($10)</option>
+                     <option value="after" data-i18n="ti_cur_after">Después (10 $)</option>
+                   </select>
+                 </div>
+               </div>
+                 <div class="toggle-row" style="margin-top:8px"><span data-i18n="ti_open">Tienda abierta</span><label class="switch"><input type="checkbox" id="store-open" checked /><span class="slider"></span></label></div>
+                 <div class="field" style="margin-top:10px"><label data-i18n="ti_closed_msg">Mensaje cuando está cerrada</label><input type="text" id="store-closed-msg" placeholder="La tienda está cerrada en este momento" /></div>
+               </div>
+             </details>
+             <details class="section-collapse" open>
+               <summary data-i18n="ti_pay">Métodos de pago</summary>
+               <div class="panel"><p class="page-sub" style="margin-bottom:10px" data-i18n="ti_pay_sub">Un método por línea.</p>
+                 <div class="field"><textarea id="store-payments" rows="4" placeholder="Efectivo&#10;Transferencia&#10;Pago móvil"></textarea></div>
+               </div>
+             </details>
+             <details class="section-collapse" open>
+               <summary data-i18n="ti_design">Diseño de tarjetas</summary>
+               <div class="panel"><div class="grid-2">
+                 <div class="field"><label data-i18n="ti_corners">Esquinas</label>
+                   <select id="theme-corners">
+                     <option value="square" data-i18n="ti_corners_square">Cuadradas</option>
+                     <option value="rounded" data-i18n="ti_corners_rounded">Redondeadas</option>
+                   </select>
+                 </div>
+                 <div class="field"><label data-i18n="ti_card_border">Borde de tarjetas</label>
+                   <select id="theme-cardborder">
+                     <option value="none" data-i18n="ti_border_none">Sin borde</option>
+                     <option value="line" data-i18n="ti_border_line">Con borde sutil</option>
+                   </select>
+                 </div>
+                 <div class="field"><label data-i18n="ti_card_shadow">Sombra de tarjetas</label>
+                   <select id="theme-cardshadow">
+                     <option value="sutil" data-i18n="cs_sutil">Sutil</option>
+                     <option value="none" data-i18n="cs_none">Sin sombra</option>
+                     <option value="media" data-i18n="cs_media">Media</option>
+                   </select>
+                 </div>
+               </div></div>
+             </details>
+             <details class="section-collapse" open>
+               <summary data-i18n="ti_sections">Secciones de la portada</summary>
+               <div class="panel"><div class="toggle-row"><span data-i18n="ti_show_banner">Mostrar banner superior</span><label class="switch"><input type="checkbox" id="store-show-banner" checked /><span class="slider"></span></label></div>
+                 <div class="toggle-row"><span data-i18n="ti_show_hero">Mostrar Hero de bienvenida</span><label class="switch"><input type="checkbox" id="store-show-hero" checked /><span class="slider"></span></label></div>
+                 <div class="toggle-row"><span data-i18n="ti_show_cats">Mostrar botones de categorías</span><label class="switch"><input type="checkbox" id="store-show-cats" checked /><span class="slider"></span></label></div>
+               </div>
+             </details>
+             <details class="section-collapse" open>
+               <summary data-i18n="ti_filter_design">Filtros de la tienda</summary>
+               <div class="panel"><div class="toggle-row"><span data-i18n="ti_filter_bold">Títulos de filtros en negrita</span><label class="switch"><input type="checkbox" id="store-filterbold" /><span class="slider"></span></label></div></div>
+             </details>
+             <div class="sticky-bar">
+               <span class="status-msg" id="store-status"></span>
+               <div class="btn-group"><button class="btn green" id="btn-save-store" data-i18n="btn_save_store">Guardar tienda</button></div>
+             </div>
+           </section>
+
+          <!-- ===== Tienda: Hero & Banner ===== -->
+          <section class="pane hidden" id="tab-hero-banner">
+            <h1 data-i18n="t_hero_banner">Hero & Banner</h1>
+            <p class="page-sub" data-i18n="t_hero_banner_sub">Hero de bienvenida y banner superior.</p>
             <div class="panel"><h3 data-i18n="wh_panel">Hero de bienvenida</h3>
               <p class="page-sub" style="margin-bottom:10px" data-i18n="wh_sub">Edita el hero de la portada: colores, textos e imágenes.</p>
               <div class="grid-2">
@@ -284,12 +343,23 @@
               </div>
               <p class="status-line" id="hero-status"></p>
             </div>
-            <div class="panel"><h3 data-i18n="ti_typo">Tipografía</h3>
-              <div class="field"><label data-i18n="ap_font">Fuente (títulos)</label><div class="font-options" id="font-options-basic"></div></div>
+            <div class="panel"><h3 data-i18n="ti_banner">Banner superior</h3>
+              <p class="page-sub" style="margin-bottom:10px" data-i18n="ti_banner_sub">Franja a todo el ancho bajo el menú, con el logo y el nombre.</p>
+              <div class="grid-2">
+                <div class="field"><label data-i18n="ti_banner_title">Nombre del banner</label><input type="text" id="banner-name" placeholder="WhatShop" /></div>
+                <div class="field"><label data-i18n="ti_banner_bg">Color de fondo</label><input type="color" id="banner-bg" value="#E8ECF0" /></div>
+              </div>
+              <div class="field"><label data-i18n="ti_banner_image">Imagen/logo del banner</label><input type="file" id="banner-image" accept="image/*" />
+                <div class="cat-preview"><img id="banner-image-preview" class="hidden" alt="" /></div>
+                <input type="hidden" id="banner-image-data" />
+              </div>
             </div>
-            <div class="panel"><h3 data-i18n="ti_filter_design">Filtros de la tienda</h3>
-              <div class="toggle-row"><span data-i18n="ti_filter_bold">Títulos de filtros en negrita</span><label class="switch"><input type="checkbox" id="store-filterbold" /><span class="slider"></span></label></div>
-            </div>
+          </section>
+
+          <!-- ===== Tienda: Contenido ===== -->
+          <section class="pane hidden" id="tab-contenido">
+            <h1 data-i18n="t_contenido">Contenido</h1>
+            <p class="page-sub" data-i18n="t_contenido_sub">Reseñas, mensaje de WhatsApp y logo de la marca.</p>
             <div class="panel"><h3 data-i18n="rev_title">Reseñas de clientes</h3>
               <p class="page-sub" style="margin-bottom:10px" data-i18n="rev_sub">Imagen, nombre y texto de cada reseña. Se muestran como carrusel en la tienda.</p>
               <div class="grid-2">
@@ -309,17 +379,6 @@
               <button class="btn green" id="btn-save-reviews" style="margin-top:12px" data-i18n="rev_save">Guardar reseñas</button>
               <p class="status-line" id="reviews-status"></p>
             </div>
-            <div class="panel"><h3 data-i18n="ti_banner">Banner superior</h3>
-              <p class="page-sub" style="margin-bottom:10px" data-i18n="ti_banner_sub">Franja a todo el ancho bajo el menú, con el logo y el nombre.</p>
-              <div class="grid-2">
-                <div class="field"><label data-i18n="ti_banner_title">Nombre del banner</label><input type="text" id="banner-name" placeholder="WhatShop" /></div>
-                <div class="field"><label data-i18n="ti_banner_bg">Color de fondo</label><input type="color" id="banner-bg" value="#E8ECF0" /></div>
-              </div>
-              <div class="field"><label data-i18n="ti_banner_image">Imagen/logo del banner</label><input type="file" id="banner-image" accept="image/*" />
-                <div class="cat-preview"><img id="banner-image-preview" class="hidden" alt="" /></div>
-                <input type="hidden" id="banner-image-data" />
-              </div>
-            </div>
             <div class="panel"><h3 data-i18n="ti_msg_wa">Mensaje de WhatsApp</h3>
               <p class="page-sub" style="margin-bottom:10px" data-i18n="ti_msg_wa_sub">Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}</p>
               <div class="btn-row" id="msg-var-buttons" style="margin-bottom:10px" title="Pulsa para insertar">
@@ -337,8 +396,6 @@
               <div class="field"><label data-i18n="ti_logo_upload">Subir logo (PNG, JPG, WebP)</label><input type="file" id="store-logo-file" accept="image/*" /></div>
               <p class="status-line" id="logo-status"></p>
             </div>
-            <button class="btn green" id="btn-save-store" data-i18n="btn_save_store">Guardar tienda</button>
-            <p class="status-line" id="store-status"></p>
           </section>
 
           <!-- ===== Subir producto ===== -->
@@ -530,11 +587,6 @@
           </section>
 
           <!-- ===== Configuración ===== -->
-          <section class="pane hidden" id="tab-config-basica">
-            <h1 data-i18n="nav_cfg_basica">Configuración básica</h1>
-            <p class="page-sub" data-i18n="cfg_basica_sub">Selector de plantillas (próximamente).</p>
-          </section>
-
           <section class="pane hidden" data-mode="avanzado" id="tab-config">
             <h1 data-i18n="t_config">Configuración</h1>
             <p class="page-sub" data-i18n="t_config_sub">PIN de acceso, pantalla de bienvenida y ajustes del panel.</p>
@@ -602,8 +654,8 @@
       es: {
         login_sub: 'Panel de administración', login_btn: 'Entrar', login_error: 'PIN incorrecto', login_hint: 'PIN por defecto: 1234',
         ws_plan: 'WhatShop', ws_new: '+ Nueva tienda',
-        nav_apariencia: 'Apariencia', nav_tienda: 'Tienda', nav_cat_heading: 'Catálogo', nav_subir: 'Subir producto', nav_productos: 'Productos', nav_categorias: 'Categorías', nav_plantillas: 'Plantillas de tallas',
-        nav_ops_heading: 'Operaciones', nav_pedidos: 'Pedidos', nav_analitica: 'Analítica', nav_sys_heading: 'Sistema', nav_backup: 'Backup', nav_config: 'Configuración', nav_cfg_basica: 'Configuración básica', cfg_basica_sub: 'Selector de plantillas (próximamente).', mode_basico: 'Básico', mode_avanzado: 'Avanzado',
+        nav_apariencia: 'Apariencia', nav_ap_colores: 'Colores', nav_ap_tipografia: 'Tipografía', nav_ap_marca: 'Marca', nav_app_heading: 'Apariencia', nav_tienda: 'General', nav_store_heading: 'Tienda', nav_hero_banner: 'Hero & Banner', nav_contenido: 'Contenido', nav_cat_heading: 'Catálogo', nav_subir: 'Subir producto', nav_productos: 'Productos', nav_categorias: 'Categorías', nav_plantillas: 'Plantillas de tallas',
+        nav_ops_heading: 'Operaciones', nav_pedidos: 'Pedidos', nav_analitica: 'Analítica', nav_sys_heading: 'Sistema', nav_backup: 'Backup', nav_config: 'Configuración', mode_basico: 'Básico', mode_avanzado: 'Avanzado',
         nav_ver_tienda: 'Ver tienda', nav_logout: 'Cerrar sesión',
         cmd_search: 'Buscar', cmd_ph: 'Ir a…', cmd_actions: 'Acciones', cmd_logout: 'Cerrar sesión',
         t_apariencia: 'Apariencia', t_apariencia_sub: 'Colores, tipografía y marca de tu tienda.', ap_colors: 'Colores de marca', ap_primary: 'Color primario', ap_accent: 'Color de acento', ap_bg: 'Fondo de la tienda', ap_fg: 'Color de texto', ap_secondary: 'Color secundario', ap_muted: 'Color de tarjetas',
@@ -611,7 +663,8 @@
         ap_gradient: 'Fondo con degradado', ap_gradient_sub: 'Degradado sutil del fondo hasta el color elegido.', ap_gradient_on: 'Activar degradado', ap_gradient_color: 'Color del degradado (abajo)',
         ap_dd_colores: 'Colores', ap_dd_tipografia: 'Tipografía', ap_dd_marca: 'Marca', ap_dd_degradado: 'Degradado',
         btn_save: 'Guardar cambios', btn_save_store: 'Guardar tienda', btn_save_splash: 'Guardar bienvenida',
-        t_tienda: 'Tienda', t_tienda_sub: 'Datos generales, pagos y comunicación.', ti_datos: 'Datos generales', ti_name: 'Nombre de la tienda', ti_whatsapp: 'Número de WhatsApp', ti_currency: 'Moneda', ti_currency_pos: 'Posición de la moneda', ti_cur_before: 'Antes ($10)', ti_cur_after: 'Después (10 $)', ti_open: 'Tienda abierta', ti_closed_msg: 'Mensaje cuando está cerrada',
+        t_ap_colores: 'Colores', t_ap_colores_sub: 'Paletas y colores de marca de tu tienda.', t_ap_tipografia: 'Tipografía', t_ap_tipografia_sub: 'Fuentes y redondeo general de la tienda.', t_ap_marca: 'Marca', t_ap_marca_sub: 'Logo, nombre y degradado de fondo.',
+        t_tienda: 'General', t_tienda_sub: 'Datos generales, pagos y diseño.', t_hero_banner: 'Hero & Banner', t_hero_banner_sub: 'Hero de bienvenida y banner superior.', t_contenido: 'Contenido', t_contenido_sub: 'Reseñas, mensaje de WhatsApp y logo.', ti_datos: 'Datos generales', ti_name: 'Nombre de la tienda', ti_whatsapp: 'Número de WhatsApp', ti_currency: 'Moneda', ti_currency_pos: 'Posición de la moneda', ti_cur_before: 'Antes ($10)', ti_cur_after: 'Después (10 $)', ti_open: 'Tienda abierta', ti_closed_msg: 'Mensaje cuando está cerrada',
         ti_pay: 'Métodos de pago', ti_pay_sub: 'Un método por línea.', ti_banner: 'Banner superior', ti_banner_sub: 'Franja a todo el ancho bajo el menú, con el logo y el nombre.', ti_banner_title: 'Nombre del banner', ti_banner_bg: 'Color de fondo', ti_banner_image: 'Imagen/logo del banner',
         ti_msg_wa: 'Mensaje de WhatsApp', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Logo de la marca', ti_logo_upload: 'Subir logo (PNG, JPG, WebP)', ti_design: 'Diseño de tarjetas', ti_corners: 'Esquinas', ti_corners_square: 'Cuadradas', ti_corners_rounded: 'Redondeadas', ti_card_border: 'Borde de tarjetas', ti_border_none: 'Sin borde', ti_border_line: 'Con borde sutil', ti_card_shadow: 'Sombra de tarjetas', cs_sutil: 'Sutil', cs_none: 'Sin sombra', cs_media: 'Media', ti_sections: 'Secciones de la portada', ti_show_banner: 'Mostrar banner superior', ti_show_hero: 'Mostrar Hero de bienvenida', ti_show_cats: 'Mostrar botones de categorías', wh_panel: 'Hero de bienvenida', wh_sub: 'Edita el hero de la portada: colores, textos e imágenes.', wh_bg: 'Fondo', wh_primary: 'Color primario', wh_text1: 'Texto principal', wh_text2: 'Texto secundario', wh_btn_bg: 'Fondo del botón', wh_btn_color: 'Texto del botón', wh_font_title: 'Fuente del título', wh_font_body: 'Fuente del cuerpo', wh_btn_radius: 'Radio del botón (px)', wh_badge: 'Texto de la insignia', wh_badge_icon: 'Icono de la insignia (URL)', wh_title: 'Título', wh_subtitle: 'Subtítulo', wh_btn_text: 'Texto del botón', wh_btn_link: 'Enlace del botón', wh_dots_total: 'Total de puntos', wh_dots_active: 'Punto activo', wh_btn_arrow: 'Mostrar flecha en el botón', wh_gallery: 'Galería (tarjetas de imagen)', wh_add_img: 'Agregar imagen', wh_save: 'Guardar hero', ti_typo: 'Tipografía', ti_filter_design: 'Filtros de la tienda', ti_filter_bg: 'Color de fondo de los filtros', ti_filter_bold: 'Títulos de filtros en negrita', rev_title: 'Reseñas de clientes', rev_sub: 'Imagen, nombre y texto de cada reseña. Se muestran como carrusel en la tienda.', rev_name: 'Nombre', rev_image: 'Imagen del cliente', rev_text: 'Texto de la reseña', rev_add: 'Agregar reseña', rev_cancel: 'Cancelar', rev_edit: 'Editar', rev_del: 'Eliminar', rev_save: 'Guardar reseñas', rev_confirm: '¿Eliminar esta reseña?', rev_empty: 'Sin reseñas', rev_req: 'Escribe nombre y texto',
         t_subir: 'Subir producto', t_subir_sub: 'Crea y sube un producto nuevo con sus imágenes, variantes y stock.', t_productos: 'Productos', t_productos_sub: 'Busca y edita los productos que has subido.', pr_filter_cat: 'Filtrar por categoría', pr_filter_all: 'Todas', pr_new: 'Nuevo producto', pr_edit: 'Editar producto', pr_name: 'Nombre', pr_cat: 'Categoría', pr_price: 'Precio', pr_orig: 'Precio original (opcional, tachado)', pr_stock: 'Stock base', pr_featured: 'Destacado', pr_featured_on: 'Mostrar en Nuevos productos', pr_desc: 'Descripción',
@@ -631,8 +684,8 @@
       en: {
         login_sub: 'Admin panel', login_btn: 'Enter', login_error: 'Wrong PIN', login_hint: 'Default PIN: 1234',
         ws_plan: 'WhatShop', ws_new: '+ New store',
-        nav_apariencia: 'Appearance', nav_tienda: 'Store', nav_cat_heading: 'Catalog', nav_subir: 'Upload product', nav_productos: 'Products', nav_categorias: 'Categories', nav_plantillas: 'Size templates',
-        nav_ops_heading: 'Operations', nav_pedidos: 'Orders', nav_analitica: 'Analytics', nav_sys_heading: 'System', nav_backup: 'Backup', nav_config: 'Settings', nav_cfg_basica: 'Basic settings', cfg_basica_sub: 'Template selector (coming soon).', mode_basico: 'Basic', mode_avanzado: 'Advanced',
+        nav_apariencia: 'Appearance', nav_ap_colores: 'Colors', nav_ap_tipografia: 'Typography', nav_ap_marca: 'Branding', nav_app_heading: 'Appearance', nav_tienda: 'General', nav_store_heading: 'Store', nav_hero_banner: 'Hero & Banner', nav_contenido: 'Content', nav_cat_heading: 'Catalog', nav_subir: 'Upload product', nav_productos: 'Products', nav_categorias: 'Categories', nav_plantillas: 'Size templates',
+        nav_ops_heading: 'Operations', nav_pedidos: 'Orders', nav_analitica: 'Analytics', nav_sys_heading: 'System', nav_backup: 'Backup', nav_config: 'Settings', mode_basico: 'Basic', mode_avanzado: 'Advanced',
         nav_ver_tienda: 'View store', nav_logout: 'Log out',
         cmd_search: 'Search', cmd_ph: 'Go to…', cmd_actions: 'Actions', cmd_logout: 'Log out',
         t_apariencia: 'Appearance', t_apariencia_sub: 'Colors, typography and branding of your store.', ap_colors: 'Brand colors', ap_primary: 'Primary color', ap_accent: 'Accent color', ap_bg: 'Store background', ap_fg: 'Text color', ap_secondary: 'Secondary color', ap_muted: 'Card color',
@@ -640,7 +693,8 @@
         ap_gradient: 'Background gradient', ap_gradient_sub: 'Subtle gradient from background to chosen color.', ap_gradient_on: 'Enable gradient', ap_gradient_color: 'Gradient color (bottom)',
         ap_dd_colores: 'Colors', ap_dd_tipografia: 'Typography', ap_dd_marca: 'Branding', ap_dd_degradado: 'Gradient',
         btn_save: 'Save changes', btn_save_store: 'Save store', btn_save_splash: 'Save welcome',
-        t_tienda: 'Store', t_tienda_sub: 'General data, payments and communication.', ti_datos: 'General data', ti_name: 'Store name', ti_whatsapp: 'WhatsApp number', ti_currency: 'Currency', ti_currency_pos: 'Currency position', ti_cur_before: 'Before ($10)', ti_cur_after: 'After (10 $)', ti_open: 'Store open', ti_closed_msg: 'Closed message',
+        t_ap_colores: 'Colors', t_ap_colores_sub: 'Palettes and brand colors for your store.', t_ap_tipografia: 'Typography', t_ap_tipografia_sub: 'Fonts and general border radius.', t_ap_marca: 'Branding', t_ap_marca_sub: 'Logo, name and background gradient.',
+        t_tienda: 'General', t_tienda_sub: 'Store data, payments and design.', t_hero_banner: 'Hero & Banner', t_hero_banner_sub: 'Welcome hero and top banner.', t_contenido: 'Content', t_contenido_sub: 'Reviews, WhatsApp message and logo.', ti_datos: 'General data', ti_name: 'Store name', ti_whatsapp: 'WhatsApp number', ti_currency: 'Currency', ti_currency_pos: 'Currency position', ti_cur_before: 'Before ($10)', ti_cur_after: 'After (10 $)', ti_open: 'Store open', ti_closed_msg: 'Closed message',
         ti_pay: 'Payment methods', ti_pay_sub: 'One method per line.', ti_banner: 'Top banner', ti_banner_sub: 'Full-width strip under the menu with the logo and name.', ti_banner_title: 'Banner name', ti_banner_bg: 'Background color', ti_banner_image: 'Banner image/logo',
         ti_msg_wa: 'WhatsApp message', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Store logo', ti_logo_upload: 'Upload logo (PNG, JPG, WebP)', ti_design: 'Card design', ti_corners: 'Corners', ti_corners_square: 'Square', ti_corners_rounded: 'Rounded', ti_card_border: 'Card border', ti_border_none: 'No border', ti_border_line: 'Subtle border', ti_card_shadow: 'Card shadow', cs_sutil: 'Subtle', cs_none: 'No shadow', cs_media: 'Medium', ti_sections: 'Home sections', ti_show_banner: 'Show top banner', ti_show_hero: 'Show welcome hero', ti_show_cats: 'Show category buttons', wh_panel: 'Welcome hero', wh_sub: 'Edit the homepage hero: colors, texts and images.', wh_bg: 'Background', wh_primary: 'Primary color', wh_text1: 'Primary text', wh_text2: 'Secondary text', wh_btn_bg: 'Button background', wh_btn_color: 'Button text', wh_font_title: 'Title font', wh_font_body: 'Body font', wh_btn_radius: 'Button radius (px)', wh_badge: 'Badge text', wh_badge_icon: 'Badge icon (URL)', wh_title: 'Title', wh_subtitle: 'Subtitle', wh_btn_text: 'Button text', wh_btn_link: 'Button link', wh_dots_total: 'Total dots', wh_dots_active: 'Active dot', wh_btn_arrow: 'Show button arrow', wh_gallery: 'Gallery (image cards)', wh_add_img: 'Add image', wh_save: 'Save hero', ti_typo: 'Typography', ti_filter_design: 'Store filters', ti_filter_bg: 'Filters background color', ti_filter_bold: 'Bold filter titles', rev_title: 'Customer reviews', rev_sub: 'Image, name and text of each review. Shown as a carousel in the store.', rev_name: 'Name', rev_image: 'Customer image', rev_text: 'Review text', rev_add: 'Add review', rev_cancel: 'Cancel', rev_edit: 'Edit', rev_del: 'Delete', rev_save: 'Save reviews', rev_confirm: 'Delete this review?', rev_empty: 'No reviews', rev_req: 'Enter name and text',
         t_subir: 'Upload product', t_subir_sub: 'Create and upload a new product with images, variants and stock.', t_productos: 'Products', t_productos_sub: 'Find and edit the products you uploaded.', pr_filter_cat: 'Filter by category', pr_filter_all: 'All', pr_new: 'New product', pr_edit: 'Edit product', pr_name: 'Name', pr_cat: 'Category', pr_price: 'Price', pr_orig: 'Original price (optional, strikethrough)', pr_stock: 'Base stock', pr_featured: 'Featured', pr_featured_on: 'Show in New products', pr_desc: 'Description',
@@ -665,7 +719,7 @@
       document.getElementById('lang-toggle').textContent = lang.toUpperCase();
       document.querySelectorAll('[data-i18n]').forEach(function (el) { el.textContent = t(el.getAttribute('data-i18n')); });
       var crumb = document.getElementById('crumb-page');
-      if (crumb) crumb.textContent = t(crumb.dataset.key || 't_apariencia');
+      if (crumb) crumb.textContent = t(crumb.dataset.key || 't_ap_colores');
       document.getElementById('cmd-input').placeholder = t('cmd_ph');
       renderStores();
     }
@@ -693,6 +747,7 @@
 
     // ===== Estado global =====
     var _settings = {};
+    var _settingsBaseline = {};
     var _stores = [];
     var _templates = [];
     var _orderFilter = 'all';
@@ -756,37 +811,24 @@
     }
 
     // ===== Tabs + breadcrumb =====
-    var TAB_TITLES = { 'tab-apariencia': 't_apariencia', 'tab-tienda': 't_tienda', 'tab-subir': 't_subir', 'tab-productos': 't_productos', 'tab-categorias': 't_categorias', 'tab-plantillas': 't_plantillas', 'tab-pedidos': 't_pedidos', 'tab-analitica': 't_analitica', 'tab-backup': 't_backup', 'tab-config': 't_config', 'tab-config-basica': 'nav_cfg_basica' };
+    var TAB_TITLES = { 'tab-ap-colores': 't_ap_colores', 'tab-ap-tipografia': 't_ap_tipografia', 'tab-ap-marca': 't_ap_marca', 'tab-tienda': 't_tienda', 'tab-hero-banner': 't_hero_banner', 'tab-contenido': 't_contenido', 'tab-subir': 't_subir', 'tab-productos': 't_productos', 'tab-categorias': 't_categorias', 'tab-plantillas': 't_plantillas', 'tab-pedidos': 't_pedidos', 'tab-analitica': 't_analitica', 'tab-backup': 't_backup', 'tab-config': 't_config' };
     function switchTab(tabId) {
       document.querySelectorAll('.pane').forEach(function (c) { c.classList.add('hidden'); });
       var target = document.getElementById(tabId);
       if (target) target.classList.remove('hidden');
       document.querySelectorAll('.nav .nav-item[data-tab]').forEach(function (b) {
-        if (b.closest('.nav-children')) return;
         b.classList.toggle('active', b.getAttribute('data-tab') === tabId);
       });
       var crumb = document.getElementById('crumb-page');
-      crumb.dataset.key = TAB_TITLES[tabId] || 't_apariencia';
-      crumb.textContent = t(TAB_TITLES[tabId] || 't_apariencia');
+      crumb.dataset.key = TAB_TITLES[tabId] || 't_ap_colores';
+      crumb.textContent = t(TAB_TITLES[tabId] || 't_ap_colores');
       if (tabId === 'tab-pedidos') loadOrders();
       if (tabId === 'tab-analitica') loadAnalytics();
       if (isMobile()) setSidebar(false);
     }
     document.querySelectorAll('.nav .nav-item[data-tab]').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        if (btn.classList.contains('has-children')) {
-          var ch = btn.parentElement.querySelector('.nav-children');
-          if (ch) {
-            ch.classList.toggle('hidden');
-            var chev = btn.querySelector('.chev');
-            if (chev) chev.classList.toggle('open');
-          }
-        }
         switchTab(btn.getAttribute('data-tab'));
-        if (btn.hasAttribute('data-ap-section')) {
-          var el = document.getElementById('ap-' + btn.getAttribute('data-ap-section'));
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
       });
     });
 
@@ -813,8 +855,16 @@
 
     // ===== Command palette (Ctrl+K) =====
     var CMD_ITEMS = [
-      { id: 'tab-apariencia', label: 'nav_apariencia', icon: 'settings' },
+      { id: 'tab-ap-colores', label: 'nav_ap_colores', icon: 'settings' },
+      { id: 'tab-ap-tipografia', label: 'nav_ap_tipografia', icon: 'settings' },
+      { id: 'tab-ap-marca', label: 'nav_ap_marca', icon: 'settings' },
       { id: 'tab-tienda', label: 'nav_tienda', icon: 'settings' },
+      { id: 'tab-hero-banner', label: 'nav_hero_banner', icon: 'settings' },
+      { id: 'tab-contenido', label: 'nav_contenido', icon: 'settings' },
+      { id: 'tab-subir', label: 'nav_subir', icon: 'download' },
+      { id: 'tab-productos', label: 'nav_productos', icon: 'package' },
+      { id: 'tab-categorias', label: 'nav_categorias', icon: 'folder' },
+      { id: 'tab-plantillas', label: 'nav_plantillas', icon: 'ruler' },
       { id: 'tab-subir', label: 'nav_subir', icon: 'download' },
       { id: 'tab-productos', label: 'nav_productos', icon: 'package' },
       { id: 'tab-categorias', label: 'nav_categorias', icon: 'folder' },
@@ -859,7 +909,7 @@
     document.getElementById('btn-logout').addEventListener('click', doLogout);
     document.getElementById('btn-ver-tienda').addEventListener('click', function () { window.open('./tienda.html', '_blank'); });
 
-    // ===== Guardar Apariencia =====
+    // ===== Merge settings helper =====
     function mergeSettings(partial) {
       var merged = JSON.parse(JSON.stringify(_settings || {}));
       Object.keys(partial).forEach(function (k) {
@@ -869,16 +919,48 @@
       });
       return merged;
     }
-    document.getElementById('btn-save-theme').addEventListener('click', function () {
+
+    // ===== Guardar Colores =====
+    document.getElementById('btn-save-colores').addEventListener('click', function () {
       var theme = {
         primary: document.getElementById('theme-primary').value,
         accent: document.getElementById('theme-accent').value,
         background: document.getElementById('theme-background').value,
         foreground: document.getElementById('theme-foreground').value,
         secondary: document.getElementById('theme-secondary').value,
-        muted: document.getElementById('theme-muted').value,
+        muted: document.getElementById('theme-muted').value
+      };
+      var merged = mergeSettings({ theme: theme });
+      SBHelper.saveSettings(merged).then(function () {
+        _settings = merged;
+        _settingsBaseline = JSON.parse(JSON.stringify(merged));
+        document.getElementById('status-colores').textContent = t('st_saved');
+        document.getElementById('status-colores').className = 'status-line ok';
+        toast(t('st_saved'), 'success');
+        clearUnsaved();
+      }).catch(function () { document.getElementById('status-colores').textContent = t('st_error'); });
+    });
+
+    // ===== Guardar Tipografía =====
+    document.getElementById('btn-save-tipografia').addEventListener('click', function () {
+      var theme = {
         radius: parseInt(document.getElementById('theme-radius').value, 10),
-        fontHeading: document.getElementById('theme-fontheading').value,
+        fontHeading: document.getElementById('theme-fontheading').value
+      };
+      var merged = mergeSettings({ theme: theme });
+      SBHelper.saveSettings(merged).then(function () {
+        _settings = merged;
+        _settingsBaseline = JSON.parse(JSON.stringify(merged));
+        document.getElementById('status-tipografia').textContent = t('st_saved');
+        document.getElementById('status-tipografia').className = 'status-line ok';
+        toast(t('st_saved'), 'success');
+        clearUnsaved();
+      }).catch(function () { document.getElementById('status-tipografia').textContent = t('st_error'); });
+    });
+
+    // ===== Guardar Marca =====
+    document.getElementById('btn-save-marca').addEventListener('click', function () {
+      var theme = {
         backgroundGradient: document.getElementById('theme-gradient-toggle').checked,
         gradientColor: document.getElementById('theme-gradient-color').value
       };
@@ -889,10 +971,12 @@
       var merged = mergeSettings({ theme: theme, store: store });
       SBHelper.saveSettings(merged).then(function () {
         _settings = merged;
-        document.getElementById('theme-status').textContent = t('st_saved');
-        document.getElementById('theme-status').className = 'status-line ok';
+        _settingsBaseline = JSON.parse(JSON.stringify(merged));
+        document.getElementById('status-marca').textContent = t('st_saved');
+        document.getElementById('status-marca').className = 'status-line ok';
         toast(t('st_saved'), 'success');
-      }).catch(function () { document.getElementById('theme-status').textContent = t('st_error'); });
+        clearUnsaved();
+      }).catch(function () { document.getElementById('status-marca').textContent = t('st_error'); });
     });
 
     // ===== Guardar Tienda =====
@@ -923,13 +1007,15 @@
         cardShadow: document.getElementById('theme-cardshadow').value,
         fontHeading: document.getElementById('theme-fontheading').value
       };
-      var merged = mergeSettings({ store: store, landing: landing, theme: theme });
-      SBHelper.saveSettings(merged).then(function () {
-        _settings = merged;
-        document.getElementById('store-status').textContent = t('st_saved');
-        document.getElementById('store-status').className = 'status-line ok';
-        toast(t('st_saved'), 'success');
-      }).catch(function () { document.getElementById('store-status').textContent = t('st_error'); });
+var merged = mergeSettings({ store: store, landing: landing, theme: theme });
+SBHelper.saveSettings(merged).then(function () {
+          _settings = merged;
+          _settingsBaseline = JSON.parse(JSON.stringify(merged));
+          document.getElementById('store-status').textContent = t('st_saved');
+          document.getElementById('store-status').className = 'status-line ok';
+         toast(t('st_saved'), 'success');
+         clearUnsaved();
+       }).catch(function () { document.getElementById('store-status').textContent = t('st_error'); });
     });
 
     // ===== Subir logo =====
@@ -980,6 +1066,7 @@
       SBHelper.getSettings().then(function (res) {
         if (!res) return;
         _settings = res;
+        _settingsBaseline = JSON.parse(JSON.stringify(res));
         var th = res.theme || {}, s = res.store || {}, l = res.landing || {}, sp = res.splash || {};
         function sv(id, v) { var el = document.getElementById(id); if (el && v != null) el.value = v; }
         sv('theme-primary', th.primary); sv('theme-accent', th.accent); sv('theme-background', th.background);
@@ -1017,24 +1104,41 @@
         if (window.ColorPicker) ColorPicker.syncAll();
       });
     }
+    function markUnsaved() {
+      var activePane = document.querySelector('.pane:not(.hidden)');
+      if (!activePane) return;
+      var tabId = activePane.id;
+      var navBtn = document.querySelector('.nav-item[data-tab="' + tabId + '"]');
+      if (!navBtn || navBtn.querySelector('.unsaved-dot')) return;
+      var dot = document.createElement('span');
+      dot.className = 'unsaved-dot';
+      navBtn.appendChild(dot);
+    }
+    function clearUnsaved() {
+      document.querySelectorAll('.unsaved-dot').forEach(function (d) { d.remove(); });
+    }
+    document.addEventListener('input', function (e) {
+      if (e.target.closest('.pane:not(.hidden)')) markUnsaved();
+    });
+    document.addEventListener('change', function (e) {
+      if (e.target.closest('.pane:not(.hidden)')) markUnsaved();
+    });
 
     // ===== Fuentes + Reseñas =====
     var FONTS = ['Plus Jakarta Sans', 'Inter', 'Poppins', 'Montserrat', 'Roboto', 'Open Sans', 'Lato', 'Playfair Display', 'Cinzel', 'Dosis', 'Jost', 'Nunito Sans', 'Oswald', 'Quicksand', 'Raleway', 'Roboto Condensed', 'Source Serif 4', 'Noto Serif Dives Akuru'];
     var HERO_FONTS = ['Cinzel', 'Playfair Display', 'Dosis', 'Jost', 'Nunito Sans', 'Oswald', 'Quicksand', 'Raleway', 'Roboto Condensed', 'Source Serif 4', 'Plus Jakarta Sans', 'Inter', 'Poppins', 'Montserrat', 'Roboto', 'Open Sans', 'Lato', 'Noto Serif Dives Akuru'];
-    function renderFontOptions() {
+function renderFontOptions() {
       var cur = document.getElementById('theme-fontheading').value || 'Plus Jakarta Sans';
-      ['font-options-adv', 'font-options-basic'].forEach(function (id) {
-        var box = document.getElementById(id);
-        if (!box) return;
-        box.innerHTML = FONTS.map(function (f) {
-          return '<button type="button" class="chip font-chip' + (f === cur ? ' active' : '') + '" data-font="' + f + '" style="font-family:\'' + f + '\',sans-serif">' + f + '</button>';
-        }).join('');
-        box.querySelectorAll('[data-font]').forEach(function (b) {
-          b.addEventListener('click', function () {
-            document.getElementById('theme-fontheading').value = b.getAttribute('data-font');
-renderFontOptions();
-    renderHeroFontOptions();
-          });
+      var box = document.getElementById('font-options-adv');
+      if (!box) return;
+      box.innerHTML = FONTS.map(function (f) {
+        return '<button type="button" class="chip font-chip' + (f === cur ? ' active' : '') + '" data-font="' + f + '" style="font-family:\'' + f + '\',sans-serif">' + f + '</button>';
+      }).join('');
+      box.querySelectorAll('[data-font]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.getElementById('theme-fontheading').value = b.getAttribute('data-font');
+          renderFontOptions();
+          renderHeroFontOptions();
         });
       });
     }
@@ -1128,15 +1232,17 @@ renderFontOptions();
         toast(t('st_saved'), 'success');
       }).catch(function () { toast(t('st_error'), 'error'); });
     });
-    document.getElementById('btn-save-reviews').addEventListener('click', function () {
-      var merged = mergeSettings({ reviews: _reviews });
-      SBHelper.saveSettings(merged).then(function () {
-        _settings = merged;
-        document.getElementById('reviews-status').textContent = t('st_saved');
-        document.getElementById('reviews-status').className = 'status-line ok';
-        toast(t('st_saved'), 'success');
-      }).catch(function () { document.getElementById('reviews-status').textContent = t('st_error'); });
-    });
+document.getElementById('btn-save-reviews').addEventListener('click', function () {
+       var merged = mergeSettings({ reviews: _reviews });
+       SBHelper.saveSettings(merged).then(function () {
+         _settings = merged;
+         _settingsBaseline = JSON.parse(JSON.stringify(merged));
+         document.getElementById('reviews-status').textContent = t('st_saved');
+         document.getElementById('reviews-status').className = 'status-line ok';
+         toast(t('st_saved'), 'success');
+         clearUnsaved();
+       }).catch(function () { document.getElementById('reviews-status').textContent = t('st_error'); });
+     });
 
     // ===== Hero de bienvenida =====
     var DEFAULT_HERO = {
@@ -1246,13 +1352,15 @@ renderFontOptions();
         content: content,
         gallery: { images: images, active_dot_index: Number(document.getElementById('wh-dotsactive').value) || 0, total_dots: Number(document.getElementById('wh-dotstotal').value) || 0 }
       };
-      var merged = mergeSettings({ heroConfig: heroConfig });
-      SBHelper.saveSettings(merged).then(function () {
-        _settings = merged;
-        document.getElementById('hero-status').textContent = t('st_saved');
-        document.getElementById('hero-status').className = 'status-line ok';
-        toast(t('st_saved'), 'success');
-      }).catch(function () { document.getElementById('hero-status').textContent = t('st_error'); });
+var merged = mergeSettings({ heroConfig: heroConfig });
+       SBHelper.saveSettings(merged).then(function () {
+         _settings = merged;
+         _settingsBaseline = JSON.parse(JSON.stringify(merged));
+         document.getElementById('hero-status').textContent = t('st_saved');
+         document.getElementById('hero-status').className = 'status-line ok';
+         toast(t('st_saved'), 'success');
+         clearUnsaved();
+       }).catch(function () { document.getElementById('hero-status').textContent = t('st_error'); });
     });
 
     // ===== Categorías =====
@@ -2069,14 +2177,16 @@ _editingProduct = null;
       };
       var old = (_settings.splash || {}).logo;
       if (old) splash.logo = old;
-      var merged = mergeSettings({ splash: splash });
-      SBHelper.saveSettings(merged).then(function () {
-        _settings = merged;
-        document.getElementById('splash-status').textContent = t('cf_splash_done');
-        document.getElementById('splash-status').className = 'status-line ok';
-        toast(t('cf_splash_done'), 'success');
-      }).catch(function () { document.getElementById('splash-status').textContent = t('st_error'); });
-    });
+var merged = mergeSettings({ splash: splash });
+       SBHelper.saveSettings(merged).then(function () {
+         _settings = merged;
+         _settingsBaseline = JSON.parse(JSON.stringify(merged));
+         document.getElementById('splash-status').textContent = t('cf_splash_done');
+         document.getElementById('splash-status').className = 'status-line ok';
+         toast(t('cf_splash_done'), 'success');
+         clearUnsaved();
+       }).catch(function () { document.getElementById('splash-status').textContent = t('st_error'); });
+     });
 
     // ===== Lang =====
     document.getElementById('lang-toggle').addEventListener('click', function () {
