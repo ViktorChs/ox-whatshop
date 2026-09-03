@@ -309,152 +309,173 @@
              </div>
            </section>
 
-          <!-- ===== Tienda: Hero & Banner ===== -->
-          <section class="pane hidden" id="tab-hero-banner">
-            <h1 data-i18n="t_hero_banner">Hero & Banner</h1>
-            <p class="page-sub" data-i18n="t_hero_banner_sub">Hero de bienvenida y banner superior.</p>
-            <div class="panel"><h3 data-i18n="wh_panel">Hero de bienvenida</h3>
-              <p class="page-sub" style="margin-bottom:10px" data-i18n="wh_sub">Edita el hero de la portada: colores, textos e imágenes.</p>
-              <div class="grid-2">
-                <div class="field"><label data-i18n="wh_bg">Fondo</label><input type="color" id="wh-bg" value="#F8F6FA" /></div>
-                <div class="field"><label data-i18n="wh_primary">Color primario</label><input type="color" id="wh-primary" value="#251738" /></div>
-                <div class="field"><label data-i18n="wh_text1">Texto principal</label><input type="color" id="wh-text1" value="#1C1427" /></div>
-                <div class="field"><label data-i18n="wh_text2">Texto secundario</label><input type="color" id="wh-text2" value="#6E6877" /></div>
-                <div class="field"><label data-i18n="wh_btn_bg">Fondo del botón</label><input type="color" id="wh-btnbg" value="#221535" /></div>
-                <div class="field"><label data-i18n="wh_btn_color">Texto del botón</label><input type="color" id="wh-btncolor" value="#FFFFFF" /></div>
-                <div class="field" style="grid-column:1/-1"><label data-i18n="wh_font_title">Fuente del título</label><input type="hidden" id="wh-fonttitle" value="Cinzel, serif" /><div class="font-options" id="wh-fonttitle-options"></div></div>
-                <div class="field" style="grid-column:1/-1"><label data-i18n="wh_font_body">Fuente del cuerpo</label><input type="hidden" id="wh-fontbody" value="Inter, sans-serif" /><div class="font-options" id="wh-fontbody-options"></div></div>
-                <div class="field"><label data-i18n="wh_btn_radius">Radio del botón (px)</label><input type="number" id="wh-btnradius" value="24" min="0" max="60" /></div>
-                <div class="field"><label data-i18n="wh_badge">Texto de la insignia</label><input type="text" id="wh-badge" value="DESCUBRE" /></div>
-                <div class="field"><label data-i18n="wh_badge_icon">Icono de la insignia (URL)</label><input type="text" id="wh-badgeicon" placeholder="https://..." /></div>
-                <div class="field"><label data-i18n="wh_title">Título</label><textarea id="wh-title" rows="2">Tu Estilo&#10;Tu Historia</textarea></div>
-                <div class="field"><label data-i18n="wh_subtitle">Subtítulo</label><input type="text" id="wh-subtitle" value="Moda seleccionada para cada uno de ti." /></div>
-                <div class="field"><label data-i18n="wh_btn_text">Texto del botón</label><input type="text" id="wh-btntext" value="Ir a la tienda" /></div>
-                <div class="field"><label data-i18n="wh_btn_link">Enlace del botón</label><input type="text" id="wh-btnlink" value="#catalogo" placeholder="#catalogo o https://..." /></div>
-                <div class="field"><label data-i18n="wh_dots_total">Total de puntos</label><input type="number" id="wh-dotstotal" value="3" min="0" max="10" /></div>
-                <div class="field"><label data-i18n="wh_dots_active">Punto activo</label><input type="number" id="wh-dotsactive" value="0" min="0" max="9" /></div>
-              </div>
-              <div class="toggle-row"><span data-i18n="wh_btn_arrow">Mostrar flecha en el botón</span><label class="switch"><input type="checkbox" id="wh-btnarrow" checked /><span class="slider"></span></label></div>
-              <h4 style="margin:14px 0 8px" data-i18n="wh_gallery">Galería (tarjetas de imagen)</h4>
-              <div id="wh-gallery" style="display:flex;flex-direction:column;gap:10px"></div>
-              <div class="btn-row" style="margin-top:10px">
-                <button class="btn primary" id="btn-add-wh-img" data-i18n="wh_add_img">Agregar imagen</button>
-                <button class="btn green" id="btn-save-hero" data-i18n="wh_save">Guardar hero</button>
-              </div>
-              <p class="status-line" id="hero-status"></p>
-            </div>
-            <div class="panel"><h3 data-i18n="ti_banner">Banner superior</h3>
-              <p class="page-sub" style="margin-bottom:10px" data-i18n="ti_banner_sub">Franja a todo el ancho bajo el menú, con el logo y el nombre.</p>
-              <div class="grid-2">
-                <div class="field"><label data-i18n="ti_banner_title">Nombre del banner</label><input type="text" id="banner-name" placeholder="WhatShop" /></div>
-                <div class="field"><label data-i18n="ti_banner_bg">Color de fondo</label><input type="color" id="banner-bg" value="#E8ECF0" /></div>
-              </div>
-              <div class="field"><label data-i18n="ti_banner_image">Imagen/logo del banner</label><input type="file" id="banner-image" accept="image/*" />
-                <div class="cat-preview"><img id="banner-image-preview" class="hidden" alt="" /></div>
-                <input type="hidden" id="banner-image-data" />
-              </div>
-            </div>
-          </section>
+<!-- ===== Tienda: Hero & Banner ===== -->
+           <section class="pane hidden" id="tab-hero-banner">
+             <h1 data-i18n="t_hero_banner">Hero & Banner</h1>
+             <p class="page-sub" data-i18n="t_hero_banner_sub">Hero de bienvenida y banner superior.</p>
+             <details class="section-collapse" open>
+               <summary data-i18n="wh_panel">Hero de bienvenida</summary>
+               <div class="panel"><p class="page-sub" style="margin-bottom:10px" data-i18n="wh_sub">Edita el hero de la portada: colores, textos e imágenes.</p>
+                 <div class="grid-2">
+                   <div class="field"><label data-i18n="wh_bg">Fondo</label><input type="color" id="wh-bg" value="#F8F6FA" /></div>
+                   <div class="field"><label data-i18n="wh_primary">Color primario</label><input type="color" id="wh-primary" value="#251738" /></div>
+                   <div class="field"><label data-i18n="wh_text1">Texto principal</label><input type="color" id="wh-text1" value="#1C1427" /></div>
+                   <div class="field"><label data-i18n="wh_text2">Texto secundario</label><input type="color" id="wh-text2" value="#6E6877" /></div>
+                   <div class="field"><label data-i18n="wh_btn_bg">Fondo del botón</label><input type="color" id="wh-btnbg" value="#221535" /></div>
+                   <div class="field"><label data-i18n="wh_btn_color">Texto del botón</label><input type="color" id="wh-btncolor" value="#FFFFFF" /></div>
+                   <div class="field" style="grid-column:1/-1"><label data-i18n="wh_font_title">Fuente del título</label><input type="hidden" id="wh-fonttitle" value="Cinzel, serif" /><div class="font-options" id="wh-fonttitle-options"></div></div>
+                   <div class="field" style="grid-column:1/-1"><label data-i18n="wh_font_body">Fuente del cuerpo</label><input type="hidden" id="wh-fontbody" value="Inter, sans-serif" /><div class="font-options" id="wh-fontbody-options"></div></div>
+                   <div class="field"><label data-i18n="wh_btn_radius">Radio del botón (px)</label><input type="number" id="wh-btnradius" value="24" min="0" max="60" /></div>
+                   <div class="field"><label data-i18n="wh_badge">Texto de la insignia</label><input type="text" id="wh-badge" value="DESCUBRE" /></div>
+                   <div class="field"><label data-i18n="wh_badge_icon">Icono de la insignia (URL)</label><input type="text" id="wh-badgeicon" placeholder="https://..." /></div>
+                   <div class="field"><label data-i18n="wh_title">Título</label><textarea id="wh-title" rows="2">Tu Estilo&#10;Tu Historia</textarea></div>
+                   <div class="field"><label data-i18n="wh_subtitle">Subtítulo</label><input type="text" id="wh-subtitle" value="Moda seleccionada para cada uno de ti." /></div>
+                   <div class="field"><label data-i18n="wh_btn_text">Texto del botón</label><input type="text" id="wh-btntext" value="Ir a la tienda" /></div>
+                   <div class="field"><label data-i18n="wh_btn_link">Enlace del botón</label><input type="text" id="wh-btnlink" value="#catalogo" placeholder="#catalogo o https://..." /></div>
+                   <div class="field"><label data-i18n="wh_dots_total">Total de puntos</label><input type="number" id="wh-dotstotal" value="3" min="0" max="10" /></div>
+                   <div class="field"><label data-i18n="wh_dots_active">Punto activo</label><input type="number" id="wh-dotsactive" value="0" min="0" max="9" /></div>
+                 </div>
+                 <div class="toggle-row"><span data-i18n="wh_btn_arrow">Mostrar flecha en el botón</span><label class="switch"><input type="checkbox" id="wh-btnarrow" checked /><span class="slider"></span></label></div>
+               </div>
+             </details>
+             <details class="section-collapse" open>
+               <summary data-i18n="wh_gallery">Galería (tarjetas de imagen)</summary>
+               <div class="panel"><div id="wh-gallery" style="display:flex;flex-direction:column;gap:10px"></div>
+                 <div class="btn-row" style="margin-top:10px">
+                   <button class="btn primary" id="btn-add-wh-img" data-i18n="wh_add_img">Agregar imagen</button>
+                 </div>
+               </div>
+             </details>
+             <details class="section-collapse" open>
+               <summary data-i18n="ti_banner">Banner superior</summary>
+               <div class="panel"><p class="page-sub" style="margin-bottom:10px" data-i18n="ti_banner_sub">Franja a todo el ancho bajo el menú, con el logo y el nombre.</p>
+                 <div class="grid-2">
+                   <div class="field"><label data-i18n="ti_banner_title">Nombre del banner</label><input type="text" id="banner-name" placeholder="WhatShop" /></div>
+                   <div class="field"><label data-i18n="ti_banner_bg">Color de fondo</label><input type="color" id="banner-bg" value="#E8ECF0" /></div>
+                 </div>
+                 <div class="field"><label data-i18n="ti_banner_image">Imagen/logo del banner</label><input type="file" id="banner-image" accept="image/*" />
+                   <div class="cat-preview"><img id="banner-image-preview" class="hidden" alt="" /></div>
+                   <input type="hidden" id="banner-image-data" />
+                 </div>
+               </div>
+             </details>
+             <div class="sticky-bar">
+               <span class="status-msg" id="hero-status"></span>
+               <div class="btn-group"><button class="btn green" id="btn-save-hero" data-i18n="wh_save">Guardar hero</button></div>
+             </div>
+           </section>
 
-          <!-- ===== Tienda: Contenido ===== -->
-          <section class="pane hidden" id="tab-contenido">
-            <h1 data-i18n="t_contenido">Contenido</h1>
-            <p class="page-sub" data-i18n="t_contenido_sub">Reseñas, mensaje de WhatsApp y logo de la marca.</p>
-            <div class="panel"><h3 data-i18n="rev_title">Reseñas de clientes</h3>
-              <p class="page-sub" style="margin-bottom:10px" data-i18n="rev_sub">Imagen, nombre y texto de cada reseña. Se muestran como carrusel en la tienda.</p>
-              <div class="grid-2">
-                <div class="field"><label data-i18n="rev_name">Nombre</label><input type="text" id="review-name" placeholder="María" /></div>
-                <div class="field"><label data-i18n="rev_image">Imagen del cliente</label><input type="file" id="review-image" accept="image/*" />
-                  <div class="cat-preview"><img id="review-image-preview" class="hidden" alt="" /></div>
-                  <input type="hidden" id="review-image-data" />
-                </div>
-              </div>
-              <div class="field"><label data-i18n="rev_text">Texto de la reseña</label><textarea id="review-text" rows="3" placeholder="¡Excelente producto!..."></textarea></div>
-              <input type="hidden" id="review-index" value="" />
-              <div class="btn-row">
-                <button class="btn primary" id="btn-add-review" data-i18n="rev_add">Agregar reseña</button>
-                <button class="btn ghost hidden" id="btn-cancel-review" data-i18n="rev_cancel">Cancelar</button>
-              </div>
-              <div class="list" id="reviews-list" style="margin-top:12px"></div>
-              <button class="btn green" id="btn-save-reviews" style="margin-top:12px" data-i18n="rev_save">Guardar reseñas</button>
-              <p class="status-line" id="reviews-status"></p>
-            </div>
-            <div class="panel"><h3 data-i18n="ti_msg_wa">Mensaje de WhatsApp</h3>
-              <p class="page-sub" style="margin-bottom:10px" data-i18n="ti_msg_wa_sub">Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}</p>
-              <div class="btn-row" id="msg-var-buttons" style="margin-bottom:10px" title="Pulsa para insertar">
-                <button type="button" class="btn ghost small" data-var="{storeName}">{storeName}</button>
-                <button type="button" class="btn ghost small" data-var="{name}">{name}</button>
-                <button type="button" class="btn ghost small" data-var="{phone}">{phone}</button>
-                <button type="button" class="btn ghost small" data-var="{paymentMethod}">{paymentMethod}</button>
-                <button type="button" class="btn ghost small" data-var="{noteText}">{noteText}</button>
-                <button type="button" class="btn ghost small" data-var="{items}">{items}</button>
-                <button type="button" class="btn ghost small" data-var="{total}">{total}</button>
-              </div>
-              <div class="field"><textarea id="store-msg-template" rows="6"></textarea></div>
-            </div>
-            <div class="panel"><h3 data-i18n="ti_logo">Logo de la marca</h3>
-              <div class="field"><label data-i18n="ti_logo_upload">Subir logo (PNG, JPG, WebP)</label><input type="file" id="store-logo-file" accept="image/*" /></div>
-              <p class="status-line" id="logo-status"></p>
-            </div>
-          </section>
+<!-- ===== Tienda: Contenido ===== -->
+           <section class="pane hidden" id="tab-contenido">
+             <h1 data-i18n="t_contenido">Contenido</h1>
+             <p class="page-sub" data-i18n="t_contenido_sub">Reseñas, mensaje de WhatsApp y logo de la marca.</p>
+             <details class="section-collapse" open>
+               <summary data-i18n="rev_title">Reseñas de clientes</summary>
+               <div class="panel"><p class="page-sub" style="margin-bottom:10px" data-i18n="rev_sub">Imagen, nombre y texto de cada reseña. Se muestran como carrusel en la tienda.</p>
+                 <div class="grid-2">
+                   <div class="field"><label data-i18n="rev_name">Nombre</label><input type="text" id="review-name" placeholder="María" /></div>
+                   <div class="field"><label data-i18n="rev_image">Imagen del cliente</label><input type="file" id="review-image" accept="image/*" />
+                     <div class="cat-preview"><img id="review-image-preview" class="hidden" alt="" /></div>
+                     <input type="hidden" id="review-image-data" />
+                   </div>
+                 </div>
+                 <div class="field"><label data-i18n="rev_text">Texto de la reseña</label><textarea id="review-text" rows="3" placeholder="¡Excelente producto!..."></textarea></div>
+                 <input type="hidden" id="review-index" value="" />
+                 <div class="btn-row">
+                   <button class="btn primary" id="btn-add-review" data-i18n="rev_add">Agregar reseña</button>
+                   <button class="btn ghost hidden" id="btn-cancel-review" data-i18n="rev_cancel">Cancelar</button>
+                 </div>
+                 <div class="list" id="reviews-list" style="margin-top:12px"></div>
+               </div>
+             </details>
+             <details class="section-collapse" open>
+               <summary data-i18n="ti_msg_wa">Mensaje de WhatsApp</summary>
+               <div class="panel"><p class="page-sub" style="margin-bottom:10px" data-i18n="ti_msg_wa_sub">Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}</p>
+                 <div class="btn-row" id="msg-var-buttons" style="margin-bottom:10px" title="Pulsa para insertar">
+                   <button type="button" class="btn ghost small" data-var="{storeName}">{storeName}</button>
+                   <button type="button" class="btn ghost small" data-var="{name}">{name}</button>
+                   <button type="button" class="btn ghost small" data-var="{phone}">{phone}</button>
+                   <button type="button" class="btn ghost small" data-var="{paymentMethod}">{paymentMethod}</button>
+                   <button type="button" class="btn ghost small" data-var="{noteText}">{noteText}</button>
+                   <button type="button" class="btn ghost small" data-var="{items}">{items}</button>
+                   <button type="button" class="btn ghost small" data-var="{total}">{total}</button>
+                 </div>
+                 <div class="field"><textarea id="store-msg-template" rows="6"></textarea></div>
+               </div>
+             </details>
+             <details class="section-collapse" open>
+               <summary data-i18n="ti_logo">Logo de la marca</summary>
+               <div class="panel"><div class="field"><label data-i18n="ti_logo_upload">Subir logo (PNG, JPG, WebP)</label><input type="file" id="store-logo-file" accept="image/*" /></div>
+                 <p class="status-line" id="logo-status"></p>
+               </div>
+             </details>
+             <div class="sticky-bar">
+               <span class="status-msg" id="reviews-status"></span>
+               <div class="btn-group"><button class="btn green" id="btn-save-reviews" data-i18n="rev_save">Guardar reseñas</button></div>
+             </div>
+           </section>
 
-          <!-- ===== Subir producto ===== -->
-          <section class="pane hidden" id="tab-subir">
-            <h1 data-i18n="t_subir">Subir producto</h1>
-            <p class="page-sub" data-i18n="t_subir_sub">Crea y sube un producto nuevo con sus imágenes, variantes y stock.</p>
-
-            <div class="panel" id="prod-form-panel">
-              <h3><span id="prod-form-title" data-i18n="pr_new">Nuevo producto</span> <span class="status-line" id="prod-form-id" style="margin:0"></span></h3>
-              <div class="grid-2">
-                <div class="field"><label data-i18n="pr_name">Nombre</label><input type="text" id="new-product-name" /></div>
-                <div class="field"><label data-i18n="pr_cat">Categoría</label><select id="new-product-category"><option value="">Sin categoría</option></select></div>
-                <div class="field"><label data-i18n="pr_subcat">Subcategoría</label><select id="new-product-subcategory"><option value="">Sin subcategoría</option></select></div>
-                <div class="field"><label data-i18n="pr_price">Precio</label><input type="number" id="new-product-price" value="0" min="0" step="0.01" /></div>
-                <div class="field"><label data-i18n="pr_orig">Precio original (opcional, tachado)</label><input type="number" id="new-product-original" min="0" step="0.01" placeholder="" /></div>
-                <div class="field"><label data-i18n="pr_stock">Stock base</label><input type="number" id="new-product-stock" value="1" min="0" /></div>
-                <div class="field"><label data-i18n="pr_featured">Destacado</label>
-                  <div class="toggle-row"><span data-i18n="pr_featured_on">Mostrar en Populares</span><label class="switch"><input type="checkbox" id="new-product-featured" /><span class="slider"></span></label></div>
-                </div>
-                <div class="field" style="grid-column:1/-1"><label data-i18n="pr_desc">Descripción</label><input type="text" id="new-product-description" /></div>
-              </div>
-
-              <div class="field" style="margin-top:6px"><label data-i18n="pr_images">Imágenes del producto (múltiples)</label><input type="file" id="new-product-images" accept="image/*" multiple />
-                <div style="margin-top:8px" data-mode="avanzado">
-                  <input type="file" id="product-camera" accept="image/*" capture="environment" class="hidden" />
-                  <button type="button" class="btn ghost small" id="btn-take-photo">&#128247; <span data-i18n="take_photo">Tomar foto</span></button>
-                </div>
-              </div>
-              <div class="gallery" id="product-gallery"></div>
-
-              <div class="panel" style="margin-top:16px;background:var(--bg-soft)" data-mode="avanzado">
-                <h3 data-i18n="pr_variants">Variantes (color × talla)</h3>
-                <div class="variant-toolbar">
-                  <div class="field" style="flex:1;min-width:200px"><label data-i18n="pr_sizes_src">Tallas: plantilla o lista libre</label>
-                    <select id="variant-template-select"><option value="">Lista libre</option></select>
-                  </div>
-                  <div class="field" style="flex:1;min-width:160px"><label data-i18n="pr_sizes_free">Tallas libres (separadas por coma)</label><input type="text" id="variant-sizes-free" placeholder="S, M, L, XL" /></div>
-                  <button class="btn ghost small" id="btn-apply-sizes" data-i18n="pr_apply_sizes">Aplicar tallas</button>
-                </div>
-                <div class="grid-2" style="margin-bottom:6px">
-                  <div class="field" style="margin-bottom:0"><label data-i18n="pr_color_name">Color</label><input type="text" id="variant-color-name" placeholder="Negro" /></div>
-                  <div class="field" style="margin-bottom:0"><label data-i18n="pr_color_hex">Hex</label>
-                    <div style="display:flex;gap:8px;align-items:center">
-                      <input type="color" id="variant-color-hex" value="#000000" style="width:64px;height:42px" />
-                      <button class="btn small" id="btn-add-color" data-i18n="pr_add_color">Agregar color</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="color-list" id="color-list"></div>
-                <div class="combo-grid" id="combo-grid"></div>
-              </div>
-
-              <div class="btn-row" style="margin-top:14px">
-                <button class="btn green" id="btn-save-product" data-i18n="pr_save">Guardar producto</button>
-                <button class="btn ghost hidden" id="btn-cancel-product" data-i18n="pr_cancel">Cancelar edición</button>
-              </div>
-              <p class="status-line" id="product-status"></p>
-            </div>
-          </section>
+<!-- ===== Subir producto ===== -->
+           <section class="pane hidden" id="tab-subir">
+             <h1 data-i18n="t_subir">Subir producto</h1>
+             <p class="page-sub" data-i18n="t_subir_sub">Crea y sube un producto nuevo con sus imágenes, variantes y stock.</p>
+             <details class="section-collapse" open>
+               <summary data-i18n="pr_new">Nuevo producto</summary>
+               <div class="panel" id="prod-form-panel">
+                 <h3><span id="prod-form-title" data-i18n="pr_new">Nuevo producto</span> <span class="status-line" id="prod-form-id" style="margin:0"></span></h3>
+                 <div class="grid-2">
+                   <div class="field"><label data-i18n="pr_name">Nombre</label><input type="text" id="new-product-name" /></div>
+                   <div class="field"><label data-i18n="pr_cat">Categoría</label><select id="new-product-category"><option value="">Sin categoría</option></select></div>
+                   <div class="field"><label data-i18n="pr_subcat">Subcategoría</label><select id="new-product-subcategory"><option value="">Sin subcategoría</option></select></div>
+                   <div class="field"><label data-i18n="pr_price">Precio</label><input type="number" id="new-product-price" value="0" min="0" step="0.01" /></div>
+                   <div class="field"><label data-i18n="pr_orig">Precio original (opcional, tachado)</label><input type="number" id="new-product-original" min="0" step="0.01" placeholder="" /></div>
+                   <div class="field"><label data-i18n="pr_stock">Stock base</label><input type="number" id="new-product-stock" value="1" min="0" /></div>
+                   <div class="field"><label data-i18n="pr_featured">Destacado</label>
+                     <div class="toggle-row"><span data-i18n="pr_featured_on">Mostrar en Populares</span><label class="switch"><input type="checkbox" id="new-product-featured" /><span class="slider"></span></label></div>
+                   </div>
+                   <div class="field" style="grid-column:1/-1"><label data-i18n="pr_desc">Descripción</label><input type="text" id="new-product-description" /></div>
+                 </div>
+                 <div class="field" style="margin-top:6px"><label data-i18n="pr_images">Imágenes del producto (múltiples)</label><input type="file" id="new-product-images" accept="image/*" multiple />
+                   <div style="margin-top:8px" data-mode="avanzado">
+                     <input type="file" id="product-camera" accept="image/*" capture="environment" class="hidden" />
+                     <button type="button" class="btn ghost small" id="btn-take-photo">&#128247; <span data-i18n="take_photo">Tomar foto</span></button>
+                   </div>
+                 </div>
+                 <div class="gallery" id="product-gallery"></div>
+               </div>
+             </details>
+             <details class="section-collapse" open>
+               <summary data-i18n="pr_variants">Variantes (color × talla)</summary>
+               <div class="panel" style="margin-top:16px;background:var(--bg-soft)" data-mode="avanzado">
+                 <h3 data-i18n="pr_variants">Variantes (color × talla)</h3>
+                 <div class="variant-toolbar">
+                   <div class="field" style="flex:1;min-width:200px"><label data-i18n="pr_sizes_src">Tallas: plantilla o lista libre</label>
+                     <select id="variant-template-select"><option value="">Lista libre</option></select>
+                   </div>
+                   <div class="field" style="flex:1;min-width:160px"><label data-i18n="pr_sizes_free">Tallas libres (separadas por coma)</label><input type="text" id="variant-sizes-free" placeholder="S, M, L, XL" /></div>
+                   <button class="btn ghost small" id="btn-apply-sizes" data-i18n="pr_apply_sizes">Aplicar tallas</button>
+                 </div>
+                 <div class="grid-2" style="margin-bottom:6px">
+                   <div class="field" style="margin-bottom:0"><label data-i18n="pr_color_name">Color</label><input type="text" id="variant-color-name" placeholder="Negro" /></div>
+                   <div class="field" style="margin-bottom:0"><label data-i18n="pr_color_hex">Hex</label>
+                     <div style="display:flex;gap:8px;align-items:center">
+                       <input type="color" id="variant-color-hex" value="#000000" style="width:64px;height:42px" />
+                       <button class="btn small" id="btn-add-color" data-i18n="pr_add_color">Agregar color</button>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="color-list" id="color-list"></div>
+                 <div class="combo-grid" id="combo-grid"></div>
+               </div>
+             </details>
+             <div class="sticky-bar">
+               <span class="status-msg" id="product-status"></span>
+               <div class="btn-group">
+                 <button class="btn green" id="btn-save-product" data-i18n="pr_save">Guardar producto</button>
+                 <button class="btn ghost hidden" id="btn-cancel-product" data-i18n="pr_cancel">Cancelar edición</button>
+               </div>
+             </div>
+           </section>
 
           <!-- ===== Productos (gestion) ===== -->
           <section class="pane hidden" id="tab-productos">
@@ -469,59 +490,64 @@
             <div class="list" id="products-list"></div>
           </section>
 
-          <!-- ===== Categorías ===== -->
-          <section class="pane hidden" id="tab-categorias">
-            <h1 data-i18n="t_categorias">Categorías</h1>
-            <p class="page-sub" data-i18n="t_categorias_sub">Crea y ordena las categorías de tu catálogo.</p>
-            <div class="panel" id="cat-form-panel"><h3><span id="cat-form-title" data-i18n="ca_new">Nueva categoría</span> <span class="status-line" id="cat-form-id" style="margin:0"></span></h3>
-              <div class="grid-2">
-                <div class="field"><label data-i18n="ca_name">Nombre</label><input type="text" id="new-category-name" /></div>
-                <div class="field"><label data-i18n="ca_pos">Posición (auto al crear, editable)</label><input type="number" id="new-category-position" value="0" /></div>
-                <div class="field"><label data-i18n="ca_color">Color del recuadro</label><input type="color" id="new-category-color" value="#E8ECF0" /></div>
-              </div>
-              <div class="field"><label data-i18n="ca_image">Imagen de la categoría</label><input type="file" id="new-category-image" accept="image/*" />
-                <div class="cat-preview"><img id="new-category-image-preview" class="hidden" alt="" /></div>
-                <input type="hidden" id="new-category-image-data" />
-              </div>
-              <div class="field"><label data-i18n="ca_icon">Icono del círculo</label>
-                <input type="hidden" id="new-category-icon" value="" />
-                <div class="cat-icon-options" id="cat-icon-options"></div>
-              </div>
-              <div class="panel" style="margin-top:12px;background:var(--bg-soft)">
-                <h3 data-i18n="ca_border">Borde</h3>
-                <div class="toggle-row"><span data-i18n="ca_border_on">Activar borde</span><label class="switch"><input type="checkbox" id="cat-border-toggle" /><span class="slider"></span></label></div>
-                <div class="grid-2" id="cat-border-options" style="margin-top:10px">
-                  <div class="field"><label data-i18n="ca_border_color">Color del borde</label><input type="color" id="cat-border-color" value="#171717" /></div>
-                  <div class="field"><label data-i18n="ca_border_side">Ubicación</label>
-                    <select id="cat-border-side">
-                      <option value="all" data-i18n="ca_bs_all">Todo el contorno</option>
-                      <option value="top" data-i18n="ca_bs_top">Solo arriba</option>
-                      <option value="bottom" data-i18n="ca_bs_bottom">Solo abajo</option>
-                      <option value="sides" data-i18n="ca_bs_sides">Solo lados</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="btn-row" style="margin-top:12px">
-                <button class="btn green" id="btn-save-category" data-i18n="ca_add">Guardar categoría</button>
-                <button class="btn ghost hidden" id="btn-cancel-category" data-i18n="ca_cancel">Cancelar</button>
-              </div>
-            </div>
-            <div class="panel">
-              <h3 data-i18n="sc_title">Subcategorías</h3>
-              <p class="page-sub" style="margin-bottom:10px" data-i18n="sc_sub">Agrega subcategorías a cada categoría (ej. Anillos > Casamiento).</p>
-              <div class="grid-2">
-                <div class="field"><label data-i18n="sc_cat">Categoría</label><select id="sub-category"></select></div>
-                <div class="field"><label data-i18n="sc_name">Nombre de la subcategoría</label><input type="text" id="subcategory-name" /></div>
-              </div>
-              <div class="btn-row" style="margin-top:10px">
-                <button class="btn primary" id="btn-add-subcategory" data-i18n="sc_add">Agregar subcategoría</button>
-                <button class="btn ghost hidden" id="btn-cancel-subcategory" data-i18n="sc_cancel">Cancelar</button>
-              </div>
-              <div class="list" id="subcategories-list" style="margin-top:12px"></div>
-            </div>
-            <div class="list" id="categories-list"></div>
-          </section>
+<!-- ===== Categorías ===== -->
+           <section class="pane hidden" id="tab-categorias">
+             <h1 data-i18n="t_categorias">Categorías</h1>
+             <p class="page-sub" data-i18n="t_categorias_sub">Crea y ordena las categorías de tu catálogo.</p>
+             <details class="section-collapse" open id="cat-form-panel">
+               <summary data-i18n="ca_new">Nueva categoría</summary>
+               <div class="panel"><h3><span id="cat-form-title" data-i18n="ca_new">Nueva categoría</span> <span class="status-line" id="cat-form-id" style="margin:0"></span></h3>
+                 <div class="grid-2">
+                   <div class="field"><label data-i18n="ca_name">Nombre</label><input type="text" id="new-category-name" /></div>
+                   <div class="field"><label data-i18n="ca_pos">Posición (auto al crear, editable)</label><input type="number" id="new-category-position" value="0" /></div>
+                   <div class="field"><label data-i18n="ca_color">Color del recuadro</label><input type="color" id="new-category-color" value="#E8ECF0" /></div>
+                 </div>
+                 <div class="field"><label data-i18n="ca_image">Imagen de la categoría</label><input type="file" id="new-category-image" accept="image/*" />
+                   <div class="cat-preview"><img id="new-category-image-preview" class="hidden" alt="" /></div>
+                   <input type="hidden" id="new-category-image-data" />
+                 </div>
+                 <div class="field"><label data-i18n="ca_icon">Icono del círculo</label>
+                   <input type="hidden" id="new-category-icon" value="" />
+                   <div class="cat-icon-options" id="cat-icon-options"></div>
+                 </div>
+                 <div class="panel" style="margin-top:12px;background:var(--bg-soft)">
+                   <h3 data-i18n="ca_border">Borde</h3>
+                   <div class="toggle-row"><span data-i18n="ca_border_on">Activar borde</span><label class="switch"><input type="checkbox" id="cat-border-toggle" /><span class="slider"></span></label></div>
+                   <div class="grid-2" id="cat-border-options" style="margin-top:10px">
+                     <div class="field"><label data-i18n="ca_border_color">Color del borde</label><input type="color" id="cat-border-color" value="#171717" /></div>
+                     <div class="field"><label data-i18n="ca_border_side">Ubicación</label>
+                       <select id="cat-border-side">
+                         <option value="all" data-i18n="ca_bs_all">Todo el contorno</option>
+                         <option value="top" data-i18n="ca_bs_top">Solo arriba</option>
+                         <option value="bottom" data-i18n="ca_bs_bottom">Solo abajo</option>
+                         <option value="sides" data-i18n="ca_bs_sides">Solo lados</option>
+                       </select>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="btn-row" style="margin-top:12px">
+                   <button class="btn green" id="btn-save-category" data-i18n="ca_add">Guardar categoría</button>
+                   <button class="btn ghost hidden" id="btn-cancel-category" data-i18n="ca_cancel">Cancelar</button>
+                 </div>
+               </div>
+             </details>
+             <details class="section-collapse" open>
+               <summary data-i18n="sc_title">Subcategorías</summary>
+               <div class="panel"><h3 data-i18n="sc_title">Subcategorías</h3>
+                 <p class="page-sub" style="margin-bottom:10px" data-i18n="sc_sub">Agrega subcategorías a cada categoría (ej. Anillos > Casamiento).</p>
+                 <div class="grid-2">
+                   <div class="field"><label data-i18n="sc_cat">Categoría</label><select id="sub-category"></select></div>
+                   <div class="field"><label data-i18n="sc_name">Nombre de la subcategoría</label><input type="text" id="subcategory-name" /></div>
+                 </div>
+                 <div class="btn-row" style="margin-top:10px">
+                   <button class="btn primary" id="btn-add-subcategory" data-i18n="sc_add">Agregar subcategoría</button>
+                   <button class="btn ghost hidden" id="btn-cancel-subcategory" data-i18n="sc_cancel">Cancelar</button>
+                 </div>
+                 <div class="list" id="subcategories-list" style="margin-top:12px"></div>
+               </div>
+             </details>
+             <div class="list" id="categories-list"></div>
+           </section>
 
           <!-- ===== Plantillas ===== -->
           <section class="pane hidden" data-mode="avanzado" id="tab-plantillas">
@@ -537,33 +563,52 @@
             <div class="list" id="templates-list"></div>
           </section>
 
-          <!-- ===== Pedidos ===== -->
-          <section class="pane hidden" id="tab-pedidos">
-            <h1 data-i18n="t_pedidos">Pedidos</h1>
-            <p class="page-sub" data-i18n="t_pedidos_sub">Historial de pedidos enviados por WhatsApp.</p>
-            <div class="filters" id="order-filters"></div>
-            <div class="list" id="orders-list"></div>
-            <button class="btn ghost" id="btn-refresh-orders" style="margin-top:12px" data-i18n="ped_refresh">Refrescar</button>
-          </section>
+<!-- ===== Pedidos ===== -->
+           <section class="pane hidden" id="tab-pedidos">
+             <h1 data-i18n="t_pedidos">Pedidos</h1>
+             <p class="page-sub" data-i18n="t_pedidos_sub">Historial de pedidos enviados por WhatsApp.</p>
+             <details class="section-collapse" open>
+               <summary data-i18n="ped_refresh">Filtros</summary>
+               <div class="panel"><div class="filters" id="order-filters"></div></div>
+             </details>
+             <details class="section-collapse" open>
+               <summary data-i18n="t_pedidos">Historial de pedidos</summary>
+               <div class="panel"><div class="list" id="orders-list"></div></div>
+             </details>
+             <div class="sticky-bar">
+               <span class="status-msg" id="orders-status"></span>
+               <div class="btn-group"><button class="btn ghost" id="btn-refresh-orders" data-i18n="ped_refresh">Refrescar</button></div>
+             </div>
+           </section>
 
           <!-- ===== Analítica ===== -->
           <section class="pane hidden" data-mode="avanzado" id="tab-analitica">
             <h1 data-i18n="t_analitica">Analítica</h1>
             <p class="page-sub" data-i18n="t_analitica_sub">Estadísticas de tus ventas.</p>
             <div class="filters" id="analytics-range"></div>
-            <div class="grid-2">
-              <div class="panel"><h3 data-i18n="an_totals">Resumen</h3>
+            <details class="section-collapse" open>
+              <summary data-i18n="an_totals">Resumen</summary>
+              <div class="panel">
                 <div class="grid-2">
                   <div class="field"><label data-i18n="an_orders">Pedidos</label><input type="text" id="an-count" value="0" disabled /></div>
                   <div class="field"><label data-i18n="an_revenue">Ingresos</label><input type="text" id="an-revenue" value="0" disabled /></div>
                 </div>
               </div>
-              <div class="panel"><h3 data-i18n="an_best">Más vendidos</h3><div id="an-best"></div></div>
-            </div>
-            <div class="panel"><h3 data-i18n="an_byday">Pedidos por día</h3><div class="chart-box" id="an-chart"></div></div>
-            <div class="btn-row" style="margin-top:8px">
-              <button class="btn ghost" id="btn-load-analytics" data-i18n="an_load">Cargar estadísticas</button>
-              <button class="btn green" id="btn-csv" data-i18n="an_csv">Exportar CSV</button>
+            </details>
+            <details class="section-collapse" open>
+              <summary data-i18n="an_best">Más vendidos</summary>
+              <div class="panel"><div id="an-best"></div></div>
+            </details>
+            <details class="section-collapse" open>
+              <summary data-i18n="an_byday">Pedidos por día</summary>
+              <div class="panel"><div class="chart-box" id="an-chart"></div></div>
+            </details>
+            <div class="sticky-bar">
+              <span class="status-msg" id="analytics-status"></span>
+              <div class="btn-group">
+                <button class="btn ghost" id="btn-load-analytics" data-i18n="an_load">Cargar estadísticas</button>
+                <button class="btn green" id="btn-csv" data-i18n="an_csv">Exportar CSV</button>
+              </div>
             </div>
           </section>
 
@@ -1434,6 +1479,7 @@ var merged = mergeSettings({ heroConfig: heroConfig });
       document.getElementById('btn-cancel-category').classList.remove('hidden');
       renderCatIconOptions();
       if (window.ColorPicker) ColorPicker.syncAll();
+      document.getElementById('cat-form-panel').open = true;
       document.getElementById('cat-form-panel').scrollIntoView({ behavior: 'smooth' });
     }
     function loadCategories() {
@@ -1905,6 +1951,7 @@ _editingProduct = null;
         document.getElementById('btn-cancel-product').classList.remove('hidden');
         switchTab('tab-subir');
         renderColors(); renderCombos(); renderGallery();
+        document.getElementById('prod-form-panel').open = true;
         setTimeout(function () { document.getElementById('prod-form-panel').scrollIntoView({ behavior: 'smooth' }); }, 60);
       });
     }
