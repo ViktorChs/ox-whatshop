@@ -46,6 +46,16 @@
 .p-details { display: block; margin-top: 40px; }
 .p-recs { display: block; margin-top: 48px; }
 
+/* ---------- Skeleton de carga de la pagina de producto ---------- */
+#p-loading { pointer-events: none; }
+.pl-skel, .pl-skel-gal { display: flex; flex-direction: column; gap: 14px; }
+.pl-skel { max-width: 100%; }
+.pl-skel .skel-thumb { border-radius: 16px; }
+.pl-skel .skel-thumbs { display: flex; gap: 10px; }
+.pl-skel .skel-thumb-sm { width: 70px; height: 70px; border-radius: 10px; flex-shrink: 0; }
+.pl-skel-buy { display: flex; flex-direction: column; gap: 14px; }
+.skel-cta { height: 52px; border-radius: 12px; }
+
 .shop-page { padding-bottom: 74px; }
 .p-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 700;
@@ -77,6 +87,7 @@
   .product-page { padding: 10px 12px 0; }
   .p-gallery .main { max-height: 40vh; }
   .p-thumbs img { width: 54px; height: 54px; }
+  .pl-skel .skel-thumb-sm { width: 54px; height: 54px; }
 }
 .pd-grid { grid-template-columns: 1fr; gap: 24px; }
 .pd-tabs { overflow-x: auto; gap: 16px; }
