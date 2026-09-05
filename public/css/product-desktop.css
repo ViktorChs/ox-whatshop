@@ -50,4 +50,7 @@
 
   .p-bar { display: none; }
   .shop-page { padding-bottom: 0; }
+
+  .pl-skel { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; margin-top: 24px; }
+  .pl-skel .skel-thumb-sm { width: 90px; height: 90px; }
 }

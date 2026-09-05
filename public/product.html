@@ -10,9 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./css/theme.css?v=37" />
-  <link rel="stylesheet" href="./css/tienda.css?v=78" />
-  <link rel="stylesheet" href="./css/product.css?v=42" />
-  <link rel="stylesheet" href="./css/product-desktop.css?v=40" />
+  <link rel="stylesheet" href="./css/tienda.css?v=79" />
+  <link rel="stylesheet" href="./css/product.css?v=43" />
+  <link rel="stylesheet" href="./css/product-desktop.css?v=41" />
 </head>
 <body class="shop-page product-page">
 
@@ -54,7 +54,27 @@
 
     <nav class="crumbs" id="p-crumbs" aria-label="Ruta" style="margin-bottom:14px"></nav>
 
-    <div id="p-loading" style="text-align:center;padding:60px 0;color:var(--secondary-text)" data-i18n="loading">Cargando…</div>
+    <div id="p-loading" aria-busy="true">
+    <div class="pl-skel" aria-hidden="true">
+      <div class="pl-skel-gal">
+        <div class="skel skel-thumb"></div>
+        <div class="skel-thumbs">
+          <div class="skel skel-thumb-sm"></div>
+          <div class="skel skel-thumb-sm"></div>
+          <div class="skel skel-thumb-sm"></div>
+        </div>
+      </div>
+      <div class="pl-skel-buy">
+        <div class="skel skel-line w20"></div>
+        <div class="skel skel-line w60"></div>
+        <div class="skel skel-line w80"></div>
+        <div class="skel skel-line w35" style="height:26px"></div>
+        <div class="skel skel-line w90"></div>
+        <div class="skel skel-line w100"></div>
+        <div class="skel skel-cta"></div>
+      </div>
+    </div>
+  </div>
 
     <div class="p-layout hidden" id="p-content">
       <div class="p-gallery">
