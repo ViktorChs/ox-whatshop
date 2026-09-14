@@ -19,9 +19,17 @@ function loadSupabase() {
 }
 
 // ===== Tienda activa (multi-tienda) =====
+// Cada repo/tierenda puede fijar su id con `const WS_STORE_ID = N`
+// en config.js. Si no, se respeta la elección guardada en localStorage
+// La tienda horneada (WS_STORE_ID del config.js de ESTE repo) manda.
+// Solo si no hay baked se usa el localStorage (p. ej. para switchear
+// entre tiendas en instalaciones multi-tienda) y, si nada hay, la 1.
 function getActiveStoreId() {
+  const baked = Number(window.WS_STORE_ID || 0);
+  if (Number.isInteger(baked) && baked > 0) return baked;
   const v = Number(localStorage.getItem('whatshop_store'));
-  return Number.isInteger(v) && v > 0 ? v : 1;
+  if (Number.isInteger(v) && v > 0) return v;
+  return 1;
 }
 function setActiveStoreId(id) {
   localStorage.setItem('whatshop_store', String(id));
@@ -113,7 +121,9 @@ async function hashPin(pin) {
   return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
-// Compresion de imagen en el navegador antes de subir (canvas)
+// Compresion de imagen en el navegador antes de subir (canvas).
+// Intenta convertir a WebP (mas ligero); si el navegador no soporta
+// codificar WebP, mantiene el formato original. GIF animado intacto.
 function compressImageFile(file, maxDim, quality) {
   return new Promise(function (resolve) {
     var type = ((file && file.type) || '').toLowerCase();
@@ -123,14 +133,14 @@ function compressImageFile(file, maxDim, quality) {
     img.onload = function () {
       var w = img.width, h = img.height;
       var scale = Math.max(w, h) > maxDim ? maxDim / Math.max(w, h) : 1;
-      if (scale === 1) { URL.revokeObjectURL(url); return resolve(file); }
       var canvas = document.createElement('canvas');
       canvas.width = Math.round(w * scale);
       canvas.height = Math.round(h * scale);
       canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
       URL.revokeObjectURL(url);
-      var outType = type === 'image/webp' ? 'image/webp' : type === 'image/jpeg' ? 'image/jpeg' : 'image/png';
-      var outExt = outType === 'image/webp' ? 'webp' : outType === 'image/jpeg' ? 'jpg' : 'png';
+      var webpOk = typeof canvas.toDataURL === 'function' && canvas.toDataURL('image/webp', quality).indexOf('data:image/webp') === 0;
+      var outType = webpOk ? 'image/webp' : type;
+      var outExt = webpOk ? 'webp' : (type === 'image/jpeg' ? 'jpg' : 'png');
       canvas.toBlob(function (blob) {
         if (!blob) return resolve(file);
         resolve(new File([blob], 'img-' + Date.now() + '.' + outExt, { type: outType }));
@@ -158,8 +168,16 @@ const SBHelper = {
     const c = await loadSupabase();
     const sid = storeId || getActiveStoreId();
     const { data, error } = await c.from('settings').select('data').eq('store_id', sid).single();
-    if (error) throw error;
-    return data ? data.data : null;
+    if (!error) return data ? data.data : null;
+    // Store sin fila de settings: crearla de forma lazy y devolver null
+    // para que el admin/tienda usen los defaults (los campos del HTML).
+    if (error.code === 'PGRST116') {
+      try {
+        await c.from('settings').upsert({ store_id: sid, data: {}, updated_at: new Date() }, { onConflict: 'store_id' });
+      } catch (e) {}
+      return null;
+    }
+    throw error;
   },
   async saveSettings(data, storeId) {
     const c = await loadSupabase();
@@ -336,16 +354,21 @@ const SBHelper = {
   },
 
   // ---- Storage (imagenes) ----
+  // Si hay CDN (window.IMG_CDN, p.ej. un Worker de Cloudflare), las
+  // imágenes públicas se sirven desde allí en vez de Supabase: el CDN
+  // reenvía a Supabase solo la primera vez y cachea el resto -> 0 egress.
   publicUrl(path) {
-    return `${SUPABASE_URL}/storage/v1/object/public/${STORAGE_BUCKET}/${path}`;
+    const base = window.IMG_CDN || SUPABASE_URL;
+    return `${base}/storage/v1/object/public/${STORAGE_BUCKET}/${path}`;
   },
   async uploadImage(file) {
     const c = await loadSupabase();
     const f = await compressImageFile(file, 1600, 0.82);
-    const name = (f && f.name) || '';
-    const ext = (name.split('.').pop() || 'png').toLowerCase();
+    const ft = (f && f.type || '').toLowerCase();
+    const isGif = ft === 'image/gif';
+    const ext = isGif ? 'gif' : ft === 'image/webp' ? 'webp' : ft === 'image/png' ? 'png' : 'jpg';
     const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-    const { error } = await c.storage.from(STORAGE_BUCKET).upload(path, f, { contentType: f.type || 'image/png' });
+    const { error } = await c.storage.from(STORAGE_BUCKET).upload(path, f, { contentType: ft || 'image/png' });
     if (error) throw error;
     return this.publicUrl(path);
   },
@@ -420,11 +443,12 @@ async function SBStore(storeId) {
   ]);
   let subcategories = [];
   try { subcategories = await SBHelper.getSubcategories(sid); } catch (e) { subcategories = []; }
+  const visibles = (products || []).filter((p) => !p.hidden);
   const categoriesWithProducts = (categories || []).map((cat) => ({
     ...cat,
     subcategories: (subcategories || []).filter((s) => s.category_id === cat.id),
-    products: (products || []).filter((p) => p.category_id === cat.id)
+    products: visibles.filter((p) => p.category_id === cat.id)
   }));
-  const uncategorized = (products || []).filter((p) => !p.category_id);
+  const uncategorized = visibles.filter((p) => !p.category_id);
   return { settings, categories: categoriesWithProducts, uncategorized, templates, subcategories };
 }

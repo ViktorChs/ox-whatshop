@@ -145,3 +145,29 @@ create policy "anon leer plantillas" on public.variant_templates for select usin
 
 drop policy if exists "anon todo plantillas" on public.variant_templates;
 create policy "anon todo plantillas" on public.variant_templates for all using (true) with check (true);
+
+-- ---------- RLS para subcategorias (bug: INSERT 42501 denegado) ----------
+alter table public.subcategories enable row level security;
+
+drop policy if exists "anon leer subcategorias" on public.subcategories;
+create policy "anon leer subcategorias" on public.subcategories for select using (true);
+
+drop policy if exists "anon todo subcategorias" on public.subcategories;
+create policy "anon todo subcategorias" on public.subcategories for all using (true) with check (true);
+
+-- ---------- Visibilidad de productos (oculto de la tienda) ----------
+alter table public.products add column if not exists hidden boolean default false;
+
+-- ---------- Seeds multi-tienda extra (usuarios nuevos) ----------
+-- Cada tienda/o persona tiene su propio store_id para que borrar demo,
+-- colores y pedidos NO se compartan entre despliegues.
+insert into public.stores (id, name, slug)
+values (2, 'Mi Tienda 2', 'tienda-2'), (3, 'Mi Tienda 3', 'tienda-3')
+on conflict (id) do nothing;
+
+-- Fila default de settings por tienda (getSettings hace .single():
+-- sin fila lanzaria 406; el codigo ya crea la fila de forma lazy, esto
+-- la precarrga para que el primer render no dependa de escrituras).
+insert into public.settings (store_id, data)
+values (2, '{}'::jsonb), (3, '{}'::jsonb)
+on conflict (store_id) do nothing;

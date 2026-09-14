@@ -90,7 +90,7 @@
         <span class="crumbs-sep">/</span>
         <span data-i18n="crumbs_products">Productos</span>
       </nav>
-      <div class="explore-top">
+      <div class="explore-top reveal">
         <div class="filter-toggle-row">
           <button class="filter-toggle" id="filter-toggle" data-i18n="filters">Filtros</button>
         </div>
@@ -163,9 +163,9 @@
           </div>
         </aside>
         <div class="explore-content">
-          <div class="products-grid" id="explore-grid"><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div></div>
+          <div class="products-grid reveal" id="explore-grid"><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div><div class="skel-card" aria-hidden="true"><div class="skel skel-thumb"></div><div class="skel skel-line w60"></div><div class="skel skel-line w40"></div><div class="skel skel-line w80"></div></div></div>
           <div class="pagination hidden" id="explore-pagination"></div>
-          <footer class="shop-footer">
+          <footer class="shop-footer reveal">
             <div class="footer-inner">
               <div class="footer-brand">
                 <img src="./assets/logos/logoB.png" alt="Logo WhatShop" />
@@ -226,9 +226,11 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=40"></script>
-  <script src="./js/supabase.js?v=44"></script>
-  <script src="./js/cart.js?v=44"></script>
+<script src="./config.js?v=42"></script>
+<script src="./js/supabase.js?v=47"></script>
+<script src="./js/cart.js?v=46"></script>
+<script src="./js/ox1-license.js?v=1"></script>
+<script src="./js/ox1-gate.js?v=7"></script>
   <script>
     // ===== i18n =====
     var I18N = {
@@ -404,6 +406,7 @@
         var fp = document.getElementById('filter-panel');
         if (fp) fp.classList.toggle('filter-bold', s.filterBold === true);
         var name = s.name || 'WhatShop';
+        if (window.WS_STORE_NAME) name = window.WS_STORE_NAME;
         var logo = (settings.landing && settings.landing.logo) || './assets/logos/logoB.png';
         document.getElementById('brand-name').textContent = name;
         var brandLogo = document.getElementById('brand-logo');

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Categorías - WhatShop</title>
+  <title>Categor�as - WhatShop</title>
   <meta name="theme-color" content="#FFFFFF" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,10 +45,10 @@
       </div>
       <div class="search-bar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        <input type="search" id="search-input" data-i18n-ph="buscar" placeholder="Buscar categorías..." aria-label="Buscar categorías" />
+        <input type="search" id="search-input" data-i18n-ph="buscar" placeholder="Buscar categor�as..." aria-label="Buscar categor�as" />
       </div>
       <div class="header-actions">
-        <nav class="top-nav" aria-label="Navegación principal">
+        <nav class="top-nav" aria-label="Navegaci�n principal">
           <button class="nav-item" data-tab="home" aria-label="Inicio">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             <span data-i18n="nav_home">Inicio</span>
@@ -57,9 +57,9 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
             <span data-i18n="nav_explore">Explorar</span>
           </button>
-          <button class="nav-item active" data-tab="categorias" aria-label="Categorías" aria-current="page">
+          <button class="nav-item active" data-tab="categorias" aria-label="Categor�as" aria-current="page">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
-            <span data-i18n="nav_categorias">Categorías</span>
+            <span data-i18n="nav_categorias">Categor�as</span>
           </button>
           <button class="nav-item" data-tab="cart" aria-label="Carrito">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
@@ -80,11 +80,11 @@
   </header>
 
   <main class="cats-page">
-    <h1 class="cats-title" data-i18n="title">Categorías</h1>
-    <p class="cats-sub" data-i18n="sub">Elige una categoría para ver sus productos.</p>
-    <div id="cats-loading" style="text-align:center;padding:60px 0;color:var(--secondary-text)" data-i18n="loading">Cargando…</div>
+    <h1 class="cats-title" data-i18n="title">Categor�as</h1>
+    <p class="cats-sub" data-i18n="sub">Elige una categor�a para ver sus productos.</p>
+    <div id="cats-loading" style="text-align:center;padding:60px 0;color:var(--secondary-text)" data-i18n="loading">Cargando.</div>
     <div class="cats-grid hidden" id="cats-grid"></div>
-    <div class="cats-empty hidden" id="cats-empty" data-i18n="empty">No hay categorías todavía.</div>
+    <div class="cats-empty hidden" id="cats-empty" data-i18n="empty">No hay categor�as todav�a.</div>
   </main>
 
   <div class="cart-scrim" id="cart-scrim"></div>
@@ -105,17 +105,17 @@
       <div class="footer-brand"><img src="./assets/logos/logoB.png" alt="Logo WhatShop" /><span><span class="what">What</span><span class="shop">Shop</span></span></div>
       <div class="footer-links">
         <a href="./tienda.html?view=explore" data-i18n="back">Volver a la tienda</a>
-        <a href="./terminos.html" data-i18n="f_terminos">Términos y condiciones</a>
-        <a href="./privacidad.html" data-i18n="f_privacidad">Política de privacidad</a>
-        <a href="./politicas.html" data-i18n="f_politicas">Políticas de compra</a>
-        <a href="./cookies.html" data-i18n="f_cookies">Política de cookies</a>
+        <a href="./terminos.html" data-i18n="f_terminos">T�rminos y condiciones</a>
+        <a href="./privacidad.html" data-i18n="f_privacidad">Pol�tica de privacidad</a>
+        <a href="./politicas.html" data-i18n="f_politicas">Pol�ticas de compra</a>
+        <a href="./cookies.html" data-i18n="f_cookies">Pol�tica de cookies</a>
         <a href="./contacto.html" data-i18n="f_contacto">Contacto</a>
       </div>
-      <div class="footer-copy"><span>&copy; <span id="footer-year"></span> <span id="footer-brand-name">WhatShop</span> · <span data-i18n="f_by">Plataforma de tienda de</span> OX1</span></div>
+      <div class="footer-copy"><span>&copy; <span id="footer-year"></span> <span id="footer-brand-name">WhatShop</span> � <span data-i18n="f_by">Plataforma de tienda de</span> OX1</span></div>
     </div>
   </footer>
 
-  <nav class="bottom-nav" aria-label="Navegación">
+  <nav class="bottom-nav" aria-label="Navegaci�n">
     <button class="nav-item" data-tab="home" aria-label="Inicio">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       <span data-i18n="nav_home">Inicio</span>
@@ -124,9 +124,9 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
       <span data-i18n="nav_explore">Explorar</span>
     </button>
-    <button class="nav-item active" data-tab="categorias" aria-label="Categorías" aria-current="page">
+    <button class="nav-item active" data-tab="categorias" aria-label="Categor�as" aria-current="page">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
-      <span data-i18n="nav_categorias">Categorías</span>
+      <span data-i18n="nav_categorias">Categor�as</span>
     </button>
     <button class="nav-item" data-tab="cart" aria-label="Carrito">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
@@ -139,6 +139,8 @@
   <script src="./config.js"></script>
   <script src="./js/supabase.js"></script>
   <script src="./js/cart.js"></script>
+  <script src="./js/ox1-license.js?v=1"></script>
+  <script src="./js/ox1-gate.js?v=7"></script>
   <script src="./js/categorias.js"></script>
 </body>
 </html>

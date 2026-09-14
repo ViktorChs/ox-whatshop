@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="./assets/logos/logoB.png" />
   <link rel="stylesheet" href="./css/theme.css?v=48" />
-  <link rel="stylesheet" href="./css/admin.css?v=49" />
+  <link rel="stylesheet" href="./css/admin.css?v=50" />
 </head>
 <body class="admin-page">
 
@@ -21,9 +21,10 @@
         <span><span class="what">What</span><span class="shop">Shop</span></span>
       </div>
       <p class="sub" data-i18n="login_sub">Panel de administración</p>
-      <input id="pin" type="password" inputmode="numeric" placeholder="PIN" autocomplete="current-password" />
+      <input id="login-user" type="text" autocomplete="username" placeholder="Usuario" />
+      <input id="login-pass" type="password" autocomplete="current-password" placeholder="Contraseña" />
       <button class="login-btn" id="login-btn" data-i18n="login_btn">Entrar</button>
-      <p class="login-error" id="login-error" data-i18n="login_error">PIN incorrecto</p>
+      <p class="login-error" id="login-error" data-i18n="login_error">Credenciales incorrectas o acceso denegado</p>
       <p class="login-hint" id="login-hint"></p>
     </div>
   </div>
@@ -41,6 +42,7 @@
               <span class="ws-meta">
                 <span class="ws-name"><span class="what">What</span><span class="shop">Shop</span></span>
                 <span class="ws-plan" id="ws-plan">Mi Tienda</span>
+                <span class="ws-sub" id="ws-sub">Plan: Free</span>
               </span>
             </span>
           </div>
@@ -148,7 +150,10 @@
           <div class="topbar-l">
             <div class="topbar-m-brand" id="topbar-m-brand">
               <img id="m-brand-logo" src="./assets/logos/logoB.png" alt="WhatShop" />
-              <span class="ws-name"><span class="what">What</span><span class="shop">Shop</span></span>
+              <span class="m-meta">
+                <span class="ws-name"><span class="what">What</span><span class="shop">Shop</span></span>
+                <span class="m-ws-sub" id="m-ws-sub">Plan: Free</span>
+              </span>
             </div>
             <button class="icon-btn" id="collapse-btn" aria-label="Toggle sidebar">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M15 3v18"/></svg>
@@ -167,8 +172,9 @@
               <span data-i18n="cmd_search">Buscar</span>
               <kbd>Ctrl K</kbd>
             </button>
-            <button class="icon-btn" id="tut-btn" data-i18n="tut_restart" title="Tutorial" aria-label="Tutorial">
+            <button class="icon-btn tut-btn" id="tut-btn" title="Tutorial" aria-label="Tutorial" data-i18n-attr="title|tut_restart;aria-label|tut_restart">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+              <span data-i18n="tut_restart">Tutorial</span>
             </button>
             <button class="lang-pill" id="lang-toggle" title="Idioma">ES</button>
             <button class="icon-btn" id="theme-toggle" style="display:none" title="Tema">
@@ -208,17 +214,25 @@
                <summary data-i18n="prev_title">Vista previa en vivo</summary>
                <div class="panel">
                  <p class="page-sub" style="margin-bottom:10px" data-i18n="prev_sub">Cambia los colores de arriba y mira el resultado aquí.</p>
-                 <div class="live-preview" id="live-preview">
-                   <div class="lp-card">
-                     <div class="lp-thumb"></div>
-                     <div class="lp-body">
-                       <div class="lp-title">Producto de ejemplo</div>
-                       <div class="lp-desc">Categoría</div>
-                       <div class="lp-price">$ 12.900</div>
-                       <div class="lp-btn">Comprar por WhatsApp</div>
-                     </div>
-                   </div>
-                 </div>
+<div class="live-preview" id="live-preview">
+                    <div class="store-mock">
+                      <div class="sm-head">
+                        <span class="sm-brand"><i class="sm-logo"></i><span class="sm-name-txt">WhatShop</span></span>
+                        <nav class="sm-nav"><span>Inicio</span><span>Explorar</span><span>WhatsApp</span></nav>
+                      </div>
+                      <div class="sm-hero">
+                        <div class="sm-hero-h">Nueva colección</div>
+                        <div class="sm-hero-p">Elige tu próximo favorito hoy.</div>
+                        <div class="sm-hero-b">Explorar</div>
+                      </div>
+                      <div class="sm-cats"><span class="sm-pill sm-pill-on">Todos</span><span class="sm-pill">Anillos</span><span class="sm-pill">Collares</span></div>
+                      <div class="sm-grid">
+                        <div class="sm-card"><div class="sm-thumb"></div><div class="sm-name">Producto de ejemplo</div><div class="sm-cat">Anillos</div><div class="sm-price">$ 12.900</div><div class="sm-btn">Comprar</div></div>
+                        <div class="sm-card"><div class="sm-thumb"></div><div class="sm-name">Segundo producto</div><div class="sm-cat">Collares</div><div class="sm-price">$ 9.500</div><div class="sm-btn">Comprar</div></div>
+                      </div>
+                      <div class="sm-foot"><span>WhatShop</span></div>
+                    </div>
+                  </div>
                </div>
              </details>
              <div class="sticky-bar">
@@ -242,15 +256,25 @@
                <summary data-i18n="prev_title">Vista previa en vivo</summary>
                <div class="panel">
                  <p class="page-sub" style="margin-bottom:10px" data-i18n="prev_sub">Cambia la fuente y el radio arriba.</p>
-                 <div class="live-preview" id="live-preview-typo">
-                   <div class="lp-card">
-                     <div class="lp-thumb"></div>
-                     <div class="lp-body">
-                       <div class="lp-title lp-typo">Título con la fuente elegida</div>
-                       <div class="lp-desc">El radio de borde se aplica a toda la tarjeta.</div>
-                     </div>
-                   </div>
-                 </div>
+<div class="live-preview" id="live-preview-typo">
+                    <div class="store-mock">
+                      <div class="sm-head">
+                        <span class="sm-brand"><i class="sm-logo"></i><span class="sm-name-txt">WhatShop</span></span>
+                        <nav class="sm-nav"><span>Inicio</span><span>Explorar</span><span>WhatsApp</span></nav>
+                      </div>
+                      <div class="sm-hero">
+                        <div class="sm-hero-h">Título con la fuente elegida</div>
+                        <div class="sm-hero-p">El radio de borde se aplica a toda la tienda.</div>
+                        <div class="sm-hero-b">Explorar</div>
+                      </div>
+                      <div class="sm-cats"><span class="sm-pill sm-pill-on">Todos</span><span class="sm-pill">Anillos</span><span class="sm-pill">Collares</span></div>
+                      <div class="sm-grid">
+                        <div class="sm-card"><div class="sm-thumb"></div><div class="sm-name">Producto de ejemplo</div><div class="sm-cat">Anillos</div><div class="sm-price">$ 12.900</div><div class="sm-btn">Comprar</div></div>
+                        <div class="sm-card"><div class="sm-thumb"></div><div class="sm-name">Segundo producto</div><div class="sm-cat">Collares</div><div class="sm-price">$ 9.500</div><div class="sm-btn">Comprar</div></div>
+                      </div>
+                      <div class="sm-foot"><span>WhatShop</span></div>
+                    </div>
+                  </div>
                </div>
              </details>
              <div class="sticky-bar">
@@ -409,19 +433,19 @@
 <!-- ===== Tienda: Contenido ===== -->
            <section class="pane hidden" id="tab-contenido">
              <h1 data-i18n="t_contenido">Contenido</h1>
-             <p class="page-sub" data-i18n="t_contenido_sub">Mensaje de WhatsApp y logo de la marca.</p>
+             <p class="page-sub" data-i18n="t_contenido_sub">Mensaje de WhatsApp y logo de la marca.</p><button type="button" class="btn-help" data-help="contenido" aria-label="Ayuda" data-i18n-attr="aria-label|help_btn">?</button>
              <details class="section-collapse" open>
                <summary data-i18n="ti_msg_wa">Mensaje de WhatsApp</summary>
-               <div class="panel"><p class="page-sub" style="margin-bottom:10px" data-i18n="ti_msg_wa_sub">Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}</p>
-                 <div class="btn-row" id="msg-var-buttons" style="margin-bottom:10px" title="Pulsa para insertar">
-                   <button type="button" class="btn ghost small" data-var="{storeName}">{storeName}</button>
-                   <button type="button" class="btn ghost small" data-var="{name}">{name}</button>
-                   <button type="button" class="btn ghost small" data-var="{phone}">{phone}</button>
-                   <button type="button" class="btn ghost small" data-var="{paymentMethod}">{paymentMethod}</button>
-                   <button type="button" class="btn ghost small" data-var="{noteText}">{noteText}</button>
-                   <button type="button" class="btn ghost small" data-var="{items}">{items}</button>
-                   <button type="button" class="btn ghost small" data-var="{total}">{total}</button>
-                 </div>
+<div class="panel"><p class="page-sub" style="margin-bottom:10px" data-i18n="ti_msg_wa_sub">Inserta variables en el mensaje con estos botones (o escríbelas a mano): nombre de la tienda, nombre del cliente, teléfono, método de pago, nota, productos y total.</p>
+                  <div class="btn-row" id="msg-var-buttons" style="margin-bottom:10px" title="Pulsa para insertar">
+                   <button type="button" class="btn ghost small" data-var="{storeName}" title="{storeName}" data-i18n="var_store">Nombre de la tienda</button>
+                   <button type="button" class="btn ghost small" data-var="{name}" title="{name}" data-i18n="var_name">Nombre del cliente</button>
+                   <button type="button" class="btn ghost small" data-var="{phone}" title="{phone}" data-i18n="var_phone">Teléfono</button>
+                   <button type="button" class="btn ghost small" data-var="{paymentMethod}" title="{paymentMethod}" data-i18n="var_pay">Método de pago</button>
+                   <button type="button" class="btn ghost small" data-var="{noteText}" title="{noteText}" data-i18n="var_note">Nota del cliente</button>
+                   <button type="button" class="btn ghost small" data-var="{items}" title="{items}" data-i18n="var_items">Productos</button>
+                   <button type="button" class="btn ghost small" data-var="{total}" title="{total}" data-i18n="var_total">Total</button>
+                  </div>
                  <div class="field"><textarea id="store-msg-template" rows="6"></textarea></div>
                </div>
              </details>
@@ -436,7 +460,7 @@
 <!-- ===== Subir producto ===== -->
            <section class="pane hidden" id="tab-subir">
              <h1 data-i18n="t_subir">Subir producto</h1>
-             <p class="page-sub" data-i18n="t_subir_sub">Crea y sube un producto nuevo con sus imágenes, variantes y stock.</p>
+             <p class="page-sub" data-i18n="t_subir_sub">Crea y sube un producto nuevo con sus imágenes, variantes y stock.</p><button type="button" class="btn-help" data-help="subir" aria-label="Ayuda" data-i18n-attr="aria-label|help_btn">?</button>
              <details class="section-collapse" open>
                <summary data-i18n="pr_new">Nuevo producto</summary>
                <div class="panel" id="prod-form-panel">
@@ -448,24 +472,36 @@
                    <div class="field"><label data-i18n="pr_price">Precio</label><input type="number" id="new-product-price" value="0" min="0" step="0.01" /></div>
                    <div class="field"><label data-i18n="pr_orig">Precio original (opcional, tachado)</label><input type="number" id="new-product-original" min="0" step="0.01" placeholder="" /></div>
                    <div class="field"><label data-i18n="pr_stock">Stock base</label><input type="number" id="new-product-stock" value="1" min="0" /></div>
-                   <div class="field"><label data-i18n="pr_featured">Destacado</label>
-                     <div class="toggle-row"><span data-i18n="pr_featured_on">Mostrar en Populares</span><label class="switch"><input type="checkbox" id="new-product-featured" /><span class="slider"></span></label></div>
-                   </div>
-                   <div class="field" style="grid-column:1/-1"><label data-i18n="pr_desc">Descripción</label><input type="text" id="new-product-description" /></div>
+<div class="field"><label data-i18n="pr_featured">Destacado</label>
+                      <div class="toggle-row"><span data-i18n="pr_featured_on">Mostrar en Populares</span><label class="switch"><input type="checkbox" id="new-product-featured" /><span class="slider"></span></label></div>
+                    </div>
+                    <div class="field"><label data-i18n="pr_hidden_lbl">Visibilidad</label>
+                      <div class="toggle-row"><span data-i18n="pr_hidden_on">Oculto de la tienda</span><label class="switch"><input type="checkbox" id="new-product-hidden" /><span class="slider"></span></label></div>
+                    </div>
+                   <div class="field" style="grid-column:1/-1"><label data-i18n="pr_desc">Descripción</label><textarea id="new-product-description" rows="3" data-i18n-attr="placeholder|pr_desc_ph" placeholder="Detalles útiles para tus clientes. Usa líneas separadas para crear párrafos y guiones (-) para listas."></textarea></div>
                  </div>
-                 <div class="field" style="margin-top:6px"><label data-i18n="pr_images">Imágenes del producto (múltiples)</label><input type="file" id="new-product-images" accept="image/*" multiple />
-                   <div style="margin-top:8px" data-mode="avanzado">
-                     <input type="file" id="product-camera" accept="image/*" capture="environment" class="hidden" />
-                     <button type="button" class="btn ghost small" id="btn-take-photo">&#128247; <span data-i18n="take_photo">Tomar foto</span></button>
-                   </div>
-                 </div>
+<div class="field" style="margin-top:6px"><label data-i18n="pr_images">Imágenes del producto (múltiples)</label>
+                    <div class="img-add" id="img-add">
+                      <button type="button" class="btn primary small" id="btn-add-images">
+                        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                        <span data-i18n="img_add">Agregar imágenes</span>
+                      </button>
+                      <div class="img-add-menu hidden" id="img-add-menu">
+                        <button type="button" id="opt-take-photo">&#128247; <span data-i18n="take_photo">Tomar foto</span></button>
+                        <button type="button" id="opt-gallery">&#128193; <span data-i18n="img_gallery">Subir desde galería</span></button>
+                      </div>
+                    </div>
+                    <input type="file" id="new-product-images" accept="image/*" multiple class="hidden" />
+                    <input type="file" id="product-camera" accept="image/*" capture="environment" class="hidden" />
+                    <span class="fu-name" id="img-file-name" data-i18n="no_file">Sin archivo</span>
+                  </div>
                  <div class="gallery" id="product-gallery"></div>
                </div>
              </details>
              <details class="section-collapse" open>
-               <summary data-i18n="pr_variants">Variantes (color × talla)</summary>
-               <div class="panel" style="margin-top:16px;background:var(--bg-soft)" data-mode="avanzado">
-                 <h3 data-i18n="pr_variants">Variantes (color × talla)</h3>
+<summary data-i18n="pr_variants">Variantes (color - talla)</summary>
+                <div class="panel" style="margin-top:16px;background:var(--bg-soft)">
+                 <h3 data-i18n="pr_variants">Variantes (color - talla)</h3>
                  <div class="variant-toolbar">
                    <div class="field" style="flex:1;min-width:200px"><label data-i18n="pr_sizes_src">Tallas: plantilla o lista libre</label>
                      <select id="variant-template-select"><option value="">Lista libre</option></select>
@@ -482,8 +518,14 @@
                      </div>
                    </div>
                  </div>
-                 <div class="color-list" id="color-list"></div>
-                 <div class="combo-grid" id="combo-grid"></div>
+<div class="color-list" id="color-list"></div>
+                  <div class="variant-bulk">
+                    <span class="variant-bulk-lbl" data-i18n="pr_bulk">Precio y stock iguales para todas las tallas</span>
+                    <div class="field" style="margin:0;flex:1;min-width:120px"><label data-i18n="pr_price">Precio</label><input type="number" id="bulk-price" min="0" step="0.01" placeholder="0.00" /></div>
+                    <div class="field" style="margin:0;flex:1;min-width:120px"><label data-i18n="pr_stock_short">Stock</label><input type="number" id="bulk-stock" min="0" placeholder="0" /></div>
+                    <button class="btn small" id="btn-bulk-apply" data-i18n="pr_bulk_apply">Aplicar a todas</button>
+                  </div>
+                  <div class="combo-grid" id="combo-grid"></div>
                </div>
              </details>
              <div class="sticky-bar">
@@ -498,64 +540,91 @@
           <!-- ===== Productos (gestion) ===== -->
           <section class="pane hidden" id="tab-productos">
             <h1 data-i18n="t_productos">Productos</h1>
-            <p class="page-sub" data-i18n="t_productos_sub">Busca y edita los productos que has subido.</p>
+            <p class="page-sub" data-i18n="t_productos_sub">Busca y edita los productos que has subido.</p><button type="button" class="btn-help" data-help="productos" aria-label="Ayuda" data-i18n-attr="aria-label|help_btn">?</button>
             <div class="panel">
-              <div class="field" style="margin-bottom:0"><label data-i18n="pr_filter_cat">Filtrar por categoría</label>
-                <select id="product-filter-cat"><option value="">Todas</option></select>
+              <div class="prod-toolbar">
+                <div class="field" style="margin:0;flex:1;min-width:180px"><label data-i18n="pr_filter_cat">Filtrar por categoría</label>
+                  <select id="product-filter-cat"><option value="">Todas</option></select>
+                </div>
+                <div class="field" style="margin:0;min-width:120px"><label data-i18n="pr_per_page">Por página</label>
+                  <select id="prod-per-page">
+                    <option value="15">15</option><option value="25">25</option><option value="40">40</option><option value="50">50</option><option value="100">100</option>
+                  </select>
+                </div>
+                <div class="view-toggle" id="view-toggle">
+                  <button type="button" class="vt-btn" id="view-grid" title="Vista tarjeta">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                  </button>
+                  <button type="button" class="vt-btn" id="view-list" title="Vista lista">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                  </button>
+                </div>
               </div>
             </div>
             <h3 style="margin:20px 0 10px" data-i18n="pr_existing">Productos existentes</h3>
             <div class="list" id="products-list"></div>
+            <div class="pagination hidden" id="products-pager"></div>
           </section>
 
 <!-- ===== Categorías ===== -->
            <section class="pane hidden" id="tab-categorias">
              <h1 data-i18n="t_categorias">Categorías</h1>
-             <p class="page-sub" data-i18n="t_categorias_sub">Crea y ordena las categorías de tu catálogo.</p>
-             <div class="sub-tabs" id="cat-tabs">
-               <button class="sub-tab active" data-catpanel="view" data-i18n="cat_view">Ver categorías</button>
-               <button class="sub-tab" data-catpanel="newcat" data-i18n="cat_newcat">Nueva categoría</button>
-               <button class="sub-tab" data-catpanel="newsub" data-i18n="cat_newsub">Nueva subcategoría</button>
-             </div>
+             <p class="page-sub" data-i18n="t_categorias_sub">Crea y ordena las categorías de tu catálogo.</p><button type="button" class="btn-help" data-help="categorias" aria-label="Ayuda" data-i18n-attr="aria-label|help_btn">?</button>
+<div class="sub-tabs" id="cat-tabs">
+                <button class="sub-tab active" data-catpanel="view" data-i18n="cat_view">Ver categorías</button>
+                <button class="sub-tab" data-catpanel="newcat" data-i18n="cat_newcat">Nueva categoría</button>
+                <button class="sub-tab" data-catpanel="newsub" data-i18n="cat_newsub">Nueva subcategoría</button>
+                <button class="sub-tab" data-catpanel="navbar" data-i18n="cat_navbar">Barra de navegación</button>
+              </div>
              <div class="sub-panel" id="catp-view">
                <div class="list" id="categories-list"></div>
              </div>
              <div class="sub-panel hidden" id="catp-newcat">
-                <div class="panel"><h3><span id="cat-form-title" data-i18n="ca_new">Nueva categoría</span> <span class="status-line" id="cat-form-id" style="margin:0"></span></h3>
-                  <div class="grid-2">
-                    <div class="field"><label data-i18n="ca_name">Nombre</label><input type="text" id="new-category-name" /></div>
-                    <div class="field"><label data-i18n="ca_pos">Posición (auto al crear, editable)</label><input type="number" id="new-category-position" value="0" /></div>
-                    <div class="field"><label data-i18n="ca_color">Color del recuadro</label><input type="color" id="new-category-color" value="#E8ECF0" /></div>
-                  </div>
-                  <div class="field"><label data-i18n="ca_image">Imagen de la categoría</label><input type="file" id="new-category-image" accept="image/*" />
-                    <div class="cat-preview"><img id="new-category-image-preview" class="hidden" alt="" /></div>
-                    <input type="hidden" id="new-category-image-data" />
-                  </div>
-                  <div class="field"><label data-i18n="ca_icon">Icono del círculo</label>
-                    <input type="hidden" id="new-category-icon" value="" />
-                    <div class="cat-icon-options" id="cat-icon-options"></div>
-                  </div>
-                  <div class="panel" style="margin-top:12px;background:var(--bg-soft)">
-                    <h3 data-i18n="ca_border">Borde</h3>
-                    <div class="toggle-row"><span data-i18n="ca_border_on">Activar borde</span><label class="switch"><input type="checkbox" id="cat-border-toggle" /><span class="slider"></span></label></div>
-                    <div class="grid-2" id="cat-border-options" style="margin-top:10px">
-                      <div class="field"><label data-i18n="ca_border_color">Color del borde</label><input type="color" id="cat-border-color" value="#171717" /></div>
-                      <div class="field"><label data-i18n="ca_border_side">Ubicación</label>
-                        <select id="cat-border-side">
-                          <option value="all" data-i18n="ca_bs_all">Todo el contorno</option>
-                          <option value="top" data-i18n="ca_bs_top">Solo arriba</option>
-                          <option value="bottom" data-i18n="ca_bs_bottom">Solo abajo</option>
-                          <option value="sides" data-i18n="ca_bs_sides">Solo lados</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="btn-row" style="margin-top:12px">
-                    <button class="btn green" id="btn-save-category" data-i18n="ca_add">Guardar categoría</button>
-                    <button class="btn ghost hidden" id="btn-cancel-category" data-i18n="ca_cancel">Cancelar</button>
-                  </div>
-                </div>
-             </div>
+                 <div class="panel"><h3><span id="cat-form-title" data-i18n="ca_new">Nueva categoría</span> <span class="status-line" id="cat-form-id" style="margin:0"></span></h3>
+                   <div class="grid-2">
+                     <div class="field"><label data-i18n="ca_name">Nombre</label><input type="text" id="new-category-name" /></div>
+                     <div class="field"><label data-i18n="ca_pos">Posición (auto al crear, editable)</label><input type="number" id="new-category-position" value="0" /></div>
+                   </div>
+                   <div class="btn-row" style="margin-top:12px">
+                     <button class="btn green" id="btn-save-category" data-i18n="ca_add">Guardar categoría</button>
+                     <button class="btn ghost hidden" id="btn-cancel-category" data-i18n="ca_cancel">Cancelar</button>
+                   </div>
+                 </div>
+              </div>
+              <div class="sub-panel hidden" id="catp-navbar">
+                 <div class="panel"><h3 data-i18n="cat_navbar_sub">Personaliza la apariencia de cada categoría en la barra de navegación.</h3>
+                   <div class="field"><label data-i18n="cat_pick">Categoría</label><select id="nav-edit-cat"></select></div>
+                   <div class="grid-2" style="margin-top:12px">
+                     <div class="field"><label data-i18n="ca_color">Color del recuadro</label><input type="color" id="new-category-color" value="#E8ECF0" /></div>
+                     <div class="field"><label data-i18n="ca_icon">Icono del círculo</label>
+                       <input type="hidden" id="new-category-icon" value="" />
+                     </div>
+                   </div>
+                   <div id="cat-icon-options"></div>
+                   <div class="field" style="margin-top:12px"><label data-i18n="ca_image">Imagen de la categoría</label><input type="file" id="new-category-image" accept="image/*" />
+                     <div class="cat-preview"><img id="new-category-image-preview" class="hidden" alt="" /></div>
+                     <input type="hidden" id="new-category-image-data" />
+                   </div>
+                   <div class="panel" style="margin-top:12px;background:var(--bg-soft)">
+                     <h3 data-i18n="ca_border">Borde</h3>
+                     <div class="toggle-row"><span data-i18n="ca_border_on">Activar borde</span><label class="switch"><input type="checkbox" id="cat-border-toggle" /><span class="slider"></span></label></div>
+                     <div class="grid-2" id="cat-border-options" style="margin-top:10px">
+                       <div class="field"><label data-i18n="ca_border_color">Color del borde</label><input type="color" id="cat-border-color" value="#171717" /></div>
+                       <div class="field"><label data-i18n="ca_border_side">Ubicación</label>
+                         <select id="cat-border-side">
+                           <option value="all" data-i18n="ca_bs_all">Todo el contorno</option>
+                           <option value="top" data-i18n="ca_bs_top">Solo arriba</option>
+                           <option value="bottom" data-i18n="ca_bs_bottom">Solo abajo</option>
+                           <option value="sides" data-i18n="ca_bs_sides">Solo lados</option>
+                         </select>
+                       </div>
+                     </div>
+                   </div>
+                   <div class="btn-row" style="margin-top:12px">
+                     <button class="btn green" id="btn-save-nav" data-i18n="ca_nav_save">Guardar apariencia</button>
+                   </div>
+                 </div>
+              </div>
              <div class="sub-panel hidden" id="catp-newsub">
                 <div class="panel"><h3 data-i18n="sc_title">Subcategorías</h3>
                   <p class="page-sub" style="margin-bottom:10px" data-i18n="sc_sub">Agrega subcategorías a cada categoría (ej. Anillos > Casamiento).</p>
@@ -575,15 +644,23 @@
           <!-- ===== Plantillas ===== -->
           <section class="pane hidden" data-mode="avanzado" id="tab-plantillas">
             <h1 data-i18n="t_plantillas">Plantillas de tallas</h1>
-            <p class="page-sub" data-i18n="t_plantillas_sub">Conjuntos de tallas según el tipo de producto (zapatos, anillos, cadenas…).</p>
-            <div class="panel"><h3 data-i18n="pl_new">Nueva plantilla</h3>
-              <div class="grid-2">
-                <div class="field"><label data-i18n="pl_name">Nombre</label><input type="text" id="new-template-name" placeholder="Anillos (10-22)" /></div>
-                <div class="field"><label data-i18n="pl_values">Tallas (separadas por coma)</label><input type="text" id="new-template-values" placeholder="10, 11, 12, 13" /></div>
-              </div>
-              <button class="btn green" id="btn-add-template" data-i18n="pl_add">Crear plantilla</button>
+            <p class="page-sub" data-i18n="t_plantillas_sub">Conjuntos de tallas según el tipo de producto (zapatos, anillos, cadenas?).</p><button type="button" class="btn-help" data-help="plantillas" aria-label="Ayuda" data-i18n-attr="aria-label|help_btn">?</button>
+            <div class="sub-tabs" id="tpl-tabs">
+              <button class="sub-tab active" data-tplpanel="view" data-i18n="tpl_view">Ver plantillas</button>
+              <button class="sub-tab" data-tplpanel="new" data-i18n="pl_new">Nueva plantilla</button>
             </div>
-            <div class="list" id="templates-list"></div>
+            <div class="sub-panel" id="tplp-view">
+              <div class="list" id="templates-list"></div>
+            </div>
+            <div class="sub-panel hidden" id="tplp-new">
+              <div class="panel"><h3 data-i18n="pl_new">Nueva plantilla</h3>
+                <div class="grid-2">
+                  <div class="field"><label data-i18n="pl_name">Nombre</label><input type="text" id="new-template-name" placeholder="Anillos (10-22)" /></div>
+                  <div class="field"><label data-i18n="pl_values">Tallas (separadas por coma)</label><input type="text" id="new-template-values" placeholder="10, 11, 12, 13" /></div>
+                </div>
+                <button class="btn green" id="btn-add-template" data-i18n="pl_add">Crear plantilla</button>
+              </div>
+            </div>
           </section>
 
 <!-- ===== Pedidos ===== -->
@@ -626,15 +703,9 @@
           <!-- ===== Configuración ===== -->
           <section class="pane hidden" data-mode="avanzado" id="tab-config">
             <h1 data-i18n="t_config">Configuración</h1>
-            <p class="page-sub" data-i18n="t_config_sub">PIN de acceso, pantalla de bienvenida y ajustes del panel.</p>
-            <div class="panel"><h3 data-i18n="cf_pin">PIN de administrador</h3>
-              <p class="page-sub" style="margin-bottom:10px" data-i18n="cf_pin_sub">PIN numérico de 6 dígitos. Cambiará el acceso al panel.</p>
-              <div class="grid-2">
-                <div class="field"><label data-i18n="cf_pin_new">Nuevo PIN (6 dígitos)</label><input type="password" id="cfg-pin-new" maxlength="6" inputmode="numeric" /></div>
-                <div class="field"><label data-i18n="cf_pin_confirm">Confirmar PIN</label><input type="password" id="cfg-pin-confirm" maxlength="6" inputmode="numeric" /></div>
-              </div>
-              <button class="btn green" id="btn-change-pin" data-i18n="cf_pin_btn">Cambiar PIN</button>
-              <p class="status-line" id="pin-status"></p>
+            <p class="page-sub" data-i18n="t_config_sub">Acceso al panel, pantalla de bienvenida y ajustes.</p>
+            <div class="panel"><h3 data-i18n="cf_login">Acceso del administrador</h3>
+              <p class="page-sub" style="margin-bottom:0" data-i18n="cf_login_sub">Tu usuario y contraseña se gestionan en el panel central (los servicios de tu proveedor). Si la tienda está bloqueada o no registrada, el acceso se deniega automáticamente.</p>
             </div>
             <div class="panel"><h3 data-i18n="cf_splash">Pantalla de bienvenida</h3>
               <p class="page-sub" style="margin-bottom:10px" data-i18n="cf_splash_sub">Se muestra tras el splash de 3s, antes de entrar a la tienda.</p>
@@ -701,10 +772,6 @@
     </div>
   </div>
 
-  <button class="sv-fab" id="sv-fab" data-i18n="sv_open" title="Ver tienda en vivo" aria-label="Ver tienda en vivo">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-  </button>
-
   <div class="cmd-overlay hidden" id="storeview-overlay">
     <div class="sv-wrap">
       <div class="sv-head">
@@ -717,6 +784,7 @@
   </div>
 
   <div class="tut-scrim hidden" id="tut-overlay">
+    <div class="tut-backdrop" id="tut-backdrop"></div>
     <div class="tut-spot" id="tut-spot"></div>
     <div class="tut-card" id="tut-card">
       <div class="tut-dots" id="tut-dots"></div>
@@ -732,10 +800,22 @@
     </div>
   </div>
 
+  <div class="cmd-overlay hidden" id="help-overlay">
+    <div class="cmd-box" style="max-width:560px">
+      <div class="cmd-input-row" style="cursor:default">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px;color:var(--muted)"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+        <strong class="help-title" id="help-title"></strong>
+        <button class="icon-btn" id="help-close" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="help-body" id="help-body"></div>
+      <div class="help-foot"><button class="btn green" id="help-ok" data-i18n="help_ok">Entendido</button></div>
+    </div>
+  </div>
+
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="./config.js?v=48"></script>
-  <script src="./js/supabase.js?v=48"></script>
+  <script src="./config.js?v=49"></script>
+  <script src="./js/supabase.js?v=49"></script>
   <script src="./js/color-picker.js?v=48"></script>
   <script>
     // ===== Iconos (lucide-style, inline) =====
@@ -755,13 +835,13 @@
     // ===== i18n =====
     var I18N = {
       es: {
-        login_sub: 'Panel de administración', login_btn: 'Entrar', login_error: 'PIN incorrecto', login_hint: 'PIN por defecto: 1234',
+        login_sub: 'Panel de administración', login_btn: 'Entrar', login_user_ph: 'Usuario', login_pass_ph: 'Contraseña', login_error: 'Credenciales incorrectas o acceso denegado', login_hint: 'Tu acceso se gestiona en el panel central. Si la tienda no está activa, el acceso está bloqueado.',
         ws_plan: 'WhatShop', ws_new: '+ Nueva tienda',
-        nav_apariencia: 'Apariencia', nav_ap_colores: 'Colores', nav_ap_tipografia: 'Tipografía', nav_ap_marca: 'Marca', nav_ap_disenno: 'Diseño', nav_qs: 'Config. rápidas', wz_open: 'Configuración inicial', qs_title: 'Configuraciones rápidas', qs_sub: 'Paletas de color en un clic. Se aplican al tab Colores.', qs_save: 'Guardar actual', qs_saved: 'Paleta guardada', qs_applied: 'Configuración aplicada', qs_presets: 'Rápidas', qs_saved_list: 'Guardadas', qs_delete: 'Eliminar', qs_name_required: 'Escribe un nombre', qs_empty: 'No hay paletas guardadas', prev_title: 'Vista previa en vivo', prev_sub: 'Cambia y mira el resultado en tiempo real.', wz_title: 'Configuración inicial', wz_sub: 'Configura tu tienda en unos pasos.', wz_back: 'Atrás', wz_next: 'Siguiente', wz_finish: 'Finalizar', sv_title: 'Vista de la tienda', sv_open: 'Ver tienda en vivo', sv_live: 'En vivo', tut_skip: 'Saltar tutorial', tut_restart: 'Tutorial', tut_done: '¡Tutorial completado!', wz_s1_t: 'Tu tienda', wz_s1_sub: 'Nombre, WhatsApp y moneda.', wz_s2_t: 'Colores', wz_s2_sub: 'Elige un estilo para tu tienda.', wz_s3_t: 'Logo y marca', wz_s3_sub: 'Sube tu logo y ajusta el nombre.', wz_s4_t: 'Métodos de pago', wz_s4_sub: 'Cómo recibe los pagos de tus clientes.', wz_pal1: 'Clásico', wz_pal2: 'Oscuro elegante', wz_pal3: 'Minimal blanco', wz_done: 'Tienda configurada',
-        tut_s0_t: 'Bienvenido a tu panel', tut_s0_x: 'Vamos a crear tu catálogo en 4 pasos: tu primera categoría, una subcategoría y tu primer producto.', tut_s1_t: '1. Crea tu categoría', tut_s1_x: 'Ve a la pestaña Nueva categoría, escribe el nombre (ej. Anillos) y pulsa Guardar categoría.', tut_s2_t: '2. Agrega subcategorías', tut_s2_x: 'En Nueva subcategoría elige tu categoría y añade un nombre (ej. Casamiento). Repítelo cuantas veces quieras.', tut_s3_t: '3. Sube tu primer producto', tut_s3_x: 'En Subir producto escribe nombre, precio y elige tu categoría y subcategoría. Opcional: fotos, variantes y stock. Pulsa Guardar producto.', tut_s4_t: '¡Listo!', tut_s4_x: 'Ya sabes armar tu catálogo. Abre el ojo flotante abajo a la derecha para ver tu tienda en vivo. Puedes repetir este tutorial cuando quieras con el botón de ayuda (?) arriba.', nav_app_heading: 'Apariencia', nav_tienda: 'General', nav_store_heading: 'Tienda', nav_contenido: 'Contenido', nav_cat_heading: 'Catálogo', nav_subir: 'Subir producto', nav_productos: 'Productos', nav_categorias: 'Categorías', nav_plantillas: 'Plantillas de tallas',
+        nav_apariencia: 'Apariencia', nav_ap_colores: 'Colores', nav_ap_tipografia: 'Tipografía', nav_ap_marca: 'Marca', nav_ap_disenno: 'Diseño', nav_qs: 'Config. rápidas', wz_open: 'Configuración inicial', qs_title: 'Configuraciones rápidas', qs_sub: 'Paletas de color en un clic. Se aplican al tab Colores.', qs_save: 'Guardar actual', qs_saved: 'Paleta guardada', qs_applied: 'Configuración aplicada', qs_presets: 'Rápidas', qs_saved_list: 'Guardadas', qs_delete: 'Eliminar', qs_name_required: 'Escribe un nombre', qs_empty: 'No hay paletas guardadas', prev_title: 'Vista previa en vivo', prev_sub: 'Cambia y mira el resultado en tiempo real.', wz_title: 'Configuración inicial', wz_sub: 'Configura tu tienda en unos pasos.', wz_back: 'Atrás', wz_next: 'Siguiente', wz_finish: 'Finalizar', sv_title: 'Vista de la tienda', sv_live: 'En vivo', tut_skip: 'Saltar tutorial', tut_restart: 'Tutorial', tut_done: '¡Tutorial completado!', help_ok: 'Entendido', help_btn: 'Ayuda', hl_subir_t: 'Cómo subir un producto', hl_subir_x: '<p>Completa nombre, precio y categoría. Opcional: subcategoría, imágenes, variantes (tallas o colores) y stock.</p><ul><li>Cada variante pide su propio stock.</li><li>Puedes fijar precio y stock de varias variantes a la vez con el bloque de edición en grupo.</li><li>Termina con Guardar producto.</li></ul>', hl_productos_t: 'Gestionar productos', hl_productos_x: '<p>Aquí ves todo lo que has subido, con buscador y filtro por categoría.</p><ul><li>Alterna entre vista de tarjetas y lista en la barra superior.</li><li>Edita con el lápiz o borra con el tache rojo.</li><li>El interruptor oculta o muestra el producto en la tienda sin borrarlo.</li></ul>', hl_categorias_t: 'Categorías y subcategorías', hl_categorias_x: '<p>Organiza tu catálogo en niveles y personaliza cómo se ve en la tienda.</p><ul><li>Nueva categoría: sección principal (ej. Anillos).</li><li>Nueva subcategoría: detalle dentro de una categoría (ej. Casamiento).</li><li>Barra de navegación: elige ícono, color e imagen de presentación.</li></ul>', hl_plantillas_t: 'Plantillas de tallas', hl_plantillas_x: '<p>Para productos sin variantes, define aquí las tallas disponibles (S, M, L, ...).</p><ul><li>Escribe un nombre de plantilla y una talla por línea.</li><li>Nueva crea la plantilla y Vista las lista.</li><li>La plantilla por defecto se aplica a los productos sin variantes.</li></ul>', hl_contenido_t: 'Contenido y mensaje de WhatsApp', hl_contenido_x: '<p>Configura los textos que ven tus clientes.</p><ul><li>Mensaje de WhatsApp: plantilla del mensaje al confirmar la compra.</li><li>Los botones insertan variables automáticamente (cliente, productos, total...).</li><li>Logo de la marca: se muestra en la tienda.</li></ul>', wz_s1_t: 'Tu tienda', wz_s1_sub: 'Nombre, WhatsApp y moneda.', wz_s2_t: 'Colores', wz_s2_sub: 'Elige un estilo para tu tienda.', wz_s3_t: 'Logo y marca', wz_s3_sub: 'Sube tu logo y ajusta el nombre.', wz_s4_t: 'Métodos de pago', wz_s4_sub: 'Cómo recibe los pagos de tus clientes.', wz_pal1: 'Clásico', wz_pal2: 'Oscuro elegante', wz_pal3: 'Minimal blanco', wz_done: 'Tienda configurada',
+        tut_s0_t: 'Bienvenido a tu panel', tut_s0_x: 'Vamos a crear tu catálogo en 4 pasos: tu primera categoría, una subcategoría y tu primer producto.', tut_s1_t: '1. Crea tu categoría', tut_s1_x: 'Ve a la pestaña Nueva categoría, escribe el nombre (ej. Anillos) y pulsa Guardar categoría.', tut_s2_t: '2. Agrega subcategorías', tut_s2_x: 'En Nueva subcategoría elige tu categoría y añade un nombre (ej. Casamiento). Repítelo cuantas veces quieras.', tut_s3_t: '3. Sube tu primer producto', tut_s3_x: 'En Subir producto escribe nombre, precio y elige tu categoría y subcategoría. Opcional: fotos, variantes y stock. Pulsa Guardar producto.', tut_s4_t: '¡Listo!', tut_s4_x: 'Ya sabes armar tu catálogo. Ve a Apariencia > Colores para ver la vista previa de tu tienda en vivo. Puedes repetir este tutorial cuando quieras con el botón de ayuda (?) arriba.', nav_app_heading: 'Apariencia', nav_tienda: 'General', nav_store_heading: 'Tienda', nav_contenido: 'Contenido', nav_cat_heading: 'Catálogo', nav_subir: 'Subir producto', nav_productos: 'Productos', nav_categorias: 'Categorías', nav_plantillas: 'Plantillas de tallas',
         nav_ops_heading: 'Operaciones', nav_pedidos: 'Pedidos', nav_sys_heading: 'Sistema', nav_backup: 'Backup', nav_config: 'Configuración', mode_basico: 'Esenciales', mode_avanzado: 'Completo',
         nav_ver_tienda: 'Ver tienda', nav_logout: 'Cerrar sesión',
-        cmd_search: 'Buscar', cmd_ph: 'Ir a…', cmd_actions: 'Acciones', cmd_logout: 'Cerrar sesión',
+        cmd_search: 'Buscar', cmd_ph: 'Ir a?', cmd_actions: 'Acciones', cmd_logout: 'Cerrar sesión',
         t_apariencia: 'Apariencia', t_apariencia_sub: 'Colores, tipografía y marca de tu tienda.', ap_colors: 'Colores de marca', ap_primary: 'Color primario', ap_accent: 'Color de acento', ap_bg: 'Fondo de la tienda', ap_fg: 'Color de texto', ap_secondary: 'Color secundario', ap_muted: 'Color de tarjetas',
         ap_typo: 'Tipografía y redondeo', ap_font: 'Fuente (títulos)', ap_radius: 'Radio de borde (px)', ap_brand: 'Marca en la barra superior', ap_show_logo: 'Mostrar logo', ap_show_name: 'Mostrar nombre de la tienda',
         ap_gradient: 'Fondo con degradado', ap_gradient_sub: 'Degradado sutil del fondo hasta el color elegido.', ap_gradient_on: 'Activar degradado', ap_gradient_color: 'Color del degradado (abajo)',
@@ -770,29 +850,29 @@
         t_ap_colores: 'Colores', t_ap_colores_sub: 'Paletas y colores de marca de tu tienda.', t_ap_tipografia: 'Tipografía', t_ap_tipografia_sub: 'Fuentes y redondeo general de la tienda.', t_ap_marca: 'Marca', t_ap_marca_sub: 'Logo, nombre y degradado de fondo.',
         t_tienda: 'General', t_tienda_sub: 'Datos generales, pagos y diseño.', t_ap_disenno: 'Diseño', t_ap_disenno_sub: 'Diseño de tarjetas, secciones de la portada, filtros, hero y banner.', t_contenido: 'Contenido', t_contenido_sub: 'Reseñas, mensaje de WhatsApp y logo.', ti_datos: 'Datos generales', ti_name: 'Nombre de la tienda', ti_whatsapp: 'Número de WhatsApp', ti_currency: 'Moneda', ti_currency_pos: 'Posición de la moneda', ti_cur_before: 'Antes ($10)', ti_cur_after: 'Después (10 $)', ti_open: 'Tienda abierta', ti_closed_msg: 'Mensaje cuando está cerrada',
         ti_pay: 'Métodos de pago', ti_pay_sub: 'Un método por línea.', ti_banner: 'Banner superior', ti_banner_sub: 'Franja a todo el ancho bajo el menú, con el logo y el nombre.', ti_banner_title: 'Nombre del banner', ti_banner_bg: 'Color de fondo', ti_banner_image: 'Imagen/logo del banner',
-        ti_msg_wa: 'Mensaje de WhatsApp', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Logo de la marca', ti_logo_upload: 'Subir logo (PNG, JPG, WebP)', ti_design: 'Diseño de tarjetas', ti_corners: 'Esquinas', ti_corners_square: 'Cuadradas', ti_corners_rounded: 'Redondeadas', ti_card_border: 'Borde de tarjetas', ti_border_none: 'Sin borde', ti_border_line: 'Con borde sutil', ti_card_shadow: 'Sombra de tarjetas', cs_sutil: 'Sutil', cs_none: 'Sin sombra', cs_media: 'Media', ti_sections: 'Secciones de la portada', ti_show_banner: 'Mostrar banner superior', ti_show_hero: 'Mostrar Hero de bienvenida', ti_show_cats: 'Mostrar botones de categorías', wh_panel: 'Hero de bienvenida', wh_sub: 'Edita el hero de la portada: colores, textos e imágenes.', wh_bg: 'Fondo', wh_primary: 'Color primario', wh_text1: 'Texto principal', wh_text2: 'Texto secundario', wh_btn_bg: 'Fondo del botón', wh_btn_color: 'Texto del botón', wh_font_title: 'Fuente del título', wh_font_body: 'Fuente del cuerpo', wh_btn_radius: 'Radio del botón (px)', wh_badge: 'Texto de la insignia', wh_badge_icon: 'Icono de la insignia (URL)', wh_title: 'Título', wh_subtitle: 'Subtítulo', wh_btn_text: 'Texto del botón', wh_btn_link: 'Enlace del botón', wh_dots_total: 'Total de puntos', wh_dots_active: 'Punto activo', wh_btn_arrow: 'Mostrar flecha en el botón', wh_gallery: 'Galería (tarjetas de imagen)', wh_add_img: 'Agregar imagen', wh_save: 'Guardar hero', ti_typo: 'Tipografía', ti_filter_design: 'Filtros de la tienda', ti_filter_bg: 'Color de fondo de los filtros', ti_filter_bold: 'Títulos de filtros en negrita',
-        t_subir: 'Subir producto', t_subir_sub: 'Crea y sube un producto nuevo con sus imágenes, variantes y stock.', t_productos: 'Productos', t_productos_sub: 'Busca y edita los productos que has subido.', pr_filter_cat: 'Filtrar por categoría', pr_filter_all: 'Todas', pr_new: 'Nuevo producto', pr_edit: 'Editar producto', pr_name: 'Nombre', pr_cat: 'Categoría', pr_price: 'Precio', pr_orig: 'Precio original (opcional, tachado)', pr_stock: 'Stock base', pr_featured: 'Destacado', pr_featured_on: 'Mostrar en Nuevos productos', pr_desc: 'Descripción',
-        pr_images: 'Imágenes del producto (múltiples)', bg_remove: 'Quitar fondo', take_photo: 'Tomar foto', pr_variants: 'Variantes (color × talla)', pr_sizes_src: 'Tallas: plantilla o lista libre', pr_sizes_free: 'Tallas libres (separadas por coma)', pr_apply_sizes: 'Aplicar tallas',
+        ti_msg_wa: 'Mensaje de WhatsApp', ti_msg_wa_sub: 'Inserta variables en el mensaje con estos botones (o escríbelas a mano): nombre de la tienda, nombre del cliente, teléfono, método de pago, nota, productos y total.', var_store: 'Nombre de la tienda', var_name: 'Nombre del cliente', var_phone: 'Teléfono', var_pay: 'Método de pago', var_note: 'Nota del cliente', var_items: 'Productos', var_total: 'Total', ti_logo: 'Logo de la marca', ti_logo_upload: 'Subir logo (PNG, JPG, WebP)', ti_design: 'Diseño de tarjetas', ti_corners: 'Esquinas', ti_corners_square: 'Cuadradas', ti_corners_rounded: 'Redondeadas', ti_card_border: 'Borde de tarjetas', ti_border_none: 'Sin borde', ti_border_line: 'Con borde sutil', ti_card_shadow: 'Sombra de tarjetas', cs_sutil: 'Sutil', cs_none: 'Sin sombra', cs_media: 'Media', ti_sections: 'Secciones de la portada', ti_show_banner: 'Mostrar banner superior', ti_show_hero: 'Mostrar Hero de bienvenida', ti_show_cats: 'Mostrar botones de categorías', wh_panel: 'Hero de bienvenida', wh_sub: 'Edita el hero de la portada: colores, textos e imágenes.', wh_bg: 'Fondo', wh_primary: 'Color primario', wh_text1: 'Texto principal', wh_text2: 'Texto secundario', wh_btn_bg: 'Fondo del botón', wh_btn_color: 'Texto del botón', wh_font_title: 'Fuente del título', wh_font_body: 'Fuente del cuerpo', wh_btn_radius: 'Radio del botón (px)', wh_badge: 'Texto de la insignia', wh_badge_icon: 'Icono de la insignia (URL)', wh_title: 'Título', wh_subtitle: 'Subtítulo', wh_btn_text: 'Texto del botón', wh_btn_link: 'Enlace del botón', wh_dots_total: 'Total de puntos', wh_dots_active: 'Punto activo', wh_btn_arrow: 'Mostrar flecha en el botón', wh_gallery: 'Galería (tarjetas de imagen)', wh_add_img: 'Agregar imagen', wh_save: 'Guardar hero', ti_typo: 'Tipografía', ti_filter_design: 'Filtros de la tienda', ti_filter_bg: 'Color de fondo de los filtros', ti_filter_bold: 'Títulos de filtros en negrita',
+        t_subir: 'Subir producto', t_subir_sub: 'Crea y sube un producto nuevo con sus imágenes, variantes y stock.', t_productos: 'Productos', t_productos_sub: 'Busca y edita los productos que has subido.', pr_filter_cat: 'Filtrar por categoría', pr_filter_all: 'Todas', pr_new: 'Nuevo producto', pr_edit: 'Editar producto', pr_name: 'Nombre', pr_cat: 'Categoría', pr_price: 'Precio', pr_orig: 'Precio original (opcional, tachado)', pr_stock: 'Stock base', pr_featured: 'Destacado', pr_featured_on: 'Mostrar en Nuevos productos', pr_desc: 'Descripción', pr_desc_ph: 'Detalles útiles para tus clientes. Usa líneas separadas para crear párrafos y guiones (-) para listas.',
+        pr_images: 'Imágenes del producto (múltiples)', bg_remove: 'Quitar fondo', take_photo: 'Tomar foto', img_add: 'Agregar imágenes', img_gallery: 'Subir desde galería', pr_variants: 'Variantes (color - talla)', pr_sizes_src: 'Tallas: plantilla o lista libre', pr_sizes_free: 'Tallas libres (separadas por coma)', pr_apply_sizes: 'Aplicar tallas',
         pr_color_name: 'Color', pr_color_hex: 'Hex', pr_add_color: 'Agregar color', pr_save: 'Guardar producto', pr_cancel: 'Cancelar edición', pr_existing: 'Productos existentes',
-        pr_novariants: 'Sin variantes (usa stock base)', pr_stock2: 'Stock', pr_saving: 'Guardando…', pr_saved: 'Producto guardado', bg_ask: '¿Quitar el fondo a estas imágenes?', g_del: 'Eliminar',
-        t_categorias: 'Categorías', t_categorias_sub: 'Crea y ordena las categorías de tu catálogo.', ca_new: 'Nueva categoría', cat_view: 'Ver categorías', cat_newcat: 'Nueva categoría', cat_newsub: 'Nueva subcategoría', ca_edit_title: 'Editar categoría', ca_name: 'Nombre', ca_color: 'Color del recuadro', ca_pos: 'Posición (auto al crear, editable)', ca_image: 'Imagen de la categoría', ca_icon: 'Icono del círculo', ca_border: 'Borde', ca_border_on: 'Activar borde', ca_border_color: 'Color del borde', ca_border_side: 'Ubicación', ca_bs_all: 'Todo el contorno', ca_bs_top: 'Solo arriba', ca_bs_bottom: 'Solo abajo', ca_bs_sides: 'Solo lados', ca_add: 'Guardar categoría', ca_cancel: 'Cancelar', ca_edit: 'Guardar', ca_del: 'Eliminar', sc_title: 'Subcategorías', sc_sub: 'Agrega subcategorías a cada categoría (ej. Anillos > Casamiento).', sc_cat: 'Categoría', sc_name: 'Nombre de la subcategoría', sc_add: 'Agregar subcategoría', sc_cancel: 'Cancelar', sc_del: 'Eliminar', sc_confirm: '¿Eliminar esta subcategoría?', sc_empty: 'Sin subcategorías', sc_req: 'Elige categoría y escribe el nombre', sc_other: 'Otros', pr_subcat: 'Subcategoría',
-        t_plantillas: 'Plantillas de tallas', t_plantillas_sub: 'Conjuntos de tallas según el tipo de producto (zapatos, anillos, cadenas…).', pl_new: 'Nueva plantilla', pl_name: 'Nombre', pl_values: 'Tallas (separadas por coma)', pl_add: 'Crear plantilla', pl_del: 'Eliminar',
+        pr_bulk: 'Precio y stock iguales para todas las tallas', pr_bulk_apply: 'Aplicar a todas', pr_bulk_empty: 'Escribe un precio o stock', pr_stock_short: 'Stock', pr_per_page: 'Por página', pr_novariants: 'Sin variantes (usa stock base)', pr_stock2: 'Stock', pr_saving: 'Guardando?', pr_saved: 'Producto guardado', pr_hidden_lbl: 'Visibilidad', pr_hidden_on: 'Oculto de la tienda', pr_hidden_ok: 'Ocultado de la tienda', pr_show_ok: 'Visible en la tienda', pr_vis_tip: 'Ocultar de la tienda', pr_showing: 'Mostrando', pager_of: 'de', bg_ask: '¿Quitar el fondo a estas imágenes?', g_del: 'Eliminar',
+        t_categorias: 'Categorías', t_categorias_sub: 'Crea y ordena las categorías de tu catálogo.', ca_new: 'Nueva categoría', cat_view: 'Ver categorías', cat_newcat: 'Nueva categoría', cat_newsub: 'Nueva subcategoría', cat_navbar: 'Barra de navegación', cat_navbar_sub: 'Personaliza la apariencia de cada categoría en la barra de navegación.', cat_pick: 'Elige una categoría', ca_edit_title: 'Editar categoría', ca_name: 'Nombre', ca_color: 'Color del recuadro', ca_pos: 'Posición (auto al crear, editable)', ca_image: 'Imagen de la categoría', ca_icon: 'Icono del círculo', ca_border: 'Borde', ca_border_on: 'Activar borde', ca_border_color: 'Color del borde', ca_border_side: 'Ubicación', ca_bs_all: 'Todo el contorno', ca_bs_top: 'Solo arriba', ca_bs_bottom: 'Solo abajo', ca_bs_sides: 'Solo lados', ca_add: 'Guardar categoría', ca_cancel: 'Cancelar', ca_edit: 'Guardar', ca_del: 'Eliminar', ca_nav_save: 'Guardar apariencia', sc_title: 'Subcategorías', sc_sub: 'Agrega subcategorías a cada categoría (ej. Anillos > Casamiento).', sc_cat: 'Categoría', sc_name: 'Nombre de la subcategoría', sc_add: 'Agregar subcategoría', sc_cancel: 'Cancelar', sc_del: 'Eliminar', sc_confirm: '¿Eliminar esta subcategoría?', sc_empty: 'Sin subcategorías', sc_req: 'Elige categoría y escribe el nombre', sc_other: 'Otros', pr_subcat: 'Subcategoría',
+        t_plantillas: 'Plantillas de tallas', t_plantillas_sub: 'Conjuntos de tallas según el tipo de producto (zapatos, anillos, cadenas?).', pl_new: 'Nueva plantilla', pl_name: 'Nombre', pl_values: 'Tallas (separadas por coma)', pl_add: 'Crear plantilla', pl_del: 'Eliminar', tpl_view: 'Ver plantillas',
         t_pedidos: 'Pedidos', t_pedidos_sub: 'Historial de pedidos enviados por WhatsApp.', ped_refresh: 'Refrescar', ped_none: 'No hay pedidos.', ped_wa: 'WhatsApp', ped_pagado: 'Pagado', ped_entregado: 'Entregado', ped_cancelar: 'Cancelar',
         an_nodata: 'Sin datos',
         t_backup: 'Backup', t_backup_sub: 'Exporta e importa toda la configuración y catálogo.', bk_export: 'Exportar backup JSON', bk_import: 'Importar backup', bk_imported: 'Backup importado correctamente', bk_invalid: 'Archivo inválido',
-        t_config: 'Configuración', t_config_sub: 'PIN de acceso, pantalla de bienvenida y ajustes del panel.', cf_pin: 'PIN de administrador', cf_pin_sub: 'PIN numérico de 6 dígitos. Cambiará el acceso al panel.', cf_pin_new: 'Nuevo PIN (6 dígitos)', cf_pin_confirm: 'Confirmar PIN', cf_pin_btn: 'Cambiar PIN', cf_pin_done: 'PIN actualizado', cf_pin_mismatch: 'Los PIN no coinciden', cf_pin_len: 'El PIN debe tener 6 dígitos',
+        t_config: 'Configuración', t_config_sub: 'Acceso al panel, pantalla de bienvenida y ajustes.', cf_login: 'Acceso del administrador', cf_login_sub: 'Tu usuario y contraseña se gestionan en el panel central (los servicios de tu proveedor). Si la tienda está bloqueada o no registrada, el acceso se deniega automáticamente.',
         cf_splash: 'Pantalla de bienvenida', cf_splash_sub: 'Se muestra tras el splash de 3s, antes de entrar a la tienda.', cf_splash_bg: 'Color de fondo', cf_splash_text: 'Texto de bienvenida', cf_splash_text_color: 'Color del texto', cf_splash_logo: 'Logo de la bienvenida', cf_splash_done: 'Bienvenida guardada',
         st_saved: 'Guardado correctamente', st_error: 'Error al guardar', st_en_proceso: 'En proceso', st_nuevo: 'Nuevo', st_pagado: 'Pagado', st_entregado: 'Entregado', st_cancelado: 'Cancelado', upload_btn: 'Subir imagen', no_file: 'Sin archivo', palettes_title: 'Paletas de colores', palettes_sub: 'Elige una combinación completa y se aplicará a la tienda.', pal_confirm: '¿Aplicar esta paleta de colores?', pal_applied: 'Paleta aplicada', pal_1: 'Clásico', pal_2: 'Oscuro elegante', pal_3: 'Minimal blanco', pal_4: 'Azul sereno', pal_5: 'Rosa suave', pal_6: 'Verde naturaleza', pal_7: 'Otoño terracota', pal_8: 'Violeta moderno', pal_9: 'Oro y negro', pal_10: 'Café cálido', clear_cat: 'Catálogo', clear_cat_sub: 'Borra todos los productos y categorías de la tienda (no los pedidos).', clear_cat_btn: 'Borrar catálogo (demo)', clear_cat_confirm: '¿Borrar todos los productos y categorías? Esta acción no se puede deshacer.', clear_cat_done: 'Catálogo borrado', del_confirm: '¿Eliminar este elemento?', del_confirm_cat: '¿Eliminar esta categoría?', del_confirm_prod: '¿Eliminar este producto?', del_confirm_tpl: '¿Eliminar esta plantilla?',
         edit: 'Editar', new_store_ph: 'Nombre de la nueva tienda', no_stores: 'Sin tiendas', empty_cat: 'No hay categorías.', empty_prod: 'No hay productos.', empty_tpl: 'No hay plantillas.', empty_ord: 'No hay pedidos aún.', es_cta_cat: 'Crear primera categoría', es_cta_prod: 'Subir primer producto', es_cta_ord: 'Refrescar pedidos'
       },
       en: {
-        login_sub: 'Admin panel', login_btn: 'Enter', login_error: 'Wrong PIN', login_hint: 'Default PIN: 1234',
+        login_sub: 'Admin panel', login_btn: 'Enter', login_user_ph: 'User', login_pass_ph: 'Password', login_error: 'Wrong credentials or access denied', login_hint: 'Your access is managed in the central panel. If the store is not active, access is blocked.',
         ws_plan: 'WhatShop', ws_new: '+ New store',
-        nav_apariencia: 'Appearance', nav_ap_colores: 'Colors', nav_ap_tipografia: 'Typography', nav_ap_marca: 'Branding', nav_ap_disenno: 'Design', nav_qs: 'Quick settings', wz_open: 'Initial setup', qs_title: 'Quick settings', qs_sub: 'Color palettes in one click. Applies to the Colors tab.', qs_save: 'Save current', qs_saved: 'Palette saved', qs_applied: 'Configuration applied', qs_presets: 'Quick', qs_saved_list: 'Saved', qs_delete: 'Delete', qs_name_required: 'Type a name', qs_empty: 'No saved palettes', prev_title: 'Live preview', prev_sub: 'Change and see the result in real time.', wz_title: 'Initial setup', wz_sub: 'Set up your store in a few steps.', wz_back: 'Back', wz_next: 'Next', wz_finish: 'Finish', sv_title: 'Store preview', sv_open: 'Live store view', sv_live: 'Live', tut_skip: 'Skip tutorial', tut_restart: 'Tutorial', tut_done: 'Tutorial completed!', wz_s1_t: 'Your store', wz_s1_sub: 'Name, WhatsApp and currency.', wz_s2_t: 'Colors', wz_s2_sub: 'Pick a style for your store.', wz_s3_t: 'Logo & brand', wz_s3_sub: 'Upload your logo and adjust the name.', wz_s4_t: 'Payment methods', wz_s4_sub: 'How your customers pay.', wz_pal1: 'Classic', wz_pal2: 'Elegant dark', wz_pal3: 'Minimal white', wz_done: 'Store configured',
-        tut_s0_t: 'Welcome to your panel', tut_s0_x: 'Let\'s build your catalog in 4 steps: your first category, a subcategory and your first product.', tut_s1_t: '1. Create your category', tut_s1_x: 'Open the New category tab, type the name (e.g. Rings) and press Save category.', tut_s2_t: '2. Add subcategories', tut_s2_x: 'In New subcategory pick your category and add a name (e.g. Wedding). Repeat as many times as you want.', tut_s3_t: '3. Upload your first product', tut_s3_x: 'In Upload product type the name, price and pick your category and subcategory. Optional: photos, variants and stock. Press Save product.', tut_s4_t: 'Done!', tut_s4_x: 'You now know how to build your catalog. Tap the floating eye at the bottom-right to watch your store live. Replay this tutorial anytime with the help (?) button above.', nav_app_heading: 'Appearance', nav_tienda: 'General', nav_store_heading: 'Store', nav_contenido: 'Content', nav_cat_heading: 'Catalog', nav_subir: 'Upload product', nav_productos: 'Products', nav_categorias: 'Categories', nav_plantillas: 'Size templates',
+        nav_apariencia: 'Appearance', nav_ap_colores: 'Colors', nav_ap_tipografia: 'Typography', nav_ap_marca: 'Branding', nav_ap_disenno: 'Design', nav_qs: 'Quick settings', wz_open: 'Initial setup', qs_title: 'Quick settings', qs_sub: 'Color palettes in one click. Applies to the Colors tab.', qs_save: 'Save current', qs_saved: 'Palette saved', qs_applied: 'Configuration applied', qs_presets: 'Quick', qs_saved_list: 'Saved', qs_delete: 'Delete', qs_name_required: 'Type a name', qs_empty: 'No saved palettes', prev_title: 'Live preview', prev_sub: 'Change and see the result in real time.', wz_title: 'Initial setup', wz_sub: 'Set up your store in a few steps.', wz_back: 'Back', wz_next: 'Next', wz_finish: 'Finish', sv_title: 'Store preview', sv_live: 'Live', tut_skip: 'Skip tutorial', tut_restart: 'Tutorial', tut_done: 'Tutorial completed!', help_ok: 'Got it', help_btn: 'Help', hl_subir_t: 'How to upload a product', hl_subir_x: '<p>Fill in name, price and category. Optional: subcategory, images, variants (sizes or colors) and stock.</p><ul><li>Each variant needs its own stock.</li><li>Set price and stock for many variants at once with the bulk edit bar.</li><li>Finish with Save product.</li></ul>', hl_productos_t: 'Manage products', hl_productos_x: '<p>Here you see everything you uploaded, with search and category filter.</p><ul><li>Switch between card and list views in the top bar.</li><li>Edit with the pencil or delete with the red cross.</li><li>The switch hides or shows the product in the store without deleting it.</li></ul>', hl_categorias_t: 'Categories and subcategories', hl_categorias_x: '<p>Organize your catalog and customize how it looks in the store.</p><ul><li>New category: main section (e.g. Rings).</li><li>New subcategory: detail inside a category (e.g. Wedding).</li><li>Nav bar: pick the icon, color and cover image.</li></ul>', hl_plantillas_t: 'Size templates', hl_plantillas_x: '<p>For products without variants, define the available sizes here (S, M, L, ...).</p><ul><li>Type a template name and one size per line.</li><li>New creates the template and View lists them.</li><li>The default template applies to products without variants.</li></ul>', hl_contenido_t: 'Content and WhatsApp message', hl_contenido_x: '<p>Set the texts your customers see.</p><ul><li>WhatsApp message: template of the message when confirming the purchase.</li><li>The buttons insert variables automatically (customer, items, total...).</li><li>Store logo: shown across the store.</li></ul>', wz_s1_t: 'Your store', wz_s1_sub: 'Name, WhatsApp and currency.', wz_s2_t: 'Colors', wz_s2_sub: 'Pick a style for your store.', wz_s3_t: 'Logo & brand', wz_s3_sub: 'Upload your logo and adjust the name.', wz_s4_t: 'Payment methods', wz_s4_sub: 'How your customers pay.', wz_pal1: 'Classic', wz_pal2: 'Elegant dark', wz_pal3: 'Minimal white', wz_done: 'Store configured',
+        tut_s0_t: 'Welcome to your panel', tut_s0_x: 'Let\'s build your catalog in 4 steps: your first category, a subcategory and your first product.', tut_s1_t: '1. Create your category', tut_s1_x: 'Open the New category tab, type the name (e.g. Rings) and press Save category.', tut_s2_t: '2. Add subcategories', tut_s2_x: 'In New subcategory pick your category and add a name (e.g. Wedding). Repeat as many times as you want.', tut_s3_t: '3. Upload your first product', tut_s3_x: 'In Upload product type the name, price and pick your category and subcategory. Optional: photos, variants and stock. Press Save product.', tut_s4_t: 'Done!', tut_s4_x: 'You now know how to build your catalog. Go to Appearance > Colors to watch your store preview live. Replay this tutorial anytime with the help (?) button above.', nav_app_heading: 'Appearance', nav_tienda: 'General', nav_store_heading: 'Store', nav_contenido: 'Content', nav_cat_heading: 'Catalog', nav_subir: 'Upload product', nav_productos: 'Products', nav_categorias: 'Categories', nav_plantillas: 'Size templates',
         nav_ops_heading: 'Operations', nav_pedidos: 'Orders', nav_sys_heading: 'System', nav_backup: 'Backup', nav_config: 'Settings', mode_basico: 'Essentials', mode_avanzado: 'Advanced',
         nav_ver_tienda: 'View store', nav_logout: 'Log out',
-        cmd_search: 'Search', cmd_ph: 'Go to…', cmd_actions: 'Actions', cmd_logout: 'Log out',
+        cmd_search: 'Search', cmd_ph: 'Go to?', cmd_actions: 'Actions', cmd_logout: 'Log out',
         t_apariencia: 'Appearance', t_apariencia_sub: 'Colors, typography and branding of your store.', ap_colors: 'Brand colors', ap_primary: 'Primary color', ap_accent: 'Accent color', ap_bg: 'Store background', ap_fg: 'Text color', ap_secondary: 'Secondary color', ap_muted: 'Card color',
         ap_typo: 'Typography & radius', ap_font: 'Font (headings)', ap_radius: 'Border radius (px)', ap_brand: 'Top bar branding', ap_show_logo: 'Show logo', ap_show_name: 'Show store name',
         ap_gradient: 'Background gradient', ap_gradient_sub: 'Subtle gradient from background to chosen color.', ap_gradient_on: 'Enable gradient', ap_gradient_color: 'Gradient color (bottom)',
@@ -801,17 +881,17 @@
         t_ap_colores: 'Colors', t_ap_colores_sub: 'Palettes and brand colors for your store.', t_ap_tipografia: 'Typography', t_ap_tipografia_sub: 'Fonts and general border radius.', t_ap_marca: 'Branding', t_ap_marca_sub: 'Logo, name and background gradient.',
         t_tienda: 'General', t_tienda_sub: 'Store data, payments and design.', t_ap_disenno: 'Design', t_ap_disenno_sub: 'Card design, home sections, filters, hero and banner.', t_contenido: 'Content', t_contenido_sub: 'Reviews, WhatsApp message and logo.', ti_datos: 'General data', ti_name: 'Store name', ti_whatsapp: 'WhatsApp number', ti_currency: 'Currency', ti_currency_pos: 'Currency position', ti_cur_before: 'Before ($10)', ti_cur_after: 'After (10 $)', ti_open: 'Store open', ti_closed_msg: 'Closed message',
         ti_pay: 'Payment methods', ti_pay_sub: 'One method per line.', ti_banner: 'Top banner', ti_banner_sub: 'Full-width strip under the menu with the logo and name.', ti_banner_title: 'Banner name', ti_banner_bg: 'Background color', ti_banner_image: 'Banner image/logo',
-        ti_msg_wa: 'WhatsApp message', ti_msg_wa_sub: 'Variables: {storeName} {name} {phone} {paymentMethod} {noteText} {items} {total}', ti_logo: 'Store logo', ti_logo_upload: 'Upload logo (PNG, JPG, WebP)', ti_design: 'Card design', ti_corners: 'Corners', ti_corners_square: 'Square', ti_corners_rounded: 'Rounded', ti_card_border: 'Card border', ti_border_none: 'No border', ti_border_line: 'Subtle border', ti_card_shadow: 'Card shadow', cs_sutil: 'Subtle', cs_none: 'No shadow', cs_media: 'Medium', ti_sections: 'Home sections', ti_show_banner: 'Show top banner', ti_show_hero: 'Show welcome hero', ti_show_cats: 'Show category buttons', wh_panel: 'Welcome hero', wh_sub: 'Edit the homepage hero: colors, texts and images.', wh_bg: 'Background', wh_primary: 'Primary color', wh_text1: 'Primary text', wh_text2: 'Secondary text', wh_btn_bg: 'Button background', wh_btn_color: 'Button text', wh_font_title: 'Title font', wh_font_body: 'Body font', wh_btn_radius: 'Button radius (px)', wh_badge: 'Badge text', wh_badge_icon: 'Badge icon (URL)', wh_title: 'Title', wh_subtitle: 'Subtitle', wh_btn_text: 'Button text', wh_btn_link: 'Button link', wh_dots_total: 'Total dots', wh_dots_active: 'Active dot', wh_btn_arrow: 'Show button arrow', wh_gallery: 'Gallery (image cards)', wh_add_img: 'Add image', wh_save: 'Save hero', ti_typo: 'Typography', ti_filter_design: 'Store filters', ti_filter_bg: 'Filters background color', ti_filter_bold: 'Bold filter titles',
-        t_subir: 'Upload product', t_subir_sub: 'Create and upload a new product with images, variants and stock.', t_productos: 'Products', t_productos_sub: 'Find and edit the products you uploaded.', pr_filter_cat: 'Filter by category', pr_filter_all: 'All', pr_new: 'New product', pr_edit: 'Edit product', pr_name: 'Name', pr_cat: 'Category', pr_price: 'Price', pr_orig: 'Original price (optional, strikethrough)', pr_stock: 'Base stock', pr_featured: 'Featured', pr_featured_on: 'Show in New products', pr_desc: 'Description',
-        pr_images: 'Product images (multiple)', bg_remove: 'Remove background', take_photo: 'Take photo', pr_variants: 'Variants (color × size)', pr_sizes_src: 'Sizes: template or free list', pr_sizes_free: 'Free sizes (comma separated)', pr_apply_sizes: 'Apply sizes',
+        ti_msg_wa: 'WhatsApp message', ti_msg_wa_sub: 'Insert variables into the message with these buttons (or type them by hand): store name, customer name, phone, payment method, note, items and total.', var_store: 'Store name', var_name: 'Customer name', var_phone: 'Phone', var_pay: 'Payment method', var_note: 'Customer note', var_items: 'Items', var_total: 'Total', ti_logo: 'Store logo', ti_logo_upload: 'Upload logo (PNG, JPG, WebP)', ti_design: 'Card design', ti_corners: 'Corners', ti_corners_square: 'Square', ti_corners_rounded: 'Rounded', ti_card_border: 'Card border', ti_border_none: 'No border', ti_border_line: 'Subtle border', ti_card_shadow: 'Card shadow', cs_sutil: 'Subtle', cs_none: 'No shadow', cs_media: 'Medium', ti_sections: 'Home sections', ti_show_banner: 'Show top banner', ti_show_hero: 'Show welcome hero', ti_show_cats: 'Show category buttons', wh_panel: 'Welcome hero', wh_sub: 'Edit the homepage hero: colors, texts and images.', wh_bg: 'Background', wh_primary: 'Primary color', wh_text1: 'Primary text', wh_text2: 'Secondary text', wh_btn_bg: 'Button background', wh_btn_color: 'Button text', wh_font_title: 'Title font', wh_font_body: 'Body font', wh_btn_radius: 'Button radius (px)', wh_badge: 'Badge text', wh_badge_icon: 'Badge icon (URL)', wh_title: 'Title', wh_subtitle: 'Subtitle', wh_btn_text: 'Button text', wh_btn_link: 'Button link', wh_dots_total: 'Total dots', wh_dots_active: 'Active dot', wh_btn_arrow: 'Show button arrow', wh_gallery: 'Gallery (image cards)', wh_add_img: 'Add image', wh_save: 'Save hero', ti_typo: 'Typography', ti_filter_design: 'Store filters', ti_filter_bg: 'Filters background color', ti_filter_bold: 'Bold filter titles',
+        t_subir: 'Upload product', t_subir_sub: 'Create and upload a new product with images, variants and stock.', t_productos: 'Products', t_productos_sub: 'Find and edit the products you uploaded.', pr_filter_cat: 'Filter by category', pr_filter_all: 'All', pr_new: 'New product', pr_edit: 'Edit product', pr_name: 'Name', pr_cat: 'Category', pr_price: 'Price', pr_orig: 'Original price (optional, strikethrough)', pr_stock: 'Base stock', pr_featured: 'Featured', pr_featured_on: 'Show in New products', pr_desc: 'Description', pr_desc_ph: 'Useful details for your customers. Use separate lines to create paragraphs and dashes (-) for bullet lists.',
+        pr_images: 'Product images (multiple)', bg_remove: 'Remove background', take_photo: 'Take photo', img_add: 'Add images', img_gallery: 'Upload from gallery', pr_variants: 'Variants (color - size)', pr_sizes_src: 'Sizes: template or free list', pr_sizes_free: 'Free sizes (comma separated)', pr_apply_sizes: 'Apply sizes',
         pr_color_name: 'Color', pr_color_hex: 'Hex', pr_add_color: 'Add color', pr_save: 'Save product', pr_cancel: 'Cancel edit', pr_existing: 'Existing products',
-        pr_novariants: 'No variants (uses base stock)', pr_stock2: 'Stock', pr_saving: 'Saving…', pr_saved: 'Product saved', bg_ask: 'Remove background from these images?', g_del: 'Delete',
-        t_categorias: 'Categories', t_categorias_sub: 'Create and order your catalog categories.', ca_new: 'New category', cat_view: 'View categories', cat_newcat: 'New category', cat_newsub: 'New subcategory', ca_edit_title: 'Edit category', ca_name: 'Name', ca_color: 'Box color', ca_pos: 'Position (auto on create, editable)', ca_image: 'Category image', ca_icon: 'Circle icon', ca_border: 'Border', ca_border_on: 'Enable border', ca_border_color: 'Border color', ca_border_side: 'Position', ca_bs_all: 'Whole outline', ca_bs_top: 'Top only', ca_bs_bottom: 'Bottom only', ca_bs_sides: 'Sides only', ca_add: 'Save category', ca_cancel: 'Cancel', ca_edit: 'Save', ca_del: 'Delete', sc_title: 'Subcategories', sc_sub: 'Add subcategories to each category (e.g., Rings > Wedding).', sc_cat: 'Category', sc_name: 'Subcategory name', sc_add: 'Add subcategory', sc_cancel: 'Cancel', sc_del: 'Delete', sc_confirm: 'Delete this subcategory?', sc_empty: 'No subcategories', sc_req: 'Pick a category and enter a name', sc_other: 'Others', pr_subcat: 'Subcategory',
-        t_plantillas: 'Size templates', t_plantillas_sub: 'Size sets by product type (shoes, rings, chains…).', pl_new: 'New template', pl_name: 'Name', pl_values: 'Sizes (comma separated)', pl_add: 'Create template', pl_del: 'Delete',
+        pr_per_page: 'Per page', pr_hidden_lbl: 'Visibility', pr_hidden_on: 'Hidden from store', pr_hidden_ok: 'Hidden from store', pr_show_ok: 'Visible in store', pr_vis_tip: 'Hide from store', pr_showing: 'Showing', pager_of: 'of', pr_novariants: 'No variants (uses base stock)', pr_stock2: 'Stock', pr_saving: 'Saving?', pr_saved: 'Product saved', pr_bulk: 'Same price and stock for all sizes', pr_bulk_apply: 'Apply to all', pr_bulk_empty: 'Enter a price or stock', pr_stock_short: 'Stock', bg_ask: 'Remove background from these images?', g_del: 'Delete',
+        t_categorias: 'Categories', t_categorias_sub: 'Create and order your catalog categories.', ca_new: 'New category', cat_view: 'View categories', cat_newcat: 'New category', cat_newsub: 'New subcategory', cat_navbar: 'Navigation bar', cat_navbar_sub: 'Customize how each category looks in the navigation bar.', cat_pick: 'Pick a category', ca_edit_title: 'Edit category', ca_name: 'Name', ca_color: 'Box color', ca_pos: 'Position (auto on create, editable)', ca_image: 'Category image', ca_icon: 'Circle icon', ca_border: 'Border', ca_border_on: 'Enable border', ca_border_color: 'Border color', ca_border_side: 'Position', ca_bs_all: 'Whole outline', ca_bs_top: 'Top only', ca_bs_bottom: 'Bottom only', ca_bs_sides: 'Sides only', ca_add: 'Save category', ca_cancel: 'Cancel', ca_edit: 'Save', ca_del: 'Delete', ca_nav_save: 'Save appearance', sc_title: 'Subcategories', sc_sub: 'Add subcategories to each category (e.g., Rings > Wedding).', sc_cat: 'Category', sc_name: 'Subcategory name', sc_add: 'Add subcategory', sc_cancel: 'Cancel', sc_del: 'Delete', sc_confirm: 'Delete this subcategory?', sc_empty: 'No subcategories', sc_req: 'Pick a category and enter a name', sc_other: 'Others', pr_subcat: 'Subcategory',
+        t_plantillas: 'Size templates', t_plantillas_sub: 'Size sets by product type (shoes, rings, chains?).', pl_new: 'New template', pl_name: 'Name', pl_values: 'Sizes (comma separated)', pl_add: 'Create template', pl_del: 'Delete', tpl_view: 'View templates',
         t_pedidos: 'Orders', t_pedidos_sub: 'Order history sent via WhatsApp.', ped_refresh: 'Refresh', ped_none: 'No orders.', ped_wa: 'WhatsApp', ped_pagado: 'Paid', ped_entregado: 'Delivered', ped_cancelar: 'Cancel',
         an_nodata: 'No data',
         t_backup: 'Backup', t_backup_sub: 'Export and import all config and catalog.', bk_export: 'Export backup JSON', bk_import: 'Import backup', bk_imported: 'Backup imported successfully', bk_invalid: 'Invalid file',
-        t_config: 'Settings', t_config_sub: 'Access PIN, welcome screen and panel settings.', cf_pin: 'Admin PIN', cf_pin_sub: '6-digit numeric PIN. It changes panel access.', cf_pin_new: 'New PIN (6 digits)', cf_pin_confirm: 'Confirm PIN', cf_pin_btn: 'Change PIN', cf_pin_done: 'PIN updated', cf_pin_mismatch: 'PINs do not match', cf_pin_len: 'PIN must be 6 digits',
+        t_config: 'Settings', t_config_sub: 'Panel access, welcome screen and settings.', cf_login: 'Admin access', cf_login_sub: 'Your username and password are managed in the central panel (your provider services). If the store is blocked or not registered, access is denied automatically.',
         cf_splash: 'Welcome screen', cf_splash_sub: 'Shown after the 3s splash, before entering the store.', cf_splash_bg: 'Background color', cf_splash_text: 'Welcome text', cf_splash_text_color: 'Text color', cf_splash_logo: 'Welcome logo', cf_splash_done: 'Welcome saved',
         st_saved: 'Saved successfully', st_error: 'Error saving', st_en_proceso: 'In process', st_nuevo: 'New', st_pagado: 'Paid', st_entregado: 'Delivered', st_cancelado: 'Cancelled', upload_btn: 'Upload image', no_file: 'No file', palettes_title: 'Color palettes', palettes_sub: 'Pick a full color combination and it will be applied to the store.', pal_confirm: 'Apply this color palette?', pal_applied: 'Palette applied', pal_1: 'Classic', pal_2: 'Dark elegant', pal_3: 'Minimal white', pal_4: 'Serene blue', pal_5: 'Soft pink', pal_6: 'Nature green', pal_7: 'Terracotta autumn', pal_8: 'Modern violet', pal_9: 'Gold and black', pal_10: 'Warm coffee', clear_cat: 'Catalog', clear_cat_sub: 'Deletes all products and categories from the store (not orders).', clear_cat_btn: 'Clear catalog (demo)', clear_cat_confirm: 'Delete all products and categories? This cannot be undone.', clear_cat_done: 'Catalog cleared', del_confirm: 'Delete this item?', del_confirm_cat: 'Delete this category?', del_confirm_prod: 'Delete this product?', del_confirm_tpl: 'Delete this template?',
         edit: 'Edit', new_store_ph: 'New store name', no_stores: 'No stores', empty_cat: 'No categories.', empty_prod: 'No products.', empty_tpl: 'No templates.', empty_ord: 'No orders yet.', es_cta_cat: 'Create first category', es_cta_prod: 'Upload first product', es_cta_ord: 'Refresh orders'
@@ -823,6 +903,13 @@
       document.documentElement.setAttribute('lang', lang);
       document.getElementById('lang-toggle').textContent = lang.toUpperCase();
       document.querySelectorAll('[data-i18n]').forEach(function (el) { el.textContent = t(el.getAttribute('data-i18n')); });
+      document.querySelectorAll('[data-i18n-attr]').forEach(function (el) {
+        var pairs = el.getAttribute('data-i18n-attr').split(';');
+        for (var pi = 0; pi < pairs.length; pi++) {
+          var p = pairs[pi].split('|');
+          if (p[0] && p[1]) el.setAttribute(p[0], t(p[1]));
+        }
+      });
       var crumb = document.getElementById('crumb-page');
       if (crumb) crumb.textContent = t(crumb.dataset.key || 't_ap_colores');
       document.getElementById('cmd-input').placeholder = t('cmd_ph');
@@ -866,26 +953,49 @@
 
     // ===== Login =====
     function doLogin() {
-      var pin = document.getElementById('pin').value;
-      if (!pin) return;
-      Promise.all([hashPin(pin), SBHelper.getPinHash()])
-        .then(function (res) {
-          if (res[0] === res[1]) {
-            sessionStorage.setItem('whatshop_admin', '1');
-            showPanel();
-          } else {
-            document.getElementById('login-error').style.display = 'block';
-          }
-        })
-        .catch(function () { document.getElementById('login-error').style.display = 'block'; });
+      var user = (document.getElementById('login-user').value || '').trim();
+      var pass = document.getElementById('login-pass').value;
+      var errEl = document.getElementById('login-error');
+      if (!user || !pass) { errEl.style.display = 'block'; return; }
+      var wst = window.OX1_WSTORE;
+      if (!wst || !wst.centralUrl || !wst.centralKey || wst.wsRef == null) { errEl.style.display = 'block'; return; }
+      errEl.style.display = 'none';
+      hashPin(pass).then(function (hash) {
+        return fetch(wst.centralUrl + '/rest/v1/rpc/store_admin_login', {
+          method: 'POST',
+          headers: {
+            'apikey': wst.centralKey,
+            'Authorization': 'Bearer ' + wst.centralKey,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            p_ws_ref: wst.wsRef,
+            p_ws_store_id: wst.wsStoreId,
+            p_user: user,
+            p_pass_hash: hash
+          })
+        });
+      }).then(function (r) { return r.json(); }).then(function (j) {
+        if (j && j.ok === true && j.online === true) {
+          sessionStorage.setItem('whatshop_admin', '1');
+          showPanel();
+        } else {
+          errEl.textContent = j && j.reason ? j.reason : t('login_error');
+          errEl.style.display = 'block';
+        }
+      }).catch(function () { errEl.textContent = t('login_error'); errEl.style.display = 'block'; });
     }
     document.getElementById('login-btn').addEventListener('click', doLogin);
-    document.getElementById('pin').addEventListener('keydown', function (e) { if (e.key === 'Enter') doLogin(); });
+    document.getElementById('login-user').addEventListener('keydown', function (e) { if (e.key === 'Enter') doLogin(); });
+    document.getElementById('login-pass').addEventListener('keydown', function (e) { if (e.key === 'Enter') doLogin(); });
+    document.getElementById('login-user').placeholder = t('login_user_ph');
+    document.getElementById('login-pass').placeholder = t('login_pass_ph');
     document.getElementById('login-hint').textContent = t('login_hint');
 
     function showPanel() {
       document.getElementById('login-view').classList.add('hidden');
       document.getElementById('panel-view').classList.remove('hidden');
+      switchTab('tab-tienda');
       loadStores().then(function () { refreshAll(); });
       updateBadge();
       if (!localStorage.getItem('whatshop_tut_done')) setTimeout(tutStart, 600);
@@ -943,6 +1053,10 @@
       var name = activeStore().name || 'Mi Tienda';
       document.getElementById('ws-plan').textContent = name;
       document.getElementById('crumb-store').textContent = name;
+      var plan = (window.OX1_CONFIG && window.OX1_CONFIG.plan) || 'free';
+      document.getElementById('ws-sub').textContent = 'Plan: ' + ({ free: 'Free', basico: 'Básico', profesional: 'Profesional', empresarial: 'Empresarial' }[plan] || 'Free');
+      var mSub = document.getElementById('m-ws-sub');
+      if (mSub) mSub.textContent = document.getElementById('ws-sub').textContent;
     }
 
     // ===== Tabs + breadcrumb =====
@@ -1037,7 +1151,8 @@
       sessionStorage.removeItem('whatshop_admin');
       document.getElementById('panel-view').classList.add('hidden');
       document.getElementById('login-view').classList.remove('hidden');
-      document.getElementById('pin').value = '';
+      document.getElementById('login-user').value = '';
+      document.getElementById('login-pass').value = '';
     }
     document.getElementById('btn-logout').addEventListener('click', doLogout);
     document.getElementById('btn-ver-tienda').addEventListener('click', function () { window.open('./tienda.html', '_blank'); });
@@ -1451,17 +1566,40 @@ function renderFontOptions() {
       _editingCategory = null;
       document.getElementById('new-category-name').value = '';
       document.getElementById('new-category-position').value = '';
+      document.getElementById('cat-form-title').textContent = t('ca_new');
+      document.getElementById('btn-cancel-category').classList.add('hidden');
+    }
+    function resetNavEditor() {
       document.getElementById('new-category-color').value = '#E8ECF0';
       document.getElementById('new-category-image-data').value = '';
       document.getElementById('new-category-icon').value = '';
       var prev = document.getElementById('new-category-image-preview');
-      prev.classList.add('hidden'); prev.removeAttribute('src');
+      if (prev) { prev.classList.add('hidden'); prev.removeAttribute('src'); }
       document.getElementById('cat-border-toggle').checked = false;
       document.getElementById('cat-border-color').value = '#171717';
       document.getElementById('cat-border-side').value = 'all';
       document.getElementById('cat-border-options').style.display = 'none';
-      document.getElementById('cat-form-title').textContent = t('ca_new');
-      document.getElementById('btn-cancel-category').classList.add('hidden');
+      renderCatIconOptions();
+      if (window.ColorPicker) ColorPicker.syncAll();
+    }
+    function loadNavEditor() {
+      var sel = document.getElementById('nav-edit-cat');
+      if (!sel) return;
+      var cats = _subCats || [];
+      sel.innerHTML = '<option value="">' + t('ca_pick') + '</option>' + cats.map(function (c) { return '<option value="' + c.id + '">' + c.name + '</option>'; }).join('');
+      resetNavEditor();
+    }
+    function loadNavCatValues(cat) {
+      if (!cat) { resetNavEditor(); return; }
+      document.getElementById('new-category-color').value = cat.color || '#E8ECF0';
+      var prev = document.getElementById('new-category-image-preview');
+      if (cat.image) { prev.src = cat.image; prev.classList.remove('hidden'); } else { if (prev) { prev.classList.add('hidden'); prev.removeAttribute('src'); } }
+      document.getElementById('new-category-image-data').value = cat.image || '';
+      document.getElementById('new-category-icon').value = cat.icon || '';
+      document.getElementById('cat-border-toggle').checked = !!cat.border_enabled;
+      document.getElementById('cat-border-color').value = cat.border_color || '#171717';
+      document.getElementById('cat-border-side').value = cat.border_side || 'all';
+      document.getElementById('cat-border-options').style.display = cat.border_enabled ? '' : 'none';
       renderCatIconOptions();
       if (window.ColorPicker) ColorPicker.syncAll();
     }
@@ -1471,10 +1609,11 @@ function renderFontOptions() {
       tabs.querySelectorAll('[data-catpanel]').forEach(function (b) {
         b.classList.toggle('active', b.getAttribute('data-catpanel') === name);
       });
-      ['catp-view', 'catp-newcat', 'catp-newsub'].forEach(function (id) {
+      ['catp-view', 'catp-newcat', 'catp-newsub', 'catp-navbar'].forEach(function (id) {
         var el = document.getElementById(id);
         if (el) el.classList.toggle('hidden', id !== ('catp-' + name));
       });
+      if (name === 'navbar') loadNavEditor();
     }
     document.addEventListener('click', function (e) {
       var t = e.target.closest ? e.target.closest('[data-catpanel]') : null;
@@ -1484,21 +1623,10 @@ function renderFontOptions() {
       _editingCategory = cat.id;
       document.getElementById('new-category-name').value = cat.name || '';
       document.getElementById('new-category-position').value = cat.position != null ? cat.position : '';
-      document.getElementById('new-category-color').value = cat.color || '#E8ECF0';
-      var prev = document.getElementById('new-category-image-preview');
-      if (cat.image) { prev.src = cat.image; prev.classList.remove('hidden'); } else { prev.classList.add('hidden'); prev.removeAttribute('src'); }
-      document.getElementById('new-category-image-data').value = cat.image || '';
-      document.getElementById('new-category-icon').value = cat.icon || '';
-      document.getElementById('cat-border-toggle').checked = !!cat.border_enabled;
-      document.getElementById('cat-border-color').value = cat.border_color || '#171717';
-      document.getElementById('cat-border-side').value = cat.border_side || 'all';
-      document.getElementById('cat-border-options').style.display = cat.border_enabled ? '' : 'none';
       document.getElementById('cat-form-title').textContent = t('ca_edit_title');
       document.getElementById('btn-cancel-category').classList.remove('hidden');
-      renderCatIconOptions();
-      if (window.ColorPicker) ColorPicker.syncAll();
-      catShowPanel('newcat');
       var fr = document.getElementById('cat-form-title');
+      catShowPanel('newcat');
       if (fr) fr.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     function loadCategories() {
@@ -1511,7 +1639,7 @@ function renderFontOptions() {
         cats.forEach(function (c) { _catNames[c.id] = c.name; });
         populateSubSelects();
         var catSel = document.getElementById('new-product-category');
-        catSel.innerHTML = '<option value="">—</option>' + cats.map(function (c) { return '<option value="' + c.id + '">' + c.name + '</option>'; }).join('');
+        catSel.innerHTML = '<option value="">?"</option>' + cats.map(function (c) { return '<option value="' + c.id + '">' + c.name + '</option>'; }).join('');
         var filterSel = document.getElementById('product-filter-cat');
         if (filterSel) {
           filterSel.innerHTML = '<option value="">' + t('pr_filter_all') + '</option>' + cats.map(function (c) { return '<option value="' + c.id + '">' + c.name + '</option>'; }).join('');
@@ -1550,28 +1678,48 @@ function renderFontOptions() {
     document.getElementById('btn-save-category').addEventListener('click', function () {
       var name = document.getElementById('new-category-name').value.trim();
       if (!name) { toast(t('ca_name'), 'error'); return; }
-      var borderEnabled = document.getElementById('cat-border-toggle').checked;
-      var obj = {
-        name: name,
-        color: document.getElementById('new-category-color').value,
-        position: parseInt(document.getElementById('new-category-position').value, 10) || 0,
-        image: document.getElementById('new-category-image-data').value || null,
-        icon: document.getElementById('new-category-icon').value || '',
-        border_enabled: borderEnabled,
-        border_color: document.getElementById('cat-border-color').value,
-        border_side: document.getElementById('cat-border-side').value
-      };
+      var obj = { name: name, position: parseInt(document.getElementById('new-category-position').value, 10) || 0 };
       var save;
       if (_editingCategory) {
-        save = SBHelper.updateCategory(_editingCategory, obj);
+        save = SBHelper.getCategories().then(function (cats) {
+          var cur = cats.find(function (c) { return c.id === _editingCategory; });
+          if (cur) { obj.color = cur.color || '#E8ECF0'; obj.image = cur.image || null; obj.icon = cur.icon || ''; obj.border_enabled = !!cur.border_enabled; obj.border_color = cur.border_color || '#171717'; obj.border_side = cur.border_side || 'all'; }
+          return SBHelper.updateCategory(_editingCategory, obj);
+        });
       } else {
-        if (!obj.position) obj.position = 0;
+        obj.color = '#E8ECF0'; obj.image = null; obj.icon = ''; obj.border_enabled = false; obj.border_color = '#171717'; obj.border_side = 'all';
         save = SBHelper.addCategory(obj);
       }
       save.then(function () {
         toast(t('st_saved'), 'success');
         resetCategoryForm();
         loadCategories();
+      }).catch(function () { toast(t('st_error'), 'error'); });
+    });
+    var navSel = document.getElementById('nav-edit-cat');
+    if (navSel) navSel.addEventListener('change', function () {
+      var id = this.value;
+      var cat = id ? _subCats.find(function (c) { return String(c.id) === String(id); }) : null;
+      loadNavCatValues(cat);
+    });
+    document.getElementById('btn-save-nav').addEventListener('click', function () {
+      var sel = document.getElementById('nav-edit-cat');
+      var id = sel.value;
+      if (!id) { toast(t('ca_pick'), 'error'); return; }
+      var obj = {
+        color: document.getElementById('new-category-color').value,
+        image: document.getElementById('new-category-image-data').value || null,
+        icon: document.getElementById('new-category-icon').value || '',
+        border_enabled: document.getElementById('cat-border-toggle').checked,
+        border_color: document.getElementById('cat-border-color').value,
+        border_side: document.getElementById('cat-border-side').value
+      };
+      var cur = _subCats.find(function (c) { return String(c.id) === String(id); });
+      if (cur) { obj.name = cur.name; obj.position = cur.position || 0; }
+      SBHelper.updateCategory(id, obj).then(function () {
+        toast(t('st_saved'), 'success');
+        loadCategories();
+        loadNavEditor();
       }).catch(function () { toast(t('st_error'), 'error'); });
     });
     document.getElementById('new-category-image').addEventListener('change', function (e) {
@@ -1698,7 +1846,23 @@ function renderFontOptions() {
         document.getElementById('new-template-name').value = '';
         document.getElementById('new-template-values').value = '';
         loadTemplates();
+        tplShowPanel('view');
       });
+    });
+    function tplShowPanel(name) {
+      var tabs = document.getElementById('tpl-tabs');
+      if (!tabs) return;
+      tabs.querySelectorAll('[data-tplpanel]').forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-tplpanel') === name);
+      });
+      ['tplp-view', 'tplp-new'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.classList.toggle('hidden', id !== ('tplp-' + name));
+      });
+    }
+    document.addEventListener('click', function (e) {
+      var t = e.target && e.target.closest ? e.target.closest('[data-tplpanel]') : null;
+      if (t) tplShowPanel(t.getAttribute('data-tplpanel'));
     });
 
     // ===== Variantes builder =====
@@ -1722,6 +1886,25 @@ function renderFontOptions() {
       document.getElementById('variant-color-name').value = '';
       renderColors();
       renderCombos();
+    });
+    document.getElementById('btn-bulk-apply').addEventListener('click', function () {
+      var pBox = document.getElementById('bulk-price');
+      var sBox = document.getElementById('bulk-stock');
+      var price = pBox.value;
+      var stock = sBox.value;
+      if (price === '' && stock === '') { toast(t('pr_bulk_empty'), 'error'); return; }
+      if (!_variantSizes.length || !_variantColors.length) { toast(t('pr_novariants'), 'error'); return; }
+      _variantSizes.forEach(function (sz) {
+        _variantColors.forEach(function (c) {
+          var key = comboKey(c.name, sz);
+          _comboStock[key] = _comboStock[key] || { stock: 0, price: '' };
+          if (stock !== '') _comboStock[key].stock = Number(stock);
+          if (price !== '') _comboStock[key].price = Number(price);
+        });
+      });
+      pBox.value = ''; sBox.value = '';
+      renderCombos();
+      toast(t('st_saved'), 'success');
     });
     function renderColors() {
       document.getElementById('color-list').innerHTML = _variantColors.map(function (c, i) {
@@ -1775,7 +1958,7 @@ function renderFontOptions() {
     function loadBgLib() {
       if (window.__bgLib) return Promise.resolve(window.__bgLib);
       if (bgLibPromise) return bgLibPromise;
-      toast('Preparando quitar fondo…');
+      toast('Preparando quitar fondo?');
       bgLibPromise = Promise.resolve().then(function () {
         return import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.7/+esm');
       }).then(function (mod) {
@@ -1864,21 +2047,36 @@ function renderFontOptions() {
           renderGallery();
           return;
         }
-        toast('Quitando fondo…');
+        toast('Quitando fondo?');
         return processUrls(urls).then(function (processed) {
           _productImages = _productImages.concat(processed);
           renderGallery();
-          toast('✓', 'success');
+          toast('o"', 'success');
         });
       }).catch(function () { toast(t('st_error'), 'error'); });
     }
+    document.getElementById('btn-add-images').addEventListener('click', function (e) {
+      e.stopPropagation();
+      document.getElementById('img-add-menu').classList.toggle('hidden');
+    });
+    document.getElementById('opt-take-photo').addEventListener('click', function () {
+      document.getElementById('img-add-menu').classList.add('hidden');
+      document.getElementById('product-camera').click();
+    });
+    document.getElementById('opt-gallery').addEventListener('click', function () {
+      document.getElementById('img-add-menu').classList.add('hidden');
+      document.getElementById('new-product-images').click();
+    });
+    document.addEventListener('click', function (e) {
+      var m = document.getElementById('img-add-menu');
+      if (m && !m.classList.contains('hidden') && !(e.target.closest && e.target.closest('#img-add'))) m.classList.add('hidden');
+    });
     document.getElementById('new-product-images').addEventListener('change', function (e) {
       var files = Array.prototype.slice.call(e.target.files || []);
       addImages(files);
+      var name = document.getElementById('img-file-name');
+      if (name) name.textContent = files.length ? files.map(function (f) { return f.name; }).join(', ') : t('no_file');
       this.value = '';
-    });
-    document.getElementById('btn-take-photo').addEventListener('click', function () {
-      document.getElementById('product-camera').click();
     });
     document.getElementById('product-camera').addEventListener('change', function (e) {
       var f = e.target.files[0];
@@ -1896,6 +2094,7 @@ _editingProduct = null;
       document.getElementById('new-product-original').value = '';
       document.getElementById('new-product-stock').value = '1';
       document.getElementById('new-product-featured').checked = false;
+      document.getElementById('new-product-hidden').checked = false;
       document.getElementById('new-product-description').value = '';
       document.getElementById('variant-sizes-free').value = '';
       document.getElementById('variant-template-select').value = '';
@@ -1905,39 +2104,117 @@ _editingProduct = null;
       document.getElementById('btn-cancel-product').classList.add('hidden');
       renderColors(); renderCombos(); renderGallery();
     }
+    var _prodFiltered = [];
+    var _prodPage = 1, _prodPerPage = 15, _prodView = 'card';
+    (function () {
+      try {
+        var pp = parseInt(localStorage.getItem('whatshop_prod_perpage'), 10);
+        if ([15, 25, 40, 50, 100].indexOf(pp) > -1) _prodPerPage = pp;
+      } catch (e) {}
+      try { _prodView = localStorage.getItem('whatshop_prod_view') === 'list' ? 'list' : 'card'; } catch (e) {}
+    })();
+    function prodActions(p) {
+      return '<div class="actions">' +
+        '<label class="switch vis-switch" title="' + t('pr_vis_tip') + '"><input type="checkbox" data-vis-prod="' + p.id + '"' + (p.hidden ? ' checked' : '') + ' /><span class="slider"></span></label>' +
+        '<button class="btn ghost small" data-edit-prod="' + p.id + '">' + t('edit') + '</button>' +
+        '<button class="btn danger small" data-del-prod="' + p.id + '">' + t('ca_del') + '</button>' +
+      '</div>';
+    }
+    function prodRow(p) {
+      var imgs = (p.images && p.images.length) ? p.images : (p.image ? [p.image] : []);
+      var thumb = imgs[0] ? '<img src="' + imgs[0] + '" alt="" />' : t('empty_prod');
+      var vars = (p.product_variants || []).length ? '<div class="sub">' + (p.product_variants || []).length + ' variantes</div>' : '';
+      var catName = _catNames[p.category_id] ? ' · ' + _catNames[p.category_id] : '';
+      var tag = p.hidden ? '<span class="prod-tag">' + t('pr_hidden_on') + '</span>' : '';
+      return '<div class="list-row' + (p.hidden ? ' row-hidden' : '') + '">' +
+        '<div class="thumb">' + thumb + '</div>' +
+        '<div class="info"><div class="title">' + p.name + catName + ' ' + tag + '</div>' + vars +
+        '<div class="sub">' + formatPrice(p.price, _settings) + (p.original_price ? ' · <s>' + formatPrice(p.original_price, _settings) + '</s>' : '') + ' · stock ' + p.stock + '</div></div>' +
+        prodActions(p) + '</div>';
+    }
+    function prodCard(p) {
+      var imgs = (p.images && p.images.length) ? p.images : (p.image ? [p.image] : []);
+      var thumb = imgs[0] ? '<img src="' + imgs[0] + '" alt="" />' : '';
+      var catName = _catNames[p.category_id] ? _catNames[p.category_id] : '';
+      return '<div class="prod-card' + (p.hidden ? ' card-hidden' : '') + '">' +
+        '<div class="pc-thumb">' + thumb + (p.hidden ? '<span class="pc-hidden-badge">' + t('pr_hidden_on') + '</span>' : '') + '</div>' +
+        '<div class="pc-body">' +
+          '<div class="pc-title">' + p.name + '</div>' +
+          '<div class="pc-sub">' + catName + '</div>' +
+          '<div class="pc-price">' + formatPrice(p.price, _settings) + '</div>' +
+          '<div class="pc-stock">' + t('pr_stock_short') + ': ' + p.stock + '</div>' +
+          '<div class="pc-actions">' + prodActions(p) + '</div>' +
+        '</div></div>';
+    }
+    function bindProdActions(box) {
+      box.querySelectorAll('[data-vis-prod]').forEach(function (b) {
+        b.addEventListener('change', function () {
+          var pid = Number(b.getAttribute('data-vis-prod'));
+          SBHelper.updateProduct(pid, { hidden: b.checked }).then(function () {
+            toast(b.checked ? t('pr_hidden_ok') : t('pr_show_ok'), 'success');
+            var match = _latestProducts.find(function (x) { return x.id === pid; });
+            if (match) match.hidden = b.checked;
+            renderProducts();
+          }).catch(function () { toast(t('st_error'), 'error'); });
+        });
+      });
+      box.querySelectorAll('[data-del-prod]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          if (!confirm(t('del_confirm_prod'))) return;
+          SBHelper.deleteProduct(b.getAttribute('data-del-prod')).then(function () { loadProducts(); });
+        });
+      });
+      box.querySelectorAll('[data-edit-prod]').forEach(function (b) {
+        b.addEventListener('click', function () { editProduct(Number(b.getAttribute('data-edit-prod'))); });
+      });
+    }
+    function renderPager() {
+      var box = document.getElementById('products-pager');
+      if (!box) return;
+      var total = _prodFiltered.length;
+      if (total <= _prodPerPage) { box.classList.add('hidden'); box.innerHTML = ''; return; }
+      box.classList.remove('hidden');
+      var pages = Math.max(1, Math.ceil(total / _prodPerPage));
+      if (_prodPage > pages) _prodPage = pages;
+      var from = ((_prodPage - 1) * _prodPerPage) + 1;
+      var to = Math.min(_prodPage * _prodPerPage, total);
+      var btns = '';
+      for (var i = 1; i <= pages; i++) btns += '<button class="pager-btn' + (i === _prodPage ? ' active' : '') + '" data-page="' + i + '">' + i + '</button>';
+      box.innerHTML =
+        '<button class="pager-btn" data-page="' + (_prodPage > 1 ? _prodPage - 1 : 1) + '"' + (_prodPage === 1 ? ' disabled' : '') + '>&#8249;</button>' + btns +
+        '<button class="pager-btn" data-page="' + (_prodPage < pages ? _prodPage + 1 : pages) + '"' + (_prodPage === pages ? ' disabled' : '') + '>&#8250;</button>' +
+        '<span class="pager-info">' + t('pr_showing') + ' ' + from + '&#8211;' + to + ' ' + t('pager_of') + ' ' + total + '</span>';
+      box.querySelectorAll('[data-page]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          if (b.disabled) return;
+          _prodPage = Number(b.getAttribute('data-page'));
+          renderProducts();
+        });
+      });
+    }
+    function renderProducts() {
+      var box = document.getElementById('products-list');
+      if (!box) return;
+      var total = _prodFiltered.length;
+      if (!total) { box.className = 'list'; box.innerHTML = emptyState('package', t('empty_prod'), 'subir'); renderPager(); return; }
+      var pages = Math.ceil(total / _prodPerPage);
+      if (_prodPage < 1) _prodPage = 1;
+      if (_prodPage > pages) _prodPage = pages;
+      var slice = _prodFiltered.slice((_prodPage - 1) * _prodPerPage, _prodPage * _prodPerPage);
+      box.className = _prodView === 'card' ? 'prod-cards' : 'list';
+      box.innerHTML = (_prodView === 'card' ? slice.map(prodCard) : slice.map(prodRow)).join('');
+      bindProdActions(box);
+      renderPager();
+    }
     function loadProducts() {
       var _boxProd = document.getElementById('products-list');
-      if (_boxProd) _boxProd.innerHTML = skeletonBox(4);
+      if (_boxProd) { _boxProd.className = 'list'; _boxProd.innerHTML = skeletonBox(4); }
       SBHelper.getProducts().then(function (prods) {
         _latestProducts = prods || [];
-        var box = document.getElementById('products-list');
         var filterCat = document.getElementById('product-filter-cat');
         var fcat = filterCat ? filterCat.value : '';
-        var filtered = fcat ? prods.filter(function (p) { return String(p.category_id) === fcat; }) : prods;
-        if (!filtered.length) { box.innerHTML = emptyState('package', t('empty_prod'), 'subir'); return; }
-        box.innerHTML = filtered.map(function (p) {
-          var imgs = (p.images && p.images.length) ? p.images : (p.image ? [p.image] : []);
-          var thumb = imgs[0] ? '<img src="' + imgs[0] + '" alt="" />' : t('empty_prod');
-          var vars = (p.product_variants || []).length ? '<div class="sub">' + (p.product_variants || []).length + ' variantes</div>' : '';
-          var catName = _catNames[p.category_id] ? ' · ' + _catNames[p.category_id] : '';
-          return '<div class="list-row">' +
-            '<div class="thumb">' + thumb + '</div>' +
-            '<div class="info"><div class="title">' + p.name + catName + '</div>' + vars +
-            '<div class="sub">' + formatPrice(p.price, _settings) + (p.original_price ? ' · <s>' + formatPrice(p.original_price, _settings) + '</s>' : '') + ' · stock ' + p.stock + '</div></div>' +
-            '<div class="actions">' +
-              '<button class="btn ghost small" data-edit-prod="' + p.id + '">' + t('edit') + '</button>' +
-              '<button class="btn danger small" data-del-prod="' + p.id + '">' + t('ca_del') + '</button>' +
-            '</div></div>';
-        }).join('');
-        box.querySelectorAll('[data-del-prod]').forEach(function (b) {
-          b.addEventListener('click', function () {
-            if (!confirm(t('del_confirm_prod'))) return;
-            SBHelper.deleteProduct(b.getAttribute('data-del-prod')).then(function () { loadProducts(); });
-          });
-        });
-        box.querySelectorAll('[data-edit-prod]').forEach(function (b) {
-          b.addEventListener('click', function () { editProduct(Number(b.getAttribute('data-edit-prod'))); });
-        });
+        _prodFiltered = fcat ? prods.filter(function (p) { return String(p.category_id) === fcat; }) : prods;
+        renderProducts();
       });
     }
     function editProduct(id) {
@@ -1951,6 +2228,7 @@ _editingProduct = null;
         document.getElementById('new-product-original').value = p.original_price != null ? p.original_price : '';
         document.getElementById('new-product-stock').value = p.stock != null ? p.stock : 1;
         document.getElementById('new-product-featured').checked = !!p.featured;
+        document.getElementById('new-product-hidden').checked = !!p.hidden;
         document.getElementById('new-product-description').value = p.description || '';
         var sel = document.getElementById('new-product-category');
         sel.value = p.category_id != null ? String(p.category_id) : '';
@@ -1986,7 +2264,31 @@ _editingProduct = null;
       switchTab('tab-productos');
     });
     var filterCatEl = document.getElementById('product-filter-cat');
-    if (filterCatEl) filterCatEl.addEventListener('change', loadProducts);
+    if (filterCatEl) filterCatEl.addEventListener('change', function () { _prodPage = 1; loadProducts(); });
+    var perPageEl = document.getElementById('prod-per-page');
+    if (perPageEl) {
+      perPageEl.value = String(_prodPerPage);
+      perPageEl.addEventListener('change', function () {
+        _prodPerPage = Number(this.value);
+        try { localStorage.setItem('whatshop_prod_perpage', String(_prodPerPage)); } catch (e) {}
+        _prodPage = 1;
+        renderProducts();
+      });
+    }
+    var viewGrid = document.getElementById('view-grid');
+    var viewList = document.getElementById('view-list');
+    if (viewGrid && viewList) {
+      function setView(v) {
+        _prodView = v;
+        try { localStorage.setItem('whatshop_prod_view', v); } catch (e) {}
+        viewGrid.classList.toggle('active', v === 'card');
+        viewList.classList.toggle('active', v === 'list');
+        renderProducts();
+      }
+      viewGrid.addEventListener('click', function () { setView('card'); });
+      viewList.addEventListener('click', function () { setView('list'); });
+      setView(_prodView);
+    }
 
     document.getElementById('btn-save-product').addEventListener('click', function () {
       var name = document.getElementById('new-product-name').value.trim();
@@ -1997,6 +2299,7 @@ _editingProduct = null;
         original_price: parseFloat(document.getElementById('new-product-original').value) || null,
         stock: parseInt(document.getElementById('new-product-stock').value, 10) || 0,
         featured: document.getElementById('new-product-featured').checked,
+        hidden: document.getElementById('new-product-hidden').checked,
         description: document.getElementById('new-product-description').value.trim(),
         category_id: document.getElementById('new-product-category').value || null,
         subcategory_id: document.getElementById('new-product-subcategory').value || null,
@@ -2060,7 +2363,7 @@ _editingProduct = null;
           var items = o.items || [];
           var itemLines = items.map(function (it) {
             var v = [it.color, it.size].filter(Boolean).join(' · ');
-            return '<div class="it">· ' + (it.name || '') + (v ? ' (' + v + ')' : '') + ' × ' + (it.qty || 1) + ' = ' + formatPrice((it.price || 0) * (it.qty || 1), _settings) + '</div>';
+            return '<div class="it">· ' + (it.name || '') + (v ? ' (' + v + ')' : '') + ' - ' + (it.qty || 1) + ' = ' + formatPrice((it.price || 0) * (it.qty || 1), _settings) + '</div>';
           }).join('');
           var waNum = (_settings.store && _settings.store.whatsapp) || '';
           var waHref = o.phone ? 'https://wa.me/' + String(o.phone).replace(/[^0-9]/g, '') : (waNum ? 'https://wa.me/' + String(waNum).replace(/[^0-9]/g, '') : '#');
@@ -2069,14 +2372,14 @@ _editingProduct = null;
             '<div class="info"><div class="title">' + o.name + ' · <span class="status-badge ' + (o.status || 'en_proceso') + '">' + stLabel(o.status) + '</span></div>' +
             '<div class="sub">' + new Date(o.created_at).toLocaleString() + ' · ' + t('ti_pay') + ': ' + (o.payment_method || '') + ' · ' + formatPrice(o.total, _settings) + '</div></div>' +
             '<div class="actions">' +
-              '<button class="btn ghost small" data-toggle-order="' + o.id + '">' + (o._open ? '−' : '+') + '</button>' +
+              '<button class="btn ghost small" data-toggle-order="' + o.id + '">' + (o._open ? '^'' : '+') + '</button>' +
               '<button class="btn ghost small" data-wa="' + waHref + '">' + t('ped_wa') + '</button>' +
               '<button class="btn ghost small" data-status="pagado" data-order="' + o.id + '">' + t('ped_pagado') + '</button>' +
               '<button class="btn ghost small" data-status="entregado" data-order="' + o.id + '">' + t('ped_entregado') + '</button>' +
               '<button class="btn danger small" data-status="cancelado" data-order="' + o.id + '">' + t('ped_cancelar') + '</button>' +
             '</div>' +
             '<div class="order-body' + (o._open ? ' open' : '') + '" style="width:100%">' + itemLines +
-              (o.note ? '<div style="margin-top:6px">📝 ' + o.note + '</div>' : '') +
+              (o.note ? '<div style="margin-top:6px">Y" ' + o.note + '</div>' : '') +
             '</div></div>';
         }).join('');
         box.querySelectorAll('[data-status]').forEach(function (b) {
@@ -2092,7 +2395,7 @@ _editingProduct = null;
             var id = b.getAttribute('data-toggle-order');
             var row = b.closest('.list-row').querySelector('.order-body');
             row.classList.toggle('open');
-            b.textContent = row.classList.contains('open') ? '−' : '+';
+            b.textContent = row.classList.contains('open') ? '^'' : '+';
           });
         });
       });
@@ -2151,23 +2454,6 @@ _editingProduct = null;
       reader.readAsText(file);
     });
 
-    // ===== Configuración: PIN =====
-    document.getElementById('btn-change-pin').addEventListener('click', function () {
-      var a = document.getElementById('cfg-pin-new').value;
-      var b = document.getElementById('cfg-pin-confirm').value;
-      if (a.length !== 6 || b.length !== 6) { document.getElementById('pin-status').textContent = t('cf_pin_len'); return; }
-      if (a !== b) { document.getElementById('pin-status').textContent = t('cf_pin_mismatch'); return; }
-      hashPin(a).then(function (hash) {
-        return SBHelper.setPinHash(hash);
-      }).then(function () {
-        document.getElementById('pin-status').textContent = t('cf_pin_done');
-        document.getElementById('pin-status').className = 'status-line ok';
-        document.getElementById('cfg-pin-new').value = '';
-        document.getElementById('cfg-pin-confirm').value = '';
-        toast(t('cf_pin_done'), 'success');
-      }).catch(function () { document.getElementById('pin-status').textContent = t('st_error'); });
-    });
-
     // ===== Configuración: splash =====
     document.getElementById('splash-logo-file').addEventListener('change', function (e) {
       var file = e.target.files[0];
@@ -2212,6 +2498,7 @@ renderPalettes();
     function styleFileInputs() {
       document.querySelectorAll('input[type="file"]').forEach(function (inp) {
         if (inp.__styled) return;
+        if (inp.id === 'new-product-images' || inp.id === 'product-camera') return;
         inp.__styled = true;
         var wrap = document.createElement('div');
         wrap.className = 'fu';
@@ -2375,6 +2662,13 @@ renderPalettes();
       if (v === undefined || v === '' || v === null) v = def;
       return isNum ? (parseInt(v, 10) || def) : v;
     }
+    function hexToRgba(hex, a) {
+      var h = String(hex || '').replace('#', '');
+      if (h.length === 3) h = h.split('').map(function (x) { return x + x; }).join('');
+      var n = parseInt(h, 16);
+      if (isNaN(n)) return 'rgba(0,0,0,' + a + ')';
+      return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+    }
     function updateLivePreview() {
       var preview = document.getElementById('live-preview');
       var typo = document.getElementById('live-preview-typo');
@@ -2389,25 +2683,44 @@ renderPalettes();
       var radius = readLive('theme-radius', 'radius', 14, true);
       var fontHeading = readLive('theme-fontheading', 'fontHeading', 'Plus Jakarta Sans');
       var onPrimary = readLive('theme-onprimary', 'onPrimary', '#FFFFFF');
-      function paint(container, isTypo) {
+      var heading = "'" + fontHeading + "', sans-serif";
+      function paint(container) {
         if (!container) return;
-        var card = container.querySelector('.lp-card');
-        var thumb = container.querySelector('.lp-thumb');
-        var title = container.querySelector('.lp-title');
-        var desc = container.querySelector('.lp-desc');
-        var price = container.querySelector('.lp-price');
-        var btn = container.querySelector('.lp-btn');
-        if (card) { card.style.background = muted; card.style.borderRadius = radius + 'px'; }
-        if (thumb) thumb.style.background = secondary;
-        if (title) { title.style.color = fg; title.style.fontFamily = "'" + fontHeading + "', sans-serif"; }
-        if (desc) desc.style.color = secondary;
-        if (price) price.style.color = accent;
-        if (btn) { btn.style.background = primary; btn.style.color = onPrimary; }
-        if (isTypo) { container.style.background = bg; }
-        else { container.style.background = bg; }
+        container.style.background = bg;
+        var q = function (s) { return container.querySelector(s); };
+        var qa = function (s) { return container.querySelectorAll(s); };
+        var head = q('.sm-head');
+        var logo = q('.sm-logo');
+        var brandTxt = q('.sm-name-txt');
+        var nav = q('.sm-nav');
+        var hero = q('.sm-hero');
+        var heroH = q('.sm-hero-h');
+        var heroP = q('.sm-hero-p');
+        var heroB = q('.sm-hero-b');
+        var foot = q('.sm-foot');
+        if (head) { head.style.borderBottom = '1px solid ' + hexToRgba(fg, .12); }
+        if (logo) { logo.style.background = primary; logo.style.borderRadius = radius + 'px'; }
+        if (brandTxt) { brandTxt.style.color = fg; brandTxt.style.fontFamily = heading; }
+        if (nav) nav.style.color = secondary;
+        if (hero) { hero.style.background = primary; hero.style.borderRadius = radius + 'px'; }
+        if (heroH) { heroH.style.color = onPrimary; heroH.style.fontFamily = heading; }
+        if (heroP) heroP.style.color = onPrimary;
+        if (heroB) { heroB.style.background = accent; heroB.style.color = onPrimary; heroB.style.borderRadius = Math.max(6, radius - 4) + 'px'; }
+        qa('.sm-pill').forEach(function (p) {
+          p.style.borderRadius = radius + 'px';
+          if (p.classList.contains('sm-pill-on')) { p.style.background = primary; p.style.color = onPrimary; p.style.borderColor = 'transparent'; }
+          else { p.style.color = fg; p.style.borderColor = hexToRgba(fg, .25); }
+        });
+        qa('.sm-card').forEach(function (c) { c.style.background = muted; c.style.borderRadius = radius + 'px'; });
+        qa('.sm-thumb').forEach(function (t) { t.style.background = secondary; t.style.borderRadius = Math.max(6, radius - 4) + 'px'; });
+        qa('.sm-name').forEach(function (n) { n.style.color = fg; n.style.fontFamily = heading; });
+        qa('.sm-cat').forEach(function (c) { c.style.color = secondary; });
+        qa('.sm-price').forEach(function (p) { p.style.color = accent; });
+        qa('.sm-btn').forEach(function (b) { b.style.background = primary; b.style.color = onPrimary; b.style.borderRadius = radius + 'px'; });
+        if (foot) { foot.style.borderTop = '1px solid ' + hexToRgba(fg, .12); foot.style.color = secondary; }
       }
-      paint(preview, false);
-      paint(typo, true);
+      paint(preview);
+      paint(typo);
     }
     ['theme-primary','theme-accent','theme-background','theme-foreground','theme-secondary','theme-muted','theme-radius','theme-fontheading','theme-onprimary'].forEach(function (id) {
       var el = document.getElementById(id);
@@ -2587,7 +2900,7 @@ renderPalettes();
       var name = store.name || 'Mi Tienda';
       var logo = landing.logo || '';
       var cats = _subCats || [];
-      var prods = _latestProducts || [];
+      var prods = (_latestProducts || []).filter(function (p) { return !p.hidden; });
       var first = prods[0];
       var curr = (store.currency || '$');
       var lvName = document.getElementById('store-name'); if (lvName && lvName.value) name = lvName.value;
@@ -2628,9 +2941,8 @@ renderPalettes();
     function isStoreViewOpen() { var o = document.getElementById('storeview-overlay'); return !!(o && !o.classList.contains('hidden')); }
     function svRefresh() { if (isStoreViewOpen()) renderStoreView(); }
     function openStoreView() { document.getElementById('storeview-overlay').classList.remove('hidden'); renderStoreView(); }
-    function closeStoreView() { document.getElementById('storeview-overlay').classList.add('hidden'); }
-    document.getElementById('sv-fab').addEventListener('click', openStoreView);
-    document.getElementById('sv-close').addEventListener('click', closeStoreView);
+function closeStoreView() { document.getElementById('storeview-overlay').classList.add('hidden'); }
+      document.getElementById('sv-close').addEventListener('click', closeStoreView);
     document.getElementById('storeview-overlay').addEventListener('click', function (e) { if (e.target === this) closeStoreView(); });
     var _svTimer = null;
     document.addEventListener('input', function () {
@@ -2660,7 +2972,7 @@ renderPalettes();
       tutRenderDots();
       tutGoto(0);
     }
-    function tutClose() { document.getElementById('tut-overlay').classList.add('hidden'); }
+    function tutClose() { var bd = document.getElementById('tut-backdrop'); if (bd) bd.classList.remove('on'); document.getElementById('tut-overlay').classList.add('hidden'); }
     function tutSkip() { tutSetDone(); tutClose(); toast(t('tut_done'), 'success'); }
     function tutFinish() { tutSetDone(); tutClose(); toast(t('tut_done'), 'success'); }
     function tutGoto(n) {
@@ -2680,17 +2992,19 @@ renderPalettes();
         var s = TUT_STEPS[_tutIdx];
         var spot = document.getElementById('tut-spot');
         var card = document.getElementById('tut-card');
-        if (!s.target) { if (spot) spot.style.display = 'none'; }
+        var bd = document.getElementById('tut-backdrop');
+        if (!s.target) { if (spot) spot.style.display = 'none'; if (bd) bd.classList.add('on'); }
         else {
           var el = s.target ? document.querySelector(s.target) : null;
           if (el) {
             var r = el.getBoundingClientRect();
             spot.style.display = 'block';
+            if (bd) bd.classList.remove('on');
             spot.style.left = (r.left - 8) + 'px';
             spot.style.top = (r.top - 8) + 'px';
             spot.style.width = (r.width + 16) + 'px';
             spot.style.height = (r.height + 16) + 'px';
-          } else { spot.style.display = 'none'; }
+          } else { spot.style.display = 'none'; if (bd) bd.classList.add('on'); }
         }
         card.style.visibility = 'hidden';
         var cw = card.offsetWidth, ch = card.offsetHeight;
@@ -2710,6 +3024,31 @@ renderPalettes();
     document.getElementById('tut-skip').addEventListener('click', tutSkip);
     document.getElementById('tut-btn').addEventListener('click', function () { tutSetDone(); tutStart(); });
     window.addEventListener('resize', function () { if (!document.getElementById('tut-overlay').classList.contains('hidden')) tutPosition(); });
+
+    // ===== Modulo de ayuda =====
+    var HELP = {
+      subir: { tk: 'hl_subir_t', xk: 'hl_subir_x' },
+      productos: { tk: 'hl_productos_t', xk: 'hl_productos_x' },
+      categorias: { tk: 'hl_categorias_t', xk: 'hl_categorias_x' },
+      plantillas: { tk: 'hl_plantillas_t', xk: 'hl_plantillas_x' },
+      contenido: { tk: 'hl_contenido_t', xk: 'hl_contenido_x' }
+    };
+    function openHelp(key) {
+      var h = HELP[key];
+      if (!h) return;
+      document.getElementById('help-title').textContent = t(h.tk);
+      document.getElementById('help-body').innerHTML = t(h.xk);
+      document.getElementById('help-overlay').classList.remove('hidden');
+    }
+    function closeHelp() { document.getElementById('help-overlay').classList.add('hidden'); }
+    document.querySelectorAll('.btn-help').forEach(function (b) {
+      b.addEventListener('click', function () { openHelp(b.getAttribute('data-help')); });
+    });
+    document.getElementById('help-close').addEventListener('click', closeHelp);
+    document.getElementById('help-ok').addEventListener('click', closeHelp);
+    document.getElementById('help-overlay').addEventListener('click', function (e) {
+      if (e.target === this) closeHelp();
+    });
 
     // ===== Borrar catalogo (demo) =====
     document.getElementById('btn-clear-catalog').addEventListener('click', function () {

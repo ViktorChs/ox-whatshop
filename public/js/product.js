@@ -7,6 +7,29 @@ var I18N = {
 var lang = localStorage.getItem('whatshop_lang') === 'en' ? 'en' : 'es';
 function t(key) { var v = I18N[lang][key]; return v != null ? v : key; }
 
+function formatDesc(txt) {
+  if (!txt) return '';
+  var esc = txt.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  var lines = esc.split(/\r?\n/);
+  var html = '';
+  var inList = false;
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i].trim();
+    var m = line.match(/^[-*•]\s+(.*)$/);
+    if (m) {
+      if (!inList) { html += '<ul>'; inList = true; }
+      html += '<li>' + m[1] + '</li>';
+    } else if (line === '') {
+      if (inList) { html += '</ul>'; inList = false; }
+    } else {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += '<p>' + line + '</p>';
+    }
+  }
+  if (inList) html += '</ul>';
+  return html;
+}
+
 function applyLang() {
   document.documentElement.setAttribute('lang', lang);
   document.getElementById('lang-label').textContent = lang.toUpperCase();
@@ -56,7 +79,7 @@ function render() {
   document.getElementById('p-hero').src = imgs[0] || './assets/logos/logoB.png';
   document.getElementById('p-hero').alt = product.name;
   document.getElementById('p-name').textContent = product.name;
-  document.getElementById('p-desc').textContent = product.description || '';
+  document.getElementById('p-desc').innerHTML = formatDesc(product.description);
 
   var cat = (window.__store && window.__store.categories.find(function (c) { return c.id === product.category_id; })) || null;
   document.getElementById('p-cat').textContent = cat ? cat.name : '';
@@ -230,7 +253,7 @@ function renderDetails(tab) {
   else if (tab === 'fit') txt = t('pd_fit_txt');
   else if (tab === 'shipping') txt = t('pd_shipping_txt');
   else txt = (product && product.description) || '';
-  body.innerHTML = '<p>' + txt + '</p>';
+  body.innerHTML = formatDesc(txt);
   if (tab === 'details' && product) {
     var cat = (window.__store && window.__store.categories.find(function (c) { return c.id === product.category_id; })) || null;
     body.innerHTML += '<ul class="pd-bullets">' +
